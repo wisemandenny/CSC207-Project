@@ -1,0 +1,15 @@
+<p><h1>What To Push Into Your Group Repository for Phase 1</h1></p>
+
+<p><ul>
+<li>Your code, organized into packages, with complete <b>Javadoc</b> and any internal comments that you think will be useful.</li><br>
+
+<li>A file called <b><code>README.txt</code></b> that contains instructions about how to run your program. The TA will use this to run and mark your code.</li><br>
+
+<li>A file called <b><code>events.txt</code></b> that simulates all input (examples: server enters order, cook confirms receipt of order, cook confirms that order has been prepared, etc.)</li><br>
+
+<li>Any configuration files that are needed to start your program. They will contain any information that your program needs in order to run. These files are optional.</li><br>
+
+<li>An <b>up-to-date UML diagram</b> that accurately reflects the code you push. The diagram will be in a file called <b><code>design.pdf</code></b>. You may want to set an earlier deadline for your code so that you have at least a day to create the UML diagram.</li>
+</ul></p>
+
+<p>You will push all of these items to the <b>phase1</b> repository for your group.</p>

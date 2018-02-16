@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="generator" content="HTML Tidy for HTML5 (experimental) for Mac OS X https://github.com/w3c/tidy-html5/tree/c63cc39">
+        <meta charset="UTF-8"><!-- <link rel="stylesheet" href="http://www.cdf.toronto.edu/~csc207h/fall/styles.css" type="text/css"> -->
+        <title>
+            CSC207: Project Phase 1 Introduction
+        </title>
+    </head>
+    <body>
+        <div class="title">
+            <h1>
+                CSC207: Project Phase 1 Introduction
+            </h1>
+        </div>
+        <h2>
+            Introductory Activity
+        </h2>
+        <p>
+            With your project group, do a CRC analysis of the project described here. Make sure that your cards include both responsibilities (written in English rather than code!) and collaborations.
+        </p>
+        <h2>
+            Learning Objectives
+        </h2>
+        <ul>
+            <li>Do a CRC design
+            </li>
+            <li>Use Git in a group setting
+            </li>
+            <li>Build a graphical user interface using JavaFX (Phase 2)
+            </li>
+            <li>Write a "real" application
+            </li>
+            <li>Design and work with configuration files
+            </li>
+            <li>Implement a logging system
+            </li>
+            <li>Work with all Java features seen so far
+            </li>
+            <li>Work in an environment where not everything is specified
+            </li>
+        </ul>
+        <h2>
+            Overview
+        </h2>
+        <p>
+            This project description is a first introduction to the project. Phase 2 will have a more complete set of requirements, with extra features, a graphical user interface (GUI), and the chance to make your project unique by adding features that are specific to only you project.
+        </p>
+        <p>
+           Many restaurants are giving their servers tablets into which they can enter orders. Before the use of tablets, servers would write each person's order on a piece of paper, with their table number, and give it to the cook. Also, for many years, restaurants have been using software to keep track of the bill for each table. Before they run out of an ingredient, a restaurant will order more, recording the order in a log book. Ingredients (i.e., food) are delivered to the restaurant and crossed out of the log book once they arrive. All of these tasks could be accomplished by a single piece of software.
+        </p>
+        
+        <h2>
+            Phase 1: Restaurant Software
+        </h2>
+        <p>
+	    For phase 1, you will assume that the restaurant has a set menu, like a fast food restaurant, with a limited number of additions and subtractions allowed from each menu item. For example, you can order a cheeseburger with extra lettuce (addition) or without lettuce (subtraction).
+        </p>
+        <p>
+	   We will call all input from the server, cook, and receiver an "event". For phase 1, you will simulate each event by writing a line in a file called <code>event.txt</code>. Your program will read each line of <code>events.txt</code> as input and respond accordingly. Output that should appear in a window in your GUI by the end of phase 2, can be printed to the screen as <code>println</code> statements for phase 1.
+        </p>
+        <p>
+            The server should be able to enter menu items as they are ordered by customers. The order should include the table number and any additions and subtractions from each menu item. The cook should be able to see the order appear on a screen and enter confirmation that the order has been seen, and then enter confirmation afterwards that the order has been filled (i.e., the food has been prepared and is waiting for the server to deliver it to the table). The server should then be able see a message that the food is ready to deliver. For each dish that the server delivers to the table, the server either confirms that it was delivered, or puts that particular dish back into the system upon request of the customer. Possible reasons for the customer to send the food back include, but are not limited to: the food was too cold, the order was wrong and needs to be adjusted, etc. Once the server confirms that a dish has been delivered to the table, its price is added to the table's bill. The bill can be printed (to the screen for now) by the server at any time. 
+	<p>
+	   In the kitchen, there is an inventory of ingredients. Each ingredient has a threshold below which it must be reordered. For example, if there are fewer than 10 tomatoes, a request gets created as text that is stored in <code>requests.txt</code> for the manager to cut and paste into an email and send to the distributer. The email will request more of that ingredient. The default amount to request is 20 units (for example: 20 tomatoes, 20 bags of pasta, etc.). The manager can manually change that amount when creating their email. The email program is outside of your program. You do not have to write it. When the chef confirms that a dish has been prepared, its ingredients are automatically subtracted from the inventory. It should be possible for the manager to check the inventory and see a printout of all inventory items and their quantities. It should also be possible for a receiver to scan each item or list of items back into the inventory when a new shipment of ingredients arrives.
+        </p>
+        <p>
+            When the program is first run, it should create any configuration files that it needs. If they are deleted, your program should recreate them the next time it is run.
+        </p>
+	<h2>
+	    System Boundaries
+	</h2>
+	<p>
+	    This program should support one or more servers, receivers, cooks, and managers. You will write a line in <code>events.txt</code> to represent each time there is input from the server, cook, or receiver. This will simulate the input for your program. You can choose how to format each event. It should be possible to tell, by reading <code>events.txt</code> which server entered each item and which cook prepared it. All output, for phase 1, should be printed to screen and/or the appropriate file. You will create a file called <code>README.txt</code> that will instruct the marker on how to run your program, what format to use for each type of input into <code>events.txt</code>, and any other information we need to set up and run your code to run.
+	</p>
+        <h2>
+            Getting Set Up
+        </h2>
+        <p>
+            You have a shared repository whose name is your group name. For example, if your group name is <code>group_4321</code>, then your repository URL will be <code>https://markus.teach.cs.toronto.edu/git/csc207-2018-01/group_4321</code>.
+        </p>
+        <p>
+            Your repo has a <code>phase1</code> subdirectory with this file inside. Create a new IntelliJ project inside it. This will automatically create a <code>src</code> subdirectory. Create any packages you like.
+        </p>
+        <p>
+            Only add and commit your <code>.java</code> files and any text files you create. <strong style="font-size: 1.5em">In particular, do not add or commit the <code>out</code> directory, nor any other automatically-generated files created by your IDE.</strong> You <strong>can</strong> add other subdirectories and files for things like unit tests and a TODO list.
+        </p>
+        <h2>
+            Citing Code
+        </h2>
+        <p>
+            If you use any code you find, cite it according to the format described in the <a href="http://integrity.mit.edu/handbook/writing-code">"Examples of citing code sources" section of the "Writing Code" page of the MIT Academic Integrity handbook</a>.
+        </p>
+        <h2>
+            A Few Tips
+        </h2>
+        <p>
+            The user is likely to add further requirements over the next month or so. The requests might involve expanding your software to include more features or handle more inputs. Be sure to design your code with this in mind.
+        </p>
+	<p>
+	    In real life, you would be able to ask the owner of the restaurant for futher clarification regarding the software they want from you. For the purposes of this project, you can direct such questions to the discussion board. Any response from Jaisie or Lindsey is to be taken as the restaurant's response. You are also invited to do your own research regarding restaurants. For example, how are bills usually formatted?
+	</p>
+        <p>
+            If you finish before phase 1 is due, you are welcome to start coding your GUI. However, make sure that your code runs before your final commit for phase 1.
+        </p>
+        <h2>
+            What To Submit
+        </h2>
+        <p>
+            As you work, regularly commit and push your changes. We will be checking the git logs to make sure everyone is making a significant contribution.
+        </p>
+        <p>
+            Your code should be platform agnostic: it must run on any operating system that has the Java 8 VM installed.
+        </p>
+    </body>
+</html>
