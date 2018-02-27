@@ -1,1 +1,12 @@
-order | table 1 | 1 hamburger 1 coke
+order | table 1 | 1 hamburger, 1 coke
+order | table 2 | 1 hot dog, 1 hamburger, 2 coke
+order | table 3 | 1 coleslaw, 1 pickle juice
+check please! | table 2
+order | table 4 | 2 lemon sandwiches, 3 lemonades, 2 lemon margaritas
+order | table 5 | 1 rice milkshake
+order | table 6 | 1 bread sandwich +extra bread
+order | table 7 | 7 chicken toes
+order | table 8 | 1 gingerbread man from shrek +extra sentient
+order | table 9 | 80 deepfried spring rolls
+order | table 10 | 1 chicken breast
+check please! | table 4

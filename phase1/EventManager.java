@@ -2,28 +2,37 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class EventManager {
-    private static Scanner scanner = new Scanner ( System.in );
-    public static void main(String[] args) {
-        ArrayList<String> text = new ArrayList<>();
+    //private static Scanner scanner = new Scanner ( System.in ); //we will use this for input later
+    private Queue<Event> events = new LinkedList<>();
 
+    EventManager() {
         try (BufferedReader br = new BufferedReader(new FileReader("events.txt"))) {
             do {
-                text.add(br.readLine());
+                events.add(parseString(br.readLine()));
             } while (br.ready());
-        }
-        catch(FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) {
             System.out.println("Unable to open events.txt");
-        }
-        catch(IOException ex) {
+        } catch (IOException ex) {
             System.out.println("Error reading events.txt");
         }
+    }
 
-        for(String s : text){
-            System.out.println(s);
-        }
+    //TODO: This only works for orders and bills right now.
+    private Event parseString(String s) {
+        String[] splitString = s.split("\\s\\|\\s", 3);
+
+        if (splitString[0].equals("order")) {
+            return new Event("order", Integer.parseInt(splitString[1].substring(6)), splitString[2]);
+        } else if (splitString[0].equals("check please!")) {
+            return new Event("bill", Integer.parseInt(splitString[1].substring(6)));
+        } else return new Event("defaultEvent", "This is a default event so that Java will compile this function");
+    }
+
+    Queue<Event> getEvents() {
+        return events;
     }
 }
