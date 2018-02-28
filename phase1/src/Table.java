@@ -19,7 +19,7 @@ public class Table {
         The parameter for the forEach function is a consumer. You can think of it like this:
         (name of the iterable element) -> do this function with it.
         so it just prints out every item in the bill. otherwise we'd have to do a longer code.
-        TODO: Delet this
+        TODO: Delete this
          */
         System.out.println("\n" +
                 "BILL FOR TABLE #" + id);

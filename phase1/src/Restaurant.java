@@ -4,6 +4,7 @@ import java.util.Queue;
 
 class Restaurant {
     private Map<Integer, Table> tables = new HashMap<>();
+    private Map<String, Integer> inventory = new HashMap<>();
     private int numOfTables;
     private EventManager eventManager;
 
@@ -25,6 +26,10 @@ class Restaurant {
         for (String item : order) {
             table.addToBil(item);
         }
+    }
+
+    private void addToInventory(String ingredient, int amount){
+        inventory.put(ingredient, amount);
     }
 
     private void handleEvents(EventManager manager) {
