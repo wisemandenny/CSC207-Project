@@ -20,11 +20,9 @@ class Restaurant {
         tables[tableId - 1].printBill();
     }
 
-    private void addOrderToBill(int tableId, String[] order) {
+    private void addOrderToBill(int tableId, Order order) {
         Table table = tables[tableId - 1];
-        for (String item : order) {
-            table.addToBil(item);
-        }
+        table.addToBil(order);
     }
 
     private void addToInventory(Ingredient ingredient, int amount){

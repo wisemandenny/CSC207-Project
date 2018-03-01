@@ -1,16 +1,37 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class OrderImpl implements Order {
+    private List<MenuItem> orderItems;
+
+    public OrderImpl(List<MenuItem> orderItems){
+        //this.orderItems = orderItems; maybe, or
+        this.orderItems = orderItems;
+    }
+
     @Override
-    public MenuItemImpl[] getItems() {
-        return new MenuItemImpl[0];
+    public List<MenuItem> getItems() {
+        return orderItems;
     }
 
     @Override
     public double getTotalPrice() {
-        return 0;
+        //return orderItems.stream().mapToDouble(MenuItem::getPrice).sum(); too confusing but kind of cool
+        double total = 0.0;
+        for (MenuItem item : orderItems){
+            total += item.getPrice();
+        }
+        return total;
     }
 
     @Override
-    public Ingredient[] getIngredients() {
-        return new Ingredient[0];
+    public List<Ingredient> getIngredients() {
+        List<Ingredient> ingredientList= new ArrayList<>();
+        for (MenuItem item : orderItems){
+            for (Ingredient ingredient : item.getIngredients()){
+                ingredientList.add(ingredient);
+            }
+        }
+        return ingredientList;
     }
 }

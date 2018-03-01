@@ -1,5 +1,7 @@
+import java.util.List;
+
 public interface Order {
-    MenuItemImpl[] getItems();
+    List<MenuItem> getItems();
     double getTotalPrice();
-    Ingredient[] getIngredients();
+    List<Ingredient> getIngredients();
 }
