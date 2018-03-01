@@ -5,4 +5,5 @@ public interface MenuItem {
     double getPrice();
     List<Ingredient> getIngredients();
     //boolean isModdableWithTheseIngredients(Mod[] mods); //TODO: add this with mod support
+    String printIngredients();
 }

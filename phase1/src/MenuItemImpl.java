@@ -27,4 +27,13 @@ class MenuItemImpl implements MenuItem {
     public List<Ingredient> getIngredients() {
         return ingredients;
     }
+    @Override
+    public String printIngredients(){
+        // print the ingredients of this MenuItem
+        StringBuilder result = new StringBuilder("");
+        for (Ingredient ingredient : ingredients){
+            result.append("| " + ingredient.getName() + " ");
+        }
+        return result.toString();
+    }
 }
