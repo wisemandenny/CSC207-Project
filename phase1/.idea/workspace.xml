@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="121053c6-c2a5-446b-9ccd-eea1ca0a5b6d" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -441,7 +442,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1519767905698</updated>
-      <workItem from="1519877964263" duration="7242000" />
+      <workItem from="1519877964263" duration="7235000" />
     </task>
     <task id="LOCAL-00001" summary="Created Interfaces for new classes. The implementation classes do not do anything at this point.">
       <created>1519868903679</created>
@@ -457,18 +458,11 @@
       <option name="project" value="LOCAL" />
       <updated>1519885265046</updated>
     </task>
-    <task id="LOCAL-00003" summary="Implemented all interfaces and made the rest of the program work with those changes.&#10;What the program can do now:&#10;- Handle prices for each item&#10;- Each menu item has ingredients&#10;- There is an inventory which CAN track ingredients&#10;&#10;What the program can't do now:&#10;- There is no inventory tracking in the events handler&#10;- There is no menu so each menuitem has no price or ingredients information">
-      <created>1519885286221</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1519885286221</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9294000" />
+    <option name="totallyTimeSpent" value="9287000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
