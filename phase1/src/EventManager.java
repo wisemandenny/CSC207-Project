@@ -29,7 +29,7 @@ public class EventManager {
             return new Event("order", Integer.parseInt(splitString[1].substring(6)), splitString[2]);
         } else if (splitString[0].equals("check please!")) {
             return new Event("bill", Integer.parseInt(splitString[1].substring(6)));
-        } else return new Event("defaultEvent", "This is a default event so that Java will compile this function");
+        } else throw new IllegalArgumentException("There is a typo in the events.txt file: unrecognized request");
     }
 
     Queue<Event> getEvents() {

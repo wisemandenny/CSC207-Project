@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Table {
     private int id;
-    private ArrayList<String> bill = new ArrayList<>();
+    private List<String> bill = new ArrayList<>();
 
     Table(int id) {
         this.id = id;

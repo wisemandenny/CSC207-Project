@@ -1,35 +1,34 @@
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Queue;
 
 class Restaurant {
-    private Map<Integer, Table> tables = new HashMap<>();
-    private Map<String, Integer> inventory = new HashMap<>();
+    private Table[] tables;
+    private Inventory inventory = new InventoryImpl();
     private int numOfTables;
     private EventManager eventManager;
 
     Restaurant(int numOfTables) {
         this.numOfTables = numOfTables;
-        for (int i = 1; i <= numOfTables; i++) {
-            tables.put(i, new Table(i)); //add all the tables to the restaurant.
+        this.tables = new Table[numOfTables];
+        for (int i = 0; i < numOfTables; i++) {
+            tables[i] = new Table(i+1); //add all the tables to the restaurant.
         }
         eventManager = new EventManager();
         handleEvents(eventManager);
     }
 
     private void printBill(int tableId) {
-        tables.get(tableId).printBill();
+        tables[tableId - 1].printBill();
     }
 
     private void addOrderToBill(int tableId, String[] order) {
-        Table table = tables.get(tableId);
+        Table table = tables[tableId - 1];
         for (String item : order) {
             table.addToBil(item);
         }
     }
 
-    private void addToInventory(String ingredient, int amount){
-        inventory.put(ingredient, amount);
+    private void addToInventory(Ingredient ingredient, int amount){
+        inventory.addToInventory(ingredient, amount);
     }
 
     private void handleEvents(EventManager manager) {
@@ -48,8 +47,6 @@ class Restaurant {
                 System.out.println("Order of blabla has been delivered");
             } else if (e.getType().equals("serverReturned")) {
                 System.out.println("We got a live one here! Order of blabla has been sent back to the kitchen!");
-            } else {
-                throw new IllegalStateException("We should never get here, this means there's a typo in events.txt.");
             }
         }
     }
