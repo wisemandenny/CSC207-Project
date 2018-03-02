@@ -29,6 +29,8 @@ class MenuItemImpl implements MenuItem {
 
     public double getModPrice(){return modPrice;}
 
+    public List<FoodMod> getMods(){return mods;}
+
     public void increaseModPrice(FoodMod mod){this.modPrice += mod.getPrice();}
 
     public void decreaseModPrice(FoodMod mod){this.modPrice -= mod.getPrice();}

@@ -8,35 +8,29 @@ public class FoodModImpl implements FoodMod {
     }
 
     @Override
-    public String getName() {
-        return ingredient.getName();
-    }
+    public String getName(){return ingredient.getName();}
 
     @Override
-    public double getPrice() {
-        return price;
-    }
+    public double getPrice(){return price;}
 
     @Override
-    public Ingredient getIngredient() {
-        return ingredient;
-    }
+    public Ingredient getIngredient(){return ingredient;}
 
     @Override
-    public void addTo(MenuItemImpl item) {
-        if (!item.mods.contains(this)
+    public void addTo(MenuItem item) {
+        if (!item.getMods().contains(this)
                 && !item.getIngredients().contains(this.ingredient)
-                && item.mods.size() < 5) {
-            item.mods.add(this);
+                && item.getMods().size() < 5) {
+            item.getMods().add(this);
             item.increaseModPrice(this);
             //  else Exception?
         }
     }
 
     @Override
-    public void removeFrom(MenuItemImpl item) {
-        if (item.mods.contains(this)) {
-            item.mods.remove(this);
+    public void removeFrom(MenuItem item) {
+        if (item.getMods().contains(this)) {
+            item.getMods().remove(this);
             item.decreaseModPrice(this);
             // else Exception?
         }

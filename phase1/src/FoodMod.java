@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+
 public interface FoodMod {
     String getName();
     double getPrice();
     Ingredient getIngredient();
-    void addTo(MenuItemImpl item);
-    void removeFrom(MenuItemImpl item);
+    void addTo(MenuItem item);
+    void removeFrom(MenuItem item);
 }
 

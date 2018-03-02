@@ -1,10 +1,13 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public interface MenuItem {
     String getName();
     double getPrice();
     double getModPrice();
+    List<FoodMod> getMods();
+    void increaseModPrice(FoodMod mod);
+    void decreaseModPrice(FoodMod mod);
     List<Ingredient> getIngredients();
-    //boolean isModdableWithTheseIngredients(Mod[] mods); //TODO: add this with mod support
     String printIngredients();
 }
