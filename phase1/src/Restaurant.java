@@ -3,25 +3,24 @@ import java.util.Queue;
 class Restaurant {
     private Table[] tables;
     private Inventory inventory = new InventoryImpl();
-    private int numOfTables;
     private EventManager eventManager;
+    private Menu menu = new BurgerMenu();
 
     Restaurant(int numOfTables) {
-        this.numOfTables = numOfTables;
-        this.tables = new Table[numOfTables];
-        for (int i = 0; i < numOfTables; i++) {
-            tables[i] = new Table(i+1); //add all the tables to the restaurant.
+        this.tables = new Table[numOfTables+1];
+        for (int i = 1; i <= numOfTables; i++) {
+            tables[i] = new Table(i); //add all the tables to the restaurant.
         }
         eventManager = new EventManager();
         handleEvents(eventManager);
     }
 
     private void printBill(int tableId) {
-        tables[tableId - 1].printBill();
+        tables[tableId].printBill();
     }
 
     private void addOrderToBill(int tableId, Order order) {
-        Table table = tables[tableId - 1];
+        Table table = tables[tableId];
         table.addToBil(order);
     }
 
@@ -29,20 +28,28 @@ class Restaurant {
         inventory.addToInventory(ingredient, amount);
     }
 
+    private void getItemsFromMenu(){
+
+    }
+
     private void handleEvents(EventManager manager) {
         Queue<Event> events = manager.getEvents();
         while (!events.isEmpty()) {
             Event e = events.remove();
             if (e.getType().equals("order")) {
-                addOrderToBill(e.getTableId(), e.getOrder()); //TODO: this should be put after the item has been delivered, but for now we are just testing.
+                tables[e.getTableId()].addOrderToTable(e.getOrder()); //get the prices from the menu here. use the empty getItemsFromMenu() method.
             } else if (e.getType().equals("bill")) {
                 printBill(e.getTableId());
             } else if (e.getType().equals("cookSeen")) {
-                System.out.println("Cook has seen your order.");
+                tables[e.getTableId()].getOrder().receivedByCook();
+                System.out.println("COOK HAS SEEN:\n" + tables[e.getTableId()].getOrder().toString());
             } else if (e.getType().equals("cookReady")) {
-                System.out.println("Order of blabla is ready for pick up.");
+                tables[e.getTableId()].getOrder().readyForPickup();
+                System.out.println("READY FOR PICKUP!\n" + tables[e.getTableId()].getOrder());
             } else if (e.getType().equals("serverDelivered")) {
-                System.out.println("Order of blabla has been delivered");
+                tables[e.getTableId()].getOrder().delivered();
+                addOrderToBill(e.getTableId(), tables[e.getTableId()].getOrder());
+                System.out.println("DELIVERED TO TABLE\n" + tables[e.getTableId()].getOrder());
             } else if (e.getType().equals("serverReturned")) {
                 System.out.println("We got a live one here! Order of blabla has been sent back to the kitchen!");
             }

@@ -16,6 +16,11 @@ class MenuItemImpl implements MenuItem {
         //get the prices from the menu
     }
 
+    public MenuItemImpl(String name, double price){
+        this.name = name;
+        this.price = price;
+    }
+
     public MenuItemImpl(String name, double price, List<Ingredient> ingredients){
         this.name = name;
         this.price = price;

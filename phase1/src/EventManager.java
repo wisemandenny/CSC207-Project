@@ -24,12 +24,28 @@ public class EventManager {
     //TODO: This only works for orders and bills right now.
     private Event parseString(String s) {
         String[] splitString = s.split("\\s\\|\\s", 3);
-
-        if (splitString[0].equals("order")) {
-            return new Event("order", Integer.parseInt(splitString[1].substring(6)), splitString[2]);
-        } else if (splitString[0].equals("check please!")) {
-            return new Event("bill", Integer.parseInt(splitString[1].substring(6)));
-        } else throw new IllegalArgumentException("There is a typo in the events.txt file: unrecognized request");
+        int tableId = Integer.parseInt(splitString[1].substring(6));
+        Event ret;
+        switch (splitString[0]) {
+            case "order":
+                ret = new Event("order", tableId, splitString[2]);
+                break;
+            case "check please!":
+                ret = new Event("bill", tableId);
+                break;
+            case "received":
+                ret = new Event("cookSeen", tableId);
+                break;
+            case "ready":
+                ret = new Event("cookReady", tableId);
+                break;
+            case "delivered":
+                ret = new Event("serverDelivered", tableId);
+                break;
+            default:
+                throw new IllegalArgumentException("There is a typo in the events.txt file: unrecognized request");
+        }
+        return ret;
     }
 
     Queue<Event> getEvents() {

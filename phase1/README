@@ -3,4 +3,4 @@
 - can only add FoodMods that have not already been added to an item.
 - can only add FoodMods that are not in an item's ingredients.
 - there is no pre-specification of what FoodMods can be added to MenuItems,
-  it is assumed servers will use AddOns with appropriate MenuItems.
+  it is assumed servers will use FoodMods with appropriate MenuItems.
