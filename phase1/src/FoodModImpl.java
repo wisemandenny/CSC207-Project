@@ -25,6 +25,7 @@ public class FoodModImpl implements FoodMod {
     @Override
     public void addTo(MenuItemImpl item) {
         if (!item.mods.contains(this)
+                && !item.getIngredients().contains(this.ingredient)
                 && item.mods.size() < 5) {
             item.mods.add(this);
             item.increaseModPrice(this);
