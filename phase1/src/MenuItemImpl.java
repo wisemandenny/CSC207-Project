@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 class MenuItemImpl implements MenuItem {
@@ -5,6 +6,8 @@ class MenuItemImpl implements MenuItem {
     private double price;
     private List<Ingredient> ingredients;
     private int quantity;
+    public List<FoodMod> mods;
+    public double modPrice = 0.0;
 
     public MenuItemImpl(String name, int quantity){
         this.name = name;
@@ -13,15 +16,22 @@ class MenuItemImpl implements MenuItem {
         //get the prices from the menu
     }
 
-    public MenuItemImpl(String name, double price, List<Ingredient> ingredients){ //TODO: add mods support here.
+    public MenuItemImpl(String name, double price, List<Ingredient> ingredients){
         this.name = name;
         this.price = price;
         this.ingredients = ingredients;
+        this.mods = new ArrayList<>();
     }
 
     public String getName(){return name;}
 
     public double getPrice(){return price;}
+
+    public double getModPrice(){return modPrice;}
+
+    public void increaseModPrice(FoodMod mod){this.modPrice += mod.getPrice();}
+
+    public void decreaseModPrice(FoodMod mod){this.modPrice -= mod.getPrice();}
 
     @Override
     public List<Ingredient> getIngredients() {

@@ -27,7 +27,7 @@ public class FoodModImpl implements FoodMod {
         if (!item.mods.contains(this)
                 && item.mods.size() < 5) {
             item.mods.add(this);
-            item.modPrice += this.getPrice();
+            item.increaseModPrice(this);
             //  else Exception?
         }
     }
@@ -36,7 +36,7 @@ public class FoodModImpl implements FoodMod {
     public void removeFrom(MenuItemImpl item) {
         if (item.mods.contains(this)) {
             item.mods.remove(this);
-            item.modPrice -= this.getPrice();
+            item.decreaseModPrice(this);
             // else Exception?
         }
     }
