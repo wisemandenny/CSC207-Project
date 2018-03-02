@@ -20,6 +20,7 @@ public class OrderImpl implements Order {
         double total = 0.0;
         for (MenuItem item : orderItems){
             total += item.getPrice();
+            total += item.getModPrice();
         }
         return total;
     }
