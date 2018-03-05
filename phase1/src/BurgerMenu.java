@@ -47,9 +47,9 @@ public class BurgerMenu implements Menu {
         // Addon items
         Ingredient ketchup = new IngredientImpl("Ketchup");
         Ingredient mustard = new IngredientImpl("Mustard");
-        Ingredient sentience = new IngredientImpl("Sentience");
         Ingredient cheese = new IngredientImpl("Cheese");
         Ingredient bacon = new IngredientImpl("Bacon");
+
         FoodMod addTomato = new FoodModImpl(tomato, 0.25);
         FoodMod addLettuce = new FoodModImpl(lettuce, 0.25);
         FoodMod addSalt = new FoodModImpl(salt, 0.00);
@@ -62,11 +62,16 @@ public class BurgerMenu implements Menu {
         return menu;
     }
 
-    public void printMenu(){
+    public MenuItem getMenuItem(MenuItem item){
+        for(MenuItem searchItem : menu){
+            if (searchItem.getName().equals(item.getName())) return searchItem;
+        }
+        throw new IllegalArgumentException("Please order off of the menu.");
+    }
+
+    private void printMenu(){
         for(MenuItem item : menu){
             System.out.println(item.getName() + "\nIngredients:" + item.printIngredients() +"\n");
         }
     }
-
-
 }

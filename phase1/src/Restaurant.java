@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
 class Restaurant {
@@ -36,21 +38,30 @@ class Restaurant {
         Queue<Event> events = manager.getEvents();
         while (!events.isEmpty()) {
             Event e = events.remove();
+            Order tableOrder = tables[e.getTableId()].getOrder();
+            int tableId = e.getTableId();
+
             if (e.getType().equals("order")) {
-                tables[e.getTableId()].addOrderToTable(e.getOrder()); //get the prices from the menu here. use the empty getItemsFromMenu() method.
+                Order order = e.getOrder();
+                List<MenuItem> newOrder = new ArrayList<>();
+                for(MenuItem item : order.getItems()){
+                    newOrder.add(menu.getMenuItem(item));
+                }
+                tables[tableId].addOrderToTable(new OrderImpl(newOrder)); //TODO: fix this because it references the implementation (use dependency injection or a factory or something)
+
             } else if (e.getType().equals("bill")) {
                 printBill(e.getTableId());
             } else if (e.getType().equals("cookSeen")) {
-                tables[e.getTableId()].getOrder().receivedByCook();
-                System.out.println("COOK HAS SEEN:\n" + tables[e.getTableId()].getOrder().toString());
+                tableOrder.receivedByCook();
+                System.out.println("COOK HAS SEEN:\n" + tableOrder.toString());
             } else if (e.getType().equals("cookReady")) {
-                tables[e.getTableId()].getOrder().readyForPickup();
-                System.out.println("READY FOR PICKUP!\n" + tables[e.getTableId()].getOrder());
+                tableOrder.readyForPickup();
+                System.out.println("READY FOR PICKUP!\n" + tableOrder);
             } else if (e.getType().equals("serverDelivered")) {
-                tables[e.getTableId()].getOrder().delivered();
-                addOrderToBill(e.getTableId(), tables[e.getTableId()].getOrder());
-                System.out.println("DELIVERED TO TABLE\n" + tables[e.getTableId()].getOrder());
-            } else if (e.getType().equals("serverReturned")) {
+                tableOrder.delivered();
+                addOrderToBill(e.getTableId(), tableOrder);
+                System.out.println("DELIVERED TO TABLE\n" + tableOrder);
+            } else if (e.getType().equals("serverReturned")) { //TODO: not implemented yet
                 System.out.println("We got a live one here! Order of blabla has been sent back to the kitchen!");
             }
         }

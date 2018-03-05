@@ -1,4 +1,6 @@
 1. Implement inventory adding/removing
-2. Make the new orders get their prices from the menu. (Restaurant.java)
-3. Make interfaces for remaining classes
-4. Documentation
+2. Servers need to be able to send back orders
+3. No addon support currently
+
+4. Make interfaces for remaining classes
+5. Documentation

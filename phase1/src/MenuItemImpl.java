@@ -53,4 +53,9 @@ class MenuItemImpl implements MenuItem {
         }
         return result.toString();
     }
+
+
+    public boolean equals(MenuItem item){
+        return name.equals(item.getName());
+    }
 }

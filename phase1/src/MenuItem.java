@@ -10,4 +10,5 @@ public interface MenuItem {
     void decreaseModPrice(FoodMod mod);
     List<Ingredient> getIngredients();
     String printIngredients();
+    boolean equals(MenuItem item);
 }
