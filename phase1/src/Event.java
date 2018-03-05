@@ -3,8 +3,6 @@ import java.util.List;
 
 public class Event {
     private String type;
-
-
     private int tableId;
     private Order order;
 

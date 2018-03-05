@@ -11,7 +11,7 @@ class Restaurant {
     Restaurant(int numOfTables) {
         this.tables = new Table[numOfTables+1];
         for (int i = 1; i <= numOfTables; i++) {
-            tables[i] = new Table(i); //add all the tables to the restaurant.
+            tables[i] = new Table(i);
         }
         eventManager = new EventManager();
         handleEvents(eventManager);
@@ -30,12 +30,9 @@ class Restaurant {
         inventory.addToInventory(ingredient, amount);
     }
 
-    private void getItemsFromMenu(){
-
-    }
-
     private void handleEvents(EventManager manager) {
         Queue<Event> events = manager.getEvents();
+
         while (!events.isEmpty()) {
             Event e = events.remove();
             Order tableOrder = tables[e.getTableId()].getOrder();
@@ -45,22 +42,22 @@ class Restaurant {
                 Order order = e.getOrder();
                 List<MenuItem> newOrder = new ArrayList<>();
                 for(MenuItem item : order.getItems()){
-                    newOrder.add(menu.getMenuItem(item));
+                    newOrder.add(new MenuItemImpl(menu.getMenuItem(item), item.getQuantity()));
                 }
                 tables[tableId].addOrderToTable(new OrderImpl(newOrder)); //TODO: fix this because it references the implementation (use dependency injection or a factory or something)
 
             } else if (e.getType().equals("bill")) {
-                printBill(e.getTableId());
+                printBill(tableId);
             } else if (e.getType().equals("cookSeen")) {
                 tableOrder.receivedByCook();
-                System.out.println("COOK HAS SEEN:\n" + tableOrder.toString());
+                System.out.println("COOK HAS SEEN:\n" + tableOrder);
             } else if (e.getType().equals("cookReady")) {
                 tableOrder.readyForPickup();
                 System.out.println("READY FOR PICKUP!\n" + tableOrder);
             } else if (e.getType().equals("serverDelivered")) {
                 tableOrder.delivered();
-                addOrderToBill(e.getTableId(), tableOrder);
-                System.out.println("DELIVERED TO TABLE\n" + tableOrder);
+                addOrderToBill(tableId, tableOrder);
+                System.out.println("DELIVERED TO TABLE " + tableId + "\n" + tableOrder);
             } else if (e.getType().equals("serverReturned")) { //TODO: not implemented yet
                 System.out.println("We got a live one here! Order of blabla has been sent back to the kitchen!");
             }

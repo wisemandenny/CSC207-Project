@@ -22,6 +22,7 @@ public class EventManager {
     }
 
     //TODO: This only works for orders and bills right now.
+    //TODO: add dependency injection to this method
     private Event parseString(String s) {
         String[] splitString = s.split("\\s\\|\\s", 3);
         int tableId = Integer.parseInt(splitString[1].substring(6));

@@ -4,6 +4,8 @@ import java.util.List;
 public interface MenuItem {
     String getName();
     double getPrice();
+
+    int getQuantity();
     double getModPrice();
     List<FoodMod> getMods();
     void increaseModPrice(FoodMod mod);

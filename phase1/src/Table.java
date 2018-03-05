@@ -10,10 +10,6 @@ public class Table {
         this.id = id;
     }
 
-    protected void addOrderToTable() {
-        addOrderToTable();
-    }
-
     protected void addOrderToTable(final Order o){
         order = o;
     }
@@ -21,21 +17,19 @@ public class Table {
     protected void addToBil(final Order o) {
         for (MenuItem item : o.getItems()){
             bill.add(item);
-            //System.out.println("\n"+item.getName() + " added to bill for table #" + id + '.');
+            //System.out.println("\n" + item.getQuantity() + " " +item.getName() + " added to bill for table #" + id + '.');
         }
     }
 
     protected void printBill() {
         System.out.println("BILL FOR TABLE #" + id);
         for(MenuItem item : bill) {
-            System.out.println(item.getName() + ": $" + item.getPrice());
+            System.out.println(item.getQuantity() + " " + item.getName() + ": $" + item.getPrice());
         }
-        System.out.println("");
+        System.out.println("Total: $" + order.getTotalPrice() + "\n");
     }
 
     protected Order getOrder(){
         return order;
     }
-
-
 }

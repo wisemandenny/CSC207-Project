@@ -48,10 +48,10 @@ public class OrderImpl extends Observable implements Order {
     @Override
     public double getTotalPrice() {
         //return orderItems.stream().mapToDouble(MenuItem::getPrice).sum(); too confusing but kind of cool
-        double total = 0.0;
+        double total = 0.00;
         for (MenuItem item : orderItems){
-            total += item.getPrice();
-            total += item.getModPrice();
+            total += item.getQuantity() * item.getPrice();
+            total += item.getModPrice(); //should this also have a quantity multiplier?
         }
         return total;
     }
