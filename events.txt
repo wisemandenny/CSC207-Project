@@ -43,6 +43,7 @@ check please! | table 4
 check please! | table 5
 check please! | table 6
 check please! | table 7
+delivered | table 8
 check please! | table 8
 check please! | table 9
 check please! | table 10

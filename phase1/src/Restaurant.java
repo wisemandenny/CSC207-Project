@@ -4,8 +4,8 @@ import java.util.Queue;
 
 class Restaurant {
     private final Table[] tables;
-    private final Inventory inventory = new InventoryImpl();
     private final Menu menu = new BurgerMenu();
+    private final Inventory inventory = new InventoryImpl(menu);
 
     Restaurant(int numOfTables) {
         tables = new Table[numOfTables + 1];
@@ -56,6 +56,7 @@ class Restaurant {
                 case "cookReady":
                     tableOrder.readyForPickup();
                     System.out.println("READY FOR PICKUP!\n" + tableOrder);
+                    //TODO: add inventory removal method here
                     break;
                 case "serverDelivered":
                     tableOrder.delivered();
@@ -65,6 +66,7 @@ class Restaurant {
                 case "serverReturned":  //TODO: not implemented yet
                     System.out.println("We got a live one here! Order of blabla has been sent back to the kitchen!");
                     break;
+                //TODO: add "receivedShipment" for when
             }
         }
     }

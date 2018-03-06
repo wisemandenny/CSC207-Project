@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 class EventManager {
-    //private static Scanner scanner = new Scanner ( System.in ); //we will use this for input later
     private Queue<Event> events = new LinkedList<>();
 
     EventManager() {

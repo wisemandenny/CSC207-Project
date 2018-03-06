@@ -25,7 +25,7 @@ class Event {
             String name = orderItemSplitString[1];
             orderItems.add(new MenuItemImpl(name, quantity));
         }
-        this.order = new OrderImpl(orderItems);
+        order = new OrderImpl(orderItems);
     }
 
     String getType() {
