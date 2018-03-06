@@ -67,12 +67,12 @@ public class BurgerMenu implements Menu {
 
     public MenuItem getMenuItem(MenuItem query) {
         for(MenuItem searchItem : menu){
-            if (searchItem.getName().equals(query.getName())) return searchItem;
+            if (searchItem.equals(query)) return searchItem;
         }
         throw new IllegalArgumentException("Please order off of the menu.");
     }
 
-    private void printMenu(){
+    private void printMenu(){ //TODO: delete this method if it's not used anywhere.
         for(MenuItem item : menu){
             System.out.println(item.getName() + "\nIngredients:" + item.printIngredients() +"\n");
         }

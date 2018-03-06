@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Event {
+class Event {
     private String type;
     private int tableId;
     private Order order;
@@ -14,16 +14,18 @@ public class Event {
     Event(final String type, final int tableId, final String order) {
         this.type = type;
         this.tableId = tableId;
-        this.order = orderConstructorHelper(order);
+        orderConstructorHelper(order);
     }
 
-    private Order orderConstructorHelper(String strings){
+    private void orderConstructorHelper(String strings){
         List<MenuItem> orderItems = new ArrayList<>();
         for(String item: strings.split(",\\s")){ //split the order into [1-9] <item name> substrings
             String[] orderItemSplitString = item.split("\\s", 2);
-            orderItems.add(new MenuItemImpl(orderItemSplitString[1], Integer.parseInt(orderItemSplitString[0])));
+            int quantity = Integer.parseInt(orderItemSplitString[0]);
+            String name = orderItemSplitString[1];
+            orderItems.add(new MenuItemImpl(name, quantity));
         }
-        return new OrderImpl(orderItems);
+        this.order = new OrderImpl(orderItems);
     }
 
     String getType() {

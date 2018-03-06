@@ -1,15 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
-public class OrderImpl extends Observable implements Order {
+
+public class OrderImpl implements Order {
     private List<MenuItem> orderItems;
     private boolean isReceivedByCook, isReadyForPickup, isDelivered;
 
-    public OrderImpl(List<MenuItem> orderItems){
-        //this.orderItems = orderItems; maybe, or
-        this.orderItems = orderItems;
-    }
+    OrderImpl(List<MenuItem> orderItems){ this.orderItems = orderItems; }
 
     @Override
     public List<MenuItem> getItems() {
@@ -32,24 +29,9 @@ public class OrderImpl extends Observable implements Order {
     }
 
     @Override
-    public double getTotalPrice() {
-        //return orderItems.stream().mapToDouble(MenuItem::getPrice).sum(); too confusing but kind of cool
-        double total = 0.00;
-        for (MenuItem item : orderItems){
-            total += item.getQuantity() * item.getPrice();
-            total += item.getModPrice(); //should this also have a quantity multiplier?
-        }
-        return total;
-    }
-
-    @Override
     public List<Ingredient> getIngredients() {
         List<Ingredient> ingredientList= new ArrayList<>();
-        for (MenuItem item : orderItems){
-            for (Ingredient ingredient : item.getIngredients()){
-                ingredientList.add(ingredient);
-            }
-        }
+        for (MenuItem item : orderItems){ ingredientList.addAll(item.getIngredients()); }
         return ingredientList;
     }
 
@@ -57,9 +39,7 @@ public class OrderImpl extends Observable implements Order {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         int i = 1;
-        for(MenuItem item: orderItems){
-            sb.append(i++ + ". " + item.getName() +"\n");
-        }
+        for(MenuItem item: orderItems){ sb.append(i++).append(". ").append(item.getName()).append("\n"); }
         return sb.toString();
     }
 }

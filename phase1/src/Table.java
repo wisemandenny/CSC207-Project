@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Table {
@@ -10,23 +11,27 @@ public class Table {
         this.id = id;
     }
 
-    protected void addOrderToTable(final Order o){
+    void addOrderToTable(final Order o){
         order = o;
     }
 
-    protected void addToBil(final Order o) {
-        for (MenuItem item : o.getItems()){
-            bill.add(item);
-            //System.out.println("\n" + item.getQuantity() + " " +item.getName() + " added to bill for table #" + id + '.');
-        }
-    }
+    void addToBill(final Order o) { bill.addAll(o.getItems()); }
 
-    protected void printBill() {
+    void printBill() {
         System.out.println("BILL FOR TABLE #" + id);
         for(MenuItem item : bill) {
             System.out.println(item.getQuantity() + " " + item.getName() + ": $" + item.getPrice());
         }
-        System.out.println("Total: $" + order.getTotalPrice() + "\n");
+        System.out.println("Total: $" + getBillPrice() + "\n");
+    }
+
+    private double getBillPrice(){
+        double ret = 0.00;
+        for(MenuItem item: bill){
+            ret += item.getPrice() * item.getQuantity();
+            ret += item.getModPrice();
+        }
+        return ret;
     }
 
     protected Order getOrder(){

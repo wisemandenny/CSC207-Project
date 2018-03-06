@@ -16,13 +16,13 @@ class Restaurant {
         handleEvents(eventManager);
     }
 
-    private void printBill(int tableId) {
+    private void printBillForTable(int tableId) {
         tables[tableId].printBill();
     }
 
     private void addOrderToBill(int tableId, Order order) {
         Table table = tables[tableId];
-        table.addToBil(order);
+        table.addToBill(order);
     }
 
     private void addToInventory(Ingredient ingredient, int amount) {
@@ -47,7 +47,7 @@ class Restaurant {
                     tables[tableId].addOrderToTable(new OrderImpl(newOrder));
                     break;
                 case "bill":
-                    printBill(tableId);
+                    printBillForTable(tableId);
                     break;
                 case "cookSeen":
                     tableOrder.receivedByCook();

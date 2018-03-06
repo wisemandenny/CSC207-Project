@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class EventManager {
+class EventManager {
     //private static Scanner scanner = new Scanner ( System.in ); //we will use this for input later
     private Queue<Event> events = new LinkedList<>();
 
@@ -21,13 +21,15 @@ public class EventManager {
         }
     }
 
-    //TODO: This only works for orders and bills right now.
     //TODO: add dependency injection to this method
     private Event parseString(String s) {
         String[] splitString = s.split("\\s\\|\\s", 3);
+
         int tableId = Integer.parseInt(splitString[1].substring(6));
+        String type = splitString[0];
+
         Event ret;
-        switch (splitString[0]) {
+        switch (type) {
             case "order":
                 ret = new Event("order", tableId, splitString[2]);
                 break;

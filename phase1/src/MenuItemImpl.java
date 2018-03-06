@@ -4,34 +4,28 @@ import java.util.List;
 class MenuItemImpl implements MenuItem {
     private final String name;
     private double price;
-    private List<Ingredient> ingredients;
     private int quantity;
+    private List<Ingredient> ingredients;
     private List<FoodMod> mods;
     private double modPrice = 0.0;
 
-    public MenuItemImpl(final String name, final int quantity) {
-
+    MenuItemImpl(final String name, final int quantity) {
         this.name = name;
         this.quantity = quantity;
         //TODO: get the ingredients from the menu
         //TODO: get the prices from the menu
     }
 
-    public MenuItemImpl(final String name, final double price, final List<Ingredient> ingredients) {
+    MenuItemImpl(final String name, final double price, final List<Ingredient> ingredients) {
         this(name, price, ingredients, 1);
     }
 
-    public MenuItemImpl(final String name, final double price, final List<Ingredient> ingredients, final int quantity) {
+    private MenuItemImpl(final String name, final double price, final List<Ingredient> ingredients, final int quantity) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.ingredients = ingredients;
         mods = new ArrayList<>();
-    }
-
-    //MenuItem fromString();
-    public static MenuItem fromRestaurantMenu(final MenuItem restaurantItem, final int quantity) {
-        return new MenuItemImpl(restaurantItem.getName(), restaurantItem.getPrice(), restaurantItem.getIngredients(), quantity);
     }
 
     @Override
@@ -60,6 +54,22 @@ class MenuItemImpl implements MenuItem {
     }
 
     @Override
+    public void addMod(FoodMod mod) {
+        if(!mods.contains(mod) && !ingredients.contains(mod) && mods.size() < 5){
+            mods.add(mod);
+            increaseModPrice(mod);
+        }
+    }
+
+    @Override
+    public void removeMod(FoodMod mod){
+        if(mods.contains(mod)){
+            mods.remove(mod);
+            decreaseModPrice(mod);
+        }
+    }
+
+    @Override
     public void increaseModPrice(final FoodMod mod) {
         modPrice += mod.getPrice();
     }
@@ -74,22 +84,23 @@ class MenuItemImpl implements MenuItem {
         return ingredients;
     }
 
-    public void setIngredients(final List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
     @Override
     public String printIngredients() {
-        // print the ingredients of this MenuItem
         final StringBuilder result = new StringBuilder("");
-        for (final Ingredient ingredient : ingredients) {
-            result.append("| " + ingredient.getName() + " ");
-        }
+        for (final Ingredient ingredient : ingredients) { result.append("| ").append(ingredient.getName()).append(" "); }
         return result.toString();
     }
 
     @Override
     public boolean equals(final MenuItem item) {
         return name.equals(item.getName());
+    }
+
+    static MenuItem fromRestaurantMenu(final MenuItem restaurantItem, final int quantity) {
+        return new MenuItemImpl(restaurantItem.getName(), restaurantItem.getPrice(), restaurantItem.getIngredients(), quantity);
+    }
+
+    void setIngredients(final List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }
