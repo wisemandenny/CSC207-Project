@@ -28,7 +28,7 @@ public class OrderImpl implements Order {
         isDelivered = true;
     }
 
-    @Override
+    //    @Override
     public double getTotalPrice() {
         //return orderItems.stream().mapToDouble(MenuItem::getPrice).sum(); too confusing but kind of cool
         double total = 0.00;

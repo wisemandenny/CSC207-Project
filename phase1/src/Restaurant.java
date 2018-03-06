@@ -56,6 +56,7 @@ class Restaurant {
                     } else {
                         modifier.removeFrom(tableOrder.getItems().get(itemIndex));
                     }
+                    break;
                 case "bill":
                     printBillForTable(tableId);
                     break;
