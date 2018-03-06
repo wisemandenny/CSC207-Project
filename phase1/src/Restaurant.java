@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 class Restaurant {
     private final Table[] tables;
@@ -58,15 +61,18 @@ class Restaurant {
                     System.out.println("READY FOR PICKUP!\n" + tableOrder);
                     for (MenuItem item: tableOrder.getItems()){
                         for (Ingredient i: item.getIngredients()) {
-                            // first we check whether we have sufficient ingredients for the item.
-                            if (inventory.getContents().get(i) < 10){
-                                inventory.addToInventory(i, i.getReorderAmount());
-                            }
-                            // this if case will never happen, but it is a counter measure for bugs.
                             if (inventory.getContents().get(i) > 0) {
+                                if (inventory.getContents().get(i) < i.getThreshold()){
+                                    try (BufferedWriter br = new BufferedWriter(new FileWriter("requests.txt"))){
+                                        br.write("We need more" + i.getName());
+                                        br.newLine();
+                                    } catch (IOException ex) {
+                                        ex.printStackTrace();
+                                    }
+                                }
                                 this.inventory.removeFromInventory(i, 1);
-                                //System.out.print(i.getName() + " -> ");
-                                //System.out.println(inventory.getContents().get(i));
+                            } else{
+                                System.out.println("NOT ENOUGH INGREDIENTS");
                             }
                         }
                     }
