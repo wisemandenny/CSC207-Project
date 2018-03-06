@@ -25,6 +25,9 @@ public class Table {
         System.out.println("BILL FOR TABLE #" + id);
         for(MenuItem item : bill) {
             System.out.println(item.getQuantity() + " " + item.getName() + ": $" + item.getPrice());
+            for (FoodMod modifier : item.getMods()) {
+                System.out.println(item.getQuantity() + " " + modifier.getName() + ": $" + modifier.getPrice());
+            }
         }
         System.out.println("Total: $" + order.getTotalPrice() + "\n");
     }

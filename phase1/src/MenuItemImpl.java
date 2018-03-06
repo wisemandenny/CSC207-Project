@@ -8,7 +8,7 @@ class MenuItemImpl implements MenuItem {
     private List<Ingredient> ingredients;
     private int quantity = 1;
     private List<FoodMod> mods;
-    private double modPrice = 0.0;
+    private double modPrice = 0.00;
 
     public MenuItemImpl(String name, int quantity){
 
@@ -44,19 +44,29 @@ class MenuItemImpl implements MenuItem {
         return quantity;
     }
 
-    public double getPrice(){return price;}
+    public double getPrice() {
+        return price;
+    }
 
     public void setPrice(double price) {
         this.price = price;
     }
 
-    public double getModPrice(){return modPrice;}
+    public double getModPrice() {
+        return modPrice;
+    }
 
-    public List<FoodMod> getMods(){return mods;}
+    public List<FoodMod> getMods() {
+        return mods;
+    }
 
-    public void increaseModPrice(FoodMod mod){this.modPrice += mod.getPrice();}
+    public void increaseModPrice(FoodMod mod) {
+        this.modPrice += mod.getPrice();
+    }
 
-    public void decreaseModPrice(FoodMod mod){this.modPrice -= mod.getPrice();}
+    public void decreaseModPrice(FoodMod mod) {
+        this.modPrice -= mod.getPrice();
+    }
 
     @Override
     public List<Ingredient> getIngredients() {

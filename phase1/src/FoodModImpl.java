@@ -2,6 +2,10 @@ public class FoodModImpl implements FoodMod {
     private double price;
     private Ingredient ingredient;
 
+    public FoodModImpl(Ingredient ingredient) {
+        this.ingredient = ingredient;
+    }
+
     public FoodModImpl(Ingredient ingredient, double price) {
         this.ingredient = ingredient;
         this.price = price;

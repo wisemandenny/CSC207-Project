@@ -51,7 +51,7 @@ public class OrderImpl extends Observable implements Order {
         double total = 0.00;
         for (MenuItem item : orderItems){
             total += item.getQuantity() * item.getPrice();
-            total += item.getModPrice(); //should this also have a quantity multiplier?
+            total += item.getQuantity() * item.getModPrice();
         }
         return total;
     }

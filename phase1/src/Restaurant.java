@@ -46,6 +46,17 @@ class Restaurant {
                 }
                 tables[tableId].addOrderToTable(new OrderImpl(newOrder)); //TODO: fix this because it references the implementation (use dependency injection or a factory or something)
 
+            } else if (e.getType().equals("addon")) {
+                String[] instructions = e.getAddOn().split("\\s");
+                String instructionType = instructions[1];
+                int itemIndex = Integer.parseInt(instructions[0]) - 1;
+                FoodMod modifier = new FoodModImpl(new IngredientImpl(instructions[2]));
+                if (instructionType.equals("add")) {
+                    modifier.addTo(tableOrder.getItems().get(itemIndex));
+                } else {
+                    modifier.removeFrom(tableOrder.getItems().get(itemIndex));
+                }
+
             } else if (e.getType().equals("bill")) {
                 printBill(tableId);
             } else if (e.getType().equals("cookSeen")) {
