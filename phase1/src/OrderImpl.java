@@ -17,27 +17,13 @@ public class OrderImpl extends Observable implements Order {
     }
 
     @Override
-    public boolean isReceivedByCook() {
-        return isReceivedByCook;
-    }
-
-    @Override
     public void receivedByCook() {
         isReceivedByCook = true;
     }
 
     @Override
-    public boolean isReadyForPickup() {
-        return isReadyForPickup;
-    }
-    @Override
     public void readyForPickup() {
         isReadyForPickup = true;
-    }
-
-    @Override
-    public boolean isDelivered() {
-        return isDelivered;
     }
 
     @Override

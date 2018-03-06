@@ -1,16 +1,15 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 class MenuItemImpl implements MenuItem {
-    private String name;
+    private final String name;
     private double price;
     private List<Ingredient> ingredients;
-    private int quantity = 1;
+    private int quantity;
     private List<FoodMod> mods;
     private double modPrice = 0.0;
 
-    public MenuItemImpl(String name, int quantity){
+    public MenuItemImpl(final String name, final int quantity) {
 
         this.name = name;
         this.quantity = quantity;
@@ -18,66 +17,79 @@ class MenuItemImpl implements MenuItem {
         //TODO: get the prices from the menu
     }
 
-    public MenuItemImpl(String name, double price, List<Ingredient> ingredients) {
+    public MenuItemImpl(final String name, final double price, final List<Ingredient> ingredients) {
         this(name, price, ingredients, 1);
     }
 
-    public MenuItemImpl(MenuItem item, int quantity) {
-        this(item.getName(), item.getPrice(), item.getIngredients(), quantity);
-    }
-
-    public MenuItemImpl(String name, double price){
-        this(name, price, Collections.emptyList(), 1);
-    }
-
-    public MenuItemImpl(String name, double price, List<Ingredient> ingredients, int quantity) {
+    public MenuItemImpl(final String name, final double price, final List<Ingredient> ingredients, final int quantity) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.ingredients = ingredients;
-        this.mods = new ArrayList<>();
+        mods = new ArrayList<>();
     }
 
-    public String getName(){return name;}
+    //MenuItem fromString();
+    public static MenuItem fromRestaurantMenu(final MenuItem restaurantItem, final int quantity) {
+        return new MenuItemImpl(restaurantItem.getName(), restaurantItem.getPrice(), restaurantItem.getIngredients(), quantity);
+    }
 
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
     public int getQuantity() {
         return quantity;
     }
 
-    public double getPrice(){return price;}
-
-    public void setPrice(double price) {
-        this.price = price;
+    @Override
+    public double getPrice() {
+        return price;
     }
 
-    public double getModPrice(){return modPrice;}
+    @Override
+    public double getModPrice() {
+        return modPrice;
+    }
 
-    public List<FoodMod> getMods(){return mods;}
+    @Override
+    public List<FoodMod> getMods() {
+        return mods;
+    }
 
-    public void increaseModPrice(FoodMod mod){this.modPrice += mod.getPrice();}
+    @Override
+    public void increaseModPrice(final FoodMod mod) {
+        modPrice += mod.getPrice();
+    }
 
-    public void decreaseModPrice(FoodMod mod){this.modPrice -= mod.getPrice();}
+    @Override
+    public void decreaseModPrice(final FoodMod mod) {
+        modPrice -= mod.getPrice();
+    }
 
     @Override
     public List<Ingredient> getIngredients() {
         return ingredients;
     }
+
+    public void setIngredients(final List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
     @Override
-    public String printIngredients(){
+    public String printIngredients() {
         // print the ingredients of this MenuItem
-        StringBuilder result = new StringBuilder("");
-        for (Ingredient ingredient : ingredients){
+        final StringBuilder result = new StringBuilder("");
+        for (final Ingredient ingredient : ingredients) {
             result.append("| " + ingredient.getName() + " ");
         }
         return result.toString();
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
     @Override
-    public boolean equals(MenuItem item){
+    public boolean equals(final MenuItem item) {
         return name.equals(item.getName());
     }
 }

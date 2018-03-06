@@ -1,7 +1,8 @@
 1. Implement inventory adding/removing - aquilles
 2. Servers need to be able to send back orders - milan
-3. No addon support currently
+3. No addon support currently - hannah
 
 
 4. Make interfaces for remaining classes
 5. Documentation
+6. Move all files into named packages

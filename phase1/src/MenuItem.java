@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface MenuItem {
+    // MenuItem fromRestaurantMenu(MenuItem restaurantItem, int quantity);
     String getName();
     double getPrice();
 

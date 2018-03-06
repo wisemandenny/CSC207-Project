@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.List;
 import java.util.Arrays;
 public class BurgerMenu implements Menu {
@@ -23,6 +24,7 @@ public class BurgerMenu implements Menu {
         Ingredient cheeseCurds = new IngredientImpl("cheese");
         Ingredient gravy = new IngredientImpl("gravy");
 
+        List<Ingredient> noIngredients = Collections.emptyList();
         List<Ingredient> hamburger = Arrays.asList(burgerBun, patty, lettuce, tomato);
         List<Ingredient> chickenBurger = Arrays.asList(burgerBun, chickenPatty, lettuce, tomato);
         List<Ingredient> vegetarian = Arrays.asList(burgerBun, veg, lettuce, tomato);
@@ -38,7 +40,7 @@ public class BurgerMenu implements Menu {
         menu[2] = new MenuItemImpl("Veggie Burger", 5.99, vegetarian);
         menu[3] = new MenuItemImpl("Fries", 1.50, fries);
         menu[4] = new MenuItemImpl("Hotdog", 4.99, hot);
-        menu[5] = new MenuItemImpl("Coke", 1.25);
+        menu[5] = new MenuItemImpl("Coke", 1.25, noIngredients);
         menu[6] = new MenuItemImpl("Chicken Fingers", 7.29, chickenFingers);
         menu[7] = new MenuItemImpl("Onion Rings", 2.99, onionRings);
         menu[8] = new MenuItemImpl("Poutine", 6.99, poutine);
@@ -53,18 +55,19 @@ public class BurgerMenu implements Menu {
         FoodMod addTomato = new FoodModImpl(tomato, 0.25);
         FoodMod addLettuce = new FoodModImpl(lettuce, 0.25);
         FoodMod addSalt = new FoodModImpl(salt, 0.00);
-        FoodMod addketchup = new FoodModImpl(ketchup, 0.00);
+        FoodMod addKetchup = new FoodModImpl(ketchup, 0.00);
         FoodMod addMustard = new FoodModImpl(mustard, 0.00);
         FoodMod addCheese = new FoodModImpl(cheese, 1.00);
         FoodMod addBacon = new FoodModImpl(bacon, 2.00);
     }
+
     public MenuItem[] getMenu(){
         return menu;
     }
 
-    public MenuItem getMenuItem(MenuItem item){
+    public MenuItem getMenuItem(MenuItem query) {
         for(MenuItem searchItem : menu){
-            if (searchItem.getName().equals(item.getName())) return searchItem;
+            if (searchItem.getName().equals(query.getName())) return searchItem;
         }
         throw new IllegalArgumentException("Please order off of the menu.");
     }
