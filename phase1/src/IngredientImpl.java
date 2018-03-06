@@ -3,7 +3,7 @@ public class IngredientImpl implements Ingredient {
     private int threshold = 10; //TODO: In the assignment handout the only threshold mentioned is 10. Is this a default value?
     private int reorderAmount = 20;
 
-    public IngredientImpl(String name){
+    IngredientImpl(String name){
         this.name = name;
     }
 
