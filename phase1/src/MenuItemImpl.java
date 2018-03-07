@@ -7,7 +7,7 @@ class MenuItemImpl implements MenuItem {
     private int quantity;
     private List<Ingredient> ingredients;
     private List<FoodMod> mods;
-    private double modPrice = 0.0;
+    private double modPrice = 0.00;
 
     MenuItemImpl(final String name, final int quantity) {
         this.name = name;

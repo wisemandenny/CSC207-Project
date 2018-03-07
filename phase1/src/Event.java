@@ -5,6 +5,7 @@ class Event {
     private final EventType type;
     private final int tableId;
     private Order order;
+    private String addOn;
 
     Event(EventType type, int tableId) {
         this.type = type;
@@ -14,7 +15,13 @@ class Event {
     Event(EventType type, int tableId, String order) {
         this.type = type;
         this.tableId = tableId;
-        orderConstructorHelper(order);
+        if (type.equals("order")) {
+            orderConstructorHelper(order);
+        } else {
+            if (type.equals("addon")) {
+                this.addOn = order;
+            }
+        }
     }
 
     private void orderConstructorHelper(String strings) {
@@ -30,6 +37,10 @@ class Event {
 
     EventType getType() {
         return type;
+    }
+
+    String getAddOn() {
+        return addOn;
     }
 
     Order getOrder() {

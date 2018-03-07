@@ -10,7 +10,7 @@ class EventManager {
     private final Queue<Event> events = new LinkedList<>();
 
     EventManager() {
-        try (BufferedReader br = new BufferedReader(new FileReader("events.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("phase1/events.txt"))) {
             do {
                 events.add(parseString(br.readLine()));
             } while (br.ready());
@@ -34,6 +34,9 @@ class EventManager {
         switch (type) {
             case ORDER:
                 ret = new Event(EventType.ORDER, tableId, splitString[2]);
+                break;
+            case ADDON:
+                ret = new Event(EventType.ADDON, tableId, splitString[2]);
                 break;
             default:
                 ret = new Event(type, tableId);

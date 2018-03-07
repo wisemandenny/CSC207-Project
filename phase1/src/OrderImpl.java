@@ -28,6 +28,17 @@ public class OrderImpl implements Order {
         isDelivered = true;
     }
 
+    //    @Override
+    public double getTotalPrice() {
+        //return orderItems.stream().mapToDouble(MenuItem::getPrice).sum(); too confusing but kind of cool
+        double total = 0.00;
+        for (MenuItem item : orderItems){
+            total += item.getQuantity() * item.getPrice();
+            total += item.getQuantity() * item.getModPrice();
+        }
+        return total;
+    }
+
     @Override
     public List<Ingredient> getIngredients() {
         List<Ingredient> ingredientList= new ArrayList<>();

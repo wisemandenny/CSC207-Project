@@ -49,6 +49,17 @@ class Restaurant {
                     }
                     tables[tableId].addOrderToTable(new OrderImpl(newOrder));
                     break;
+                case ADDON: //TODO: fix this and add addon enum
+                    String[] instructions = e.getAddOn().split("\\s");
+                    String instructionType = instructions[1];
+                    int itemIndex = Integer.parseInt(instructions[0]) - 1;
+                    FoodMod modifier = new FoodModImpl(new IngredientImpl(instructions[2]));
+                    if (instructionType.equals("add")) {
+                        modifier.addTo(tableOrder.getItems().get(itemIndex));
+                    } else {
+                        modifier.removeFrom(tableOrder.getItems().get(itemIndex));
+                    }
+                    break;
                 case BILL:
                     printBillForTable(tableId);
                     break;

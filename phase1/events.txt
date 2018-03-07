@@ -5,6 +5,8 @@ delivered | table 1
 order | table 2 | 1 Hotdog, 1 Hamburger, 2 Coke
 received | table 2
 order | table 3 | 1 Salad, 1 Coke
+addon | table 3 | 1 add Cheese
+addon | table 3 | 1 remove Onion
 received | table 3
 ready | table 2
 ready | table 3
@@ -12,8 +14,12 @@ delivered | table 2
 check please! | table 2
 delivered | table 3
 order | table 4 | 2 Chicken Fingers, 3 Coke, 2 Fries
+addon | table 4 | 1 add Ketchup
+addon | table 4 | 3 remove Salt
 received | table 4
 order | table 5 | 1 Poutine
+addon | table 5 | 1 add Bacon
+addon | table 5 | 1 add Ketchup
 received | table 5
 order | table 6 | 1 Onion Rings
 received | table 6
@@ -31,8 +37,10 @@ delivered | table 6
 delivered | table 7
 ready | table 8
 order | table 9 | 80 Hamburger
+addon | table 9 | 1 add Cheese
 received | table 9
 order | table 10 | 1 Veggie Burger
+addon | table 10 | 1 add Bacon
 received | table 10
 ready | table 9
 ready | table 10
