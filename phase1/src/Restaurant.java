@@ -1,6 +1,3 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
@@ -68,25 +65,11 @@ class Restaurant {
                     System.out.println("COOK HAS SEEN:\n" + tableOrder);
                     break;
                 case COOKREADY:
+                    for (MenuItem item : tableOrder.getItems()) {
+                        inventory.removeFromInventory(item);
+                    }
                     tableOrder.readyForPickup();
                     System.out.println("READY FOR PICKUP!\n" + tableOrder);
-                    for (MenuItem item : tableOrder.getItems()) {
-                        for (Ingredient i : item.getIngredients()) {
-                            if (inventory.getContents().get(i) > 0) {
-                                if (inventory.getContents().get(i) < i.getThreshold()) {
-                                    try (BufferedWriter br = new BufferedWriter(new FileWriter("requests.txt"))) {
-                                        br.write("We need more" + i.getName());
-                                        br.newLine();
-                                    } catch (IOException ex) {
-                                        ex.printStackTrace();
-                                    }
-                                }
-                                inventory.removeFromInventory(i, 1);
-                            } else {
-                                System.out.println("NOT ENOUGH INGREDIENTS");
-                            }
-                        }
-                    }
                     break;
                 case SERVERDELIVERED:
                     tableOrder.delivered();

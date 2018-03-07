@@ -1,27 +1,75 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public class InventoryImpl implements Inventory {
-    private Map<Ingredient, Integer> inventory = new HashMap<>();
+    private final Map<Ingredient, Integer> inventory = new HashMap<>();
 
-    InventoryImpl(Menu menu){
+    InventoryImpl(Menu menu) {
         Set<Ingredient> ingredientSet = new HashSet<>();
         MenuItem[] burgerMenu = menu.getMenu();
-        for (MenuItem item : burgerMenu) ingredientSet.addAll(item.getIngredients());
+        for (MenuItem item : burgerMenu) {
+            ingredientSet.addAll(item.getIngredients());
+        }
         //get all the ingredients from the menu
-        for (Ingredient ingredient : ingredientSet) inventory.put(ingredient, 10);
-        //initialize them all to 10
+        for (Ingredient ingredient : ingredientSet) {
+            inventory.put(ingredient, 10);
+        }//initialize them all to 10
+
+        //clear requests.txt
+        try (FileWriter fw = new FileWriter("requests.txt", false)) {
+            fw.write("");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
-    //this method is called when the amount of a given ingredient is less than 10.
-    // For now we assume that the reorder process is effective immediately (see Restaurant case cook ready).
     @Override
-    public void addToInventory(Ingredient i, int amount) { inventory.put(i, inventory.get(i) + amount); }
+    public void addToInventory(Ingredient i, int amount) {
+        inventory.put(i, inventory.get(i) + amount);
+    }
+
+    private void removeFromInventory(Ingredient i, int amount) {
+        inventory.put(i, inventory.get(i) - amount);
+    }
 
     @Override
-    public void removeFromInventory(Ingredient i, int amount) { inventory.put(i, inventory.get(i) - amount ); }
+    public void removeFromInventory(MenuItem item) {
+        int uncookableItemNumber = 0;
+        for (Ingredient ingredient : item.getIngredients()) {
+            int quantity = item.getQuantity();
+            int cookableItemNumber = inventory.get(ingredient);
+            uncookableItemNumber = quantity - cookableItemNumber;
+
+            if (uncookableItemNumber > 0) {
+                removeFromInventory(ingredient, cookableItemNumber);
+                //TODO: remove the uncooked items from the bill
+                orderIngredient(ingredient);
+            } else {
+                //inventory >= request
+                removeFromInventory(ingredient, quantity);
+            }
+        }
+        if (uncookableItemNumber > 0) { //TODO: this is horrible.
+            rejectItem(item, uncookableItemNumber);
+        }
+    }
+
+    void rejectItem(MenuItem item, int quantity) {
+        System.out.println("Sorry, but due to inventory shortages we are unable to cook " + quantity + " " + item.getName() + "(s).\n");
+        //TODO: this also needs to remove the uncookable items from the bill
+    }
+
+    void orderIngredient(Ingredient ingredient) { //TODO: remove duplication of inventory orders in output file
+        try (FileWriter fw = new FileWriter("requests.txt", true)) {
+            fw.write("We need 10 more " + ingredient.getName() + ".\n");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     @Override
     public Map<Ingredient, Integer> getContents() {
