@@ -10,7 +10,7 @@ class EventManager {
     private final Queue<Event> events = new LinkedList<>();
 
     EventManager() {
-        try (BufferedReader br = new BufferedReader(new FileReader("phase1/events.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("events.txt"))) {
             do {
                 events.add(parseString(br.readLine()));
             } while (br.ready());

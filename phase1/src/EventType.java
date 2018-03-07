@@ -1,5 +1,6 @@
 public enum EventType {
     ORDER("order"),
+    ADDON("addon"),
     BILL("check please!"),
     COOKSEEN("received"),
     COOKREADY("ready"),

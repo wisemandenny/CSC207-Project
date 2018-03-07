@@ -15,11 +15,11 @@ class Event {
     Event(EventType type, int tableId, String order) {
         this.type = type;
         this.tableId = tableId;
-        if (type.equals("order")) {
+        if (type.equals(EventType.ORDER)) {
             orderConstructorHelper(order);
         } else {
-            if (type.equals("addon")) {
-                this.addOn = order;
+            if (type.equals(EventType.ADDON)) {
+                addOn = order;
             }
         }
     }
