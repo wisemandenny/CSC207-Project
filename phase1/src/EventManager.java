@@ -6,6 +6,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 class EventManager {
+    private static final int TYPE_ADDRESS = 0;
+    private static final int TABLEID_ADDRESS = 1;
+    private static final int ORDER_ADDRESS = 2;
+    private static final int COMMENT_ADDRESS = 3;
     private static final int TABLE_LENGTH = 6;
     private final Queue<Event> events = new LinkedList<>();
 
@@ -26,20 +30,20 @@ class EventManager {
         if (splitString.length < 2 || splitString.length > 5) {
             throw new IllegalArgumentException("Invalid length of string"); //TODO: fix this warning message
         }
-        int tableId = Integer.parseInt(splitString[1].substring(EventManager.TABLE_LENGTH));
-        EventType type = EventType.fromString(splitString[0]);
+        int tableId = Integer.parseInt(splitString[TABLEID_ADDRESS].substring(EventManager.TABLE_LENGTH));
+        EventType type = EventType.fromString(splitString[TYPE_ADDRESS]);
 
         Event ret;
         //TODO: fix this (no special case)
         switch (type) {
             case ORDER:
-                ret = new Event(EventType.ORDER, tableId, splitString[2]);
+                ret = new Event(EventType.ORDER, tableId, splitString[ORDER_ADDRESS]);
                 break;
-            case ADDON:
-                ret = new Event(EventType.ADDON, tableId, splitString[2]);
+            case ADDON: //TODO: remove this case since the foodmods implication will change
+                ret = new Event(EventType.ADDON, tableId, splitString[ORDER_ADDRESS]);
                 break;
             case SERVERRETURNED:
-                ret = new Event(EventType.SERVERRETURNED, tableId, splitString[2], splitString[3]);
+                ret = new Event(EventType.SERVERRETURNED, tableId, splitString[ORDER_ADDRESS], splitString[COMMENT_ADDRESS]);
                 break;
             default:
                 ret = new Event(type, tableId);
@@ -48,9 +52,7 @@ class EventManager {
         return ret;
     }
 
-    //TODO: add hasNextEvent and nextEvent so as to not expose the private ue
-
     Queue<Event> getEvents() {
-        return events;
+        return new LinkedList<>(events); //return a copy of events so as to not expose the private internal state
     }
 }
