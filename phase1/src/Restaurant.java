@@ -1,9 +1,9 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
-import java.io.IOException;
 
 class Restaurant {
     private final Table[] tables;
@@ -41,7 +41,7 @@ class Restaurant {
             int tableId = e.getTableId();
 
             switch (e.getType()) {
-                case "order":
+                case ORDER:
                     Order order = e.getOrder();
                     List<MenuItem> newOrder = new ArrayList<>();
                     for (MenuItem item : order.getItems()) {
@@ -49,40 +49,40 @@ class Restaurant {
                     }
                     tables[tableId].addOrderToTable(new OrderImpl(newOrder));
                     break;
-                case "bill":
+                case BILL:
                     printBillForTable(tableId);
                     break;
-                case "cookSeen":
+                case COOKSEEN:
                     tableOrder.receivedByCook();
                     System.out.println("COOK HAS SEEN:\n" + tableOrder);
                     break;
-                case "cookReady":
+                case COOKREADY:
                     tableOrder.readyForPickup();
                     System.out.println("READY FOR PICKUP!\n" + tableOrder);
-                    for (MenuItem item: tableOrder.getItems()){
-                        for (Ingredient i: item.getIngredients()) {
+                    for (MenuItem item : tableOrder.getItems()) {
+                        for (Ingredient i : item.getIngredients()) {
                             if (inventory.getContents().get(i) > 0) {
-                                if (inventory.getContents().get(i) < i.getThreshold()){
-                                    try (BufferedWriter br = new BufferedWriter(new FileWriter("requests.txt"))){
+                                if (inventory.getContents().get(i) < i.getThreshold()) {
+                                    try (BufferedWriter br = new BufferedWriter(new FileWriter("requests.txt"))) {
                                         br.write("We need more" + i.getName());
                                         br.newLine();
                                     } catch (IOException ex) {
                                         ex.printStackTrace();
                                     }
                                 }
-                                this.inventory.removeFromInventory(i, 1);
-                            } else{
+                                inventory.removeFromInventory(i, 1);
+                            } else {
                                 System.out.println("NOT ENOUGH INGREDIENTS");
                             }
                         }
                     }
                     break;
-                case "serverDelivered":
+                case SERVERDELIVERED:
                     tableOrder.delivered();
                     addOrderToBill(tableId, tableOrder);
                     System.out.println("DELIVERED TO TABLE " + tableId + "\n" + tableOrder);
                     break;
-                case "serverReturned":  //TODO: not implemented yet
+                case SERVERRETURNED:  //TODO: not implemented yet
                     System.out.println("We got a live one here! Order of blabla has been sent back to the kitchen!");
                     break;
                 //TODO: add "receivedShipment" for when
