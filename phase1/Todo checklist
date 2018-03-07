@@ -1,6 +1,7 @@
-1. Implement inventory adding/removing - aquilles
-2. Servers need to be able to send back orders - milan
+1. refactoring and code tidying - denny / everyone
+2. figure out what how to deal with items that are rejected because of lack of ingredients
 3. No addon support currently - hannah
+
 
 
 4. Make interfaces for remaining classes
