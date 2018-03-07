@@ -9,8 +9,11 @@ public interface MenuItem {
     int getQuantity();
     double getModPrice();
     List<FoodMod> getMods();
-    void addMod(FoodMod mod);
-    void removeMod(FoodMod mod);
+    List<FoodMod> getOrderedMods();
+    void setOrderedMods(List<FoodMod> mods);
+    void orderMod(FoodMod mod);
+    void applyMods();
+    List<FoodMod> getAllowedMods();
     void increaseModPrice(FoodMod mod);
     void decreaseModPrice(FoodMod mod);
     void setComment(String comment);

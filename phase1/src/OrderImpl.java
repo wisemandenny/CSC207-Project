@@ -28,6 +28,8 @@ public class OrderImpl implements Order {
         isDelivered = true;
     }
 
+
+    //TODO: Delete if unused.
     //@Override
     public double getTotalPrice() {
         //return orderItems.stream().mapToDouble(MenuItem::getPrice).sum(); too confusing but kind of cool
@@ -53,7 +55,12 @@ public class OrderImpl implements Order {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         int i = 1;
-        for(MenuItem item: orderItems){ sb.append(i++).append(". ").append(item.getName()).append("\n"); }
+        for(MenuItem item: orderItems){
+            sb.append(i++).append(". ").append(item.getName()).append("\n");
+            for (FoodMod mod : item.getMods()) {
+                sb.append(mod.getType()).append(mod.getName()).append("\n");
+            }
+        }
         return sb.toString();
     }
 }

@@ -54,15 +54,15 @@ public class BurgerMenu implements Menu {
 		FoodMod addGreenOlives = new FoodModImpl(greenOlives, 1.00);
 		FoodMod addBlackOlives = new FoodModImpl(blackOlives, 1.00);
 
-		List<FoodMod> burger = Arrays.asList(addKetchup, addMustard, addOnion, addBacon, addCheese, addTomato, addLettuce);
+		List<FoodMod> burgeradds = Arrays.asList(addKetchup, addMustard, addOnion, addBacon, addCheese, addTomato, addLettuce);
 		List<FoodMod> hdog = Arrays.asList(addKetchup, addMustard, addOnion, addBacon, addCheese);
 		List<FoodMod> fingerfood = Arrays.asList(addKetchup, addMustard, addSalt);
 		List<FoodMod> saladadds = Arrays.asList(addLettuce, addBacon, addOnion, addCucumber, addTomato, addGreenOlives, addBlackOlives);
 		List<FoodMod> poutineadds = Arrays.asList(addKetchup, addBacon, addCheese, addGravy);
 
-		menu[0] = new MenuItemImpl("Hamburger", 7.99, hamburger, burger);
-		menu[1] = new MenuItemImpl("Chicken Burger", 5.39, chickenBurger, burger);
-		menu[2] = new MenuItemImpl("Veggie Burger", 5.99, vegetarian, burger);
+		menu[0] = new MenuItemImpl("Hamburger", 7.99, hamburger, burgeradds);
+		menu[1] = new MenuItemImpl("Chicken Burger", 5.39, chickenBurger, burgeradds);
+		menu[2] = new MenuItemImpl("Veggie Burger", 5.99, vegetarian, burgeradds);
 		menu[3] = new MenuItemImpl("Fries", 1.50, fries, fingerfood);
 		menu[4] = new MenuItemImpl("Hotdog", 4.99, hot, hdog);
 		menu[5] = new MenuItemImpl("Coke", 1.25, Arrays.asList(coke));

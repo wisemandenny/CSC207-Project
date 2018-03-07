@@ -39,9 +39,6 @@ class EventManager {
             case ORDER:
                 ret = new Event(EventType.ORDER, tableId, splitString[ORDER_ADDRESS]);
                 break;
-            case ADDON: //TODO: remove this case since the foodmods implication will change
-                ret = new Event(EventType.ADDON, tableId, splitString[ORDER_ADDRESS]);
-                break;
             case SERVERRETURNED:
                 ret = new Event(EventType.SERVERRETURNED, tableId, splitString[ORDER_ADDRESS], splitString[COMMENT_ADDRESS]);
                 break;
