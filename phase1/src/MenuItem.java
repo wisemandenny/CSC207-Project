@@ -13,6 +13,9 @@ public interface MenuItem {
     void removeMod(FoodMod mod);
     void increaseModPrice(FoodMod mod);
     void decreaseModPrice(FoodMod mod);
+    void setComment(String comment);
+    String getComment();
+    void setPrice(double price);
     List<Ingredient> getIngredients();
     String printIngredients();
     boolean equals(MenuItem item);

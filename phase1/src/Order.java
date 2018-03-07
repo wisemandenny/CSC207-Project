@@ -10,4 +10,6 @@ public interface Order {
     void readyForPickup();
 
     void delivered();
+
+    void returned();
 }

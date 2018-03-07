@@ -7,7 +7,8 @@ class MenuItemImpl implements MenuItem {
     private int quantity;
     private List<Ingredient> ingredients;
     private List<FoodMod> mods;
-    private double modPrice = 0.00;
+    private double modPrice = 0.0;
+    private String comment;
 
     MenuItemImpl(final String name, final int quantity) {
         this.name = name;
@@ -78,6 +79,15 @@ class MenuItemImpl implements MenuItem {
     public void decreaseModPrice(final FoodMod mod) {
         modPrice -= mod.getPrice();
     }
+
+    @Override
+    public void setComment(String comment) { this.comment = comment; }
+
+    @Override
+    public String getComment() { return comment; }
+
+    @Override
+    public void setPrice(double price) { this.price = price; }
 
     @Override
     public List<Ingredient> getIngredients() {

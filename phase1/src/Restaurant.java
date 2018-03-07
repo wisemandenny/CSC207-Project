@@ -93,8 +93,19 @@ class Restaurant {
                     addOrderToBill(tableId, tableOrder);
                     System.out.println("DELIVERED TO TABLE " + tableId + "\n" + tableOrder);
                     break;
-                case SERVERRETURNED:  //TODO: not implemented yet
-                    System.out.println("We got a live one here! Order of blabla has been sent back to the kitchen!");
+                case SERVERRETURNED:
+                    // add all the returned items to this table
+                    tableOrder.returned();
+                    tables[tableId].addToDeductions(e.getDeductions());
+                    // set the cost of this event
+                    for(MenuItem item : e.getDeductions()){
+                        double cost = menu.getMenuItem(item).getPrice();
+                        cost *= item.getQuantity() * -1;
+                        item.setPrice(cost);
+                    }
+
+                    System.out.println("TABLE " + tableId +
+                            " HAS RETURNED THE FOLLOWING ITEM(s): \n" + tables[tableId].stringDeductions());
                     break;
                 //TODO: add "receivedShipment" for when
             }

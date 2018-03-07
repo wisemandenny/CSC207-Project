@@ -4,7 +4,7 @@ import java.util.List;
 
 public class OrderImpl implements Order {
     private List<MenuItem> orderItems;
-    private boolean isReceivedByCook, isReadyForPickup, isDelivered;
+    private boolean isReceivedByCook, isReadyForPickup, isDelivered, isReturned;
 
     OrderImpl(List<MenuItem> orderItems){ this.orderItems = orderItems; }
 
@@ -38,6 +38,9 @@ public class OrderImpl implements Order {
         }
         return total;
     }
+
+    @Override
+    public void returned() { isReturned = true;}
 
     @Override
     public List<Ingredient> getIngredients() {

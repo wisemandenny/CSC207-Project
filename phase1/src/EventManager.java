@@ -22,8 +22,8 @@ class EventManager {
     }
 
     private Event parseString(String s) {
-        String[] splitString = s.split("\\s\\|\\s", 3);
-        if (splitString.length < 2 || splitString.length > 4) {
+        String[] splitString = s.split("\\s\\|\\s", 4);
+        if (splitString.length < 2 || splitString.length > 5) {
             throw new IllegalArgumentException("Invalid length of string"); //TODO: fix this warning message
         }
         int tableId = Integer.parseInt(splitString[1].substring(EventManager.TABLE_LENGTH));
@@ -37,6 +37,9 @@ class EventManager {
                 break;
             case ADDON:
                 ret = new Event(EventType.ADDON, tableId, splitString[2]);
+                break;
+            case SERVERRETURNED:
+                ret = new Event(EventType.SERVERRETURNED, tableId, splitString[2], splitString[3]);
                 break;
             default:
                 ret = new Event(type, tableId);

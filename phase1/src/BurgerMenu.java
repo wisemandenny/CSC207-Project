@@ -74,10 +74,4 @@ public class BurgerMenu implements Menu {
 		}
 		throw new IllegalArgumentException("Please order off of the menu.");
 	}
-
-	private void printMenu() { //TODO: delete this method if it's not used anywhere.
-		for (MenuItem item : menu) {
-			System.out.println(item.getName() + "\nIngredients:" + item.printIngredients() + "\n");
-		}
-	}
 }
