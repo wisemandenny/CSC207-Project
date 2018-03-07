@@ -55,8 +55,8 @@ class Restaurant {
                     for (MenuItem item : order.getItems()) {
                         MenuItem itemToAdd = MenuItemImpl.fromRestaurantMenu(menu.getMenuItem(item), item.getQuantity());
                         List<FoodMod> modsMenuOrderedMods = getMenuOrderedMods(item.getOrderedMods());
-                        item.setOrderedMods(modsMenuOrderedMods);
-                        item.applyMods();
+                        itemToAdd.setOrderedMods(modsMenuOrderedMods);
+                        itemToAdd.applyMods();
                         newOrder.add(itemToAdd);
                     }
                     tables[tableId].addOrderToTable(new OrderImpl(newOrder));
