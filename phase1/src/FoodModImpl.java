@@ -27,8 +27,8 @@ public class FoodModImpl implements FoodMod {
                 && item.getMods().size() < 5) {
             item.getMods().add(this);
             item.increaseModPrice(this);
-            //  else Exception?
         }
+        throw new IllegalArgumentException("Can't add that modifier to this item.");
     }
 
     @Override
@@ -36,7 +36,7 @@ public class FoodModImpl implements FoodMod {
         if (item.getMods().contains(this)) {
             item.getMods().remove(this);
             item.decreaseModPrice(this);
-            // else Exception?
         }
+        throw new IllegalArgumentException("Can't remove that modifier to this item.");
     }
 }
