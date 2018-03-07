@@ -4,13 +4,13 @@ import java.util.List;
 
 public class OrderImpl implements Order {
     private List<MenuItem> orderItems;
-    private boolean isReceivedByCook, isReadyForPickup, isDelivered, isReturned;
+    private boolean isReceivedByCook, isReadyForPickup, isDelivered, isReturned; //TODO: we will need to use these somwhere.
 
     OrderImpl(List<MenuItem> orderItems){ this.orderItems = orderItems; }
 
     @Override
     public List<MenuItem> getItems() {
-        return orderItems;
+        return new ArrayList<>(orderItems);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class OrderImpl implements Order {
         isDelivered = true;
     }
 
-    //    @Override
+    //@Override
     public double getTotalPrice() {
         //return orderItems.stream().mapToDouble(MenuItem::getPrice).sum(); too confusing but kind of cool
         double total = 0.00;

@@ -88,7 +88,7 @@ public class BurgerMenu implements Menu {
 
     @Override
     public MenuItem[] getMenu() {
-        return menu;
+        return menu.clone();
     }
 
     @Override
@@ -103,7 +103,7 @@ public class BurgerMenu implements Menu {
 
     @Override
     public Set<FoodMod> getModsMenu() {
-        return modsMenu;
+        return new HashSet<>(modsMenu);
     }
 
     @Override
@@ -114,11 +114,5 @@ public class BurgerMenu implements Menu {
             }
         }
         throw new IllegalArgumentException("We cannot offer the modification " + query.getName());
-    }
-
-    private void printMenu() { //TODO: delete this method if it's not used anywhere.
-        for (MenuItem item : menu) {
-            System.out.println(item.getName() + "\nIngredients:" + item.printIngredients() + "\n");
-        }
     }
 }

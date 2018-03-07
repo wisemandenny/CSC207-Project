@@ -21,7 +21,7 @@ public class FoodModImpl implements FoodMod {
     public Ingredient getIngredient(){return ingredient;}
 
     @Override
-    public void addTo(MenuItem item) {
+    public void addTo(MenuItem item) { //TODO: delet this
         if (!item.getMods().contains(this)
                 && !item.getIngredients().contains(this.ingredient)
                 && item.getMods().size() < 5) {
@@ -31,7 +31,7 @@ public class FoodModImpl implements FoodMod {
     }
 
     @Override
-    public void removeFrom(MenuItem item) {
+    public void removeFrom(MenuItem item) { //TODO: delet this
         if (item.getMods().contains(this)) {
             item.getMods().remove(this);
             item.decreaseModPrice(this);
