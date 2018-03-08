@@ -58,12 +58,16 @@ class MenuItemImpl implements MenuItem {
 
     @Override
     public double getPrice() {
-        return price * quantity;
+        return price;
     }
 
     @Override
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public double getTotal() {
+        return price * quantity;
     }
 
     @Override

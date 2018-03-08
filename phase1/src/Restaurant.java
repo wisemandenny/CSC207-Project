@@ -36,6 +36,7 @@ class Restaurant {
             Event e = events.remove();
             Order tableOrder = tables[e.getTableId()].getOrder();
             int tableId = e.getTableId();
+            Table currentTable = tables[tableId];
 
             switch (e.getType()) {
                 case ORDER:
@@ -51,7 +52,7 @@ class Restaurant {
                         }
                         newOrder.add(itemToAdd);
                     }
-                    tables[tableId].addOrderToTable(new OrderImpl(newOrder));
+                    currentTable.addOrderToTable(new OrderImpl(newOrder));
                     break;
                 case BILL:
                     printBillForTable(tableId);
@@ -62,11 +63,12 @@ class Restaurant {
                     break;
                 case COOKREADY:
                     for (MenuItem item : tableOrder.getItems()) {
-                        inventory.removeFromInventory(item, tables[tableId]);
+                        inventory.removeFromInventory(item, currentTable);
                     }
-                    List<MenuItem> uncookedItems = tables[tableId].getUncookedMenuItems();
+                    List<MenuItem> uncookedItems = currentTable.getUncookedMenuItems();
                     for (MenuItem item : uncookedItems) {
-                        tables[tableId].addToDeductions(menu.getMenuItem(item), item.getQuantity(), "Out of stock. ");
+                        item = new MenuItemImpl(menu.getMenuItem(item), item.getQuantity());
+                        currentTable.addToDeductions(item, "Out of stock. ");
                     }
                     tableOrder.readyForPickup();
                     System.out.println("READY FOR PICKUP!\n" + tableOrder);
@@ -79,16 +81,12 @@ class Restaurant {
                 case SERVERRETURNED:
                     // add all the returned items to this table
                     tableOrder.returned();
-                    tables[tableId].addToDeductions(e.getDeductions());
-                    // set the cost of this event
-                    for (MenuItem item : e.getDeductions()) {
-                        double cost = menu.getMenuItem(item).getPrice();
-                        cost *= -1;
-                        item.setPrice(cost);
+                    for (MenuItem item : e.getDeductions().getItems()) {
+                        currentTable.addToDeductions(menu.getMenuItem(item), item.getQuantity(), item.getComment());
                     }
 
                     System.out.println("TABLE " + tableId +
-                            " HAS RETURNED THE FOLLOWING ITEM(s): \n" + tables[tableId].stringDeductions());
+                            " HAS RETURNED THE FOLLOWING ITEM(s): \n" + currentTable.stringDeductions());
                     break;
                 //TODO: add "receivedShipment" for when
             }

@@ -8,11 +8,11 @@ public class Table {
     private final List<MenuItem> uncookedMenuItems = new ArrayList<>();
     private Order order;
 
-    Table(final int id) {
+    Table(int id) {
         this.id = id;
     }
 
-    public void addUncookedMenuitems(final MenuItem item) {
+    public void addUncookedMenuitems(MenuItem item) {
         uncookedMenuItems.add(item);
     }
 
@@ -20,58 +20,54 @@ public class Table {
         return uncookedMenuItems;
     }
 
-    void addOrderToTable(final Order o) {
+    void addOrderToTable(Order o) {
         order = o;
     }
 
-    void addToBill(final Order o) {
+    void addToBill(Order o) {
         bill.addAll(o.getItems());
     }
 
-    void addToDeductions(final MenuItem item, final int quantity, final String comment) {
-        final MenuItem itemToAdd = new MenuItemImpl(item, quantity);
-        itemToAdd.setComment(comment);
-
-        double cost = item.getPrice();
-        cost *= item.getQuantity() * -1;
-        itemToAdd.setPrice(cost);
-        deductions.add(itemToAdd);
-
-        for (final Ingredient mod : itemToAdd.getRemovedIngredients()) {
-
-        }
+    void addToDeductions(MenuItem item, int quantity, String comment) {
+        MenuItem itemToAdd = new MenuItemImpl(item, quantity);
+        addToDeductions(itemToAdd, comment);
     }
 
-    void addToDeductions(final List<MenuItem> items) {
-        deductions.addAll(items);
+    void addToDeductions(MenuItem item, String comment) {
+        item.setComment(comment);
+        item.setPrice(-item.getPrice());
+        deductions.add(item);
     }
 
     // get all the items that have been rejected and make them into a string
     String stringDeductions() {
-        final StringBuilder ret = new StringBuilder("");
-        for (final MenuItem item : deductions) {
-            ret.append(item.getQuantity()).append(" ").append(item.getName()).append(", ").append(item.getPrice()).append("\n");
+        StringBuilder ret = new StringBuilder("");
+        for (MenuItem item : deductions) {
+            ret.append(item.getQuantity()).append(" ").append(item.getName()).append(", ").append(String.format("%.2f", item.getTotal())).append("\n");
+            for (Ingredient mod : item.getExtraIngredients()) {
+                ret.append(item.getQuantity()).append(" ").append(mod.getName()).append(", ").append(String.format("%.2f", mod.getPrice())).append("\n");
+            }
         }
         return ret.toString();
     }
 
     void printBill() {
         System.out.println("BILL FOR TABLE #" + id);
-        for (final MenuItem item : bill) {
-            System.out.println(item.getQuantity() + " " + item.getName() + ": $" + String.format("%.2f", item.getPrice()));
-            for (final Ingredient addedIng : item.getExtraIngredients()) {
+        for (MenuItem item : bill) {
+            System.out.println(item.getQuantity() + " " + item.getName() + ": $" + String.format("%.2f", item.getTotal()));
+            for (Ingredient addedIng : item.getExtraIngredients()) {
                 System.out.println("add " + item.getQuantity() + " " + addedIng.getName() + ": $" + String.format("%.2f", addedIng.getPrice() * item.getQuantity()));
             }
-            for (final Ingredient removedIng : item.getRemovedIngredients()) {
+            for (Ingredient removedIng : item.getRemovedIngredients()) {
                 System.out.println("remove " + item.getQuantity() + " " + removedIng.getName() + ": -$" + String.format("%.2f", removedIng.getPrice() * item.getQuantity()));
             }
 
         }
         if (!deductions.isEmpty()) {
             System.out.println("\nDEDUCTIONS (-)");
-            for (final MenuItem item : deductions) {
+            for (MenuItem item : deductions) {
                 System.out.println(item.getQuantity() + " " + item.getName() + ": $" +
-                        String.format("%.2f", item.getPrice()) + " | Reason: " + item.getComment());
+                        String.format("%.2f", item.getTotal()) + " | Reason: " + item.getComment());
             }
         }
         System.out.println("Total: $" + getBillPrice() + "\n");
@@ -79,13 +75,13 @@ public class Table {
 
     private String getBillPrice() {
         double ret = 0.00;
-        for (final MenuItem item : bill) {
-            ret += item.getPrice();
+        for (MenuItem item : bill) {
+            ret += item.getTotal();
             ret += item.getExtraIngredientPrice();
         }
         // remove the price of any items that were returned
-        for (final MenuItem item : deductions) {
-            ret += item.getPrice();
+        for (MenuItem item : deductions) {
+            ret += item.getTotal();
         }
         return String.format("%.2f", ret);
     }

@@ -62,9 +62,9 @@ public class OrderImpl implements Order {
         StringBuilder sb = new StringBuilder();
         int i = 1;
         for (MenuItem item : orderItems) {
-            sb.append(i++).append(". ").append(item.getName()).append("\n");
+            sb.append(item.getQuantity()).append(" ").append(item.getName()).append("\n");
             for (Ingredient mod : item.getExtraIngredients()) {
-                sb.append(mod.getName()).append("\n");
+                sb.append(item.getQuantity()).append(" +").append(mod.getName()).append("\n");
             }
         }
         return sb.toString();
