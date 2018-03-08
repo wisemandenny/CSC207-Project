@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 class Event {
@@ -74,7 +75,13 @@ class Event {
             // If there are and modifiers:
             if (orderInfoSplit.length > 1) {
                 String[] orderedModifiers = orderInfoSplit[1].split("\\s");
-                for (String modifier : orderedModifiers) {
+                List<String> limitedModifiers = new ArrayList<>();
+                for (String mod : orderedModifiers) {
+                    if (limitedModifiers.size() < 5) {
+                        limitedModifiers.add(mod);
+                    }
+                }
+                for (String modifier : limitedModifiers) {
                     String ingredientName = modifier.substring(1);
                     if (modifier.startsWith("+")) {
                         orderedMenuItem.addExtraIngredient(new IngredientImpl(ingredientName));
