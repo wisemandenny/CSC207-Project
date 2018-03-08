@@ -60,8 +60,8 @@ public class Table {
         System.out.println("BILL FOR TABLE #" + id);
         for (MenuItem item : bill) {
             System.out.println(item.getQuantity() + " " + item.getName() + ": $" + String.format("%.2f", item.getPrice() * item.getQuantity()));
-            for (FoodMod modifier : item.getMods()) {
-                System.out.println(item.getQuantity() + " " + modifier.getName() + ": $" + String.format("%.2f", modifier.getPrice()));
+            for (Ingredient addedIng : item.getExtraIngredients()) {
+                System.out.println(item.getQuantity() + " " + addedIng.getName() + ": $" + String.format("%.2f", addedIng.getPrice()));
             }
         }
         if (!deductions.isEmpty()) {
@@ -78,7 +78,7 @@ public class Table {
         double ret = 0.00;
         for (MenuItem item : bill) {
             ret += item.getPrice() * item.getQuantity();
-            ret += item.getModPrice();
+            ret += item.getExtraIngredientPrice();
         }
         // remove the price of any items that were returned
         for(MenuItem item: deductions){

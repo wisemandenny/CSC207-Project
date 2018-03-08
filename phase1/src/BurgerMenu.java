@@ -6,19 +6,19 @@ public class BurgerMenu implements Menu {
     private final Ingredient[] ingredientMenu = new Ingredient[22];
 
     BurgerMenu() {
-        Ingredient burgerBun = new IngredientImpl("Burger Bun", 0.50);
+        Ingredient burgerBun = new IngredientImpl("BurgerBun", 0.50);
         Ingredient patty = new IngredientImpl("Patty", 2.00);
-        Ingredient chickenPatty = new IngredientImpl("Chicken Patty", 2.50);
-        Ingredient veg = new IngredientImpl("Vegetarian Patty", 2.00);
+        Ingredient chickenPatty = new IngredientImpl("ChickenPatty", 2.50);
+        Ingredient veg = new IngredientImpl("VegetarianPatty", 2.00);
         Ingredient lettuce = new IngredientImpl("Lettuce", 0.50);
         Ingredient tomato = new IngredientImpl("Tomato", 0.50);
         Ingredient cucumber = new IngredientImpl("Cucumber", 0.50);
-        Ingredient blackOlives = new IngredientImpl("Black olives", 1.00);
-        Ingredient greenOlives = new IngredientImpl("Green olives", 1.00);
+        Ingredient blackOlives = new IngredientImpl("BlackOlives", 1.00);
+        Ingredient greenOlives = new IngredientImpl("GreenOlives", 1.00);
         Ingredient potato = new IngredientImpl("Potato");
         Ingredient salt = new IngredientImpl("Salt");
         Ingredient hotdog = new IngredientImpl("Hotdog", 1.50);
-        Ingredient hotdogBun = new IngredientImpl("Hotdog Bun", 0.50);
+        Ingredient hotdogBun = new IngredientImpl("HotdogBun", 0.50);
         Ingredient chicken = new IngredientImpl("Chicken", 3.00);
         Ingredient breadcrumbs = new IngredientImpl("Breadcrumbs", 0.50);
         Ingredient onion = new IngredientImpl("Onion", 0.50);
@@ -95,10 +95,10 @@ public class BurgerMenu implements Menu {
 
     public Ingredient getMenuIngredient(Ingredient query) {
         for (Ingredient searchItem : ingredientMenu) {
-            if (searchItem.equals(query)) {
+            if (searchItem.equalTo(query)) {
                 return searchItem;
             }
         }
-        throw new IllegalArgumentException("Please choose a valid ingredient.");
+        throw new IllegalArgumentException(query.getName() + " is not a valid ingredient.");
     }
 }

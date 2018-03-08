@@ -20,4 +20,9 @@ public class IngredientImpl implements Ingredient {
     public double getPrice() {
         return price;
     }
+
+    @Override
+    public boolean equalTo(Ingredient ing) {
+        return name.equalsIgnoreCase(ing.getName());
+    }
 }
