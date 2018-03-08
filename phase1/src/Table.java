@@ -5,7 +5,7 @@ public class Table {
     private final int id;
     private final List<MenuItem> bill = new ArrayList<>();
     private final List<MenuItem> deductions = new ArrayList<>();
-    private final List<MenuItem> uncookedMenuitems = new ArrayList<>();
+    private final List<MenuItem> uncookedMenuItems = new ArrayList<>();
     private Order order;
 
     Table(int id) {
@@ -13,11 +13,11 @@ public class Table {
     }
 
     public void addUncookedMenuitems(MenuItem item) {
-        uncookedMenuitems.add(item);
+        uncookedMenuItems.add(item);
     }
 
     public List<MenuItem> getUncookedMenuItems() {
-        return uncookedMenuitems;
+        return uncookedMenuItems;
     }
 
     void addOrderToTable(Order o) {
@@ -26,6 +26,15 @@ public class Table {
 
     void addToBill(Order o) {
         bill.addAll(o.getItems());
+    }
+
+    void addToDeductions(MenuItem item, int quantity, String comment) {
+        MenuItem itemToAdd = new MenuItemImpl(item, quantity);
+        itemToAdd.setComment(comment);
+        double cost = item.getPrice();
+        cost *= item.getQuantity() * -1;
+        itemToAdd.setPrice(cost);
+        deductions.add(itemToAdd);
     }
 
     void addToDeductions(List<MenuItem> items) {

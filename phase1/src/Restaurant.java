@@ -64,7 +64,10 @@ class Restaurant {
                     for (MenuItem item : tableOrder.getItems()) {
                         inventory.removeFromInventory(item, tables[tableId]);
                     }
-                    tables[tableId].addToDeductions(tables[tableId].getUncookedMenuItems());
+                    List<MenuItem> uncookedItems = tables[tableId].getUncookedMenuItems();
+                    for (MenuItem item : uncookedItems) {
+                        tables[tableId].addToDeductions(menu.getMenuItem(item), item.getQuantity(), "Out of stock. ");
+                    }
                     tableOrder.readyForPickup();
                     System.out.println("READY FOR PICKUP!\n" + tableOrder);
                     break;
@@ -80,7 +83,7 @@ class Restaurant {
                     // set the cost of this event
                     for (MenuItem item : e.getDeductions()) {
                         double cost = menu.getMenuItem(item).getPrice();
-                        cost *= item.getQuantity() * -1;
+                        cost *= -1;
                         item.setPrice(cost);
                     }
 

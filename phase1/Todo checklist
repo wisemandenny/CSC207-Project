@@ -1,9 +1,7 @@
 1. refactoring and code tidying - denny / everyone
-2. figure out what how to deal with items that are rejected because of lack of ingredients
-3. No addon support currently - hannah
+2. Remove items from the bill that are rejected because of lack of ingredients -achilles
 
-
-
+3. Write readme.txt
 4. Make interfaces for remaining classes
 5. Documentation
 6. Move all files into named packages
