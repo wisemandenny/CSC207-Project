@@ -1,7 +1,6 @@
 import java.util.List;
 
 public interface MenuItem {
-    // MenuItem fromRestaurantMenu(MenuItem restaurantItem, int quantity);
     String getName();
 
     double getPrice();
@@ -25,8 +24,6 @@ public interface MenuItem {
     List<Ingredient> getRemovedIngredients();
 
     double getRemovedIngredientsPrice();
-
-    List<Ingredient> getAllowedExtraIngredients();
 
     void removeIngredient(Ingredient ingredient);
 
