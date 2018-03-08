@@ -118,6 +118,13 @@ class Restaurant {
                             " HAS RETURNED THE FOLLOWING ITEM(s): \n" + currentTable.stringDeductions());
                     break;
                 case RECIEVEDSHIPMENT:
+                    String[] info = e.getShipment()[1].split(",");
+                    for (String ingredient: info){
+                        String[] x = ingredient.split("\\s");
+                        Ingredient i = new IngredientImpl(x[1]);
+                        Ingredient finalI = menu.getMenuIngredient(i);
+                        inventory.addToInventory(finalI, Integer.parseInt(x[0]));
+                    }
             }
         }
     }

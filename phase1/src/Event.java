@@ -112,6 +112,8 @@ class Event {
         return new OrderImpl(order.getItems());
     }
 
+    String[] getShipment() {return shipment;}
+
     /**
      *  Return the Table which this Event belongs to.
      *
