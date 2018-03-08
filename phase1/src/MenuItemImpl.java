@@ -7,7 +7,6 @@ class MenuItemImpl implements MenuItem {
     private final int quantity;
     private final List<Ingredient> extraIngredients = new ArrayList<>();
     private final List<Ingredient> removedIngredients = new ArrayList<>();
-    private final List<Ingredient> allowedExtraIngredients = new ArrayList<>();
     private final List<Ingredient> ingredients;
     private double price;
     private String comment;
@@ -17,9 +16,7 @@ class MenuItemImpl implements MenuItem {
         this(item.getName(), item.getPrice(), item.getIngredients(), quantity);
         if (!item.getExtraIngredients().isEmpty()) {
             for (Ingredient i : item.getExtraIngredients()) {
-                if (item.getAllowedExtraIngredients().contains(i)) {
-                    addExtraIngredient(i);
-                }
+                addExtraIngredient(i);
             }
         }
         //add extras if they exist and are valid to this.extraIngredients TODO:check if there are less than 5 mods
@@ -48,11 +45,6 @@ class MenuItemImpl implements MenuItem {
         this.ingredients = ingredients;
     }
 
-
-    @Override
-    public List<Ingredient> getAllowedExtraIngredients() {
-        return allowedExtraIngredients;
-    }
 
     @Override
     public String getName() {
