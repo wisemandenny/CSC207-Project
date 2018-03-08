@@ -2,38 +2,62 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Table {
+    /**
+     * A table at the restaurant with identification, a bill, and sometimes deductions and uncooked foods.
+     */
     private final int id;
     private final List<MenuItem> bill = new ArrayList<>();
     private final List<MenuItem> deductions = new ArrayList<>();
-    private final List<MenuItem> uncookedMenuitems = new ArrayList<>();
+    private final List<MenuItem> uncookedMenuItems = new ArrayList<>();
     private Order order;
 
     Table(int id) {
+        /**
+         * This table has identification id.
+         */
         this.id = id;
     }
 
-    public void addUncookedMenuitems(MenuItem item) {
-        uncookedMenuitems.add(item);
+    public void addUncookedMenuItems(MenuItem item) {
+        /**
+         * Add a food item that hasn't been cooked, some reason, to a list of uncooked foods uncookedMenuItems.
+         */
+        uncookedMenuItems.add(item);
     }
 
     public List<MenuItem> getUncookedMenuItems() {
-        return uncookedMenuitems;
+        /**
+         * Returns the list of uncooked foods uncookedMenuItems.
+         */
+        return uncookedMenuItems;
     }
 
     void addOrderToTable(Order o) {
+        /**
+         * Assigns an order o to this table.
+         */
         order = o;
     }
 
     void addToBill(Order o) {
+        /**
+         * Adds the items from order o to this tables' bill.
+         */
         bill.addAll(o.getItems());
     }
 
     void addToDeductions(List<MenuItem> items) {
+        /**
+         * Adds the list of menu items items to this tables deductions.
+         */
         deductions.addAll(items);
     }
 
     // get all the items that have been rejected and make them into a string
     String stringDeductions() {
+        /**
+         * Creates a client friendly representation of this tables' deductions.
+         */
         StringBuilder ret = new StringBuilder("");
         for (MenuItem item : deductions) {
             ret.append(item.getQuantity()).append(" ").append(item.getName()).append(", ").append(item.getPrice()).append("\n");
@@ -42,6 +66,9 @@ public class Table {
     }
 
     void printBill() {
+        /**
+         * Creates a client friendly representation of this tables' bill.
+         */
         System.out.println("BILL FOR TABLE #" + id);
         for (MenuItem item : bill) {
             System.out.println(item.getQuantity() + " " + item.getName() + ": $" + String.format("%.2f", item.getPrice()));
@@ -64,6 +91,9 @@ public class Table {
     }
 
     private String getBillPrice() {
+        /**
+         * Returns the total cost of this table's order as the bills' price.
+         */
         double ret = 0.00;
         for (MenuItem item : bill) {
             ret += item.getPrice();
@@ -77,6 +107,9 @@ public class Table {
     }
 
     protected Order getOrder() {
+        /**
+         * Returns this tables' order.
+         */
         return order;
     }
 }
