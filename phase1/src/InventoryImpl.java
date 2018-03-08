@@ -4,7 +4,7 @@ import java.util.*;
 
 public class InventoryImpl implements Inventory {
     private final Map<Ingredient, Integer> inventory = new HashMap<>();
-    private List<MenuItem> uncookedMenuitems = new ArrayList<>();
+    public List<MenuItem> uncookedMenuitems = new ArrayList<>();
 
     InventoryImpl(Menu menu) {
         Set<Ingredient> ingredientSet = new HashSet<>();
