@@ -29,6 +29,17 @@ class Restaurant {
         inventory.addToInventory(ingredient, amount);
     }
 
+    private List<FoodMod> getMenuOrderedMods(List<FoodMod> orderedMods) {
+        List<FoodMod> newMods = new ArrayList<>();
+        for(FoodMod mod : orderedMods) {
+            // finds the FoodMod in the BurgerMenu.modsMenu with the same name as mod.
+            FoodMod menuModToAdd = menu.getFoodMod(mod);
+            menuModToAdd.setType(mod.getType());
+            newMods.add(menuModToAdd);
+        }
+        return newMods;
+    }
+
     private void handleEvents(EventManager manager) {
         Queue<Event> events = manager.getEvents();
 
@@ -42,7 +53,11 @@ class Restaurant {
                     Order order = e.getOrder();
                     List<MenuItem> newOrder = new ArrayList<>();
                     for (MenuItem item : order.getItems()) {
-                        newOrder.add(MenuItemImpl.fromRestaurantMenu(menu.getMenuItem(item), item.getQuantity()));
+                        MenuItem itemToAdd = MenuItemImpl.fromRestaurantMenu(menu.getMenuItem(item), item.getQuantity());
+                        List<FoodMod> modsMenuOrderedMods = getMenuOrderedMods(item.getOrderedMods());
+                        itemToAdd.setOrderedMods(modsMenuOrderedMods);
+                        itemToAdd.applyMods();
+                        newOrder.add(itemToAdd);
                     }
                     tables[tableId].addOrderToTable(new OrderImpl(newOrder));
                     break;

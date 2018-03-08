@@ -41,25 +41,35 @@ public class BurgerMenu implements Menu {
         List<Ingredient> poutine = Arrays.asList(potato, salt, cheese, gravy);
         List<Ingredient> salad = Arrays.asList(lettuce, tomato, onion, cucumber, greenOlives, blackOlives, cheese);
 
-        menu[0] = new MenuItemImpl("Hamburger", 7.99, hamburger);
-        menu[1] = new MenuItemImpl("Chicken Burger", 5.39, chickenBurger);
-        menu[2] = new MenuItemImpl("Veggie Burger", 5.99, vegetarian);
-        menu[3] = new MenuItemImpl("Fries", 1.50, fries);
-        menu[4] = new MenuItemImpl("Hotdog", 4.99, hot);
-        menu[5] = new MenuItemImpl("Coke", 1.25, Arrays.asList(coke));
-        menu[6] = new MenuItemImpl("Chicken Fingers", 7.29, chickenFingers);
-        menu[7] = new MenuItemImpl("Onion Rings", 2.99, onionRings);
-        menu[8] = new MenuItemImpl("Poutine", 6.99, poutine);
-        menu[9] = new MenuItemImpl("Salad", 5.99, salad);
-
-        // Addon items
         FoodMod addTomato = new FoodModImpl(tomato, 0.25);
-        FoodMod addLettuce = new FoodModImpl(lettuce, 0.25);
-        FoodMod addSalt = new FoodModImpl(salt, 0.00);
-        FoodMod addKetchup = new FoodModImpl(ketchup, 0.00);
-        FoodMod addMustard = new FoodModImpl(mustard, 0.00);
-        FoodMod addCheese = new FoodModImpl(cheese, 1.00);
-        FoodMod addBacon = new FoodModImpl(bacon, 2.00);
+		FoodMod addLettuce = new FoodModImpl(lettuce, 0.25);
+		FoodMod addSalt = new FoodModImpl(salt, 0.00);
+		FoodMod addKetchup = new FoodModImpl(ketchup, 0.00);
+		FoodMod addMustard = new FoodModImpl(mustard, 0.00);
+		FoodMod addCheese = new FoodModImpl(cheese, 1.00);
+		FoodMod addBacon = new FoodModImpl(bacon, 2.00);
+		FoodMod addOnion = new FoodModImpl(onion, 0.50);
+		FoodMod addCucumber = new FoodModImpl(cucumber, 0.50);
+		FoodMod addGravy = new FoodModImpl(gravy, 1.00);
+		FoodMod addGreenOlives = new FoodModImpl(greenOlives, 1.00);
+		FoodMod addBlackOlives = new FoodModImpl(blackOlives, 1.00);
+
+		List<FoodMod> burgeradds = Arrays.asList(addKetchup, addMustard, addOnion, addBacon, addCheese, addTomato, addLettuce);
+		List<FoodMod> hdog = Arrays.asList(addKetchup, addMustard, addOnion, addBacon, addCheese);
+		List<FoodMod> fingerfood = Arrays.asList(addKetchup, addMustard, addSalt);
+		List<FoodMod> saladadds = Arrays.asList(addLettuce, addBacon, addOnion, addCucumber, addTomato, addGreenOlives, addBlackOlives);
+		List<FoodMod> poutineadds = Arrays.asList(addKetchup, addBacon, addCheese, addGravy);
+
+		menu[0] = new MenuItemImpl("Hamburger", 7.99, hamburger, burgeradds);
+		menu[1] = new MenuItemImpl("Chicken Burger", 5.39, chickenBurger, burgeradds);
+		menu[2] = new MenuItemImpl("Veggie Burger", 5.99, vegetarian, burgeradds);
+		menu[3] = new MenuItemImpl("Fries", 1.50, fries, fingerfood);
+		menu[4] = new MenuItemImpl("Hotdog", 4.99, hot, hdog);
+		menu[5] = new MenuItemImpl("Coke", 1.25, Arrays.asList(coke));
+		menu[6] = new MenuItemImpl("Chicken Fingers", 7.29, chickenFingers, fingerfood);
+		menu[7] = new MenuItemImpl("Onion Rings", 2.99, onionRings, fingerfood);
+		menu[8] = new MenuItemImpl("Poutine", 6.99, poutine, poutineadds);
+		menu[9] = new MenuItemImpl("Salad", 5.99, salad, saladadds);
 
         modsMenu.add(addBacon);
         modsMenu.add(addCheese);
@@ -68,6 +78,12 @@ public class BurgerMenu implements Menu {
         modsMenu.add(addMustard);
         modsMenu.add(addSalt);
         modsMenu.add(addTomato);
+        modsMenu.add(addBacon);
+        modsMenu.add(addBlackOlives);
+        modsMenu.add(addCucumber);
+        modsMenu.add(addGravy);
+        modsMenu.add(addGreenOlives);
+        modsMenu.add(addOnion);
     }
 
     @Override
@@ -93,7 +109,7 @@ public class BurgerMenu implements Menu {
     @Override
     public FoodMod getFoodMod(FoodMod query) {
         for (FoodMod searchItem : modsMenu) {
-            if (searchItem.equals(query)) {
+            if (searchItem.getName().equals(query.getName())) {
                 return searchItem;
             }
         }
