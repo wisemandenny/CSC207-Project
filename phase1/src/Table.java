@@ -4,8 +4,8 @@ import java.util.List;
 public class Table {
     private final int id;
     private final List<MenuItem> bill = new ArrayList<>();
+    private final List<MenuItem> deductions = new ArrayList<>();
     private Order order;
-    private List<MenuItem> deductions = new ArrayList<>();
 
     Table(int id) {
         this.id = id;
@@ -35,13 +35,14 @@ public class Table {
     TODO: delete this method IFF the better version above gets implemented.
     add all the items that have been rejected to this table
     */
-    void addToDeductions(final List<MenuItem> items) {
+    void addToDeductions(List<MenuItem> items) {
         deductions.addAll(items);
     }
+
     // get all the items that have been rejected and make them into a string
-    String stringDeductions(){
+    String stringDeductions() {
         StringBuilder ret = new StringBuilder("");
-        for(MenuItem item : deductions) {
+        for (MenuItem item : deductions) {
             ret.append(item.getQuantity()).append(" ").append(item.getName()).append(", ").append(item.getPrice()).append("\n");
         }
         return ret.toString();
@@ -50,12 +51,12 @@ public class Table {
     void printBill() {
         System.out.println("BILL FOR TABLE #" + id);
         for (MenuItem item : bill) {
-            System.out.println(item.getQuantity() + " " + item.getName() + ": $" + String.format("%.2f", item.getPrice() * item.getQuantity()));
-            for (FoodMod modifier : item.getMods()) {
+            System.out.println(item.getQuantity() + " " + item.getName() + ": $" + String.format("%.2f", item.getPrice()));
+            for (Ingredient modifier : item.getExtraIngredients()) {
                 System.out.println(item.getQuantity() + " " + modifier.getName() + ": $" + String.format("%.2f", modifier.getPrice()));
             }
         }
-        if (!deductions.isEmpty()){
+        if (!deductions.isEmpty()) {
             System.out.println("\nDEDUCTIONS (-)");
             for (MenuItem item : deductions) {
                 System.out.println(item.getQuantity() + " " + item.getName() + ": $" +
@@ -68,11 +69,11 @@ public class Table {
     private String getBillPrice() {
         double ret = 0.00;
         for (MenuItem item : bill) {
-            ret += item.getPrice() * item.getQuantity();
-            ret += item.getModPrice();
+            ret += item.getPrice();
+            ret += item.getExtraIngredientPrice();
         }
         // remove the price of any items that were returned
-        for(MenuItem item: deductions){
+        for (MenuItem item : deductions) {
             ret += item.getPrice();
         }
         return String.format("%.2f", ret);

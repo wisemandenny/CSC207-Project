@@ -1,12 +1,10 @@
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class InventoryImpl implements Inventory {
     private final Map<Ingredient, Integer> inventory = new HashMap<>();
+    public List<MenuItem> uncookedMenuitems = new ArrayList<>();
 
     InventoryImpl(Menu menu) {
         Set<Ingredient> ingredientSet = new HashSet<>();
@@ -27,6 +25,14 @@ public class InventoryImpl implements Inventory {
         }
     }
 
+    public void addUncookedMenuitems(MenuItem item){
+        uncookedMenuitems.add(item);
+    }
+
+    public List<MenuItem> getUncookedMenuItems(){
+        return uncookedMenuitems;
+    }
+    
     @Override
     public void addToInventory(Ingredient i, int amount) {
         inventory.put(i, inventory.get(i) + amount);
@@ -55,6 +61,8 @@ public class InventoryImpl implements Inventory {
         }
         if (uncookableItemNumber > 0) { //TODO: this is horrible.
             rejectItem(item, uncookableItemNumber);
+            MenuItem i = new MenuItemImpl(item.getName(), uncookableItemNumber);
+            addUncookedMenuitems(i);
         }
     }
 

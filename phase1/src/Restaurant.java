@@ -29,17 +29,6 @@ class Restaurant {
         inventory.addToInventory(ingredient, amount);
     }
 
-    private List<FoodMod> getMenuOrderedMods(List<FoodMod> orderedMods) {
-        List<FoodMod> newMods = new ArrayList<>();
-        for(FoodMod mod : orderedMods) {
-            // finds the FoodMod in the BurgerMenu.modsMenu with the same name as mod.
-            FoodMod menuModToAdd = menu.getFoodMod(mod);
-            menuModToAdd.setType(mod.getType());
-            newMods.add(menuModToAdd);
-        }
-        return newMods;
-    }
-
     private void handleEvents(EventManager manager) {
         Queue<Event> events = manager.getEvents();
 
@@ -53,10 +42,7 @@ class Restaurant {
                     Order order = e.getOrder();
                     List<MenuItem> newOrder = new ArrayList<>();
                     for (MenuItem item : order.getItems()) {
-                        MenuItem itemToAdd = MenuItemImpl.fromRestaurantMenu(menu.getMenuItem(item), item.getQuantity());
-                        List<FoodMod> modsMenuOrderedMods = getMenuOrderedMods(item.getOrderedMods());
-                        itemToAdd.setOrderedMods(modsMenuOrderedMods);
-                        itemToAdd.applyMods();
+                        MenuItem itemToAdd = new MenuItemImpl(menu.getMenuItem(item), item.getQuantity());
                         newOrder.add(itemToAdd);
                     }
                     tables[tableId].addOrderToTable(new OrderImpl(newOrder));
@@ -72,6 +58,7 @@ class Restaurant {
                     for (MenuItem item : tableOrder.getItems()) {
                         inventory.removeFromInventory(item);
                     }
+                    tables[tableId].addToDeductions(inventory.getUncookedMenuItems());
                     tableOrder.readyForPickup();
                     System.out.println("READY FOR PICKUP!\n" + tableOrder);
                     break;

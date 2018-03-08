@@ -8,9 +8,9 @@ public interface MenuItem {
 
     void setPrice(double price);
 
-    int getQuantity();
+    double getExtraIngredientPrice();
 
-    double getModPrice();
+    int getQuantity();
 
     String getComment();
 
@@ -18,7 +18,15 @@ public interface MenuItem {
 
     List<Ingredient> getIngredients();
 
-    String printIngredients();
+    void addExtraIngredient(Ingredient ingredient);
+
+    List<Ingredient> getExtraIngredients();
+
+    List<Ingredient> getRemovedIngredients();
+
+    List<Ingredient> getAllowedExtraIngredients();
+
+    void removeIngredient(Ingredient ingredient);
 
     boolean equals(MenuItem item);
 }
