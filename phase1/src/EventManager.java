@@ -47,6 +47,9 @@ class EventManager {
             case SERVERRETURNED:
                 ret = new Event(EventType.SERVERRETURNED, tableId, splitString[EventManager.ORDER_ADDRESS], splitString[EventManager.COMMENT_ADDRESS]);
                 break;
+            case RECIEVEDSHIPMENT:
+                ret = new Event(EventType.RECIEVEDSHIPMENT, s.split("|"));
+                break;
             default:
                 ret = new Event(type, tableId);
 

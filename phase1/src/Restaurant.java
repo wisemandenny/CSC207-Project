@@ -50,6 +50,7 @@ class Restaurant {
      * @param amount     the amount of this Ingredient that should be added
      */
     private void addToInventory(Ingredient ingredient, int amount) {
+
         inventory.addToInventory(ingredient, amount);
     }
 
@@ -116,7 +117,7 @@ class Restaurant {
                     System.out.println("TABLE " + tableId +
                             " HAS RETURNED THE FOLLOWING ITEM(s): \n" + currentTable.stringDeductions());
                     break;
-                //TODO: add "receivedShipment" for when
+                case RECIEVEDSHIPMENT:
             }
         }
     }

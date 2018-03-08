@@ -12,8 +12,6 @@ public class OrderImpl implements Order {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public List<MenuItem> getItems() {
@@ -22,7 +20,6 @@ public class OrderImpl implements Order {
 
     /**
      * {@inheritDoc}
-     *
      */
     @Override
     public void receivedByCook() {
@@ -31,7 +28,6 @@ public class OrderImpl implements Order {
 
     /**
      * {@inheritDoc}
-     *
      */
     @Override
     public void readyForPickup() {
@@ -40,7 +36,6 @@ public class OrderImpl implements Order {
 
     /**
      * {@inheritDoc}
-     *
      */
     @Override
     public void delivered() {
@@ -51,7 +46,6 @@ public class OrderImpl implements Order {
     //TODO: Delete if unused.
     //@Override
     public double getTotalPrice() {
-        //return orderItems.stream().mapToDouble(MenuItem::getPrice).sum(); too confusing but kind of cool
         double total = 0.00;
         for (MenuItem item : orderItems) {
             total += item.getPrice();
@@ -62,7 +56,6 @@ public class OrderImpl implements Order {
 
     /**
      * {@inheritDoc}
-     *
      */
     @Override
     public void returned() {
@@ -71,8 +64,6 @@ public class OrderImpl implements Order {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public List<Ingredient> getIngredients() {
@@ -85,8 +76,6 @@ public class OrderImpl implements Order {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public String toString() {

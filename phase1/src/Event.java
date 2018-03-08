@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 class Event {
@@ -7,6 +8,7 @@ class Event {
     private final int tableId;
     private Order order;
     private Order deductions;
+    private String[] shipment;
 
     Event(EventType type, int tableId) {
         this.type = type;
@@ -27,6 +29,12 @@ class Event {
         deductions = orderConstructorHelper(itemList);
         commentSetter(commentList);
     }
+
+    Event(EventType type, String[] shipment){
+        this.type = type;
+        this.shipment = shipment;
+    }
+
 
     /**
      * Sets the comments of returned MenuItems in this Event.
