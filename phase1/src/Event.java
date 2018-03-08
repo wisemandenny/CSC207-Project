@@ -41,7 +41,7 @@ class Event {
         for (String itemComment : commentList.split(",\\s")) {
             comments[count++] = itemComment;
         }
-        // assign each comment to it's respective returned menu item
+        // assign each comment to its respective returned menu item
         count = 0;
         for (MenuItem item : deductions.getItems()) {
             item.setComment(comments[count++]);
