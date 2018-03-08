@@ -130,15 +130,19 @@ public class Table {
      * @return      a String representation of this Table's bill price
      */
     private String getBillPrice() {
-        double ret = 0.00;
+        double initialCost = 0.00;
+        double deduct = 0.00;
         for (MenuItem item : bill) {
-            ret += item.getPrice();
-            ret += item.getExtraIngredientPrice();
+            initialCost += (item.getPrice() * item.getQuantity());
+            initialCost -= item.getExtraIngredientPrice();
         }
         // remove the price of any items that were returned
         for (MenuItem item : deductions) {
-            ret += item.getPrice();
+            deduct += (item.getPrice() * item.getQuantity());
+            deduct += item.getExtraIngredientPrice();
         }
+
+        double ret = initialCost + deduct;
         return String.format("%.2f", ret);
     }
 
