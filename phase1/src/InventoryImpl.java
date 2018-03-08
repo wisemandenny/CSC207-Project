@@ -24,14 +24,6 @@ public class InventoryImpl implements Inventory {
             ex.printStackTrace();
         }
     }
-
-    public void addUncookedMenuitems(MenuItem item){
-        uncookedMenuitems.add(item);
-    }
-
-    public List<MenuItem> getUncookedMenuItems(){
-        return uncookedMenuitems;
-    }
     
     @Override
     public void addToInventory(Ingredient i, int amount) {
@@ -43,7 +35,7 @@ public class InventoryImpl implements Inventory {
     }
 
     @Override
-    public void removeFromInventory(MenuItem item) {
+    public void removeFromInventory(MenuItem item, Table t) {
         int uncookableItemNumber = 0;
         for (Ingredient ingredient : item.getIngredients()) {
             int quantity = item.getQuantity();
@@ -62,7 +54,7 @@ public class InventoryImpl implements Inventory {
         if (uncookableItemNumber > 0) { //TODO: this is horrible.
             rejectItem(item, uncookableItemNumber);
             MenuItem i = new MenuItemImpl(item.getName(), uncookableItemNumber);
-            addUncookedMenuitems(i);
+            t.addUncookedMenuitems(i);
         }
     }
 

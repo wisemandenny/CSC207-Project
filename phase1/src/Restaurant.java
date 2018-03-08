@@ -62,9 +62,9 @@ class Restaurant {
                     break;
                 case COOKREADY:
                     for (MenuItem item : tableOrder.getItems()) {
-                        inventory.removeFromInventory(item);
+                        inventory.removeFromInventory(item, tables[tableId]);
                     }
-                    tables[tableId].addToDeductions(inventory.getUncookedMenuItems());
+                    tables[tableId].addToDeductions(tables[tableId].getUncookedMenuItems());
                     tableOrder.readyForPickup();
                     System.out.println("READY FOR PICKUP!\n" + tableOrder);
                     break;
