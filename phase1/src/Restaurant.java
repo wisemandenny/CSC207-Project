@@ -7,6 +7,11 @@ class Restaurant {
     private final Menu menu = new BurgerMenu();
     private final Inventory inventory = new InventoryImpl(menu);
 
+    /**
+     * Constructs a new Restaurant object.
+     *
+     * @param numOfTables  the number of Tables this Restaurant should have.
+     */
     Restaurant(int numOfTables) {
         tables = new Table[numOfTables + 1];
         for (int i = 1; i <= numOfTables; i++) {
@@ -16,22 +21,45 @@ class Restaurant {
         handleEvents(eventManager);
     }
 
+    /**
+     *  Signals the Table to print it's bill.
+     *
+     * @param tableId  the Table who's bill should be printed
+     */
     private void printBillForTable(int tableId) {
         tables[tableId].printBill();
     }
 
+    /**
+     *  Adds an Order to the Table tableId's bill.
+     *
+     * @param tableId  the Table to add an Order to
+     * @param order  the Order that should be added to the Table
+     */
     private void addOrderToBill(int tableId, Order order) {
         Table table = tables[tableId];
         table.addToBill(order);
     }
 
+    // TODO: Remove this if unused. IS THIS MEANT TO BE USED FOR RECEIVING ORDERS???
+    /**
+     *  Adds a new Ingredient to this Restaurant's inventory.
+     *
+     * @param ingredient  the Ingredient object to be added
+     * @param amount  the amount of this Ingredient that should be added
+     */
     private void addToInventory(Ingredient ingredient, int amount) {
         inventory.addToInventory(ingredient, amount);
     }
 
+    /**
+     *  Processes the Events that are received by EventManager, from events.txt.
+     *  For order events, the ordered MenuItems and Ingredient modifiers are replaced with their corresponding existing MenuItem or Ingredient in the Menu.
+     *
+     * @param manager The EventManager object containing the events that need processing
+     */
     private void handleEvents(EventManager manager) {
         Queue<Event> events = manager.getEvents();
-
         while (!events.isEmpty()) {
             Event e = events.remove();
             Order tableOrder = tables[e.getTableId()].getOrder();
