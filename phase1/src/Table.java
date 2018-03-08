@@ -42,7 +42,11 @@ public class Table {
         deductions.add(item);
     }
 
-    // get all the items that have been rejected and make them into a string
+    /**
+     * Take the list of deducted items and turn them into a readable String
+     *
+     * @return  a String of items that were removed from this table's bill.
+     */
     String stringDeductions() {
         StringBuilder ret = new StringBuilder("");
         for (MenuItem item : deductions) {

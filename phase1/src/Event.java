@@ -22,6 +22,13 @@ class Event {
         }
     }
 
+    /**
+     *
+     * @param type
+     * @param tableId
+     * @param itemList
+     * @param commentList
+     */
     Event(EventType type, int tableId, String itemList, String commentList) {
         this.type = type;
         this.tableId = tableId;
