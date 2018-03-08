@@ -43,9 +43,9 @@ public class Table {
     }
 
     /**
-     * Take the list of deducted items and turn them into a readable String
+     * Takes a list of deducted MenuItems and turns them into a readable String.
      *
-     * @return  a String of items that were removed from this table's bill.
+     * @return  a String of MenuItems that were removed from this Table's bill
      */
     String stringDeductions() {
         StringBuilder ret = new StringBuilder("");

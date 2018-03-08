@@ -4,14 +4,14 @@ public interface Order {
     /**
      * Returns a list of MenuItems that are apart of this Order.
      *
-     * @return      a list of MenuItems in this Order.
+     * @return      a list of MenuItems in this Order
      */
     List<MenuItem> getItems();
 
     /**
      * Returns a list of the Ingredients that are in the MenuItems in this Order.
      *
-     * @return      a list of Ingredients in this Order.
+     * @return      a list of Ingredients in this Order
      */
     List<Ingredient> getIngredients();
 
