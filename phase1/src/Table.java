@@ -132,16 +132,22 @@ public class Table {
     private String getBillPrice() {
         double initialCost = 0.00;
         double deduct = 0.00;
+
+
         for (MenuItem item : bill) {
             initialCost += (item.getPrice() * item.getQuantity());
             initialCost -= item.getExtraIngredientPrice();
+            initialCost -= item.getRemovedIngredientsPrice();
         }
         // remove the price of any items that were returned
         for (MenuItem item : deductions) {
             deduct += (item.getPrice() * item.getQuantity());
             deduct += item.getExtraIngredientPrice();
+            deduct -= item.getRemovedIngredientsPrice();
         }
 
+        System.out.println(initialCost);
+        System.out.println(deduct);
         double ret = initialCost + deduct;
         return String.format("%.2f", ret);
     }
