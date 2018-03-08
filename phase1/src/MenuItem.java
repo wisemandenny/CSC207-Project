@@ -8,6 +8,8 @@ public interface MenuItem {
 
     void setPrice(double price);
 
+    double getTotal();
+
     double getExtraIngredientPrice();
 
     int getQuantity();
