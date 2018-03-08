@@ -8,31 +8,69 @@ public class Table {
     private final List<MenuItem> uncookedMenuItems = new ArrayList<>();
     private Order order;
 
+    /**
+     * Constructs a new Table object.
+     *
+     * @param id  the integer representing the id of this Table
+     */
     Table(int id) {
         this.id = id;
     }
 
+    /**
+     * Ads a MenuItem to the uncookedMenuItems for this Table.
+     *
+     * @param item  The MenuItem to be added
+     */
     public void addUncookedMenuitems(MenuItem item) {
         uncookedMenuItems.add(item);
     }
 
+    /**
+     * Returns the uncooked MenuItems from this Table.
+     *
+     * @return      a List of MenuItems which are uncooked for this Table
+     */
     public List<MenuItem> getUncookedMenuItems() {
         return uncookedMenuItems;
     }
 
+    /**
+     *  Sets this Table's order to contain the Order o.
+     *
+     * @param o The Order object to be stored in this Table
+     */
     void addOrderToTable(Order o) {
         order = o;
     }
 
+    /**
+     * Adds an Order o to this Table's bill.
+     *
+     * @param o the Order to be added to this Table's bill
+     */
     void addToBill(Order o) {
         bill.addAll(o.getItems());
     }
 
+    /**
+     * Adds to this Table's deductions the quantity specified of MenuItem item and it's respective comment.
+     *
+     * @param item  the MenuItem to be deducted
+     * @param quantity  the quantity of MenuItem item to be deducted from this Table
+     * @param comment  the comment explaining the reason for MenuItem item's deduction
+     */
     void addToDeductions(MenuItem item, int quantity, String comment) {
         MenuItem itemToAdd = new MenuItemImpl(item, quantity);
         addToDeductions(itemToAdd, comment);
     }
 
+    /**
+     *  Adds to this Table's deductions the MenuItem item and it's respective comment.
+     *
+     * @param item  the MenuItem to be deducted
+     * @param comment  the comment explaining the reason for MenuItem item's deduction
+     */
     void addToDeductions(MenuItem item, String comment) {
         item.setComment(comment);
         item.setPrice(-item.getPrice());
@@ -58,6 +96,12 @@ public class Table {
         return ret.toString();
     }
 
+    /**
+     * Prints to the screen this Table's current bill.
+     * The bill includes how many of each MenuItem were ordered, and it's respective Ingredient modifications, along with their respective prices.
+     * If the bill had deductions they are shown below the order, with the number of deducted items, the price of the deduction and the total price of the order.
+     *
+     */
     void printBill() {
         System.out.println("BILL FOR TABLE #" + id);
         for (MenuItem item : bill) {
@@ -80,6 +124,11 @@ public class Table {
         System.out.println("Total: $" + getBillPrice() + "\n");
     }
 
+    /**
+     * Return a String representation of this Table's current bill's price.
+     *
+     * @return      a String representation of this Table's bill price
+     */
     private String getBillPrice() {
         double ret = 0.00;
         for (MenuItem item : bill) {
@@ -93,6 +142,11 @@ public class Table {
         return String.format("%.2f", ret);
     }
 
+    /**
+     *  Returns the Order that currently belongs to this Table.
+     *
+     * @return      the Order belonging to this Table
+     */
     protected Order getOrder() {
         return order;
     }
