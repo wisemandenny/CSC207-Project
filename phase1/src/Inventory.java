@@ -3,25 +3,25 @@ import java.util.List;
 
 public interface Inventory {
     /**
-     * Adds ingredient i with quantity amount to the inventory
+     * Adds Ingredient i with quantity amount to the Inventory.
      *
      * @param i  the ingredient being added to the inventory
-     * @param amount  the amount of the ingredient being added.
+     * @param amount  the amount of the Ingredient being added
      */
     void addToInventory(Ingredient i, int amount);
 
     /**
-     * Removes the ingredients in the specified MenuItem from the inventory.
+     * Removes the Ingredients in the specified MenuItem from the Inventory.
      *
-     * @param item  the MenuItem that is composed of certain ingredients
-     * @param t  the table that ordered the MenuItem
+     * @param item  the MenuItem that is composed of certain Ingredients
+     * @param t  the Table that ordered the MenuItem
      */
     void removeFromInventory(MenuItem item, Table t);
 
     /**
      * Returns the current inventory of the restaurant.
      *
-     * @return      the inventory of the restaurant.
+     * @return      the Inventory of the Restaurant
      */
     Map<Ingredient, Integer> getContents();
 }

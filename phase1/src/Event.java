@@ -3,7 +3,6 @@ import java.util.List;
 
 class Event {
     private static final int QUANTITY_ADDRESS = 0;
-    private static final int NAME_ADDRESS = 1;
     private final EventType type;
     private final int tableId;
     private Order order;
@@ -22,13 +21,6 @@ class Event {
         }
     }
 
-    /**
-     *
-     * @param type
-     * @param tableId
-     * @param itemList
-     * @param commentList
-     */
     Event(EventType type, int tableId, String itemList, String commentList) {
         this.type = type;
         this.tableId = tableId;
@@ -36,7 +28,11 @@ class Event {
         commentSetter(commentList);
     }
 
-
+    /**
+     * Sets the comments of returned MenuItems in this Event.
+     *
+     * @param commentList the String containing the comments to be added to the deducted MenuItems
+     */
     private void commentSetter(String commentList) {
         int count = 0;
         // make comments list
@@ -45,21 +41,27 @@ class Event {
         for (String itemComment : commentList.split(",\\s")) {
             comments[count++] = itemComment;
         }
-        // assign each comment to each returned menu item
+        // assign each comment to it's respective returned menu item
         count = 0;
         for (MenuItem item : deductions.getItems()) {
             item.setComment(comments[count++]);
         }
     }
 
+    /**
+     *  Returns an Order from a String of information from events.txt.
+     *
+     * @param strings an Order's ordered item(s) with any requested modifiers
+     * @return      the Order generated from strings
+     */
     private Order orderConstructorHelper(String strings) {
         List<MenuItem> orderItems = new ArrayList<>();
         for (String item : strings.split(",\\s")) { //split the order into [1-9] <item name> substrings
             String[] orderItemSplitString = item.split("\\s", 2);
-            int itemQuantity = Integer.parseInt(orderItemSplitString[0]);
+            int itemQuantity = Integer.parseInt(orderItemSplitString[QUANTITY_ADDRESS]);
             String orderInfo = orderItemSplitString[1];
 
-            // Separate the ordered item from any modifiers
+            // Separate the ordered item from any modifiers, there should only be one "/" break per menu item.
             String[] orderInfoSplit = orderInfo.split("\\s/\\s", 2);
             String orderedItemName = orderInfoSplit[0];
             MenuItem orderedMenuItem = new MenuItemImpl(orderedItemName, itemQuantity);
@@ -89,6 +91,11 @@ class Event {
         return new OrderImpl(orderItems);
     }
 
+    /**
+     *  Return the type of this Event (example: order, delivered).
+     *
+     * @return      the type of this Event
+     */
     EventType getType() {
         return EventType.fromString(type.toString());
     }
@@ -97,10 +104,20 @@ class Event {
         return new OrderImpl(order.getItems());
     }
 
+    /**
+     *  Return the Table which this Event belongs to.
+     *
+     * @return      the ID of the Table which this Event belongs to
+     */
     int getTableId() {
         return tableId;
     }
 
+    /**
+     *  Return an Order corresponding to this Event's deductions.
+     *
+     * @return      the ordered MenuItem deductions
+     */
     Order getDeductions() {
         return new OrderImpl(deductions.getItems());
     }
