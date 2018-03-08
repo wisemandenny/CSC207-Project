@@ -1,7 +1,6 @@
 import java.util.List;
 
 public interface Order {
-
     /**
      * Returns a list of MenuItems that are apart of this Order.
      *

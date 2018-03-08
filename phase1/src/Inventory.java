@@ -20,6 +20,7 @@ public interface Inventory {
 
     /**
      * Returns the current inventory of the restaurant.
+     *
      * @return      the inventory of the restaurant.
      */
     Map<Ingredient, Integer> getContents();

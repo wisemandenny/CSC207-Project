@@ -1,8 +1,6 @@
 import java.util.List;
 
 public interface MenuItem {
-    // MenuItem fromRestaurantMenu(MenuItem restaurantItem, int quantity);
-
     /**
      * Returns the name of this MenuItem
      *
