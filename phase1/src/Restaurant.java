@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
 
@@ -51,9 +52,10 @@ class Restaurant {
      */
     private void addToInventory(Ingredient ingredient, int amount) {
         inventory.addToInventory(ingredient, amount);
+        /* Uncomment this to test inventory reups
         for (Ingredient i : inventory.getContents().keySet()) {
             System.out.println(i.getName() + ": " + inventory.getContents().get(i));
-        }
+        }*/
     }
 
     /**
@@ -66,9 +68,14 @@ class Restaurant {
         Queue<Event> events = manager.getEvents();
         while (!events.isEmpty()) {
             Event e = events.remove();
-            Order tableOrder = tables[e.getTableId()].getOrder();
+
             int tableId = e.getTableId();
-            Table currentTable = tables[tableId];
+            Order tableOrder = new OrderImpl(Collections.emptyList());
+            Table currentTable = tables[0];
+            if (tableId > 0) {
+                tableOrder = tables[e.getTableId()].getOrder();
+                currentTable = tables[tableId];
+            }
 
             switch (e.getType()) {
                 case ORDER:
