@@ -6,9 +6,18 @@ public class Table {
     private final List<MenuItem> bill = new ArrayList<>();
     private Order order;
     private List<MenuItem> deductions = new ArrayList<>();
+    public List<MenuItem> uncookedMenuitems = new ArrayList<>();
 
     Table(int id) {
         this.id = id;
+    }
+
+    public void addUncookedMenuitems(MenuItem item){
+        uncookedMenuitems.add(item);
+    }
+
+    public List<MenuItem> getUncookedMenuItems(){
+        return uncookedMenuitems;
     }
 
     void addOrderToTable(Order o) {
