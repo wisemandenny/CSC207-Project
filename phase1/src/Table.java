@@ -90,7 +90,7 @@ public class Table {
         for (MenuItem item : deductions) {
             ret.append(item.getQuantity()).append(" ").append(item.getName()).append(", ").append(String.format("%.2f", item.getTotal())).append("\n");
             for (Ingredient mod : item.getExtraIngredients()) {
-                ret.append(item.getQuantity()).append(" ").append(mod.getName()).append(", ").append(String.format("%.2f", mod.getPrice() * item.getQuantity())).append("\n");
+                ret.append(item.getQuantity()).append(" ").append(mod.getName()).append(", ").append(String.format("%.2f", -mod.getPrice() * item.getQuantity())).append("\n");
             }
         }
         return ret.toString();
