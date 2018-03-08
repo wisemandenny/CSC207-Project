@@ -61,8 +61,12 @@ public class Table {
         for (MenuItem item : bill) {
             System.out.println(item.getQuantity() + " " + item.getName() + ": $" + String.format("%.2f", item.getPrice() * item.getQuantity()));
             for (Ingredient addedIng : item.getExtraIngredients()) {
-                System.out.println(item.getQuantity() + " " + addedIng.getName() + ": $" + String.format("%.2f", addedIng.getPrice()));
+                System.out.println("add " + item.getQuantity() + " " + addedIng.getName() + ": $" + String.format("%.2f", addedIng.getPrice()));
             }
+            for (Ingredient removedIng : item.getRemovedIngredients()) {
+                System.out.println("remove "+  item.getQuantity() + " " + removedIng.getName() + ": -$" + String.format("%.2f", removedIng.getPrice()));
+            }
+
         }
         if (!deductions.isEmpty()) {
             System.out.println("\nDEDUCTIONS (-)");
