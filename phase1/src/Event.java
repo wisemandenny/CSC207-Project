@@ -11,11 +11,24 @@ class Event {
     private Order order;
     private Order deductions;
 
+    /**
+     * Constructs a new Event object.
+     *
+     * @param type the type of Event
+     * @param tableId the id of the Table which this event belongs to
+     */
     Event(EventType type, int tableId) {
         this.type = type;
         this.tableId = tableId;
     }
 
+    /**
+     * Constructs a new Event object, used for Orders.
+     *
+     * @param type the type of Event
+     * @param tableId the id of the Table which this event belongs to
+     * @param order the order that the table with id tableId made
+     */
     Event(EventType type, int tableId, String order) {
         this.type = type;
         this.tableId = tableId;
@@ -24,6 +37,14 @@ class Event {
         }
     }
 
+    /**
+     * Constructs a new Event object, used for MenuItems that were returned to the kitchen.
+     *
+     * @param type the type of Event
+     * @param tableId the id of the Table which this event belongs to
+     * @param itemList the items that are being returned to the kitchen
+     * @param commentList the reasons why the items were returned to the kitchen
+     */
     Event(EventType type, int tableId, String itemList, String commentList) {
         this.type = type;
         this.tableId = tableId;
@@ -32,6 +53,12 @@ class Event {
     }
 
     Event(EventType type, String shipment) {
+    /**
+     * Constructs a new Event object that is used for shipping events.
+     * @param type the type of Event
+     * @param shipment the shipment that is coming in
+     */
+    Event(EventType type, String[] shipment){
         this.type = type;
         String[] info = shipment.split(", ");
         for (String ingredient : info) {
@@ -41,7 +68,6 @@ class Event {
             this.shipment.put(i, quantity);
         }
     }
-
 
     /**
      * Sets the comments of returned MenuItems in this Event.
@@ -115,6 +141,11 @@ class Event {
         return EventType.fromString(type.toString());
     }
 
+    /**
+     * Returns an Order consisting of all the items in the order.
+     *
+     * @return      an Order
+     */
     Order getOrder() {
         return new OrderImpl(order.getItems());
     }

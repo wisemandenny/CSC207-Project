@@ -10,15 +10,20 @@ public enum EventType {
     private final String type;
 
     /**
-     * Returns the eventType that corresponds to the given String type.
+     * Constructs a new EventType.
      *
-     * @param type the String representation of an EventType
-     * @return an EventType generated that corresponds to the given String
+     * @param type the type of EventType
      */
     EventType(String type) {
         this.type = type;
     }
 
+    /**
+     * Returns the eventType that corresponds to the given String type.
+     *
+     * @param type the String representation of an EventType
+     * @return an EventType generated that corresponds to the given String
+     */
     public static EventType fromString(String type) {
         for (EventType eventType : EventType.values()) {
             if (eventType.toString().equals(type)) {
