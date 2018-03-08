@@ -11,7 +11,7 @@ public class Table {
     /**
      * Constructs a new Table object.
      *
-     * @param id  the integer representing the id of this Table
+     * @param id the integer representing the id of this Table
      */
     Table(int id) {
         this.id = id;
@@ -20,7 +20,7 @@ public class Table {
     /**
      * Ads a MenuItem to the uncookedMenuItems for this Table.
      *
-     * @param item  The MenuItem to be added
+     * @param item The MenuItem to be added
      */
     public void addUncookedMenuitems(MenuItem item) {
         uncookedMenuItems.add(item);
@@ -29,14 +29,14 @@ public class Table {
     /**
      * Returns the uncooked MenuItems from this Table.
      *
-     * @return      a List of MenuItems which are uncooked for this Table
+     * @return a List of MenuItems which are uncooked for this Table
      */
     public List<MenuItem> getUncookedMenuItems() {
         return uncookedMenuItems;
     }
 
     /**
-     *  Sets this Table's order to contain the Order o.
+     * Sets this Table's order to contain the Order o.
      *
      * @param o The Order object to be stored in this Table
      */
@@ -56,8 +56,8 @@ public class Table {
     /**
      * Adds to this Table's deductions the quantity specified of MenuItem item and it's respective comment.
      *
-     * @param item  the MenuItem to be deducted
-     * @param quantity  the quantity of MenuItem item to be deducted from this Table
+     * @param item     the MenuItem to be deducted
+     * @param quantity the quantity of MenuItem item to be deducted from this Table
      * @param comment  the comment explaining the reason for MenuItem item's deduction
      */
     void addToDeductions(MenuItem item, int quantity, String comment) {
@@ -66,10 +66,10 @@ public class Table {
     }
 
     /**
-     *  Adds to this Table's deductions the MenuItem item and it's respective comment.
+     * Adds to this Table's deductions the MenuItem item and it's respective comment.
      *
-     * @param item  the MenuItem to be deducted
-     * @param comment  the comment explaining the reason for MenuItem item's deduction
+     * @param item    the MenuItem to be deducted
+     * @param comment the comment explaining the reason for MenuItem item's deduction
      */
     void addToDeductions(MenuItem item, String comment) {
         item.setComment(comment);
@@ -83,7 +83,7 @@ public class Table {
     /**
      * Takes a list of deducted MenuItems and turns them into a readable String.
      *
-     * @return  a String of MenuItems that were removed from this Table's bill
+     * @return a String of MenuItems that were removed from this Table's bill
      */
     String stringDeductions() {
         StringBuilder ret = new StringBuilder("");
@@ -100,7 +100,6 @@ public class Table {
      * Prints to the screen this Table's current bill.
      * The bill includes how many of each MenuItem were ordered, and it's respective Ingredient modifications, along with their respective prices.
      * If the bill had deductions they are shown below the order, with the number of deducted items, the price of the deduction and the total price of the order.
-     *
      */
     void printBill() {
         System.out.println("BILL FOR TABLE #" + id);
@@ -127,12 +126,11 @@ public class Table {
     /**
      * Return a String representation of this Table's current bill's price.
      *
-     * @return      a String representation of this Table's bill price
+     * @return a String representation of this Table's bill price
      */
     private String getBillPrice() {
         double initialCost = 0.00;
         double deduct = 0.00;
-
 
         for (MenuItem item : bill) {
             initialCost += (item.getPrice() * item.getQuantity());
@@ -146,16 +144,14 @@ public class Table {
             deduct -= item.getRemovedIngredientsPrice();
         }
 
-        System.out.println(initialCost);
-        System.out.println(deduct);
         double ret = initialCost + deduct;
         return String.format("%.2f", ret);
     }
 
     /**
-     *  Returns the Order that currently belongs to this Table.
+     * Returns the Order that currently belongs to this Table.
      *
-     * @return      the Order belonging to this Table
+     * @return the Order belonging to this Table
      */
     protected Order getOrder() {
         return order;
