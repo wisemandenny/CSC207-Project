@@ -1,4 +1,4 @@
-order | table 1 | 1 Hamburger, 1 Coke
+order | table 1 | 1 Hamburger / +addKetchup, 1 Coke
 received | table 1
 ready | table 1
 delivered | table 1
@@ -6,7 +6,7 @@ serverReturned | table 1 | 1 Coke | drink isn't fizzy
 check please! | table 1
 order | table 2 | 1 Hotdog, 1 Hamburger, 2 Coke
 received | table 2
-order | table 3 | 1 Salad, 1 Coke
+order | table 3 | 1 Salad / +addCheese -addOnion, 1 Coke
 received | table 3
 ready | table 2
 ready | table 3
@@ -14,19 +14,19 @@ delivered | table 2
 serverReturned | table 2 | 1 Coke, 1 Hamburger | Guest wanted pepsi, Guest is vegan
 check please! | table 2
 delivered | table 3
-order | table 4 | 2 Chicken Fingers, 3 Coke, 2 Fries
+order | table 4 | 2 Chicken Fingers / +addKetchup, 3 Coke, 2 Fries -addSalt
 received | table 4
-order | table 5 | 1 Poutine
+order | table 5 | 1 Poutine / +addBacon +addKetchup
 received | table 5
 order | table 6 | 1 Onion Rings
 received | table 6
 ready | table 4
-order | table 7 | 7 Chicken Fingers
+order | table 7 | 7 Chicken Fingers / +addKetchup
 received | table 7
 ready | table 5
 ready | table 6
 ready | table 7
-order | table 8 | 1 Salad
+order | table 8 | 1 Salad / +addGreenOlives +addBlackOlives
 received | table 8
 delivered | table 4
 delivered | table 5
@@ -35,9 +35,9 @@ delivered | table 7
 ready | table 8
 delivered | table 8
 serverReturned | table 8 | 1 Salad | rotten lettuce
-order | table 9 | 80 Hamburger
+order | table 9 | 80 Hamburger / +addCheese
 received | table 9
-order | table 10 | 1 Veggie Burger
+order | table 10 | 1 Veggie Burger / +addBacon
 received | table 10
 ready | table 9
 ready | table 10

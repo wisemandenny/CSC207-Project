@@ -29,6 +29,17 @@ class Restaurant {
         inventory.addToInventory(ingredient, amount);
     }
 
+    private List<FoodMod> getMenuOrderedMods(List<FoodMod> orderedMods) {
+        List<FoodMod> newMods = new ArrayList<>();
+        for(FoodMod mod : orderedMods) {
+            // finds the FoodMod in the BurgerMenu.modsMenu with the same name as mod.
+            FoodMod menuModToAdd = menu.getFoodMod(mod);
+            menuModToAdd.setType(mod.getType());
+            newMods.add(menuModToAdd);
+        }
+        return newMods;
+    }
+
     private void handleEvents(EventManager manager) {
         Queue<Event> events = manager.getEvents();
 
@@ -42,20 +53,13 @@ class Restaurant {
                     Order order = e.getOrder();
                     List<MenuItem> newOrder = new ArrayList<>();
                     for (MenuItem item : order.getItems()) {
-                        newOrder.add(MenuItemImpl.fromRestaurantMenu(menu.getMenuItem(item), item.getQuantity()));
+                        MenuItem itemToAdd = MenuItemImpl.fromRestaurantMenu(menu.getMenuItem(item), item.getQuantity());
+                        List<FoodMod> modsMenuOrderedMods = getMenuOrderedMods(item.getOrderedMods());
+                        itemToAdd.setOrderedMods(modsMenuOrderedMods);
+                        itemToAdd.applyMods();
+                        newOrder.add(itemToAdd);
                     }
                     tables[tableId].addOrderToTable(new OrderImpl(newOrder));
-                    break;
-                case ADDON: //TODO: fix this and add addon enum
-                    String[] instructions = e.getAddOn().split("\\s");
-                    String instructionType = instructions[1];
-                    int itemIndex = Integer.parseInt(instructions[0]) - 1;
-                    FoodMod modifier = new FoodModImpl(new IngredientImpl(instructions[2]));
-                    if (instructionType.equals("add")) {
-                        modifier.addTo(tableOrder.getItems().get(itemIndex));
-                    } else {
-                        modifier.removeFrom(tableOrder.getItems().get(itemIndex));
-                    }
                     break;
                 case BILL:
                     printBillForTable(tableId);
@@ -81,7 +85,7 @@ class Restaurant {
                     tableOrder.returned();
                     tables[tableId].addToDeductions(e.getDeductions());
                     // set the cost of this event
-                    for(MenuItem item : e.getDeductions()){
+                    for (MenuItem item : e.getDeductions()) {
                         double cost = menu.getMenuItem(item).getPrice();
                         cost *= item.getQuantity() * -1;
                         item.setPrice(cost);

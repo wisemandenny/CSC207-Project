@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 class Event {
@@ -9,7 +8,6 @@ class Event {
     private final int tableId;
     private Order order;
     private List<MenuItem> deduction;
-    private String addOn;
 
     Event(EventType type, int tableId) {
         this.type = type;
@@ -21,10 +19,6 @@ class Event {
         this.tableId = tableId;
         if (type.equals(EventType.ORDER)) {
             orderConstructorHelper(order);
-        } else {
-            if (type.equals(EventType.ADDON)) {
-                addOn = order;
-            }
         }
     }
 
@@ -55,32 +49,55 @@ class Event {
         this.deduction = new ArrayList<>();
         if(strings.length() < 2) throw new IllegalArgumentException("Invalid strings length in Event.itemBuilder");
         for(String item: strings.split(",\\s")){
-           addItemToList(item, deduction);
+        String[] itemSplitString = item.split("\\s", 2);
+        int quantity = Integer.parseInt(itemSplitString[QUANTITY_ADDRESS]);
+        String itemName = itemSplitString[NAME_ADDRESS];
+        // make a menu item and add it to the deduction list
+           addItemToList(new MenuItemImpl(itemName, quantity), deduction);
         }
     }
 
     private void orderConstructorHelper(String strings){
         List<MenuItem> orderItems = new ArrayList<>();
         for (String item : strings.split(",\\s")) { //split the order into [1-9] <item name> substrings
-            addItemToList(item, orderItems);
+            String[] orderItemSplitString = item.split("\\s", 2);
+            int itemQuantity = Integer.parseInt(orderItemSplitString[0]);
+            String orderInfo = orderItemSplitString[1];
+
+            // Separate the ordered item from any modifiers
+            String[] orderInfoSplit = orderInfo.split("\\s/\\s", 2);
+            String orderedItemName = orderInfoSplit[0];
+            MenuItem orderedMenuItem = new MenuItemImpl(orderedItemName, itemQuantity);
+
+            // If there are and modifiers:
+            if (orderInfoSplit.length > 1) {
+                String[] orderedModifiers = orderInfoSplit[1].split("\\s");
+                for (String modifier : orderedModifiers) {
+                    String flag = modifier.substring(0, 1);
+                    String modIngredient = modifier.substring(4);
+                    if (flag.equals("+")) {
+                        // add addon
+                        FoodMod modifierToAdd = new FoodModImpl(new IngredientImpl(modIngredient), "add");
+                        orderedMenuItem.orderMod(modifierToAdd);
+                    } else if (flag.equals("-")) {
+                        // remove ingredient
+                        FoodMod modifierToRemove= new FoodModImpl(new IngredientImpl(modIngredient), "remove");
+                        orderedMenuItem.orderMod(modifierToRemove);
+                    } else throw new IllegalArgumentException("Unable to read modifier in events.txt");
+                }
+            }
+            addItemToList(orderedMenuItem, orderItems);
         }
         order = new OrderImpl(orderItems);
     }
 
-    private void addItemToList(String item, List<MenuItem> list){
-        String[] itemSplitString = item.split("\\s", 2);
-        int quantity = Integer.parseInt(itemSplitString[QUANTITY_ADDRESS]);
-        String itemName = itemSplitString[NAME_ADDRESS];
-        // make a menu item and add it to the deduction list
-        list.add(new MenuItemImpl(itemName, quantity));
+
+    private void addItemToList(MenuItem item, List<MenuItem> list){
+        list.add(item);
     }
 
     EventType getType() {
         return EventType.fromString(type.toString());
-    }
-
-    String getAddOn() {
-        return addOn;
     }
 
     Order getOrder() {
