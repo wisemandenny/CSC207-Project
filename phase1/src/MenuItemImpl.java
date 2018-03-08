@@ -45,31 +45,60 @@ class MenuItemImpl implements MenuItem {
         this.ingredients = ingredients;
     }
 
-
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     @Override
     public int getQuantity() {
         return quantity;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     @Override
     public double getPrice() {
         return price;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param price  the new price of this MenuItem
+     */
     @Override
     public void setPrice(double price) {
         this.price = price;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     public double getTotal() {
         return price * quantity;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     @Override
     public double getExtraIngredientPrice() {
         double ret = 0.0;
@@ -79,46 +108,92 @@ class MenuItemImpl implements MenuItem {
         return ret * quantity;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     @Override
     public String getComment() {
         return comment;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param comment  the comment that is to be associated with this MenuItem
+     */
     @Override
     public void setComment(String comment) {
         this.comment = comment;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     @Override
     public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param addOn
+     */
     @Override
     public void addExtraIngredient(Ingredient addOn) {
         extraIngredients.add(addOn);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param ingredient  The ingredient that is to be removed from this MenuItem's list of Ingredients
+     */
     @Override
     public void removeIngredient(Ingredient ingredient) {
         removedIngredients.add(ingredient);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param item  the MenuItem being compared to this MenuItem
+     * @return
+     */
     @Override
     public boolean equals(MenuItem item) {
         return name.equals(item.getName());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     @Override
     public List<Ingredient> getExtraIngredients() {
         return new ArrayList<>(extraIngredients);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     @Override
     public List<Ingredient> getRemovedIngredients() {
         return new ArrayList<>(removedIngredients);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     @Override
     public double getRemovedIngredientsPrice() {
         double ret = 0.0;

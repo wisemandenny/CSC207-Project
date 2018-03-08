@@ -25,6 +25,12 @@ public class InventoryImpl implements Inventory {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param i  the ingredient being added to the inventory
+     * @param amount  the amount of the Ingredient being added
+     */
     @Override
     public void addToInventory(Ingredient i, int amount) {
         inventory.put(i, inventory.get(i) + amount);
@@ -34,6 +40,12 @@ public class InventoryImpl implements Inventory {
         inventory.put(i, inventory.get(i) - amount);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param item  the MenuItem that is composed of certain Ingredients
+     * @param t  the Table that ordered the MenuItem
+     */
     @Override
     public void removeFromInventory(MenuItem item, Table t) {
         int uncookableItemNumber = 0;
@@ -71,6 +83,11 @@ public class InventoryImpl implements Inventory {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     @Override
     public Map<Ingredient, Integer> getContents() {
         return inventory;

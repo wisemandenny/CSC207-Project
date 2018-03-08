@@ -10,21 +10,38 @@ public class OrderImpl implements Order {
         this.orderItems = orderItems;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     @Override
     public List<MenuItem> getItems() {
         return new ArrayList<>(orderItems);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     */
     @Override
     public void receivedByCook() {
         isReceivedByCook = true;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     */
     @Override
     public void readyForPickup() {
         isReadyForPickup = true;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     */
     @Override
     public void delivered() {
         isDelivered = true;
@@ -43,11 +60,20 @@ public class OrderImpl implements Order {
         return total;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     */
     @Override
     public void returned() {
         isReturned = true;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     @Override
     public List<Ingredient> getIngredients() {
         List<Ingredient> ingredientList = new ArrayList<>();
@@ -57,6 +83,11 @@ public class OrderImpl implements Order {
         return ingredientList;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
