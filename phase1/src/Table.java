@@ -2,10 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Table {
+    /**
+     * A table at the restaurant with identification, a bill, and sometimes deductions and uncooked foods.
+     */
     private final int id;
     private final List<MenuItem> bill = new ArrayList<>();
     private final List<MenuItem> deductions = new ArrayList<>();
-    private final List<MenuItem> uncookedMenuItems = new ArrayList<>();
+    private final List<MenuItem> uncookedMenuitems = new ArrayList<>();
     private Order order;
 
     Table(int id) {
@@ -17,7 +20,7 @@ public class Table {
     }
 
     public List<MenuItem> getUncookedMenuItems() {
-        return uncookedMenuItems;
+        return uncookedMenuitems;
     }
 
     void addOrderToTable(Order o) {
@@ -25,16 +28,10 @@ public class Table {
     }
 
     void addToBill(Order o) {
+        /**
+         * Adds the items from order o to this tables' bill.
+         */
         bill.addAll(o.getItems());
-    }
-
-    void addToDeductions(MenuItem item, int quantity, String comment) {
-        MenuItem itemToAdd = new MenuItemImpl(item, quantity);
-        itemToAdd.setComment(comment);
-        double cost = item.getPrice();
-        cost *= item.getQuantity() * -1;
-        itemToAdd.setPrice(cost);
-        deductions.add(itemToAdd);
     }
 
     void addToDeductions(List<MenuItem> items) {
