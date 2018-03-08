@@ -28,6 +28,10 @@ public class InventoryImpl implements Inventory {
     public void addUncookedMenuitems(MenuItem item){
         uncookedMenuitems.add(item);
     }
+
+    public List<MenuItem> getUncookedMenuItems(){
+        return uncookedMenuitems;
+    }
     
     @Override
     public void addToInventory(Ingredient i, int amount) {
@@ -57,6 +61,8 @@ public class InventoryImpl implements Inventory {
         }
         if (uncookableItemNumber > 0) { //TODO: this is horrible.
             rejectItem(item, uncookableItemNumber);
+            MenuItem i = new MenuItemImpl(item.getName(), uncookableItemNumber);
+            addUncookedMenuitems(i);
         }
     }
 
