@@ -29,15 +29,19 @@ class EventManager {
      * Returns an Event generated from the String s, obtained from events.txt.
      *
      * @param s the String containing Order type, Table, and information appropriate to the Order type
-     * @return      an Event generated from the String s
+     * @return an Event generated from the String s
      */
     private Event parseString(String s) {
         String[] splitString = s.split("\\s\\|\\s", 4);
         if (splitString.length < 2 || splitString.length > 5) {
             throw new IllegalArgumentException("Invalid line in events.txt" + s);
         }
-        int tableId = Integer.parseInt(splitString[EventManager.TABLEID_ADDRESS].substring(EventManager.TABLE_LENGTH));
-        EventType type = EventType.fromString(splitString[EventManager.TYPE_ADDRESS]);
+        String stringType = splitString[EventManager.TYPE_ADDRESS];
+        int tableId = 0;
+        if (!stringType.equals("receivedShipment")) {
+            tableId = Integer.parseInt(splitString[EventManager.TABLEID_ADDRESS].substring(EventManager.TABLE_LENGTH));
+        }
+        EventType type = EventType.fromString(stringType);
 
         Event ret;
         switch (type) {
@@ -58,9 +62,9 @@ class EventManager {
     }
 
     /**
-     *  Return the Events this EventManager is holding.
+     * Return the Events this EventManager is holding.
      *
-     * @return      a Queue containing all of the Events contained in this EventManager
+     * @return a Queue containing all of the Events contained in this EventManager
      */
     Queue<Event> getEvents() {
         return new LinkedList<>(events); //return a copy of events so as to not expose the private internal state
