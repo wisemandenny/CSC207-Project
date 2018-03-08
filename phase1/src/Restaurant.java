@@ -72,6 +72,7 @@ class Restaurant {
                     for (MenuItem item : tableOrder.getItems()) {
                         inventory.removeFromInventory(item);
                     }
+                    tables[tableId].addToDeductions(inventory.getUncookedMenuItems());
                     tableOrder.readyForPickup();
                     System.out.println("READY FOR PICKUP!\n" + tableOrder);
                     break;
