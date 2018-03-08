@@ -54,7 +54,7 @@ public class Table {
     }
 
     /**
-     * Adds to this Table's deductions the quantity specified of MenuItem item and it's respective comment.
+     * Adds to this Table's deductions the quantity specified of MenuItem item and its respective comment.
      *
      * @param item     the MenuItem to be deducted
      * @param quantity the quantity of MenuItem item to be deducted from this Table
@@ -66,7 +66,7 @@ public class Table {
     }
 
     /**
-     * Adds to this Table's deductions the MenuItem item and it's respective comment.
+     * Adds to this Table's deductions the MenuItem item and its respective comment.
      *
      * @param item    the MenuItem to be deducted
      * @param comment the comment explaining the reason for MenuItem item's deduction
@@ -98,7 +98,7 @@ public class Table {
 
     /**
      * Prints to the screen this Table's current bill.
-     * The bill includes how many of each MenuItem were ordered, and it's respective Ingredient modifications, along with their respective prices.
+     * The bill includes how many of each MenuItem were ordered, and its respective Ingredient modifications, along with their respective prices.
      * If the bill had deductions they are shown below the order, with the number of deducted items, the price of the deduction and the total price of the order.
      */
     void printBill() {
