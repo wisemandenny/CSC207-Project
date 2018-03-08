@@ -22,7 +22,7 @@ class Restaurant {
     }
 
     /**
-     *  Signals the Table to print it's bill.
+     *  Signals the Table to print its bill.
      *
      * @param tableId  the Table who's bill should be printed
      */
