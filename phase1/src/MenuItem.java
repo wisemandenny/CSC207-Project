@@ -24,6 +24,8 @@ public interface MenuItem {
 
     List<Ingredient> getRemovedIngredients();
 
+    double getRemovedIngredientsPrice();
+
     List<Ingredient> getAllowedExtraIngredients();
 
     void removeIngredient(Ingredient ingredient);

@@ -30,17 +30,16 @@ class EventManager {
         if (splitString.length < 2 || splitString.length > 5) {
             throw new IllegalArgumentException("Invalid length of string"); //TODO: fix this warning message
         }
-        int tableId = Integer.parseInt(splitString[TABLEID_ADDRESS].substring(EventManager.TABLE_LENGTH));
-        EventType type = EventType.fromString(splitString[TYPE_ADDRESS]);
+        int tableId = Integer.parseInt(splitString[EventManager.TABLEID_ADDRESS].substring(EventManager.TABLE_LENGTH));
+        EventType type = EventType.fromString(splitString[EventManager.TYPE_ADDRESS]);
 
         Event ret;
-        //TODO: fix this (no special case)
         switch (type) {
             case ORDER:
-                ret = new Event(EventType.ORDER, tableId, splitString[ORDER_ADDRESS]);
+                ret = new Event(EventType.ORDER, tableId, splitString[EventManager.ORDER_ADDRESS]);
                 break;
             case SERVERRETURNED:
-                ret = new Event(EventType.SERVERRETURNED, tableId, splitString[ORDER_ADDRESS], splitString[COMMENT_ADDRESS]);
+                ret = new Event(EventType.SERVERRETURNED, tableId, splitString[EventManager.ORDER_ADDRESS], splitString[EventManager.COMMENT_ADDRESS]);
                 break;
             default:
                 ret = new Event(type, tableId);

@@ -2,5 +2,6 @@ public interface Ingredient {
     String getName();
 
     double getPrice();
-    boolean equalTo(Ingredient ing);
+
+    boolean sameAs(Ingredient i);
 }

@@ -5,18 +5,18 @@ public class Table {
     private final int id;
     private final List<MenuItem> bill = new ArrayList<>();
     private final List<MenuItem> deductions = new ArrayList<>();
+    private final List<MenuItem> uncookedMenuitems = new ArrayList<>();
     private Order order;
-    private List<MenuItem> uncookedMenuitems = new ArrayList<>();
 
     Table(int id) {
         this.id = id;
     }
 
-    public void addUncookedMenuitems(MenuItem item){
+    public void addUncookedMenuitems(MenuItem item) {
         uncookedMenuitems.add(item);
     }
 
-    public List<MenuItem> getUncookedMenuItems(){
+    public List<MenuItem> getUncookedMenuItems() {
         return uncookedMenuitems;
     }
 
@@ -28,29 +28,14 @@ public class Table {
         bill.addAll(o.getItems());
     }
 
-    /*
-    TODO: this method throws an error if an item that was returned hasn't been delivered to the table
-    it wouldn't take quantity into account either that's something else that needs to be considered.
-    void addToDeductions(final List<MenuItem> items) {
-        boolean flag = true;
-   return new OrderImpl(order.getItems());     for (MenuItem i : items) {
-            System.out.println(i.getName());
-            if (!bill.contains(i)) {
-                throw new IllegalStateException("You cannot return an item that has not been delivered to your table!");
-             }
-        }
+    void addToDeductions(List<MenuItem> items) {
         deductions.addAll(items);
     }
-    TODO: delete this method IFF the better version above gets implemented.
-    add all the items that have been rejected to this table
-    */
-    void addToDeductions(final List<MenuItem> items) {
-        deductions.addAll(items);
-    }
+
     // get all the items that have been rejected and make them into a string
-    String stringDeductions(){
+    String stringDeductions() {
         StringBuilder ret = new StringBuilder("");
-        for(MenuItem item : deductions) {
+        for (MenuItem item : deductions) {
             ret.append(item.getQuantity()).append(" ").append(item.getName()).append(", ").append(item.getPrice()).append("\n");
         }
         return ret.toString();
@@ -59,12 +44,12 @@ public class Table {
     void printBill() {
         System.out.println("BILL FOR TABLE #" + id);
         for (MenuItem item : bill) {
-            System.out.println(item.getQuantity() + " " + item.getName() + ": $" + String.format("%.2f", item.getPrice() * item.getQuantity()));
+            System.out.println(item.getQuantity() + " " + item.getName() + ": $" + String.format("%.2f", item.getPrice()));
             for (Ingredient addedIng : item.getExtraIngredients()) {
-                System.out.println("add " + item.getQuantity() + " " + addedIng.getName() + ": $" + String.format("%.2f", addedIng.getPrice()));
+                System.out.println("add " + item.getQuantity() + " " + addedIng.getName() + ": $" + String.format("%.2f", addedIng.getPrice() * item.getQuantity()));
             }
             for (Ingredient removedIng : item.getRemovedIngredients()) {
-                System.out.println("remove "+  item.getQuantity() + " " + removedIng.getName() + ": -$" + String.format("%.2f", removedIng.getPrice()));
+                System.out.println("remove " + item.getQuantity() + " " + removedIng.getName() + ": -$" + String.format("%.2f", removedIng.getPrice() * item.getQuantity()));
             }
 
         }
@@ -81,11 +66,11 @@ public class Table {
     private String getBillPrice() {
         double ret = 0.00;
         for (MenuItem item : bill) {
-            ret += item.getPrice() * item.getQuantity();
+            ret += item.getPrice();
             ret += item.getExtraIngredientPrice();
         }
         // remove the price of any items that were returned
-        for(MenuItem item: deductions){
+        for (MenuItem item : deductions) {
             ret += item.getPrice();
         }
         return String.format("%.2f", ret);

@@ -8,8 +8,8 @@ class MenuItemImpl implements MenuItem {
     private final List<Ingredient> extraIngredients = new ArrayList<>();
     private final List<Ingredient> removedIngredients = new ArrayList<>();
     private final List<Ingredient> allowedExtraIngredients = new ArrayList<>();
+    private final List<Ingredient> ingredients;
     private double price;
-    private List<Ingredient> ingredients;
     private String comment;
 
 
@@ -97,10 +97,6 @@ class MenuItemImpl implements MenuItem {
         return ingredients;
     }
 
-    void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
     @Override
     public void addExtraIngredient(Ingredient addOn) {
         extraIngredients.add(addOn);
@@ -124,5 +120,14 @@ class MenuItemImpl implements MenuItem {
     @Override
     public List<Ingredient> getRemovedIngredients() {
         return new ArrayList<>(removedIngredients);
+    }
+
+    @Override
+    public double getRemovedIngredientsPrice() {
+        double ret = 0.0;
+        for (Ingredient i : removedIngredients) {
+            ret += i.getPrice();
+        }
+        return ret * quantity;
     }
 }

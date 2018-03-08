@@ -54,12 +54,11 @@ public class BurgerMenu implements Menu {
         ingredientMenu[21] = coke;
 
 
-
         List<Ingredient> hamburger = Arrays.asList(burgerBun, patty, lettuce, tomato, ketchup, mustard, bacon);
         List<Ingredient> chickenBurger = Arrays.asList(burgerBun, chickenPatty, lettuce, tomato);
         List<Ingredient> vegetarian = Arrays.asList(burgerBun, veg, lettuce, tomato);
         List<Ingredient> fries = Arrays.asList(potato, salt);
-        List<Ingredient> hot = Arrays.asList(hotdog, hotdogBun);
+        List<Ingredient> hotdogExtras = Arrays.asList(hotdog, hotdogBun);
         List<Ingredient> chickenFingers = Arrays.asList(chicken, breadcrumbs);
         List<Ingredient> onionRings = Arrays.asList(onion, breadcrumbs);
         List<Ingredient> poutine = Arrays.asList(potato, salt, cheese, gravy);
@@ -69,7 +68,7 @@ public class BurgerMenu implements Menu {
         menu[1] = new MenuItemImpl("Chicken Burger", 5.39, chickenBurger);
         menu[2] = new MenuItemImpl("Veggie Burger", 5.99, vegetarian);
         menu[3] = new MenuItemImpl("Fries", 1.50, fries);
-        menu[4] = new MenuItemImpl("Hotdog", 4.99, hot);
+        menu[4] = new MenuItemImpl("Hotdog", 4.99, hotdogExtras);
         menu[5] = new MenuItemImpl("Coke", 1.25, Arrays.asList(coke));
         menu[6] = new MenuItemImpl("Chicken Fingers", 7.29, chickenFingers);
         menu[7] = new MenuItemImpl("Onion Rings", 2.99, onionRings);
@@ -93,9 +92,10 @@ public class BurgerMenu implements Menu {
         throw new IllegalArgumentException("Please order off of the menu.");
     }
 
+    @Override
     public Ingredient getMenuIngredient(Ingredient query) {
         for (Ingredient searchItem : ingredientMenu) {
-            if (searchItem.equalTo(query)) {
+            if (searchItem.sameAs(query)) {
                 return searchItem;
             }
         }

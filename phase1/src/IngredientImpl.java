@@ -22,7 +22,7 @@ public class IngredientImpl implements Ingredient {
     }
 
     @Override
-    public boolean equalTo(Ingredient ing) {
-        return name.equalsIgnoreCase(ing.getName());
+    public boolean sameAs(Ingredient i) {
+        return name.equalsIgnoreCase(i.getName());
     }
 }
