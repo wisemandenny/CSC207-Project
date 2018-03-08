@@ -13,8 +13,6 @@ public class IngredientImpl implements Ingredient {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public String getName() {
@@ -23,8 +21,6 @@ public class IngredientImpl implements Ingredient {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public double getPrice() {
@@ -33,8 +29,6 @@ public class IngredientImpl implements Ingredient {
 
     /**
      * {@inheritDoc}
-     *
-     * @param price  the new price of this Ingredient
      */
     @Override
     public void setPrice(double price) {
@@ -43,8 +37,6 @@ public class IngredientImpl implements Ingredient {
 
     /**
      * {@inheritDoc}
-     * @param i  the Ingredient in question
-     * @return
      */
     @Override
     public boolean sameAs(Ingredient i) {

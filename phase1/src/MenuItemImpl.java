@@ -19,7 +19,6 @@ class MenuItemImpl implements MenuItem {
                 addExtraIngredient(i);
             }
         }
-        //add extras if they exist and are valid to this.extraIngredients TODO:check if there are less than 5 mods
         if (!item.getRemovedIngredients().isEmpty()) {
             for (Ingredient i : item.getRemovedIngredients()) {
                 if (item.getIngredients().contains(i)) {
@@ -27,7 +26,6 @@ class MenuItemImpl implements MenuItem {
                 }
             }
         }
-        //remove subtractions if they exist and they are present in the ingredients
     }
 
     MenuItemImpl(String name, int quantity) {
@@ -47,8 +45,6 @@ class MenuItemImpl implements MenuItem {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public String getName() {
@@ -57,8 +53,6 @@ class MenuItemImpl implements MenuItem {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public int getQuantity() {
@@ -67,8 +61,6 @@ class MenuItemImpl implements MenuItem {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public double getPrice() {
@@ -77,8 +69,6 @@ class MenuItemImpl implements MenuItem {
 
     /**
      * {@inheritDoc}
-     *
-     * @param price  the new price of this MenuItem
      */
     @Override
     public void setPrice(double price) {
@@ -87,8 +77,6 @@ class MenuItemImpl implements MenuItem {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     public double getTotal() {
         return price * quantity;
@@ -96,8 +84,6 @@ class MenuItemImpl implements MenuItem {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public double getExtraIngredientPrice() {
@@ -110,8 +96,6 @@ class MenuItemImpl implements MenuItem {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public String getComment() {
@@ -120,8 +104,6 @@ class MenuItemImpl implements MenuItem {
 
     /**
      * {@inheritDoc}
-     *
-     * @param comment  the comment that is to be associated with this MenuItem
      */
     @Override
     public void setComment(String comment) {
@@ -130,8 +112,6 @@ class MenuItemImpl implements MenuItem {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public List<Ingredient> getIngredients() {
@@ -140,8 +120,6 @@ class MenuItemImpl implements MenuItem {
 
     /**
      * {@inheritDoc}
-     *
-     * @param addOn
      */
     @Override
     public void addExtraIngredient(Ingredient addOn) {
@@ -150,8 +128,6 @@ class MenuItemImpl implements MenuItem {
 
     /**
      * {@inheritDoc}
-     *
-     * @param ingredient  The ingredient that is to be removed from this MenuItem's list of Ingredients
      */
     @Override
     public void removeIngredient(Ingredient ingredient) {
@@ -160,9 +136,6 @@ class MenuItemImpl implements MenuItem {
 
     /**
      * {@inheritDoc}
-     *
-     * @param item  the MenuItem being compared to this MenuItem
-     * @return
      */
     @Override
     public boolean equals(MenuItem item) {
@@ -171,8 +144,6 @@ class MenuItemImpl implements MenuItem {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public List<Ingredient> getExtraIngredients() {
@@ -181,8 +152,6 @@ class MenuItemImpl implements MenuItem {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public List<Ingredient> getRemovedIngredients() {
@@ -191,8 +160,6 @@ class MenuItemImpl implements MenuItem {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public double getRemovedIngredientsPrice() {

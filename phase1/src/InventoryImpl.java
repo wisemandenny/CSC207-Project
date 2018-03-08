@@ -27,9 +27,6 @@ public class InventoryImpl implements Inventory {
 
     /**
      * {@inheritDoc}
-     *
-     * @param i  the ingredient being added to the inventory
-     * @param amount  the amount of the Ingredient being added
      */
     @Override
     public void addToInventory(Ingredient i, int amount) {
@@ -42,9 +39,6 @@ public class InventoryImpl implements Inventory {
 
     /**
      * {@inheritDoc}
-     *
-     * @param item  the MenuItem that is composed of certain Ingredients
-     * @param t  the Table that ordered the MenuItem
      */
     @Override
     public void removeFromInventory(MenuItem item, Table t) {
@@ -85,8 +79,6 @@ public class InventoryImpl implements Inventory {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public Map<Ingredient, Integer> getContents() {

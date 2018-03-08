@@ -79,8 +79,6 @@ public class BurgerMenu implements Menu {
 
     /**
      * {@inheritDoc}
-     *
-     * @return
      */
     @Override
     public MenuItem[] getMenu() {
@@ -89,9 +87,6 @@ public class BurgerMenu implements Menu {
 
     /**
      * {@inheritDoc}
-     *
-     * @param query
-     * @return
      */
     @Override
     public MenuItem getMenuItem(MenuItem query) {
@@ -105,9 +100,6 @@ public class BurgerMenu implements Menu {
 
     /**
      * {@inheritDoc}
-     *
-     * @param query  the Ingredient that is to be searched for on the Ingredient menu
-     * @return
      */
     @Override
     public Ingredient getMenuIngredient(Ingredient query) {
