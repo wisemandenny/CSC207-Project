@@ -48,14 +48,6 @@ class MenuItemImpl implements MenuItem {
         this.ingredients = ingredients;
     }
 
-    @Override
-    public double getExtraIngredientPrice() {
-        double ret = 0.0;
-        for (Ingredient i : extraIngredients) {
-            ret += i.getPrice();
-        }
-        return ret * quantity;
-    }
 
     @Override
     public List<Ingredient> getAllowedExtraIngredients() {
@@ -80,6 +72,15 @@ class MenuItemImpl implements MenuItem {
     @Override
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public double getExtraIngredientPrice() {
+        double ret = 0.0;
+        for (Ingredient i : extraIngredients) {
+            ret += i.getPrice();
+        }
+        return ret * quantity;
     }
 
     @Override
