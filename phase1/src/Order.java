@@ -4,14 +4,14 @@ public interface Order {
     /**
      * Returns a list of MenuItems that are apart of this Order.
      *
-     * @return      a list of MenuItems in this Order
+     * @return a list of MenuItems in this Order
      */
     List<MenuItem> getItems();
 
     /**
      * Returns a list of the Ingredients that are in the MenuItems in this Order.
      *
-     * @return      a list of Ingredients in this Order
+     * @return a list of Ingredients in this Order
      */
     List<Ingredient> getIngredients();
 
@@ -21,7 +21,7 @@ public interface Order {
     void receivedByCook();
 
     /**
-     * A boolean that represents if the Order is ready to be picked up by the server.
+     * A boolean that represents if the Order is ready to be picked up by the server. 719.20-(575.28+72)-(39.95+5)
      */
     void readyForPickup();
 

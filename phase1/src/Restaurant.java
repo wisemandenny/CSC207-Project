@@ -119,8 +119,16 @@ class Restaurant {
                 case SERVERRETURNED:
                     // add all the returned items to this table
                     tableOrder.returned();
-                    for (MenuItem item : e.getDeductions().getItems()) {
-                        currentTable.addToDeductions(menu.getMenuItem(item), item.getQuantity(), item.getComment());
+                    for (MenuItem deductedItem : e.getDeductions().getItems()) {
+                        MenuItem fromMenuItem = menu.getMenuItem(deductedItem);
+                        for (MenuItem addOnItem : tableOrder.getItems()) {
+                            for (Ingredient addOn : addOnItem.getExtraIngredients()) {
+                                if (deductedItem.equals(addOnItem)) {
+                                    fromMenuItem.addExtraIngredient(addOn);
+                                }
+                            }
+                        }
+                        currentTable.addToDeductions(fromMenuItem, deductedItem.getQuantity(), deductedItem.getComment());
                     }
 
                     System.out.println("TABLE " + tableId +

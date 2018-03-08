@@ -117,7 +117,7 @@ public class Table {
             System.out.println("\nDEDUCTIONS (-)");
             for (MenuItem item : deductions) {
                 System.out.println(item.getQuantity() + " " + item.getName() + ": $" +
-                        String.format("%.2f", item.getPrice()) + " | Reason: " + item.getComment());
+                        String.format("%.2f", item.getPrice() * item.getQuantity()) + " | Reason: " + item.getComment());
             }
         }
         System.out.println("Total: $" + getBillPrice() + "\n");
