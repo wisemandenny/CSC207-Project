@@ -67,7 +67,6 @@ class Restaurant {
                     }
                     List<MenuItem> uncookedItems = currentTable.getUncookedMenuItems();
                     for (MenuItem item : uncookedItems) {
-                        item = new MenuItemImpl(menu.getMenuItem(item), item.getQuantity());
                         currentTable.addToDeductions(item, "Out of stock. ");
                     }
                     tableOrder.readyForPickup();

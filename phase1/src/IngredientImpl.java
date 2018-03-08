@@ -1,6 +1,6 @@
 public class IngredientImpl implements Ingredient {
     private final String name;
-    private final double price;
+    private double price;
 
     IngredientImpl(String name) {
         this(name, 0.0);
@@ -19,6 +19,11 @@ public class IngredientImpl implements Ingredient {
     @Override
     public double getPrice() {
         return price;
+    }
+
+    @Override
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @Override

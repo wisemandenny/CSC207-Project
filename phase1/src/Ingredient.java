@@ -3,5 +3,7 @@ public interface Ingredient {
 
     double getPrice();
 
+    void setPrice(double price);
+
     boolean sameAs(Ingredient i);
 }

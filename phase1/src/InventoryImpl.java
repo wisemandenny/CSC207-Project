@@ -24,7 +24,7 @@ public class InventoryImpl implements Inventory {
             ex.printStackTrace();
         }
     }
-    
+
     @Override
     public void addToInventory(Ingredient i, int amount) {
         inventory.put(i, inventory.get(i) + amount);
@@ -53,7 +53,7 @@ public class InventoryImpl implements Inventory {
         }
         if (uncookableItemNumber > 0) { //TODO: this is horrible.
             rejectItem(item, uncookableItemNumber);
-            MenuItem i = new MenuItemImpl(item.getName(), uncookableItemNumber);
+            MenuItem i = new MenuItemImpl(item, uncookableItemNumber);
             t.addUncookedMenuitems(i);
         }
     }

@@ -36,6 +36,9 @@ public class Table {
     void addToDeductions(MenuItem item, String comment) {
         item.setComment(comment);
         item.setPrice(-item.getPrice());
+        for (Ingredient mod : item.getExtraIngredients()) {
+            mod.setPrice(-mod.getPrice());
+        }
         deductions.add(item);
     }
 
@@ -45,7 +48,7 @@ public class Table {
         for (MenuItem item : deductions) {
             ret.append(item.getQuantity()).append(" ").append(item.getName()).append(", ").append(String.format("%.2f", item.getTotal())).append("\n");
             for (Ingredient mod : item.getExtraIngredients()) {
-                ret.append(item.getQuantity()).append(" ").append(mod.getName()).append(", ").append(String.format("%.2f", mod.getPrice())).append("\n");
+                ret.append(item.getQuantity()).append(" ").append(mod.getName()).append(", ").append(String.format("%.2f", mod.getPrice() * item.getQuantity())).append("\n");
             }
         }
         return ret.toString();
@@ -67,7 +70,7 @@ public class Table {
             System.out.println("\nDEDUCTIONS (-)");
             for (MenuItem item : deductions) {
                 System.out.println(item.getQuantity() + " " + item.getName() + ": $" +
-                        String.format("%.2f", item.getTotal()) + " | Reason: " + item.getComment());
+                        String.format("%.2f", item.getPrice()) + " | Reason: " + item.getComment());
             }
         }
         System.out.println("Total: $" + getBillPrice() + "\n");
@@ -76,12 +79,12 @@ public class Table {
     private String getBillPrice() {
         double ret = 0.00;
         for (MenuItem item : bill) {
-            ret += item.getTotal();
+            ret += item.getPrice();
             ret += item.getExtraIngredientPrice();
         }
         // remove the price of any items that were returned
         for (MenuItem item : deductions) {
-            ret += item.getTotal();
+            ret += item.getPrice();
         }
         return String.format("%.2f", ret);
     }

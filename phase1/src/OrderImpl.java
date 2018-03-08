@@ -64,7 +64,7 @@ public class OrderImpl implements Order {
         for (MenuItem item : orderItems) {
             sb.append(item.getQuantity()).append(" ").append(item.getName()).append("\n");
             for (Ingredient mod : item.getExtraIngredients()) {
-                sb.append(item.getQuantity()).append(" +").append(mod.getName()).append("\n");
+                sb.append((item.getQuantity()) - item.).append(" +").append(mod.getName()).append("\n");
             }
         }
         return sb.toString();
