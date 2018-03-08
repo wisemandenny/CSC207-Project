@@ -1,10 +1,12 @@
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class InventoryImpl implements Inventory {
     private final Map<Ingredient, Integer> inventory = new HashMap<>();
-    public List<MenuItem> uncookedMenuitems = new ArrayList<>();
 
     InventoryImpl(Menu menu) {
         Set<Ingredient> ingredientSet = new HashSet<>();

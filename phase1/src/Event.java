@@ -1,13 +1,15 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class Event {
     private static final int QUANTITY_ADDRESS = 0;
     private final EventType type;
+    private final Map<Ingredient, Integer> shipment = new HashMap<>();
     private int tableId;
     private Order order;
     private Order deductions;
-    private String[] shipment;
 
     Event(EventType type, int tableId) {
         this.type = type;
@@ -29,10 +31,17 @@ class Event {
         commentSetter(commentList);
     }
 
-    Event(EventType type, String[] shipment) {
+    Event(EventType type, String shipment) {
         this.type = type;
-        this.shipment = shipment;
+        String[] info = shipment.split(", ");
+        for (String ingredient : info) {
+            String[] ingredientWithQuantity = ingredient.split("\\s");
+            int quantity = Integer.parseInt(ingredientWithQuantity[0]);
+            Ingredient i = new IngredientImpl(ingredientWithQuantity[1]);
+            this.shipment.put(i, quantity);
+        }
     }
+
 
     /**
      * Sets the comments of returned MenuItems in this Event.
@@ -110,7 +119,7 @@ class Event {
         return new OrderImpl(order.getItems());
     }
 
-    String[] getShipment() {
+    Map<Ingredient, Integer> getShipment() {
         return shipment;
     }
 

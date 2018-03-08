@@ -50,8 +50,10 @@ class Restaurant {
      * @param amount     the amount of this Ingredient that should be added
      */
     private void addToInventory(Ingredient ingredient, int amount) {
-
         inventory.addToInventory(ingredient, amount);
+        for (Ingredient i : inventory.getContents().keySet()) {
+            System.out.println(i.getName() + ": " + inventory.getContents().get(i));
+        }
     }
 
     /**
@@ -117,14 +119,11 @@ class Restaurant {
                     System.out.println("TABLE " + tableId +
                             " HAS RETURNED THE FOLLOWING ITEM(s): \n" + currentTable.stringDeductions());
                     break;
-                case RECIEVEDSHIPMENT:
-                    String[] info = e.getShipment()[1].split(",");
-                    for (String ingredient: info){
-                        String[] x = ingredient.split("\\s");
-                        Ingredient i = new IngredientImpl(x[1]);
-                        Ingredient finalI = menu.getMenuIngredient(i);
-                        inventory.addToInventory(finalI, Integer.parseInt(x[0]));
+                case RECEIVEDSHIPMENT:
+                    for (Ingredient i : e.getShipment().keySet()) {
+                        addToInventory(menu.getMenuIngredient(i), e.getShipment().get(i));
                     }
+                    break;
             }
         }
     }

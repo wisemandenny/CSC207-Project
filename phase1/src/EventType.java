@@ -5,7 +5,7 @@ public enum EventType {
     COOKREADY("ready"),
     SERVERDELIVERED("delivered"),
     SERVERRETURNED("serverReturned"),
-    RECIEVEDSHIPMENT("receivedShipment");
+    RECEIVEDSHIPMENT("receivedShipment");
 
     private final String type;
 
