@@ -43,6 +43,12 @@ class Restaurant {
                     List<MenuItem> newOrder = new ArrayList<>();
                     for (MenuItem item : order.getItems()) {
                         MenuItem itemToAdd = new MenuItemImpl(menu.getMenuItem(item), item.getQuantity());
+                        for (Ingredient ing : item.getExtraIngredients()) {
+                            itemToAdd.addExtraIngredient(menu.getMenuIngredient(ing));
+                        }
+                        for (Ingredient ing : item.getRemovedIngredients()) {
+                            itemToAdd.removeIngredient(menu.getMenuIngredient(ing));
+                        }
                         newOrder.add(itemToAdd);
                     }
                     tables[tableId].addOrderToTable(new OrderImpl(newOrder));

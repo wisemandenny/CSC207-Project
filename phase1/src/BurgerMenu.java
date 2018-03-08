@@ -3,6 +3,7 @@ import java.util.List;
 
 public class BurgerMenu implements Menu {
     private final MenuItem[] menu = new MenuItemImpl[10];
+    private final Ingredient[] ingredientMenu = new Ingredient[22];
 
     BurgerMenu() {
         Ingredient burgerBun = new IngredientImpl("Burger Bun", 0.50);
@@ -27,6 +28,31 @@ public class BurgerMenu implements Menu {
         Ingredient mustard = new IngredientImpl("Mustard", 0.10);
         Ingredient bacon = new IngredientImpl("Bacon", 3.00);
         Ingredient coke = new IngredientImpl("Coke", 1.25);
+
+
+        ingredientMenu[0] = burgerBun;
+        ingredientMenu[1] = patty;
+        ingredientMenu[2] = chickenPatty;
+        ingredientMenu[3] = veg;
+        ingredientMenu[4] = lettuce;
+        ingredientMenu[5] = tomato;
+        ingredientMenu[6] = cucumber;
+        ingredientMenu[7] = blackOlives;
+        ingredientMenu[8] = greenOlives;
+        ingredientMenu[9] = potato;
+        ingredientMenu[10] = salt;
+        ingredientMenu[11] = hotdog;
+        ingredientMenu[12] = hotdogBun;
+        ingredientMenu[13] = chicken;
+        ingredientMenu[14] = breadcrumbs;
+        ingredientMenu[15] = onion;
+        ingredientMenu[16] = cheese;
+        ingredientMenu[17] = gravy;
+        ingredientMenu[18] = ketchup;
+        ingredientMenu[19] = mustard;
+        ingredientMenu[20] = bacon;
+        ingredientMenu[21] = coke;
+
 
 
         List<Ingredient> hamburger = Arrays.asList(burgerBun, patty, lettuce, tomato, ketchup, mustard, bacon);
@@ -65,5 +91,14 @@ public class BurgerMenu implements Menu {
             }
         }
         throw new IllegalArgumentException("Please order off of the menu.");
+    }
+
+    public Ingredient getMenuIngredient(Ingredient query) {
+        for (Ingredient searchItem : ingredientMenu) {
+            if (searchItem.equals(query)) {
+                return searchItem;
+            }
+        }
+        throw new IllegalArgumentException("Please choose a valid ingredient.");
     }
 }
