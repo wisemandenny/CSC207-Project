@@ -1,29 +1,23 @@
 public class IngredientImpl implements Ingredient {
-	private final String name;
-	private final int threshold = 10;
-	private int reorderAmount = 20;
+    private final String name;
+    private final double price;
 
-	IngredientImpl(String name) {
-		this.name = name;
-	}
+    IngredientImpl(String name) {
+        this(name, 0.0);
+    }
 
-	@Override
-	public String getName() {
-		return name;
-	}
+    IngredientImpl(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
 
-	@Override
-	public int getThreshold() {
-		return threshold;
-	}
+    @Override
+    public String getName() {
+        return name;
+    }
 
-	@Override
-	public int getReorderAmount() {
-		return reorderAmount;
-	}
-
-	@Override
-	public void setReorderAmount(int amount) {
-		reorderAmount = amount;
-	}
+    @Override
+    public double getPrice() {
+        return price;
+    }
 }

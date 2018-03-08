@@ -22,7 +22,7 @@ class Event {
         }
     }
 
-    Event(EventType type, int tableId, String itemList, String commentList){
+    Event(EventType type, int tableId, String itemList, String commentList) {
         this.type = type;
         this.tableId = tableId;
         itemBuilder(itemList);
@@ -30,34 +30,36 @@ class Event {
     }
 
 
-    private void commentSetter(String commentList){
+    private void commentSetter(String commentList) {
         int count = 0;
         // make comments list
         String[] comments = new String[deduction.size()];
         // add every comment to the comment list
-        for(String itemComment: commentList.split(",\\s")){
+        for (String itemComment : commentList.split(",\\s")) {
             comments[count++] = itemComment;
         }
         // assign each comment to each returned menu item
         count = 0;
-        for(MenuItem item: deduction){
+        for (MenuItem item : deduction) {
             item.setComment(comments[count++]);
         }
     }
 
-    private void itemBuilder(String strings){
-        this.deduction = new ArrayList<>();
-        if(strings.length() < 2) throw new IllegalArgumentException("Invalid strings length in Event.itemBuilder");
-        for(String item: strings.split(",\\s")){
-        String[] itemSplitString = item.split("\\s", 2);
-        int quantity = Integer.parseInt(itemSplitString[QUANTITY_ADDRESS]);
-        String itemName = itemSplitString[NAME_ADDRESS];
-        // make a menu item and add it to the deduction list
-           addItemToList(new MenuItemImpl(itemName, quantity), deduction);
+    private void itemBuilder(String strings) {
+        deduction = new ArrayList<>();
+        if (strings.length() < 2) {
+            throw new IllegalArgumentException("Invalid strings length in Event.itemBuilder");
+        }
+        for (String item : strings.split(",\\s")) {
+            String[] itemSplitString = item.split("\\s", 2);
+            int quantity = Integer.parseInt(itemSplitString[Event.QUANTITY_ADDRESS]);
+            String itemName = itemSplitString[Event.NAME_ADDRESS];
+            // make a menu item and add it to the deduction list
+            deduction.add(new MenuItemImpl(itemName, quantity));
         }
     }
 
-    private void orderConstructorHelper(String strings){
+    private void orderConstructorHelper(String strings) {
         List<MenuItem> orderItems = new ArrayList<>();
         for (String item : strings.split(",\\s")) { //split the order into [1-9] <item name> substrings
             String[] orderItemSplitString = item.split("\\s", 2);
@@ -73,27 +75,19 @@ class Event {
             if (orderInfoSplit.length > 1) {
                 String[] orderedModifiers = orderInfoSplit[1].split("\\s");
                 for (String modifier : orderedModifiers) {
-                    String flag = modifier.substring(0, 1);
-                    String modIngredient = modifier.substring(4);
-                    if (flag.equals("+")) {
-                        // add addon
-                        FoodMod modifierToAdd = new FoodModImpl(new IngredientImpl(modIngredient), "add");
-                        orderedMenuItem.orderMod(modifierToAdd);
-                    } else if (flag.equals("-")) {
-                        // remove ingredient
-                        FoodMod modifierToRemove= new FoodModImpl(new IngredientImpl(modIngredient), "remove");
-                        orderedMenuItem.orderMod(modifierToRemove);
-                    } else throw new IllegalArgumentException("Unable to read modifier in events.txt");
+                    String ingredientName = modifier.substring(1);
+                    if (modifier.startsWith("+")) {
+                        orderedMenuItem.addExtraIngredient(new IngredientImpl(ingredientName));
+                    } else if (modifier.startsWith("-")) {
+                        orderedMenuItem.removeIngredient(new IngredientImpl(ingredientName));
+                    } else {
+                        throw new IllegalArgumentException("Invalid character found in mod: " + modifier);
+                    }
                 }
             }
-            addItemToList(orderedMenuItem, orderItems);
+            orderItems.add(orderedMenuItem);
         }
         order = new OrderImpl(orderItems);
-    }
-
-
-    private void addItemToList(MenuItem item, List<MenuItem> list){
-        list.add(item);
     }
 
     EventType getType() {
@@ -108,5 +102,7 @@ class Event {
         return tableId;
     }
 
-    List<MenuItem> getDeductions() { return new ArrayList<>(deduction); }
+    List<MenuItem> getDeductions() {
+        return new ArrayList<>(deduction);
+    }
 }

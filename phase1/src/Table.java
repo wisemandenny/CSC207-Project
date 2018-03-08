@@ -4,9 +4,9 @@ import java.util.List;
 public class Table {
     private final int id;
     private final List<MenuItem> bill = new ArrayList<>();
+    private final List<MenuItem> deductions = new ArrayList<>();
     private Order order;
-    private List<MenuItem> deductions = new ArrayList<>();
-    public List<MenuItem> uncookedMenuitems = new ArrayList<>();
+    private List<MenuItem> uncookedMenuitems = new ArrayList<>();
 
     Table(int id) {
         this.id = id;
@@ -64,7 +64,7 @@ public class Table {
                 System.out.println(item.getQuantity() + " " + modifier.getName() + ": $" + String.format("%.2f", modifier.getPrice()));
             }
         }
-        if (!deductions.isEmpty()){
+        if (!deductions.isEmpty()) {
             System.out.println("\nDEDUCTIONS (-)");
             for (MenuItem item : deductions) {
                 System.out.println(item.getQuantity() + " " + item.getName() + ": $" +

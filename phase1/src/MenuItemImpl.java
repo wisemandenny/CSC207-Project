@@ -1,18 +1,40 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class MenuItemImpl implements MenuItem {
     private final String name;
     private final int quantity;
-    private final double modPrice = 0.0;
+    private final List<Ingredient> extraIngredients = new ArrayList<>();
+    private final List<Ingredient> removedIngredients = new ArrayList<>();
+    private final List<Ingredient> allowedExtraIngredients = new ArrayList<>();
     private double price;
     private List<Ingredient> ingredients;
     private String comment;
 
+
+    MenuItemImpl(MenuItem item, int quantity) {
+        this(item.getName(), item.getPrice(), item.getIngredients(), quantity);
+        if (!item.getExtraIngredients().isEmpty()) {
+            for (Ingredient i : item.getExtraIngredients()) {
+                if (item.getAllowedExtraIngredients().contains(i)) {
+                    addExtraIngredient(i);
+                }
+            }
+        }
+        //add extras if they exist and are valid to this.extraIngredients TODO:check if there are less than 5 mods
+        if (!item.getRemovedIngredients().isEmpty()) {
+            for (Ingredient i : item.getRemovedIngredients()) {
+                if (item.getIngredients().contains(i)) {
+                    removeIngredient(i);
+                }
+            }
+        }
+        //remove subtractions if they exist and they are present in the ingredients
+    }
+
     MenuItemImpl(String name, int quantity) {
-        this.name = name;
-        this.quantity = quantity;
-        //TODO: get the ingredients from the menu
-        //TODO: get the prices from the menu
+        this(name, 0.0, Collections.emptyList(), quantity);
     }
 
     MenuItemImpl(String name, double price, List<Ingredient> ingredients) {
@@ -26,8 +48,18 @@ class MenuItemImpl implements MenuItem {
         this.ingredients = ingredients;
     }
 
-    static MenuItem fromRestaurantMenu(MenuItem restaurantItem, int quantity) {
-        return new MenuItemImpl(restaurantItem.getName(), restaurantItem.getPrice(), restaurantItem.getIngredients(), quantity);
+    @Override
+    public double getExtraIngredientPrice() {
+        double ret = 0.0;
+        for (Ingredient i : extraIngredients) {
+            ret += i.getPrice();
+        }
+        return ret * quantity;
+    }
+
+    @Override
+    public List<Ingredient> getAllowedExtraIngredients() {
+        return allowedExtraIngredients;
     }
 
     @Override
@@ -42,17 +74,12 @@ class MenuItemImpl implements MenuItem {
 
     @Override
     public double getPrice() {
-        return price;
+        return price * quantity;
     }
 
     @Override
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    @Override
-    public double getModPrice() {
-        return modPrice;
     }
 
     @Override
@@ -75,16 +102,27 @@ class MenuItemImpl implements MenuItem {
     }
 
     @Override
-    public String printIngredients() {
-        StringBuilder result = new StringBuilder("");
-        for (Ingredient ingredient : ingredients) {
-            result.append("| ").append(ingredient.getName()).append(" ");
-        }
-        return result.toString();
+    public void addExtraIngredient(Ingredient addOn) {
+        extraIngredients.add(addOn);
+    }
+
+    @Override
+    public void removeIngredient(Ingredient ingredient) {
+        removedIngredients.add(ingredient);
     }
 
     @Override
     public boolean equals(MenuItem item) {
         return name.equals(item.getName());
+    }
+
+    @Override
+    public List<Ingredient> getExtraIngredients() {
+        return new ArrayList<>(extraIngredients);
+    }
+
+    @Override
+    public List<Ingredient> getRemovedIngredients() {
+        return new ArrayList<>(removedIngredients);
     }
 }
