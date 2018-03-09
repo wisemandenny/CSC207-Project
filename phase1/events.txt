@@ -52,8 +52,4 @@ check please! | table 7
 check please! | table 8
 check please! | table 9
 check please! | table 10
-<<<<<<< HEAD
 receivedShipment | table 0 | 20 tomato, 10 buns
-=======
-receivedShipment | 20 tomato, 10 ketchup
->>>>>>> origin/master
