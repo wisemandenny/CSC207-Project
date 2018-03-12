@@ -61,9 +61,15 @@ public class OrderImpl implements Order {
     public void returned(MenuItem returnedItem) {
         //go through the "order" (bill) and set matching items price to 0, and set their comment to item.comment
         for (MenuItem item : orderItems) {
-            if (item.equals(returnedItem)) {
+            if (item.equalsWithExtras(returnedItem)) {
                 item.setPrice(0.0);
                 item.setComment(returnedItem.getComment());
+                for (Ingredient i : item.getExtraIngredients()) {
+                    i.setPrice(0.0);
+                }
+                for (Ingredient i : item.getRemovedIngredients()) {
+                    i.setPrice(0.0);
+                }
             }
         }
     }

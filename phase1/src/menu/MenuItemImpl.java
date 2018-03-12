@@ -2,6 +2,7 @@ package menu;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MenuItemImpl implements MenuItem {
     private final String name;
@@ -147,6 +148,27 @@ public class MenuItemImpl implements MenuItem {
     @Override
     public boolean equals(MenuItem item) {
         return name.equals(item.getName());
+    }
+
+    @Override
+    public boolean equalsWithExtras(MenuItem item) {
+        return item.hashCode() == hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(concatenate());
+    }
+
+    private String concatenate() {
+        StringBuilder mods = new StringBuilder("");
+        for (Ingredient i : extraIngredients) {
+            mods.append(i.getName());
+        }
+        for (Ingredient i : removedIngredients) {
+            mods.append(i.getName());
+        }
+        return name + mods.toString();
     }
 
     /**

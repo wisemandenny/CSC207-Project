@@ -6,7 +6,7 @@ update | received | 2
 update | ready | 1
 update | ready | 2
 update | delivered | 1
-serverReturned | table 1 | 1 Coke | drink isn't fizzy
+serverReturned | table 1 | 1 Hamburger / +ketchup -bacon | test
 update | delivered | 2
 check please! | table 1
 receivedShipment | 3000 bacon, 1000 patty

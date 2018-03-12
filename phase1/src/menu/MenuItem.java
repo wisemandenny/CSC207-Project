@@ -110,4 +110,6 @@ public interface MenuItem {
      * @return a boolean that represents if this menu.MenuItem has the same name as menu.MenuItem item
      */
     boolean equals(MenuItem item);
+
+    boolean equalsWithExtras(MenuItem item);
 }
