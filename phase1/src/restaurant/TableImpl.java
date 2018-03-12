@@ -1,64 +1,81 @@
+package restaurant;
+
+import menu.Ingredient;
+import menu.MenuItem;
+import menu.MenuItemImpl;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Table {
+public class TableImpl implements Table {
     private final int id;
-    private final List<MenuItem> bill = new ArrayList<>();
+    private final Order bill = new OrderImpl();
     private final List<MenuItem> deductions = new ArrayList<>();
     private final List<MenuItem> uncookedMenuItems = new ArrayList<>();
-    private Order order;
+    private final List<Order> orders = new ArrayList<>();
 
     /**
-     * Constructs a new Table object.
+     * Constructs a new restaurant.TableImpl object.
      *
-     * @param id the integer representing the id of this Table
+     * @param id the integer representing the id of this restaurant.TableImpl
      */
-    Table(int id) {
+    TableImpl(int id) {
         this.id = id;
     }
 
     /**
-     * Ads a MenuItem to the uncookedMenuItems for this Table.
+     * Ads a menu.MenuItem to the uncookedMenuItems for this restaurant.TableImpl.
      *
-     * @param item The MenuItem to be added
+     * @param item The menu.MenuItem to be added
      */
     public void addUncookedMenuitems(MenuItem item) {
         uncookedMenuItems.add(item);
     }
 
     /**
-     * Returns the uncooked MenuItems from this Table.
+     * Returns the uncooked MenuItems from this restaurant.TableImpl.
      *
-     * @return a List of MenuItems which are uncooked for this Table
+     * @return a List of MenuItems which are uncooked for this restaurant.TableImpl
      */
     public List<MenuItem> getUncookedMenuItems() {
         return uncookedMenuItems;
     }
 
     /**
-     * Sets this Table's order to contain the Order o.
+     * Sets this restaurant.TableImpl's order to contain the restaurant.Order o.
      *
-     * @param o The Order object to be stored in this Table
+     * @param o The restaurant.Order object to be stored in this restaurant.TableImpl
      */
-    void addOrderToTable(Order o) {
-        order = o;
+    @Override
+    public void addOrder(Order o) {
+        orders.add(o);
+    }
+
+    public void removeFromBill() {
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void addOrderToBill(Order o) {
+        orders.remove(o);
+        bill.add(o);
+    }
+
+    @Override
+    public void removeFromBill(MenuItem item) {
+
     }
 
     /**
-     * Adds an Order o to this Table's bill.
+     * Adds to this restaurant.TableImpl's deductions the quantity specified of menu.MenuItem item and its respective comment.
      *
-     * @param o the Order to be added to this Table's bill
-     */
-    void addToBill(Order o) {
-        bill.addAll(o.getItems());
-    }
-
-    /**
-     * Adds to this Table's deductions the quantity specified of MenuItem item and its respective comment.
-     *
-     * @param item     the MenuItem to be deducted
-     * @param quantity the quantity of MenuItem item to be deducted from this Table
-     * @param comment  the comment explaining the reason for MenuItem item's deduction
+     * @param item     the menu.MenuItem to be deducted
+     * @param quantity the quantity of menu.MenuItem item to be deducted from this restaurant.TableImpl
+     * @param comment  the comment explaining the reason for menu.MenuItem item's deduction
      */
     void addToDeductions(MenuItem item, int quantity, String comment) {
         MenuItem itemToAdd = new MenuItemImpl(item, quantity);
@@ -66,10 +83,10 @@ public class Table {
     }
 
     /**
-     * Adds to this Table's deductions the MenuItem item and its respective comment.
+     * Adds to this restaurant.TableImpl's deductions the menu.MenuItem item and its respective comment.
      *
-     * @param item    the MenuItem to be deducted
-     * @param comment the comment explaining the reason for MenuItem item's deduction
+     * @param item    the menu.MenuItem to be deducted
+     * @param comment the comment explaining the reason for menu.MenuItem item's deduction
      */
     void addToDeductions(MenuItem item, String comment) {
         item.setComment(comment);
@@ -83,7 +100,7 @@ public class Table {
     /**
      * Takes a list of deducted MenuItems and turns them into a readable String.
      *
-     * @return a String of MenuItems that were removed from this Table's bill
+     * @return a String of MenuItems that were removed from this restaurant.TableImpl's bill
      */
     String stringDeductions() {
         StringBuilder ret = new StringBuilder("");
@@ -97,13 +114,14 @@ public class Table {
     }
 
     /**
-     * Prints to the screen this Table's current bill.
-     * The bill includes how many of each MenuItem were ordered, and its respective Ingredient modifications, along with their respective prices.
+     * Prints to the screen this restaurant.TableImpl's current bill.
+     * The bill includes how many of each menu.MenuItem were ordered, and its respective menu.Ingredient modifications, along with their respective prices.
      * If the bill had deductions they are shown below the order, with the number of deducted items, the price of the deduction and the total price of the order.
      */
-    void printBill() {
+    @Override
+    public void printBill() {
         System.out.println("BILL FOR TABLE #" + id);
-        for (MenuItem item : bill) {
+        for (MenuItem item : bill.getItems()) {
             System.out.println(item.getQuantity() + " " + item.getName() + ": $" + String.format("%.2f", item.getTotal()));
             for (Ingredient addedIng : item.getExtraIngredients()) {
                 System.out.println("add " + item.getQuantity() + " " + addedIng.getName() + ": $" + String.format("%.2f", addedIng.getPrice() * item.getQuantity()));
@@ -124,15 +142,15 @@ public class Table {
     }
 
     /**
-     * Return a String representation of this Table's current bill's price.
+     * Return a String representation of this restaurant.TableImpl's current bill's price.
      *
-     * @return a String representation of this Table's bill price
+     * @return a String representation of this restaurant.TableImpl's bill price
      */
     private String getBillPrice() {
         double initialCost = 0.00;
         double deduct = 0.00;
 
-        for (MenuItem item : bill) {
+        for (MenuItem item : bill.getItems()) {
             initialCost += (item.getPrice() * item.getQuantity());
             initialCost -= item.getExtraIngredientPrice();
             initialCost -= item.getRemovedIngredientsPrice();
@@ -149,11 +167,13 @@ public class Table {
     }
 
     /**
-     * Returns the Order that currently belongs to this Table.
+     * Returns the restaurant.Order that currently belongs to this restaurant.TableImpl.
      *
-     * @return the Order belonging to this Table
+     * @return the restaurant.Order belonging to this restaurant.TableImpl
      */
-    protected Order getOrder() {
+    /*
+    @Override
+    public Order getOrder() {
         return order;
-    }
+    }*/
 }

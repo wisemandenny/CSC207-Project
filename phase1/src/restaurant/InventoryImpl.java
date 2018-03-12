@@ -1,3 +1,9 @@
+package restaurant;
+
+import menu.Ingredient;
+import menu.Menu;
+import menu.MenuItem;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -35,15 +41,20 @@ public class InventoryImpl implements Inventory {
         inventory.put(i, inventory.get(i) + amount);
     }
 
+    @Override
+    public void removeFromInventory(MenuItem item, TableImpl t) {
+
+    }
+
     private void removeFromInventory(Ingredient i, int amount) {
         inventory.put(i, inventory.get(i) - amount);
     }
 
     /**
      * {@inheritDoc}
-     */
+     *//*
     @Override
-    public void removeFromInventory(MenuItem item, Table t) {
+    public void removeFromInventory(MenuItem item, TableImpl t) {
         int uncookableItemNumber = 0;
         for (Ingredient ingredient : item.getIngredients()) {
             int quantity = item.getQuantity();

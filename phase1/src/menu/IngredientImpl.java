@@ -1,3 +1,5 @@
+package menu;
+
 public class IngredientImpl implements Ingredient {
     private final String name;
     private double price;

@@ -1,13 +1,26 @@
+package restaurant;
+
+import menu.Ingredient;
+import menu.MenuItem;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class OrderImpl implements Order {
-    private final List<MenuItem> orderItems;
-    private boolean isReceivedByCook, isReadyForPickup, isDelivered, isReturned; //TODO: we will need to use these somwhere.
+    private static int idCounter = 1;
 
-    OrderImpl(List<MenuItem> orderItems) {
+    private final List<MenuItem> orderItems;
+    private int tableId;
+    private int id;
+
+    OrderImpl() {
+        orderItems = new ArrayList<>();
+    }
+
+    public OrderImpl(List<MenuItem> orderItems) {
         this.orderItems = orderItems;
+        id = OrderImpl.idCounter++;
     }
 
     /**
@@ -18,40 +31,29 @@ public class OrderImpl implements Order {
         return new ArrayList<>(orderItems);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void receivedByCook() {
-        isReceivedByCook = true;
+    public void remove(MenuItem item) {
+        orderItems.remove(item);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void readyForPickup() {
-        isReadyForPickup = true;
+    public void add(Order o) {
+        orderItems.addAll(o.getItems());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void delivered() {
-        isDelivered = true;
+    public int getId() {
+        return id;
     }
 
+    @Override
+    public int getTableId() {
+        return tableId;
+    }
 
-    //TODO: Delete if unused.
-    //@Override
-    public double getTotalPrice() {
-        double total = 0.00;
-        for (MenuItem item : orderItems) {
-            total += item.getPrice();
-            total += item.getExtraIngredientPrice();
-        }
-        return total;
+    @Override
+    public void setTableId(int tableId) {
+        this.tableId = tableId;
     }
 
     /**
@@ -59,7 +61,7 @@ public class OrderImpl implements Order {
      */
     @Override
     public void returned() {
-        isReturned = true;
+        //do something
     }
 
     /**

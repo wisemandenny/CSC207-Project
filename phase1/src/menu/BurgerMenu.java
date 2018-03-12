@@ -1,3 +1,5 @@
+package menu;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -5,7 +7,7 @@ public class BurgerMenu implements Menu {
     private final MenuItem[] menu = new MenuItemImpl[10];
     private final Ingredient[] ingredientMenu = new Ingredient[22];
 
-    BurgerMenu() {
+    public BurgerMenu() {
         Ingredient burgerBun = new IngredientImpl("BurgerBun", 0.50);
         Ingredient patty = new IngredientImpl("Patty", 2.00);
         Ingredient chickenPatty = new IngredientImpl("ChickenPatty", 2.50);
@@ -84,10 +86,10 @@ public class BurgerMenu implements Menu {
     public MenuItem[] getMenu() {
         return menu.clone();
     }
-
+/*
     /**
      * {@inheritDoc}
-     */
+
     @Override
     public MenuItem getMenuItem(MenuItem query) {
         for (MenuItem searchItem : menu) {
@@ -96,18 +98,28 @@ public class BurgerMenu implements Menu {
             }
         }
         throw new IllegalArgumentException("Please order off of the menu.");
+    }*/
+
+    @Override
+    public MenuItem getMenuItem(String query) {
+        for (MenuItem searchItem : menu) {
+            if (searchItem.getName().equals(query)) {
+                return new MenuItemImpl(searchItem);
+            }
+        }
+        throw new IllegalArgumentException("Please order off the menu.");
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Ingredient getMenuIngredient(Ingredient query) {
+    public Ingredient getMenuIngredient(String query) {
         for (Ingredient searchItem : ingredientMenu) {
-            if (searchItem.sameAs(query)) {
+            if (searchItem.getName().equalsIgnoreCase(query)) {
                 return searchItem;
             }
         }
-        throw new IllegalArgumentException(query.getName() + " is not a valid ingredient.");
+        throw new IllegalArgumentException(query + " is not a valid ingredient.");
     }
 }

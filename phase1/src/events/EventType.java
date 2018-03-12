@@ -1,5 +1,8 @@
+package events;
+
 public enum EventType {
     ORDER("order"),
+    UPDATE("update"),
     BILL("check please!"),
     COOKSEEN("received"),
     COOKREADY("ready"),
@@ -10,9 +13,9 @@ public enum EventType {
     private final String type;
 
     /**
-     * Constructs a new EventType.
+     * Constructs a new events.EventType.
      *
-     * @param type the type of EventType
+     * @param type the type of events.EventType
      */
     EventType(String type) {
         this.type = type;
@@ -21,8 +24,8 @@ public enum EventType {
     /**
      * Returns the eventType that corresponds to the given String type.
      *
-     * @param type the String representation of an EventType
-     * @return an EventType generated that corresponds to the given String
+     * @param type the String representation of an events.EventType
+     * @return an events.EventType generated that corresponds to the given String
      */
     public static EventType fromString(String type) {
         for (EventType eventType : EventType.values()) {

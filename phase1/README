@@ -10,27 +10,27 @@ The program should read from events.txt and print to screen the events that affe
 
 
 ===== Handling MenuItems =====
-Menu Items for this Restaurant are created in class BurgerMenu. All items in the BurgerMenu must include an item name, price, and a list of ingredients.
-Menu Items do not specify what ingredients are allowed to be added to them- it is assumed that servers will only add reasonable modifications.
-When menu items are ordered through events.txt new instances of MenuItem are created, and later replaced with the pre-existing items in BurgerMenu.
-If modifications are requested for a MenuItem, Ingredient items are generated similarly.
-When modifications are ordered only the first five Ingredient additions/subtractions will be accepted.
-Requested subtractions for an item will not be applied if they do not exist in their MenuItem's ingredients.
+menu.Menu Items for this restaurant.Restaurant are created in class menu.BurgerMenu. All items in the menu.BurgerMenu must include an item name, price, and a list of ingredients.
+menu.Menu Items do not specify what ingredients are allowed to be added to them- it is assumed that servers will only add reasonable modifications.
+When menu items are ordered through events.txt new instances of menu.MenuItem are created, and later replaced with the pre-existing items in menu.BurgerMenu.
+If modifications are requested for a menu.MenuItem, menu.Ingredient items are generated similarly.
+When modifications are ordered only the first five menu.Ingredient additions/subtractions will be accepted.
+Requested subtractions for an item will not be applied if they do not exist in their menu.MenuItem's ingredients.
 All ingredient modifications will affect the final price of an item.
 
 
-===== Events in events.txt =====
+===== events in events.txt =====
 All events in events.txt must begin with an event type, and the table which it affects. Ie. type | table #
 
 Placing an order:
-Order events signal that a table has placed an order.
+restaurant.Order events signal that a table has placed an order.
 Example:    order | table 1 | 1 Hamburger / +lettuce -bacon, 1 Fries
 
 order events include the items that are being ordered to a table, the item information should be separated from the table # with a "| ".
-Menu items are preceded by a number, indicating how many of an item were ordered.
+menu.Menu items are preceded by a number, indicating how many of an item were ordered.
 If there is more than one item being ordered, items (and their respective modifications, if any) should be separated by a comma.
 If an item was ordered with an ingredient modification they are shown after the item, separated by a "/ ".
-Ingredient modifications should be in the form +/-ingredient, where +/- indicated whether or not the ingredient should be added to, or removed form the item.
+menu.Ingredient modifications should be in the form +/-ingredient, where +/- indicated whether or not the ingredient should be added to, or removed form the item.
 
 Receiving an order:
 Received events signal that the chef has received an order.
@@ -62,4 +62,4 @@ ReceivedShipment events signal that an order of ingredients has been received.
 Example:    received shipment | ?????
 
 received shipment events indicate that some inventory item(s) fell below their threshold, and were re-ordered by the manager.
-Received ingredient amounts are added to the Restaurant's Inventory counts.
+Received ingredient amounts are added to the restaurant.Restaurant's restaurant.Inventory counts.

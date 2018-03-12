@@ -1,18 +1,19 @@
+package menu;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-class MenuItemImpl implements MenuItem {
+public class MenuItemImpl implements MenuItem {
     private final String name;
-    private final int quantity;
     private final List<Ingredient> extraIngredients = new ArrayList<>();
     private final List<Ingredient> removedIngredients = new ArrayList<>();
     private final List<Ingredient> ingredients;
+    private int quantity;
     private double price;
     private String comment;
 
 
-    MenuItemImpl(MenuItem item, int quantity) {
+    public MenuItemImpl(MenuItem item, int quantity) {
         this(item.getName(), item.getPrice(), item.getIngredients(), quantity);
         if (!item.getExtraIngredients().isEmpty()) {
             for (Ingredient i : item.getExtraIngredients()) {
@@ -28,11 +29,11 @@ class MenuItemImpl implements MenuItem {
         }
     }
 
-    MenuItemImpl(String name, int quantity) {
-        this(name, 0.0, Collections.emptyList(), quantity);
+    public MenuItemImpl(MenuItem item) {
+        this(item.getName(), item.getPrice(), item.getIngredients());
     }
 
-    MenuItemImpl(String name, double price, List<Ingredient> ingredients) {
+    public MenuItemImpl(String name, double price, List<Ingredient> ingredients) {
         this(name, price, ingredients, 1);
     }
 
@@ -59,6 +60,11 @@ class MenuItemImpl implements MenuItem {
         return quantity;
     }
 
+    @Override
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -78,6 +84,7 @@ class MenuItemImpl implements MenuItem {
     /**
      * {@inheritDoc}
      */
+    @Override
     public double getTotal() {
         return price * quantity;
     }
