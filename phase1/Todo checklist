@@ -1,7 +1,2 @@
-1. refactoring and code tidying - denny / everyone
-2. Remove items from the bill that are rejected because of lack of ingredients -achilles
-
-3. Write readme.txt
-4. Make interfaces for remaining classes
-5. Documentation
-6. Move all files into named packages
+1. reject items do to lack of inventory shortage
+2. delete baseevent.java once everything is done in it

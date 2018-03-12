@@ -1,3 +1,6 @@
+//TODO: delete this file once everything has been taken out from it.
+
+
 /*import events.Event;
 import events.EventType;
 import menu.Ingredient;
