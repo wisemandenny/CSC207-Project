@@ -1,0 +1,50 @@
+1. reject items do to lack of inventory shortage
+2. delete baseevent.java once everything is done in it
+
+3 days for refactoring - Denny - March 15th
+gui
+integrate gui with our code
+
+add seat orders (like the ability to get seperate bills)
+add junit testing
+add support for sending items back to the kitchen and not deducting from the bill
+
+EXTRA FEATURES
+ability to cancel before they're cooked
+all you can eat
+custom menu items (ability to do open food/order off the menu)
+specials? hamburger of the day based on the actual day
+- ability to add custom menu items before service and add them to a list of specials
+temperatures for food (like medium rare, well done etc)
+ability to comp items (give away items for free)
+multiple menus (wine, food, specials)
+
+
+TIMELINE:
+refactored before new features March 15th (3 days)
+
+designed gui March 16th
+
+build the gui with tests March 20th use material ui https://github.com/jfoenixadmin/JFoenix
+
+added a test suite March 20th
+
+integrate the gui to the codebase March 22nd
+
+added at least 1 extra feature March 24th
+
+added at least 3 extra features March 26th
+
+Code refactored  and documented March 28th
+
+
+documentation
+
+DUTIES:
+refactoring code before new features: Denny
+design gui: all 4
+test suite: ak (TBD, hannah or milan)
+build gui: denny (TBD, hannah or milan)
+
+
+

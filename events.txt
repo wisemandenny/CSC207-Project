@@ -1,54 +1,12 @@
-order | table 1 | 1 Hamburger / +ketchup +bacon +cheese +lettuce +onion +bacon, 1 Coke
-received | table 1
-ready | table 1
-delivered | table 1
-serverReturned | table 1 | 1 Coke | drink isn't fizzy
-check please! | table 1
+order | table 1 | 1 Hamburger / +ketchup -bacon, 1 Hamburger, 1 Coke
+order | table 1 | 1 Coke
 order | table 2 | 1 Hotdog, 1 Hamburger, 2 Coke
-received | table 2
-order | table 3 | 1 Salad / +cheese -onion, 1 Coke
-received | table 3
-ready | table 2
-ready | table 3
-delivered | table 2
-serverReturned | table 2 | 1 Coke, 1 Hamburger | Guest wanted pepsi, Guest is vegan
-check please! | table 2
-delivered | table 3
-order | table 4 | 2 Chicken Fingers / +ketchup, 3 Coke, 2 Fries / -salt
-received | table 4
-order | table 5 | 1 Poutine / +bacon +ketchup
-received | table 5
-order | table 6 | 1 Onion Rings
-received | table 6
-ready | table 4
-order | table 7 | 7 Chicken Fingers / +ketchup
-received | table 7
-ready | table 5
-ready | table 6
-ready | table 7
-order | table 8 | 1 Salad / +greenOlives -tomato
-received | table 8
-delivered | table 4
-delivered | table 5
-delivered | table 6
-delivered | table 7
-ready | table 8
-delivered | table 8
-serverReturned | table 8 | 1 Salad | rotten lettuce
-order | table 9 | 80 Hamburger / +cheese
-received | table 9
-order | table 10 | 1 Veggie Burger / +bacon
-received | table 10
-ready | table 9
-ready | table 10
-delivered | table 9
-serverReturned | table 9 | 5 Hamburger | Meat is too tough
-delivered | table 10
-check please! | table 3
-check please! | table 4
-check please! | table 5
-check please! | table 6
-check please! | table 7
-check please! | table 8
-check please! | table 9
-check please! | table 10
+update | received | 1
+update | received | 2
+update | ready | 1
+update | ready | 2
+update | delivered | 1
+serverReturned | table 1 | 1 Hamburger / +ketchup -bacon | test
+update | delivered | 2
+check please! | table 1
+receivedShipment | 3000 bacon, 1000 patty
