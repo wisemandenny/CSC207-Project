@@ -13,7 +13,7 @@ public class EventFactory {
     }
 
     public static Event makeEvent(String eventLine, Table[] tables) {
-        String[] splitString = eventLine.split("\\s\\|\\s", 4); //TODO: why 4?
+        String[] splitString = eventLine.split("\\s\\|\\s", 4);
         if (splitString.length < 2 || splitString.length > 5) {
             throw new IllegalArgumentException("Invalid line in events.txt" + eventLine);
         }
@@ -21,7 +21,7 @@ public class EventFactory {
         EventType type = EventType.fromString(splitString[EventFactory.TYPE_ADDRESS]);
 
         switch (type) {
-            case UPDATE:
+            case UPDATE: //TODO: fix this error message
                 int orderId = Integer.parseInt(splitString[2]);
                 switch (EventType.fromString(splitString[1])) {
                     case COOKSEEN:
@@ -43,9 +43,9 @@ public class EventFactory {
                     case BILL:
                         return new BillEvent(table);
                     case SERVERRETURNED:
-                        return new ReturnEvent();//TODO: do this, use comment address
+                        return new ReturnEvent(table, splitString[EventFactory.ORDER_ADDRESS], splitString[EventFactory.COMMENT_ADDRESS]);
                     default:
-                        throw new IllegalArgumentException("broken update event line in text file" + eventLine);
+                        throw new IllegalArgumentException("broken event line in text file" + eventLine);
                 }
         }
     }

@@ -31,7 +31,5 @@ public interface Order {
     /**
      * A boolean that represents if an restaurant.Order has been returned by the server.
      */
-    void returned();
-
-    void remove(MenuItem item);
+    void returned(MenuItem item);
 }
