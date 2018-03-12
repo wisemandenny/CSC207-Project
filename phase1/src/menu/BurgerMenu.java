@@ -17,8 +17,8 @@ public class BurgerMenu implements Menu {
         Ingredient cucumber = new IngredientImpl("Cucumber", 0.50);
         Ingredient blackOlives = new IngredientImpl("BlackOlives", 1.00);
         Ingredient greenOlives = new IngredientImpl("GreenOlives", 1.00);
-        Ingredient potato = new IngredientImpl("Potato");
-        Ingredient salt = new IngredientImpl("Salt");
+        Ingredient potato = new IngredientImpl("Potato", 0.6);
+        Ingredient salt = new IngredientImpl("Salt", 0.01);
         Ingredient hotdog = new IngredientImpl("Hotdog", 1.50);
         Ingredient hotdogBun = new IngredientImpl("HotdogBun", 0.50);
         Ingredient chicken = new IngredientImpl("Chicken", 3.00);
@@ -86,19 +86,6 @@ public class BurgerMenu implements Menu {
     public MenuItem[] getMenu() {
         return menu.clone();
     }
-/*
-    /**
-     * {@inheritDoc}
-
-    @Override
-    public MenuItem getMenuItem(MenuItem query) {
-        for (MenuItem searchItem : menu) {
-            if (searchItem.equals(query)) {
-                return searchItem;
-            }
-        }
-        throw new IllegalArgumentException("Please order off of the menu.");
-    }*/
 
     @Override
     public MenuItem getMenuItem(String query) {

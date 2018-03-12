@@ -37,17 +37,22 @@ public class InventoryImpl implements Inventory {
      * {@inheritDoc}
      */
     @Override
-    public void addToInventory(Ingredient i, int amount) {
-        inventory.put(i, inventory.get(i) + amount);
+    public void addToInventory(Map<Ingredient, Integer> shipment) {
+        for (Ingredient i : shipment.keySet()) {
+            inventory.put(i, (inventory.get(i) + shipment.get(i)));
+        }
     }
 
     @Override
-    public void removeFromInventory(MenuItem item, TableImpl t) {
+    public void removeFromInventory(Order o) {
+        for (Ingredient i : o.getIngredients()) {
+            removeFromInventory(i);
+        }
 
     }
 
-    private void removeFromInventory(Ingredient i, int amount) {
-        inventory.put(i, inventory.get(i) - amount);
+    private void removeFromInventory(Ingredient i) {
+        inventory.put(i, inventory.get(i) - 1);
     }
 
     /**
@@ -96,5 +101,12 @@ public class InventoryImpl implements Inventory {
     @Override
     public Map<Ingredient, Integer> getContents() {
         return inventory;
+    }
+
+    @Override
+    public void printContents() {
+        for (Ingredient i : inventory.keySet()) {
+            System.out.println("Name: " + i.getName() + "       Quantity: " + inventory.get(i));
+        }
     }
 }

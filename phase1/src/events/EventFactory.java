@@ -9,6 +9,9 @@ public class EventFactory {
     private static final int COMMENT_ADDRESS = 3;
     private static final int TABLE_LENGTH = 6;
 
+    private EventFactory() {
+    }
+
     public static Event makeEvent(String eventLine, Table[] tables) {
         String[] splitString = eventLine.split("\\s\\|\\s", 4); //TODO: why 4?
         if (splitString.length < 2 || splitString.length > 5) {
@@ -30,6 +33,8 @@ public class EventFactory {
                     default:
                         throw new IllegalArgumentException("broken update event line in text file" + eventLine);
                 }
+            case RECEIVEDSHIPMENT:
+                return new ShipmentEvent(splitString[1]);
             default:
                 Table table = tables[Integer.parseInt(splitString[EventFactory.TABLEID_ADDRESS].substring(EventFactory.TABLE_LENGTH))];
                 switch (type) {
@@ -39,8 +44,6 @@ public class EventFactory {
                         return new BillEvent(table);
                     case SERVERRETURNED:
                         return new ReturnEvent();//TODO: do this, use comment address
-                    case RECEIVEDSHIPMENT:
-                        return new ShipmentEvent(); //TODO: do this
                     default:
                         throw new IllegalArgumentException("broken update event line in text file" + eventLine);
                 }

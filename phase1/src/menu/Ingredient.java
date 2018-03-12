@@ -28,6 +28,7 @@ public interface Ingredient {
      * @param i the menu.Ingredient in question
      * @return a boolean that represents whether this menu.Ingredient has the same name as menu.Ingredient i
      */
-    boolean sameAs(Ingredient i);
+    @Override
+    boolean equals(Object o);
 
 }

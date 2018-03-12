@@ -6,6 +6,7 @@ import menu.Ingredient;
 import menu.Menu;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
@@ -73,7 +74,10 @@ public class Restaurant {
         Order order = Restaurant.findOrder(Restaurant.placedOrders, orderId);
         Restaurant.placedOrders.remove(order);
         Restaurant.cookingOrders.add(order);
+        Restaurant.inventory.removeFromInventory(order);
         System.out.println("Order #" + order.getId() + " is now being cooked.");
+        //Restaurant.inventory.printContents();
+
 
     }
 
@@ -105,15 +109,6 @@ public class Restaurant {
         throw new IllegalArgumentException("Order #" + orderId + " not found.");
     }
 
-    /**
-     * Signals the restaurant.TableImpl to print its bill.
-     *
-     * @param tableId the restaurant.TableImpl who's bill should be printed
-     */
-    private void printBillForTable(int tableId) {
-        Restaurant.tables[tableId].printBill();
-    }
-
     // TODO: Remove this if unused. IS THIS MEANT TO BE USED FOR RECEIVING ORDERS???
 
     /**
@@ -122,12 +117,12 @@ public class Restaurant {
      * @param ingredient the menu.Ingredient object to be added
      * @param amount     the amount of this menu.Ingredient that should be added
      */
-    private void addToInventory(Ingredient ingredient, int amount) {
-        Restaurant.inventory.addToInventory(ingredient, amount);
-        /* Uncomment this to test inventory reups
+    public static void addToInventory(Map<Ingredient, Integer> shipment) {
+        Restaurant.inventory.addToInventory(shipment);
+
         for (menu.Ingredient i : inventory.getContents().keySet()) {
             System.out.println(i.getName() + ": " + inventory.getContents().get(i));
-        }*/
+        }
     }
 
     /**

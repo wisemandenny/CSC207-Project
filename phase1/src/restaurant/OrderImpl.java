@@ -71,7 +71,11 @@ public class OrderImpl implements Order {
     public List<Ingredient> getIngredients() {
         List<Ingredient> ingredientList = new ArrayList<>();
         for (MenuItem item : orderItems) {
-            ingredientList.addAll(item.getIngredients());
+            for (int i = 0; i < item.getQuantity(); i++) { //quantity multiplier
+                ingredientList.addAll(item.getIngredients());
+                ingredientList.addAll(item.getExtraIngredients());
+                ingredientList.removeAll(item.getRemovedIngredients());
+            }
         }
         return ingredientList;
     }

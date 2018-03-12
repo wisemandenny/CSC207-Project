@@ -8,3 +8,4 @@ update | ready | 2
 update | delivered | 2
 check please! | table 1
 check please! | table 2
+receivedShipment | 3000 bacon, 1000 patty
