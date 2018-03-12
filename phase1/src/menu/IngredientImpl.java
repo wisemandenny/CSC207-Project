@@ -5,7 +5,7 @@ import java.util.Objects;
 public class IngredientImpl implements Ingredient {
     private final String name;
     private double price;
-    
+
     IngredientImpl(Ingredient i) {
         this(i.getName(), i.getPrice());
     }
