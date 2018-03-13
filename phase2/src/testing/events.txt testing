@@ -1,0 +1,108 @@
+TEST CASE 1: big order of something that will run out of inventory PASS
+order | table 1 | 100 Hamburger
+update | received | 1
+update | ready | 1
+update | delivered | 1
+check please! | table 1
+
+EXPECTED OUTPUT:
+Order #1 placed.
+90 Hamburger(s) cannot be cooked because we are out of BurgerBun,
+Order #1 is now being cooked.
+Order #1 is now ready for pickup.
+Order #1 has been delivered to Table 1.
+BILL FOR TABLE #1
+10 Hamburger: $79.90
+Total: $79.90
+
+TEST CASE 2: one thing that will exceed inventory, another thing that will not exceed inventory PASS
+order | table 1 | 100 Hamburger, 1 Coke
+update | received | 1
+update | ready | 1
+update | delivered | 1
+check please! | table 1
+
+EXPECTED OUTPUT:
+Order #1 placed.
+90 Hamburger(s) cannot be cooked because we are out of BurgerBun,
+Order #1 is now being cooked.
+Order #1 is now ready for pickup.
+Order #1 has been delivered to Table 1.
+BILL FOR TABLE #1
+10 Hamburger: $79.90
+1 Coke: $1.25
+Total: $81.15
+
+TEST CASE 3: more than one item will exceed inventory (with different ingredients) PASS
+order | table 1 | 100 Hamburger, 100 Coke
+update | received | 1
+update | ready | 1
+update | delivered | 1
+check please! | table 1
+
+EXPECTED OUTPUT:
+Order #1 placed.
+90 Hamburger(s) cannot be cooked because we are out of BurgerBun,
+90 Coke(s) cannot be cooked because we are out of Coke,
+Order #1 is now being cooked.
+Order #1 is now ready for pickup.
+Order #1 has been delivered to Table 1.
+BILL FOR TABLE #1
+10 Hamburger: $79.90
+10 Coke: $12.50
+Total: $92.40
+
+
+TEST CASE 4: first order doesn't exceed inventory, second order does (same table) PASS
+order | table 1 | 10 Hamburger
+order | table 1 | 1 Hamburger
+update | received | 1
+update | received | 2
+update | ready | 1
+update | ready | 2
+update | delivered | 1
+update | delivered | 2
+check please! | table 1
+
+EXPECTED OUTPUT:
+Order #1 placed.
+Order #2 placed.
+Order #1 is now being cooked.
+1 Hamburger(s) cannot be cooked because we are out of BurgerBun,
+Order #2 is now being cooked.
+Order #1 is now ready for pickup.
+Order #2 is now ready for pickup.
+Order #1 has been delivered to Table 1.
+Order #2 has been delivered to Table 1.
+BILL FOR TABLE #1
+10 Hamburger: $79.90
+0 Hamburger: $0.00
+Total: $79.90
+
+
+TEST CASE 5: big order of item with mods. mods will make inventory run out twice as fast (double ingredients) FAIL
+order | table 1 | 10 Hamburger / +Patty
+update | received | 1
+update | ready | 1
+update | delivered | 1
+check please! | table 1
+
+EXPECTED OUTPUT:
+Order #1 placed.
+5 Hamburger(s) cannot be cooked because we are out of Patty,
+Order #1 is now being cooked.
+Order #1 is now ready for pickup.
+Order #1 has been delivered to Table 1.
+BILL FOR TABLE #1
+5 Hamburger: $39.95
+Total: $39.95
+
+ACTUAL OUTPUT:
+Order #1 placed.
+5 Hamburger(s) cannot be cooked because we are out of Patty,
+Order #1 is now being cooked.
+Order #1 is now ready for pickup.
+Order #1 has been delivered to Table 1.
+BILL FOR TABLE #1
+6 Hamburger: $47.94
+Total: $47.94
