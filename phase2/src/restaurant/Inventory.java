@@ -21,6 +21,8 @@ public interface Inventory {
      */
     void removeFromInventory(Order o);
 
+    void removeFromInventory(Ingredient i);
+
     /**
      * Returns the current inventory of the restaurant.
      *

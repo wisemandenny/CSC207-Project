@@ -1,12 +1,5 @@
-order | table 1 | 1 Hamburger / +ketchup -bacon, 1 Hamburger, 1 Coke
-order | table 1 | 1 Coke
-order | table 2 | 1 Hotdog, 1 Hamburger, 2 Coke
+order | table 1 | 10 Hamburger / +Patty
 update | received | 1
-update | received | 2
 update | ready | 1
-update | ready | 2
 update | delivered | 1
-serverReturned | table 1 | 1 Hamburger / +ketchup -bacon | test
-update | delivered | 2
 check please! | table 1
-receivedShipment | 3000 bacon, 1000 patty

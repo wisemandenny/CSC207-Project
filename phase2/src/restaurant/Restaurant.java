@@ -1,10 +1,7 @@
 package restaurant;
 
 import events.Event;
-import menu.BurgerMenu;
-import menu.Ingredient;
-import menu.Menu;
-import menu.MenuItem;
+import menu.*;
 
 import java.util.*;
 
@@ -66,6 +63,7 @@ public class Restaurant {
 
     public static void addPlacedOrder(Order o) {
         Restaurant.placedOrders.add(o);
+        Restaurant.tables[o.getTableId()].addOrder(o);
         System.out.println("Order #" + o.getId() + " placed.");
     }
 
@@ -105,34 +103,37 @@ public class Restaurant {
     private static void rejectOrder(Order o) {
         List<MenuItem> rejectedItems = new ArrayList<>();
         List<MenuItem> acceptedItems = new ArrayList<>();
+        //iterate through each menu item item.getQuantity() times. if there's enough inventory, add the item to accepted items. if not, add it to rejected items. at the end, cook accepted items and do nothing except for notify the table that rejected items were not able to be cooked and send them to rejected orders for loogging later.
 
-        for (MenuItem item : o.getItems()) {
-            Set<Ingredient> allIngredients = new HashSet<>();
+        for(MenuItem item: o.getItems()){
+            List<Ingredient> allIngredients = new ArrayList<>();
             allIngredients.addAll(item.getIngredients());
             allIngredients.addAll(item.getExtraIngredients());
             allIngredients.removeAll(item.getRemovedIngredients());
-            boolean flag = true;
+            MenuItem itemToAdd = new MenuItemImpl(item);
+            MenuItem itemToRemove = new MenuItemImpl(item);
+            itemToAdd.setQuantity(0);
 
-            for (Ingredient i : allIngredients) {
-                if (Restaurant.inventory.getContents().get(i) < item.getQuantity()) {
-                    System.out.println(item.getQuantity() + " " + item.getName() + "(s) cannot be cooked because we are out of " + i.getName() + ",");         //inform the table their items cannot be cooked?
-                    Restaurant.inventory.makeRestockRequest(i);  //make a request for an inventory reup in requests.txt
-                    flag = false;
+            itemLoop:
+            for (int i = 1; i <= item.getQuantity(); i++) {
+                //iterate through all ingredients in the item. the quantity of each ingredient is 1.
+                for (Ingredient ingredient: allIngredients){
+                    if(Restaurant.inventory.getContents().get(ingredient) == 0){
+                        //if we're out of this ingredient, add the uncookable items to rejected orders and exit the for loop
+                        itemToRemove.setQuantity(item.getQuantity()- i+1);
+                        rejectedItems.add(itemToRemove);
+                        System.out.println(itemToRemove.getQuantity() + " " + itemToRemove.getName() + "(s) cannot be cooked because we are out of " + ingredient.getName() + ",");
+                        break itemLoop;
+                    }
+                    Restaurant.inventory.removeFromInventory(ingredient);
+                    itemToAdd.setQuantity(i);
                 }
             }
+            acceptedItems.add(itemToAdd);
+        }
 
-            if (flag) {
-                acceptedItems.add(item);
-            } else {
-                rejectedItems.add(item);
-            }
-        }
-        if (!rejectedItems.isEmpty()) {
-            Restaurant.rejectedOrders.add(new OrderImpl(rejectedItems, o.getId()));
-        }
-        if (!acceptedItems.isEmpty()) {
-            Restaurant.cookingOrders.add(new OrderImpl(acceptedItems, o.getId()));
-        }
+        if (!rejectedItems.isEmpty()) Restaurant.rejectedOrders.add(new OrderImpl(rejectedItems, o.getId(), o.getTableId()));
+        if (!acceptedItems.isEmpty()) Restaurant.cookingOrders.add(new OrderImpl(acceptedItems, o.getId(), o.getTableId()));
     }
 
     private static Order findOrder(Set<Order> searchSet, int orderId) {
@@ -143,7 +144,6 @@ public class Restaurant {
         }
         throw new IllegalArgumentException("Order #" + orderId + " not found.");
     }
-
 
     /**
      * Adds a new menu.Ingredient to this restaurant.Restaurant's inventory.

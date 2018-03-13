@@ -51,8 +51,11 @@ public class InventoryImpl implements Inventory {
 
     }
 
-    private void removeFromInventory(Ingredient i) {
-        inventory.put(i, inventory.get(i) - 1);
+    @Override
+    public void removeFromInventory(Ingredient i) {
+        if(inventory.get(i) > 0) {
+            inventory.put(i, inventory.get(i) - 1);
+        }
     }
 
     /**

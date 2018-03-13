@@ -1,6 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 
-/.idea/
 /projectGroup/
 /p1.shtml
 /p2.shtml
@@ -8,3 +7,5 @@
 /.required.json
 /markus-hooks/
 /phase1/
+.idea/
+/output/

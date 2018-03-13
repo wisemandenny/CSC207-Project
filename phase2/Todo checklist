@@ -1,5 +1,7 @@
+DENNY'S REFACTORING TODO
 1. reject items do to lack of inventory shortage
 2. delete baseevent.java once everything is done in it
+3. delete all commented out code
 
 3 days for refactoring - Denny - March 15th
 gui
@@ -37,12 +39,9 @@ added at least 3 extra features March 26th
 
 Code refactored  and documented March 28th
 
-
-documentation
-
 DUTIES:
 refactoring code before new features: Denny
-design gui: all 4
+design gui: all 4 (meet somewhere, time and place TBD)
 test suite: ak (TBD, hannah or milan)
 build gui: denny (TBD, hannah or milan)
 

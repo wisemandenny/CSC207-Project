@@ -9,7 +9,6 @@ import java.util.List;
 public class TableImpl implements Table {
     private final int id;
     private final Order bill = new OrderImpl();
-    private final List<MenuItem> deductions = new ArrayList<>();
     private final List<MenuItem> uncookedMenuItems = new ArrayList<>();
     private final List<Order> orders = new ArrayList<>();
 
@@ -112,15 +111,4 @@ public class TableImpl implements Table {
 
         return String.format("%.2f", cost);
     }
-
-    /**
-     * Returns the restaurant.Order that currently belongs to this restaurant.TableImpl.
-     *
-     * @return the restaurant.Order belonging to this restaurant.TableImpl
-     */
-    /*
-    @Override
-    public Order getOrder() {
-        return order;
-    }*/
 }

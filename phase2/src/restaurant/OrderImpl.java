@@ -24,9 +24,10 @@ public class OrderImpl implements Order {
         id = OrderImpl.idCounter++;
     }
 
-    public OrderImpl(List<MenuItem> items, int id) {
+    public OrderImpl(List<MenuItem> items, int id, int tableId) {
         orderItems = new ArrayList<>(items);
         this.id = id; //this might break things
+        this.tableId = tableId;
     }
 
 
