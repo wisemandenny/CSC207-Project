@@ -1,48 +1,34 @@
 package menu;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class MenuItemImpl implements MenuItem {
     private final String name;
-    private final List<Ingredient> extraIngredients = new ArrayList<>();
-    private final List<Ingredient> removedIngredients = new ArrayList<>();
+    private List<Ingredient> extraIngredients = new ArrayList<>();
+    private List<Ingredient> removedIngredients = new ArrayList<>();
     private final List<Ingredient> ingredients;
     private int quantity;
     private double price;
     private String comment;
 
-
-    public MenuItemImpl(MenuItem item, int quantity) {
-        this(item.getName(), item.getPrice(), item.getIngredients(), quantity);
-        if (!item.getExtraIngredients().isEmpty()) {
-            for (Ingredient i : item.getExtraIngredients()) {
-                addExtraIngredient(i);
-            }
-        }
-        if (!item.getRemovedIngredients().isEmpty()) {
-            for (Ingredient i : item.getRemovedIngredients()) {
-                if (item.getIngredients().contains(i)) {
-                    removeIngredient(i);
-                }
-            }
-        }
-    }
-
     public MenuItemImpl(MenuItem item) {
-        this(item.getName(), item.getPrice(), item.getIngredients());
+        this(item.getName(), item.getPrice(), item.getIngredients(), item.getExtraIngredients(), item.getRemovedIngredients(), 1);
     }
 
-    public MenuItemImpl(String name, double price, List<Ingredient> ingredients) {
-        this(name, price, ingredients, 1);
+    MenuItemImpl(String name, double price, List<Ingredient> ingredients) {
+        this(name, price, ingredients, Collections.emptyList(), Collections.emptyList(), 1);
     }
 
-    private MenuItemImpl(String name, double price, List<Ingredient> ingredients, int quantity) {
+    private MenuItemImpl(String name, double price, List<Ingredient> ingredients, List<Ingredient> extraIngredients, List<Ingredient> removedIngredients, int quantity) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.ingredients = ingredients;
+        this.extraIngredients = extraIngredients;
+        this.removedIngredients = removedIngredients;
     }
 
     /**
@@ -146,35 +132,6 @@ public class MenuItemImpl implements MenuItem {
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(MenuItem item) {
-        return name.equals(item.getName());
-    }
-
-    @Override
-    public boolean equalsWithExtras(MenuItem item) {
-        return item.hashCode() == hashCode();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(concatenate());
-    }
-
-    private String concatenate() {
-        StringBuilder mods = new StringBuilder("");
-        for (Ingredient i : extraIngredients) {
-            mods.append(i.getName());
-        }
-        for (Ingredient i : removedIngredients) {
-            mods.append(i.getName());
-        }
-        return name + mods.toString();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public List<Ingredient> getExtraIngredients() {
         return new ArrayList<>(extraIngredients);
     }
@@ -197,5 +154,45 @@ public class MenuItemImpl implements MenuItem {
             ret += i.getPrice();
         }
         return ret * quantity;
+    }
+
+    public List<Ingredient> getAllIngredients(){
+        List<Ingredient> allIngredients = new ArrayList<>();
+        allIngredients.addAll(getIngredients());
+        allIngredients.addAll(getExtraIngredients());
+        allIngredients.removeAll(getRemovedIngredients());
+        return allIngredients;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (!(o instanceof Ingredient)) {
+            return false;
+        }
+        MenuItem m = (MenuItem) o;
+        return name.equalsIgnoreCase(m.getName());
+    }
+
+    @Override
+    public boolean equalsWithExtras(MenuItem item) {
+        return item.hashCode() == hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(concatenate());
+    }
+
+    private String concatenate() {
+        StringBuilder mods = new StringBuilder("");
+        for (Ingredient i : extraIngredients) {
+            mods.append(i.getName());
+        }
+        for (Ingredient i : removedIngredients) {
+            mods.append(i.getName());
+        }
+        return name + mods.toString();
     }
 }

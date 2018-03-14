@@ -21,7 +21,7 @@ public class EventFactory {
         EventType type = EventType.fromString(splitString[EventFactory.TYPE_ADDRESS]);
 
         switch (type) {
-            case UPDATE: //TODO: fix this error message
+            case UPDATE:
                 int orderId = Integer.parseInt(splitString[2]);
                 switch (EventType.fromString(splitString[1])) {
                     case COOKSEEN:

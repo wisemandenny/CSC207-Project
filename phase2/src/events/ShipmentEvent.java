@@ -12,7 +12,7 @@ public class ShipmentEvent implements Event {
     private static final int NAME_ADDRESS = 1;
     private final Map<Ingredient, Integer> shipment = new HashMap<>();
 
-    public ShipmentEvent(String shipment) {
+    ShipmentEvent(String shipment) {
         String[] receivedItems = shipment.split(", ");
         for (String ingredient : receivedItems) {
             String[] ingredientWithQuantity = ingredient.split("\\s");

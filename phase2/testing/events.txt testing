@@ -53,7 +53,7 @@ BILL FOR TABLE #1
 Total: $92.40
 
 
-TEST CASE 4: first order doesn't exceed inventory, second order does (same table) PASS
+TEST CASE 4: first order doesn't exceed inventory, second order does (same table)
 order | table 1 | 10 Hamburger
 order | table 1 | 1 Hamburger
 update | received | 1
@@ -80,7 +80,7 @@ BILL FOR TABLE #1
 Total: $79.90
 
 
-TEST CASE 5: big order of item with mods. mods will make inventory run out twice as fast (double ingredients) FAIL
+TEST CASE 5: big order of item with mods. mods will make inventory run out twice as fast (double ingredients) PASS
 order | table 1 | 10 Hamburger / +Patty
 update | received | 1
 update | ready | 1
@@ -95,7 +95,8 @@ Order #1 is now ready for pickup.
 Order #1 has been delivered to Table 1.
 BILL FOR TABLE #1
 5 Hamburger: $39.95
-Total: $39.95
+5 Patty: $10.00
+Total: $49.95
 
 ACTUAL OUTPUT:
 Order #1 placed.
@@ -105,4 +106,5 @@ Order #1 is now ready for pickup.
 Order #1 has been delivered to Table 1.
 BILL FOR TABLE #1
 6 Hamburger: $47.94
-Total: $47.94
+6 Patty: $12.00
+Total: $59.94

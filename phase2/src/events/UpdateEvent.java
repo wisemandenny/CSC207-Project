@@ -28,6 +28,8 @@ public class UpdateEvent implements Event {
             case SERVERDELIVERED:
                 Restaurant.addDeliveredOrder(orderId);
                 break;
+            default:
+                throw new IllegalStateException("Invalid type of Update Event"+ type);
         }
     }
 

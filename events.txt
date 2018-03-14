@@ -1,5 +1,9 @@
-order | table 1 | 10 Hamburger / +Patty
+order | table 1 | 10 Hamburger
 update | received | 1
 update | ready | 1
 update | delivered | 1
+order | table 1 | 1 Hamburger
+update | received | 2
+update | ready | 2
+update | delivered | 2
 check please! | table 1

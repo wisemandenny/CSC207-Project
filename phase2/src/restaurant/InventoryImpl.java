@@ -38,8 +38,8 @@ public class InventoryImpl implements Inventory {
      */
     @Override
     public void addToInventory(Map<Ingredient, Integer> shipment) {
-        for (Ingredient i : shipment.keySet()) {
-            inventory.put(i, (inventory.get(i) + shipment.get(i)));
+        for (Map.Entry<Ingredient, Integer> entry: shipment.entrySet()) {
+            inventory.put(entry.getKey(), (inventory.get(entry.getKey()) + entry.getValue()));
         }
     }
 
@@ -56,38 +56,6 @@ public class InventoryImpl implements Inventory {
         if(inventory.get(i) > 0) {
             inventory.put(i, inventory.get(i) - 1);
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     *//*
-    @Override
-    public void removeFromInventory(MenuItem item, TableImpl t) {
-        int uncookableItemNumber = 0;
-        for (Ingredient ingredient : item.getIngredients()) {
-            int quantity = item.getQuantity();
-            int cookableItemNumber = inventory.get(ingredient);
-            uncookableItemNumber = quantity - cookableItemNumber;
-
-            if (uncookableItemNumber > 0) {
-                removeFromInventory(ingredient, cookableItemNumber);
-                //TODO: remove the uncooked items from the bill
-                orderIngredient(ingredient);
-            } else {
-                //inventory >= request
-                removeFromInventory(ingredient, quantity);
-            }
-        }
-        if (uncookableItemNumber > 0) { //TODO: this is horrible.
-            rejectItem(item, uncookableItemNumber);
-            MenuItem i = new MenuItemImpl(item, uncookableItemNumber);
-            t.addUncookedMenuitems(i);
-        }
-    }
-
-    void rejectItem(MenuItem item, int quantity) {
-        System.out.println("Sorry, but due to inventory shortages we are unable to cook " + quantity + " " + item.getName() + "(s).\n");
-        //TODO: this also needs to remove the uncookable items from the bill
     }
 
     void orderIngredient(Ingredient ingredient) { //TODO: remove duplication of inventory orders in output file
@@ -113,8 +81,8 @@ public class InventoryImpl implements Inventory {
 
     @Override
     public void printContents() {
-        for (Ingredient i : inventory.keySet()) {
-            System.out.println("Name: " + i.getName() + "       Quantity: " + inventory.get(i));
+        for(Map.Entry<Ingredient, Integer> entry : inventory.entrySet()){
+            System.out.println("Name: " +entry.getKey().getName() + "       Quantity: " + entry.getValue());
         }
     }
 }

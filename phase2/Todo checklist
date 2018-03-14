@@ -1,6 +1,5 @@
 DENNY'S REFACTORING TODO
 1. reject items do to lack of inventory shortage
-2. delete baseevent.java once everything is done in it
 3. delete all commented out code
 
 3 days for refactoring - Denny - March 15th

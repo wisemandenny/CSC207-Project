@@ -109,7 +109,9 @@ public interface MenuItem {
      * @param item the menu.MenuItem being compared to this menu.MenuItem
      * @return a boolean that represents if this menu.MenuItem has the same name as menu.MenuItem item
      */
-    boolean equals(MenuItem item);
+    boolean equals(Object o);
 
     boolean equalsWithExtras(MenuItem item);
+
+    List<Ingredient> getAllIngredients();
 }

@@ -70,7 +70,7 @@ public class Restaurant {
     public static void addCookingOrder(int orderId) {
         Order order = Restaurant.findOrder(Restaurant.placedOrders, orderId);
         Restaurant.placedOrders.remove(order);
-        Restaurant.rejectOrder(order);
+        Restaurant.checkInventory(order);
         //Restaurant.cookingOrders.add(order);
         //Todo: reject items here
         Restaurant.inventory.removeFromInventory(order);
@@ -95,46 +95,43 @@ public class Restaurant {
         Restaurant.deliveredOrders.add(order);
         Restaurant.tables[order.getTableId()].addOrderToBill(order);
 
-
         System.out.println("Order #" + order.getId() + " has been delivered to Table " + order.getTableId() + ".");
 
     }
 
-    private static void rejectOrder(Order o) {
+    private static void checkInventory(Order o) {
         List<MenuItem> rejectedItems = new ArrayList<>();
         List<MenuItem> acceptedItems = new ArrayList<>();
-        //iterate through each menu item item.getQuantity() times. if there's enough inventory, add the item to accepted items. if not, add it to rejected items. at the end, cook accepted items and do nothing except for notify the table that rejected items were not able to be cooked and send them to rejected orders for loogging later.
 
-        for(MenuItem item: o.getItems()){
-            List<Ingredient> allIngredients = new ArrayList<>();
-            allIngredients.addAll(item.getIngredients());
-            allIngredients.addAll(item.getExtraIngredients());
-            allIngredients.removeAll(item.getRemovedIngredients());
+        for(MenuItem item: o.getItems()) {
+            List<Ingredient> allIngredients = item.getAllIngredients();
             MenuItem itemToAdd = new MenuItemImpl(item);
             MenuItem itemToRemove = new MenuItemImpl(item);
-            itemToAdd.setQuantity(0);
 
             itemLoop:
-            for (int i = 1; i <= item.getQuantity(); i++) {
-                //iterate through all ingredients in the item. the quantity of each ingredient is 1.
-                for (Ingredient ingredient: allIngredients){
-                    if(Restaurant.inventory.getContents().get(ingredient) == 0){
-                        //if we're out of this ingredient, add the uncookable items to rejected orders and exit the for loop
-                        itemToRemove.setQuantity(item.getQuantity()- i+1);
+            for(int i = 1; i <= item.getQuantity(); i++){
+                for(Ingredient ingredient : allIngredients){
+                    if(inventory.getContents().get(ingredient) == 0){//not enough inventory
+                        itemToRemove.setQuantity(item.getQuantity() - i);
                         rejectedItems.add(itemToRemove);
                         System.out.println(itemToRemove.getQuantity() + " " + itemToRemove.getName() + "(s) cannot be cooked because we are out of " + ingredient.getName() + ",");
+                        //TODO: log a request here
                         break itemLoop;
+                    }else{ //enough inventory
+                        inventory.removeFromInventory(ingredient);
+                        if(ingredient.equals(allIngredients.get(allIngredients.size()-1))){//enough inventory for the whole item
+                            itemToAdd.setQuantity(i);
+                        }
                     }
-                    Restaurant.inventory.removeFromInventory(ingredient);
-                    itemToAdd.setQuantity(i);
                 }
             }
             acceptedItems.add(itemToAdd);
-        }
 
+        }
         if (!rejectedItems.isEmpty()) Restaurant.rejectedOrders.add(new OrderImpl(rejectedItems, o.getId(), o.getTableId()));
         if (!acceptedItems.isEmpty()) Restaurant.cookingOrders.add(new OrderImpl(acceptedItems, o.getId(), o.getTableId()));
     }
+
 
     private static Order findOrder(Set<Order> searchSet, int orderId) {
         for (Order order : searchSet) {
@@ -145,12 +142,6 @@ public class Restaurant {
         throw new IllegalArgumentException("Order #" + orderId + " not found.");
     }
 
-    /**
-     * Adds a new menu.Ingredient to this restaurant.Restaurant's inventory.
-     *
-     * @param ingredient the menu.Ingredient object to be added
-     * @param amount     the amount of this menu.Ingredient that should be added
-     */
     public static void addToInventory(Map<Ingredient, Integer> shipment) {
         Restaurant.inventory.addToInventory(shipment);
         /* uncomment this to check inventory restock

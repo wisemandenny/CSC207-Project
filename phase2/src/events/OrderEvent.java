@@ -25,11 +25,10 @@ class OrderEvent implements Event {
     public void doEvent() {
         table.addOrder(order);
         Restaurant.addPlacedOrder(order);
-        //System.out.println(order + "added to table.");
     }
 
     Order getOrder() {
-        return order; //TODO: make a copy of this item for returning to avoid exposing internal private state
+        return order;
     }
 }
 
