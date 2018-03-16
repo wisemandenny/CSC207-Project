@@ -1,5 +1,6 @@
 // TODO: write these tests
-package Tests;
+package tests;
+import restaurant.*;
 
 public class RestaurantTest {
 

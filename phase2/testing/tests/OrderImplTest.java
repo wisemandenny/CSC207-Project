@@ -1,5 +1,6 @@
 // TODO: write these tests
-package restaurant;
+package tests;
+import restaurant.*;
 
 public class OrderImplTest {
 

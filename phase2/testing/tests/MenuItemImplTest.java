@@ -1,4 +1,5 @@
-package menu;
+package tests;
+import menu.*;
 
 
 import org.junit.Test;
@@ -11,15 +12,15 @@ import static org.junit.Assert.*;
 public class MenuItemImplTest {
 
     private MenuItem generateMenuItem(){
-        Ingredient burgerBun = new IngredientImpl("BurgerBun", 0.50);
-        Ingredient patty = new IngredientImpl("Patty", 2.00);
-        Ingredient lettuce = new IngredientImpl("Lettuce", 0.50);
-        Ingredient tomato = new IngredientImpl("Tomato", 0.50);
-        Ingredient ketchup = new IngredientImpl("Ketchup", 0.10);
-        Ingredient mustard = new IngredientImpl("Mustard", 0.10);
-        Ingredient bacon = new IngredientImpl("Bacon", 3.00);
+        Ingredient burgerBun = IngredientFactory.makeIngredient("BurgerBun");
+        Ingredient patty = IngredientFactory.makeIngredient("Patty");
+        Ingredient lettuce = IngredientFactory.makeIngredient("Lettuce");
+        Ingredient tomato = IngredientFactory.makeIngredient("Tomato");
+        Ingredient ketchup = IngredientFactory.makeIngredient("Ketchup");
+        Ingredient mustard = IngredientFactory.makeIngredient("Mustard");
+        Ingredient bacon = IngredientFactory.makeIngredient("Bacon");
         List<Ingredient> hamburger = Arrays.asList(burgerBun, patty, lettuce, tomato, ketchup, mustard, bacon);
-        return new MenuItemImpl("Hamburger", 7.99, hamburger);
+        return MenuItemFactory.makeMenuItem("Hamburger", 7.99, hamburger);
     }
 
 
@@ -99,7 +100,7 @@ public class MenuItemImplTest {
     public void testAddExtraIngredient(){
         MenuItem item = generateMenuItem();
         assertTrue(item.getIngredients().size() == 7);
-        item.addExtraIngredient(new IngredientImpl("Bacon", 2.00));
+        item.addExtraIngredient(IngredientFactory.makeIngredient("Bacon"));
         assertTrue(item.getExtraIngredients().size() == 1);
     }
 
@@ -107,11 +108,12 @@ public class MenuItemImplTest {
     @Test
     public void testRemoveIngredient(){
         MenuItem item = generateMenuItem();
-        item.addExtraIngredient(new IngredientImpl("Bacon", 3.00));
+
+        item.addExtraIngredient(IngredientFactory.makeIngredient("Bacon"));
         assertTrue(item.getExtraIngredients().size() == 1);
-        item.removeIngredient(new IngredientImpl("Bacon", 3.00));
+        item.removeIngredient(IngredientFactory.makeIngredient("Bacon"));
         assertTrue(item.getExtraIngredients().size() == 1);
-        item.removeIngredient(new IngredientImpl("Lettuce", 0.50));
+        item.removeIngredient(IngredientFactory.makeIngredient("Lettuce"));
         assertTrue(item.getRemovedIngredients().size() == 2);
     }
 
@@ -125,9 +127,9 @@ public class MenuItemImplTest {
     @Test
     public void testAdditionalGetExtraIngredientPrice(){
         MenuItem item = generateMenuItem();
-        item.addExtraIngredient(new IngredientImpl("Bacon", 3.00));
+        item.addExtraIngredient(IngredientFactory.makeIngredient("Bacon"));
         assertTrue(item.getExtraIngredientPrice() == 3.00);
-        item.removeIngredient(new IngredientImpl("Bacon", 3.00));
+        item.removeIngredient(IngredientFactory.makeIngredient("Bacon"));
         assertTrue(item.getExtraIngredientPrice() == 3.00);
         assertTrue(item.getRemovedIngredientsPrice() == 3.00);
     }
@@ -135,7 +137,7 @@ public class MenuItemImplTest {
     @Test
     public void testIncorrectAdditionalGetExtraIngredientPrice(){
         MenuItem item = generateMenuItem();
-        item.addExtraIngredient(new IngredientImpl("Bacon", 3.00));
+        item.addExtraIngredient(IngredientFactory.makeIngredient("Bacon"));
         assertFalse(item.getExtraIngredientPrice() == 0.00);
     }
 
@@ -160,10 +162,10 @@ public class MenuItemImplTest {
     @Test
     public void testEquals(){
         MenuItem item = generateMenuItem();
-        Ingredient burgerBun = new IngredientImpl("BurgerBun", 0.50);
-        Ingredient patty = new IngredientImpl("Patty", 2.00);
+        Ingredient burgerBun = IngredientFactory.makeIngredient("BurgerBun");
+        Ingredient patty = IngredientFactory.makeIngredient("Patty");
         List<Ingredient> hamburger = Arrays.asList(burgerBun, patty);
-        MenuItem other = new MenuItemImpl("Hamburger", 2.50, hamburger);
+        MenuItem other = MenuItemFactory.makeMenuItem("Hamburger", 2.50, hamburger);
         assertTrue(item.equals(other));
     }
 
@@ -171,10 +173,10 @@ public class MenuItemImplTest {
     @Test
     public void testNotEquals(){
         MenuItem item = generateMenuItem();
-        Ingredient burgerBun = new IngredientImpl("BurgerBun", 0.50);
-        Ingredient patty = new IngredientImpl("veganPatty", 3.00);
-        List<Ingredient> plain = Arrays.asList(burgerBun, patty);
-        MenuItem plainPatty = new MenuItemImpl("VeganBurger", 3.50, plain);
+        Ingredient burgerBun = IngredientFactory.makeIngredient("BurgerBun");
+        Ingredient ketchup = IngredientFactory.makeIngredient("Ketchup");
+        List<Ingredient> plain = Arrays.asList(burgerBun, ketchup);
+        MenuItem plainPatty = MenuItemFactory.makeMenuItem("VeganBurger", 3.50, plain);
         assertFalse(item == plainPatty);
     }
 
@@ -182,8 +184,8 @@ public class MenuItemImplTest {
     @Test
     public void testGetExtraIngredients(){
         MenuItem item = generateMenuItem();
-        Ingredient patty = new IngredientImpl("Patty", 3.00);
-        Ingredient cheese = new IngredientImpl("Cheese", 0.50);
+        Ingredient patty = IngredientFactory.makeIngredient("Patty");
+        Ingredient cheese = IngredientFactory.makeIngredient("Cheese");
         item.addExtraIngredient(patty);
         item.addExtraIngredient(cheese);
         assertEquals(2, item.getExtraIngredients().size());
@@ -194,8 +196,8 @@ public class MenuItemImplTest {
     @Test
     public void testGetRemovedIngredients(){
         MenuItem item = generateMenuItem();
-        Ingredient patty = new IngredientImpl("Patty", 3.00);
-        Ingredient cheese = new IngredientImpl("Cheese", 0.50);
+        Ingredient patty = IngredientFactory.makeIngredient("Patty");
+        Ingredient cheese = IngredientFactory.makeIngredient("Cheese");
         item.addExtraIngredient(patty);
         item.addExtraIngredient(cheese);
         assertEquals(2, item.getExtraIngredients().size());
@@ -208,9 +210,9 @@ public class MenuItemImplTest {
     @Test
     public void testGetRemovedIngredientsPrice(){
         MenuItem item = generateMenuItem();
-        Ingredient patty = new IngredientImpl("Patty", 3.00);
-        Ingredient cheese = new IngredientImpl("Cheese", 0.50);
-        Ingredient tomato = new IngredientImpl("Tomato", 0.50);
+        Ingredient patty = IngredientFactory.makeIngredient("Patty");
+        Ingredient cheese = IngredientFactory.makeIngredient("Cheese");
+        Ingredient tomato = IngredientFactory.makeIngredient("Tomato");
         item.addExtraIngredient(patty);
         item.addExtraIngredient(cheese);
         assertTrue(item.getRemovedIngredientsPrice() == 0.00);

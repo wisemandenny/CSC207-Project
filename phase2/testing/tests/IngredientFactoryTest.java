@@ -1,4 +1,5 @@
-package restaurant;
+package tests;
+import restaurant.*;
 
 import org.junit.Test;
 
