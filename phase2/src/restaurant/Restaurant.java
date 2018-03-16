@@ -107,8 +107,8 @@ public class Restaurant {
 
         for (MenuItem item : o.getItems()) {
             List<Ingredient> allIngredients = item.getAllIngredients();
-            MenuItem itemToAdd = new MenuItemImpl(item);
-            MenuItem itemToRemove = new MenuItemImpl(item);
+            MenuItem itemToAdd = MenuItemFactory.makeMenuItem(item);
+            MenuItem itemToRemove = MenuItemFactory.makeMenuItem(item);
 
             itemLoop:
             for (int i = 1; i <= item.getQuantity(); i++) {

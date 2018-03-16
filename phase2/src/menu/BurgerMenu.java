@@ -66,16 +66,16 @@ public class BurgerMenu implements Menu {
         List<Ingredient> poutine = Arrays.asList(potato, salt, cheese, gravy);
         List<Ingredient> salad = Arrays.asList(lettuce, tomato, onion, cucumber, greenOlives, blackOlives, cheese);
 
-        menu[0] = new MenuItemImpl("Hamburger", 7.99, hamburger);
-        menu[1] = new MenuItemImpl("Chicken Burger", 5.39, chickenBurger);
-        menu[2] = new MenuItemImpl("Veggie Burger", 5.99, vegetarian);
-        menu[3] = new MenuItemImpl("Fries", 1.50, fries);
-        menu[4] = new MenuItemImpl("Hotdog", 4.99, hotdogExtras);
-        menu[5] = new MenuItemImpl("Coke", 1.25, Arrays.asList(coke));
-        menu[6] = new MenuItemImpl("Chicken Fingers", 7.29, chickenFingers);
-        menu[7] = new MenuItemImpl("Onion Rings", 2.99, onionRings);
-        menu[8] = new MenuItemImpl("Poutine", 6.99, poutine);
-        menu[9] = new MenuItemImpl("Salad", 5.99, salad);
+        menu[0] = MenuItemFactory.makeMenuItem("Hamburger", 7.99, hamburger);
+        menu[1] = MenuItemFactory.makeMenuItem("Chicken Burger", 5.39, chickenBurger);
+        menu[2] = MenuItemFactory.makeMenuItem("Veggie Burger", 5.99, vegetarian);
+        menu[3] = MenuItemFactory.makeMenuItem("Fries", 1.50, fries);
+        menu[4] = MenuItemFactory.makeMenuItem("Hotdog", 4.99, hotdogExtras);
+        menu[5] = MenuItemFactory.makeMenuItem("Coke", 1.25, Arrays.asList(coke));
+        menu[6] = MenuItemFactory.makeMenuItem("Chicken Fingers", 7.29, chickenFingers);
+        menu[7] = MenuItemFactory.makeMenuItem("Onion Rings", 2.99, onionRings);
+        menu[8] = MenuItemFactory.makeMenuItem("Poutine", 6.99, poutine);
+        menu[9] = MenuItemFactory.makeMenuItem("Salad", 5.99, salad);
 
     }
 
@@ -91,7 +91,7 @@ public class BurgerMenu implements Menu {
     public MenuItem getMenuItem(String query) {
         for (MenuItem searchItem : menu) {
             if (searchItem.getName().equals(query)) {
-                return new MenuItemImpl(searchItem);
+                return MenuItemFactory.makeMenuItem(searchItem);
             }
         }
         throw new IllegalArgumentException("Please order off the menu.");

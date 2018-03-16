@@ -7,22 +7,14 @@ import java.util.Objects;
 
 public class MenuItemImpl implements MenuItem {
     private final String name;
-    private List<Ingredient> extraIngredients = new ArrayList<>();
-    private List<Ingredient> removedIngredients = new ArrayList<>();
+    private List<Ingredient> extraIngredients;
+    private List<Ingredient> removedIngredients;
     private final List<Ingredient> ingredients;
     private int quantity;
     private double price;
     private String comment;
 
-    public MenuItemImpl(MenuItem item) {
-        this(item.getName(), item.getPrice(), item.getIngredients(), item.getExtraIngredients(), item.getRemovedIngredients(), 1);
-    }
-
-    MenuItemImpl(String name, double price, List<Ingredient> ingredients) {
-        this(name, price, ingredients, Collections.emptyList(), Collections.emptyList(), 1);
-    }
-
-    private MenuItemImpl(String name, double price, List<Ingredient> ingredients, List<Ingredient> extraIngredients, List<Ingredient> removedIngredients, int quantity) {
+      MenuItemImpl(String name, double price, List<Ingredient> ingredients, List<Ingredient> extraIngredients, List<Ingredient> removedIngredients, int quantity) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
