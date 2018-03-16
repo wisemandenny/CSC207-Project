@@ -13,6 +13,7 @@ public class Restaurant {
     private static final Set<Order> rejectedOrders = new HashSet<>();
     private static final Set<Order> readyOrders = new HashSet<>();
     private static final Set<Order> deliveredOrders = new HashSet<>();
+    private static double taxRate;
     private static Restaurant instance = null; //singleton
     private static TableImpl[] tables;
 
@@ -24,7 +25,8 @@ public class Restaurant {
      *
      * @param numOfTables the number of Tables this restaurant.Restaurant should have.
      */
-    private Restaurant(int numOfTables) {
+    private Restaurant(int numOfTables, double taxRate) {
+        Restaurant.taxRate = taxRate;
         Restaurant.tables = new TableImpl[numOfTables + 1];
         for (int i = 1; i <= numOfTables; i++) {
             Restaurant.tables[i] = new TableImpl(i);
@@ -33,9 +35,9 @@ public class Restaurant {
         handleEvents(eventManager);
     }
 
-    public static Restaurant getInstance(int numOfTables) {
+    public static Restaurant getInstance(int numOfTables, double taxRate) {
         if (Restaurant.instance == null) {
-            Restaurant.instance = new Restaurant(numOfTables);
+            Restaurant.instance = new Restaurant(numOfTables, taxRate);
         }
         return Restaurant.instance;
     }
@@ -103,23 +105,23 @@ public class Restaurant {
         List<MenuItem> rejectedItems = new ArrayList<>();
         List<MenuItem> acceptedItems = new ArrayList<>();
 
-        for(MenuItem item: o.getItems()) {
+        for (MenuItem item : o.getItems()) {
             List<Ingredient> allIngredients = item.getAllIngredients();
             MenuItem itemToAdd = new MenuItemImpl(item);
             MenuItem itemToRemove = new MenuItemImpl(item);
 
             itemLoop:
-            for(int i = 1; i <= item.getQuantity(); i++){
-                for(Ingredient ingredient : allIngredients){
-                    if(inventory.getContents().get(ingredient) == 0){//not enough inventory
+            for (int i = 1; i <= item.getQuantity(); i++) {
+                for (Ingredient ingredient : allIngredients) {
+                    if (Restaurant.inventory.getContents().get(ingredient) == 0) {//not enough inventory
                         itemToRemove.setQuantity(item.getQuantity() - i);
                         rejectedItems.add(itemToRemove);
                         System.out.println(itemToRemove.getQuantity() + " " + itemToRemove.getName() + "(s) cannot be cooked because we are out of " + ingredient.getName() + ",");
                         //TODO: log a request here
                         break itemLoop;
-                    }else{ //enough inventory
-                        inventory.removeFromInventory(ingredient);
-                        if(ingredient.equals(allIngredients.get(allIngredients.size()-1))){//enough inventory for the whole item
+                    } else { //enough inventory
+                        Restaurant.inventory.removeFromInventory(ingredient);
+                        if (ingredient.equals(allIngredients.get(allIngredients.size() - 1))) {//enough inventory for the whole item
                             itemToAdd.setQuantity(i);
                         }
                     }
@@ -128,8 +130,10 @@ public class Restaurant {
             acceptedItems.add(itemToAdd);
 
         }
-        if (!rejectedItems.isEmpty()) Restaurant.rejectedOrders.add(new OrderImpl(rejectedItems, o.getId(), o.getTableId()));
-        if (!acceptedItems.isEmpty()) Restaurant.cookingOrders.add(new OrderImpl(acceptedItems, o.getId(), o.getTableId()));
+        if (!rejectedItems.isEmpty())
+            Restaurant.rejectedOrders.add(new OrderImpl(rejectedItems, o.getId(), o.getTableId()));
+        if (!acceptedItems.isEmpty())
+            Restaurant.cookingOrders.add(new OrderImpl(acceptedItems, o.getId(), o.getTableId()));
     }
 
 
@@ -151,6 +155,10 @@ public class Restaurant {
         */
     }
 
+    static double getTaxRate() {
+        return Restaurant.taxRate;
+    }
+
     public static Table getTable(int tableId) {
         return Restaurant.tables[tableId];
     }
@@ -165,64 +173,7 @@ public class Restaurant {
         Queue<Event> events = manager.getEvents();
         while (!events.isEmpty()) {
             Event e = events.remove();
-            e.doEvent();/*
-            int tableId = e.getTableId();
-            Order tableOrder = new OrderImpl(Collections.emptyList());
-            TableImpl currentTable = tables[0];
-            if (tableId > 0) {
-                tableOrder = tables[e.getTableId()].getOrder();
-                currentTable = tables[tableId];
-            }*/
-/*
-            switch (e.getType()) {
-
-                case EventType.BILL:
-                    printBillForTable(tableId);
-                    break;
-                case EventType.COOKSEEN:
-                    tableOrder.receivedByCook();
-                    System.out.println("COOK HAS SEEN:\n" + tableOrder);
-                    break;
-                case EventType.COOKREADY:
-                    for (MenuItem item : tableOrder.getItems()) {
-                        inventory.removeFromInventory(item, currentTable);
-                    }
-                    List<MenuItem> uncookedItems = currentTable.getUncookedMenuItems();
-                    for (MenuItem item : uncookedItems) {
-                        currentTable.addToDeductions(item, "Out of stock. ");
-                    }
-                    tableOrder.readyForPickup();
-                    System.out.println("READY FOR PICKUP!\n" + tableOrder);
-                    break;
-                case EventType.SERVERDELIVERED:
-                    tableOrder.delivered();
-                    addOrderToBill(tableId, tableOrder);
-                    System.out.println("DELIVERED TO TABLE " + tableId + "\n" + tableOrder);
-                    break;
-                case EventType.SERVERRETURNED:
-                    // add all the returned items to this table
-                    tableOrder.returned();
-                    for (MenuItem deductedItem : e.getDeductions().getItems()) {
-                        MenuItem fromMenuItem = menu.getMenuItem(deductedItem);
-                        for (MenuItem addOnItem : tableOrder.getItems()) {
-                            for (Ingredient addOn : addOnItem.getExtraIngredients()) {
-                                if (deductedItem.equals(addOnItem)) {
-                                    fromMenuItem.addExtraIngredient(addOn);
-                                }
-                            }
-                        }
-                        currentTable.addToDeductions(fromMenuItem, deductedItem.getQuantity(), deductedItem.getComment());
-                    }
-
-                    System.out.println("TABLE " + tableId +
-                            " HAS RETURNED THE FOLLOWING ITEM(s): \n" + currentTable.stringDeductions());
-                    break;
-                case EventType.RECEIVEDSHIPMENT:
-                    for (Ingredient i : e.getShipment().keySet()) {
-                        addToInventory(menu.getMenuIngredient(i), e.getShipment().get(i));
-                    }
-                    break;
-            }*/
+            e.doEvent();
         }
     }
 }

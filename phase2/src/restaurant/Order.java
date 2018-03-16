@@ -8,6 +8,8 @@ import java.util.List;
 public interface Order {
     void add(Order o);
 
+    void remove(Order o);
+
     /**
      * Returns a list of MenuItems that are apart of this restaurant.Order.
      *

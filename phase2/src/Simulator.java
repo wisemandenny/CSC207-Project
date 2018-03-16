@@ -2,6 +2,6 @@ import restaurant.Restaurant;
 
 public class Simulator {
     public static void main(String[] args) {
-        Restaurant vespuccis = Restaurant.getInstance(10);
+        Restaurant vespuccis = Restaurant.getInstance(10, 0.13);
     }
 }

@@ -7,10 +7,10 @@ public interface Table {
 
     void removeFromBill(Order o);
 
+    void comp(Order o);
+
     void printBill();
 
     int getId();
-
-    //Order getOrder();
 }
 

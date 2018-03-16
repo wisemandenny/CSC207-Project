@@ -46,6 +46,11 @@ public class OrderImpl implements Order {
     }
 
     @Override
+    public void remove(Order o) {
+        orderItems.removeAll(o.getItems());
+    }
+
+    @Override
     public int getId() {
         return id;
     }
