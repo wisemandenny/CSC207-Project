@@ -168,7 +168,7 @@ public class MenuItemImpl implements MenuItem {
     public boolean equals(Object o) {
         if (this == o) {
             return true;
-        } else if (!(o instanceof Ingredient)) {
+        } else if (!(o instanceof MenuItem)) {
             return false;
         }
         MenuItem m = (MenuItem) o;
