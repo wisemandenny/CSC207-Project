@@ -20,9 +20,11 @@ public class EventFactory {
 
         EventType type = EventType.fromString(splitString[EventFactory.TYPE_ADDRESS]);
 
+
+        //3 main types of Events: updates, shipments, and orders
         switch (type) {
             case UPDATE:
-                int orderId = Integer.parseInt(splitString[2]);
+                int orderId = Integer.parseInt(splitString[ORDER_ADDRESS]);
                 switch (EventType.fromString(splitString[1])) {
                     case COOKSEEN:
                         return new UpdateEvent(EventType.COOKSEEN, orderId);

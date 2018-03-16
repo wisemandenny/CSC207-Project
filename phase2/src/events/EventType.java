@@ -9,6 +9,7 @@ public enum EventType {
     SERVERDELIVERED("delivered"),
     SERVERRETURNED("serverReturned"),
     RECEIVEDSHIPMENT("receivedShipment");
+    //TODO: make a comp event in order to make it possible to comp items
 
     private final String type;
 
