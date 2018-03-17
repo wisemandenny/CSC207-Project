@@ -6,17 +6,14 @@ import menu.MenuItem;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class InventoryImpl implements Inventory {
     private final Map<Ingredient, Integer> inventory = new HashMap<>();
 
     InventoryImpl(Menu menu) {
         Set<Ingredient> ingredientSet = new HashSet<>();
-        MenuItem[] burgerMenu = menu.getMenu();
+        List<MenuItem> burgerMenu = menu.getMenu();
         for (MenuItem item : burgerMenu) {
             ingredientSet.addAll(item.getIngredients());
         }

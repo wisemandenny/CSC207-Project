@@ -1,12 +1,14 @@
 package menu;
 
+import java.util.List;
+
 public interface Menu {
     /**
      * Returns the entire Mnu as a list of MenuItems
      *
      * @return the menu.Menu
      */
-    MenuItem[] getMenu();
+    List<MenuItem> getMenu();
 
     /**
      * Returns the menu.Ingredient query from the menu.Ingredient menu if it exists.

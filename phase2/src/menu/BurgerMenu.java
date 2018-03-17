@@ -1,10 +1,11 @@
 package menu;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class BurgerMenu implements Menu {
-    private final MenuItem[] menu = new MenuItemImpl[10];
+    private final List<MenuItem> menu = new ArrayList<>();
     private final Ingredient[] ingredientMenu = new Ingredient[22];
 
     public BurgerMenu() {
@@ -66,16 +67,16 @@ public class BurgerMenu implements Menu {
         List<Ingredient> poutine = Arrays.asList(potato, salt, cheese, gravy);
         List<Ingredient> salad = Arrays.asList(lettuce, tomato, onion, cucumber, greenOlives, blackOlives, cheese);
 
-        menu[0] = MenuItemFactory.makeMenuItem("Hamburger", 7.99, hamburger);
-        menu[1] = MenuItemFactory.makeMenuItem("Chicken Burger", 5.39, chickenBurger);
-        menu[2] = MenuItemFactory.makeMenuItem("Veggie Burger", 5.99, vegetarian);
-        menu[3] = MenuItemFactory.makeMenuItem("Fries", 1.50, fries);
-        menu[4] = MenuItemFactory.makeMenuItem("Hotdog", 4.99, hotdogExtras);
-        menu[5] = MenuItemFactory.makeMenuItem("Coke", 1.25, Arrays.asList(coke));
-        menu[6] = MenuItemFactory.makeMenuItem("Chicken Fingers", 7.29, chickenFingers);
-        menu[7] = MenuItemFactory.makeMenuItem("Onion Rings", 2.99, onionRings);
-        menu[8] = MenuItemFactory.makeMenuItem("Poutine", 6.99, poutine);
-        menu[9] = MenuItemFactory.makeMenuItem("Salad", 5.99, salad);
+        menu.add(MenuItemFactory.makeMenuItem("Hamburger", 7.99, hamburger));
+        menu.add(MenuItemFactory.makeMenuItem("Chicken Burger", 5.39, chickenBurger));
+        menu.add(MenuItemFactory.makeMenuItem("Veggie Burger", 5.99, vegetarian));
+        menu.add(MenuItemFactory.makeMenuItem("Fries", 1.50, fries));
+        menu.add(MenuItemFactory.makeMenuItem("Hotdog", 4.99, hotdogExtras));
+        menu.add(MenuItemFactory.makeMenuItem("Coke", 1.25, Arrays.asList(coke)));
+        menu.add(MenuItemFactory.makeMenuItem("Chicken Fingers", 7.29, chickenFingers));
+        menu.add(MenuItemFactory.makeMenuItem("Onion Rings", 2.99, onionRings));
+        menu.add(MenuItemFactory.makeMenuItem("Poutine", 6.99, poutine));
+        menu.add(MenuItemFactory.makeMenuItem("Salad", 5.99, salad));
 
     }
 
@@ -83,8 +84,8 @@ public class BurgerMenu implements Menu {
      * {@inheritDoc}
      */
     @Override
-    public MenuItem[] getMenu() {
-        return menu.clone();
+    public List<MenuItem> getMenu() {
+        return new ArrayList<>(menu);
     }
 
     @Override
