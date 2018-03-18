@@ -23,7 +23,6 @@ class OrderEvent implements Event {
 
     @Override
     public void doEvent() {
-        table.addOrder(order);
         Restaurant.addPlacedOrder(order);
     }
 

@@ -5,7 +5,7 @@ import menu.*;
 
 import java.util.*;
 
-public class Restaurant {
+public class Restaurant implements Runnable{
     private static final Menu menu = new BurgerMenu();
     private static final Inventory inventory = new InventoryImpl(Restaurant.menu);
     private static final Set<Order> placedOrders = new HashSet<>();
@@ -14,8 +14,11 @@ public class Restaurant {
     private static final Set<Order> readyOrders = new HashSet<>();
     private static final Set<Order> deliveredOrders = new HashSet<>();
     private static double taxRate;
+    private static boolean running;
     private static Restaurant instance = null; //singleton
     private static TableImpl[] tables;
+    private Thread t;
+
 
     protected Restaurant() {
     }
@@ -26,13 +29,12 @@ public class Restaurant {
      * @param numOfTables the number of Tables this restaurant.Restaurant should have.
      */
     private Restaurant(int numOfTables, double taxRate) {
+        Restaurant.running = true;
         Restaurant.taxRate = taxRate;
         Restaurant.tables = new TableImpl[numOfTables + 1];
         for (int i = 1; i <= numOfTables; i++) {
             Restaurant.tables[i] = new TableImpl(i);
         }
-        EventManager eventManager = new EventManager(Restaurant.tables);
-        handleEvents(eventManager);
     }
 
     public static Restaurant getInstance(int numOfTables, double taxRate) {
@@ -40,6 +42,35 @@ public class Restaurant {
             Restaurant.instance = new Restaurant(numOfTables, taxRate);
         }
         return Restaurant.instance;
+    }
+
+    public void start(){
+        if(t == null){
+            t = new Thread (this, "backend");
+            t.start();
+        }
+    }
+
+    public void run(){
+        EventManager eventManager = new EventManager(Restaurant.tables);
+        Queue<Event> eventQueue = eventManager.getEvents();
+        while (running) {
+            if (!eventQueue.isEmpty()) {
+                Event e = eventQueue.remove();
+                e.doEvent();
+            } else {
+                try{
+                    Thread.sleep(1000); //sleep for 1 second
+                } catch (Exception ex) {
+                    //TODO: log this exception (InterruptedException)
+                }
+            }
+        }
+
+    }
+
+    public static void end(){
+        running = false;
     }
 
     public static Menu getMenu() {
@@ -161,19 +192,5 @@ public class Restaurant {
 
     public static Table getTable(int tableId) {
         return Restaurant.tables[tableId];
-    }
-
-    /**
-     * Processes the events that are received by restaurant.EventManager, from events.txt.
-     * For order events, the ordered MenuItems and menu.Ingredient modifiers are replaced with their corresponding existing menu.MenuItem or menu.Ingredient in the menu.Menu.
-     *
-     * @param manager The restaurant.EventManager object containing the events that need processing
-     */
-    private void handleEvents(EventManager manager) {
-        Queue<Event> events = manager.getEvents();
-        while (!events.isEmpty()) {
-            Event e = events.remove();
-            e.doEvent();
-        }
     }
 }

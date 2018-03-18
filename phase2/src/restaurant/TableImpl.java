@@ -28,6 +28,9 @@ public class TableImpl implements Table {
         orders.add(o);
     }
 
+    @Override
+    public List<Order> getOrders(){ return orders; }
+
 
     @Override
     public int getId() {

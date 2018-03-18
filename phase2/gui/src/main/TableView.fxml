@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.TableView">
+   <children>
+      <Label fx:id="tableLabel" alignment="TOP_CENTER" centerShape="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="249.0" style="-fx-background-color: #2196F3;" text="Table #" textFill="WHITE">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <JFXListView fx:id="tableOrderListView" />
+   </children>
+</VBox>

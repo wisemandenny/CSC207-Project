@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.menuListController">
+   <children>
+      <JFXListView fx:id="listView" />
+      <JFXButton fx:id="showIngredientsButton" alignment="BOTTOM_RIGHT" onAction="#showIngredients" style="-fx-background-color: #2196F3;" text="Show Ingredients" textFill="WHITE" />
+   </children>
+</VBox>

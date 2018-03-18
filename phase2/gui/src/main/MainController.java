@@ -6,11 +6,15 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import menu.MenuItem;
 import restaurant.Restaurant;
 
@@ -24,13 +28,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Controller implements Initializable{
-
-    @FXML
-    private AnchorPane anchorPane;
-
-    @FXML
-    private JFXButton expandButton;
+public class MainController implements Initializable{
 
     @FXML
     private JFXHamburger menuHamburger;
@@ -38,27 +36,12 @@ public class Controller implements Initializable{
     @FXML
     private JFXDrawer menuDrawer;
 
-    @FXML
-    private JFXListView<Label> listView;
-
-
-
-
-
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        List<MenuItem> menuItems = Restaurant.getMenu().getMenu();
-        for(MenuItem item : menuItems){
-            try {
-                Label lbl = new Label(item.getName());
-                lbl.setGraphic(new ImageView(new Image(new FileInputStream("./phase2/gui/src/resources/icons/hand.png"))));
-                listView.getItems().add(lbl);
-            } catch (Exception ex){
-                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-
+        try{
+            VBox box= FXMLLoader.load(getClass().getResource("menuList.fxml"));
+            menuDrawer.setSidePane(box);
+        }catch (Exception ex){}
 
         HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(menuHamburger);
         transition.setRate(-1);
@@ -73,16 +56,4 @@ public class Controller implements Initializable{
                 menuDrawer.open();
         });
     }
-
-    @FXML
-    private void load(ActionEvent event){
-        if(listView.isExpanded()){
-            listView.setExpanded(false);
-            listView.depthProperty().set(0);
-        } else {
-            listView.setExpanded(true);
-            listView.depthProperty().set(1);
-        }
-    }
-
 }
