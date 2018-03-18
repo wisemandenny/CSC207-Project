@@ -1,11 +1,11 @@
 // TODO: write these tests
-package tests;
-import org.junit.Test;
-import restaurant.*;
+
 import menu.*;
+import org.junit.Test;
+import restaurant.Order;
+import restaurant.OrderImpl;
 
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class OrderImplTest {
 

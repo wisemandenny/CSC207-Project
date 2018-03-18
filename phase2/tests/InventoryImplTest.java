@@ -1,12 +1,8 @@
 // TODO: write these tests
-package tests;
-import restaurant.*;
-import menu.*;
-import java.util.Map;
-import java.util.HashMap;
 
+import menu.BurgerMenu;
+import menu.Menu;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class InventoryImplTest {
     private static final Menu menu = new BurgerMenu();

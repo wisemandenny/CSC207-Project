@@ -20,24 +20,33 @@ import java.util.ResourceBundle;
 public class TableView implements Initializable {
     @FXML
     private JFXListView<Label> tableOrderListView;
-
     @FXML
     private Label tableLabel;
-
     @FXML
     private JFXButton changeTableButton;
+
+
+    private JFXPopup chooseTablePopup = new JFXPopup();
+    private JFXPopup newOrderPopup = new JFXPopup();
+
+    public int shownTable = 1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
         int numOfTables = Restaurant.getNumOfTables();
-        initPopup(numOfTables);
-        changeTable(1);
+        initChooseTablePopup(numOfTables);
+        changeTable(shownTable);
 
         //display all of the ordered items for table 1.
         //later: color code according to status of item?
     }
 
-    private void initPopup(int numOfTables) {
+
+    public int getShownTable(){
+        return shownTable;
+    }
+
+    private void initChooseTablePopup(int numOfTables) {
         VBox box = new VBox();
         for (int i = 1; i < numOfTables; i++) {
             final int tableNumber = i;
@@ -46,25 +55,29 @@ public class TableView implements Initializable {
             button.setPadding(new Insets(10));
             box.getChildren().add(button);
         }
-        JFXPopup popup = new JFXPopup(box);
-        changeTableButton.setOnAction(e -> popup.show(changeTableButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
+        chooseTablePopup.setPopupContent(box);
+
+        changeTableButton.setOnAction(e -> chooseTablePopup.show(changeTableButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
     }
 
+
     private void changeTable(int selectedTable){
-        if(Restaurant.getTable(selectedTable).getOrders().size() > 0){
+        shownTable = selectedTable;
+        if(!Restaurant.getTable(selectedTable).getOrders().isEmpty()){
             tableOrderListView.getItems().clear();
             Table table = Restaurant.getTable(selectedTable);
             tableLabel.setText("Table #" + table.getId());
             List<Order> tableOrders = table.getOrders();
             int j = 1;
             for (Order o : tableOrders){
-                tableOrderListView.getItems().add(new Label("Order "+ j++ + " (id# "+o.getId()+")"));
+                Label lbl = new Label("Order "+ j++ + " (id# "+o.getId()+")");
+                tableOrderListView.getItems().add(lbl);
 
                 for (MenuItem i: o.getItems()){
                     try{
-                        Label lbl = new Label("     >"+ i.getQuantity() + " " + i.getName());
+                        Label label = new Label("     >"+ i.getQuantity() + " " + i.getName());
                         //set a graphic
-                        tableOrderListView.getItems().add(lbl);
+                        tableOrderListView.getItems().add(label);
                     } catch (Exception ex) {
                         //log it
                     }

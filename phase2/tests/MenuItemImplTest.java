@@ -1,7 +1,7 @@
-package tests;
-import menu.*;
-
-
+import menu.Ingredient;
+import menu.IngredientFactory;
+import menu.MenuItem;
+import menu.MenuItemFactory;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -138,6 +138,7 @@ public class MenuItemImplTest {
     public void testIncorrectAdditionalGetExtraIngredientPrice(){
         MenuItem item = generateMenuItem();
         item.addExtraIngredient(IngredientFactory.makeIngredient("Bacon"));
+        System.out.println(item.getExtraIngredients());
         assertFalse(item.getExtraIngredientPrice() == 0.00);
     }
 

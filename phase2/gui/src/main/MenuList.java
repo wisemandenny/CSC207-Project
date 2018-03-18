@@ -6,14 +6,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import menu.Ingredient;
 import menu.Menu;
 import menu.MenuItem;
 import restaurant.Restaurant;
 
-import java.io.FileInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -31,7 +28,7 @@ public class MenuList implements Initializable{
     }
 
     @FXML
-    private void showIngredients(ActionEvent event){
+    public void showIngredients(ActionEvent event){
         if(listView.isExpanded()){
             listView.setExpanded(false);
             listView.depthProperty().set(0);
@@ -50,7 +47,6 @@ public class MenuList implements Initializable{
             for (MenuItem i : menu.getMenu()){
                 try{
                     Label lbl = new Label(i.getName());
-                    lbl.setGraphic(new ImageView(new Image(new FileInputStream("./phase2/gui/src/resources/icons/hand.png"))));
                     listView.getItems().add(lbl);
                 } catch (Exception ex){
                     Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,7 +57,6 @@ public class MenuList implements Initializable{
                 try{
                     Label itemLabel = new Label(i.getName());
                     listView.getItems().add(itemLabel);
-                    itemLabel.setGraphic(new ImageView(new Image(new FileInputStream("./phase2/gui/src/resources/icons/hand.png"))));
                     for(Ingredient ingredient : i.getAllIngredients()){
                         listView.getItems().add(new Label("     > "+ingredient.getName()));
                     }

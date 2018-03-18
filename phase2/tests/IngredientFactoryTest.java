@@ -1,9 +1,4 @@
-package tests;
-import restaurant.*;
-
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class IngredientFactoryTest {
     @Test

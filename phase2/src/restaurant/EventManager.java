@@ -14,7 +14,7 @@ class EventManager {
     private final Queue<Event> events = new LinkedList<>();
 
     EventManager(Table[] tables) {
-        try (BufferedReader br = new BufferedReader(new FileReader("events.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("./events.txt"))) {
             do {
                 events.add(EventFactory.makeEvent(br.readLine(), tables));
             } while (br.ready());
