@@ -29,40 +29,40 @@ public class TableView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        initPopup();
+        int numOfTables = Restaurant.getNumOfTables();
+        initPopup(numOfTables);
         changeTable(1);
 
         //display all of the ordered items for table 1.
         //later: color code according to status of item?
     }
 
-    private void initPopup() {
-        JFXButton b1 = new JFXButton("Table 1");
-        b1.setOnAction(e -> changeTable(1));
-        JFXButton b2 = new JFXButton("Table 2");
-        b2.setOnAction(e -> changeTable(2));
-        JFXButton b3 = new JFXButton("Tab;e 3");
-        b3.setOnAction(e -> changeTable(3));
-        b1.setPadding(new Insets(10));
-        b2.setPadding(new Insets(10));
-        b3.setPadding(new Insets(10));
-        VBox box = new VBox(b1,b2,b3);
+    private void initPopup(int numOfTables) {
+        VBox box = new VBox();
+        for (int i = 1; i < numOfTables; i++) {
+            final int tableNumber = i;
+            JFXButton button = new JFXButton("Table " + tableNumber);
+            button.setOnAction(e -> changeTable(tableNumber));
+            button.setPadding(new Insets(10));
+            box.getChildren().add(button);
+        }
         JFXPopup popup = new JFXPopup(box);
         changeTableButton.setOnAction(e -> popup.show(changeTableButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
     }
 
     private void changeTable(int selectedTable){
-        if(Restaurant.getTable(selectedTable) != null){
+        if(Restaurant.getTable(selectedTable).getOrders().size() > 0){
             tableOrderListView.getItems().clear();
             Table table = Restaurant.getTable(selectedTable);
             tableLabel.setText("Table #" + table.getId());
             List<Order> tableOrders = table.getOrders();
+            int j = 1;
             for (Order o : tableOrders){
-                tableOrderListView.getItems().add(new Label("Order "+ o.getId()));
+                tableOrderListView.getItems().add(new Label("Order "+ j++ + " (id# "+o.getId()+")"));
 
                 for (MenuItem i: o.getItems()){
                     try{
-                        Label lbl = new Label(i.getQuantity() + " " + i.getName());
+                        Label lbl = new Label("     >"+ i.getQuantity() + " " + i.getName());
                         //set a graphic
                         tableOrderListView.getItems().add(lbl);
                     } catch (Exception ex) {
@@ -73,7 +73,7 @@ public class TableView implements Initializable {
         } else {
             tableLabel.setText("Table #" + selectedTable);
             tableOrderListView.getItems().clear();
-            tableOrderListView.getItems().add(new Label("Table #"+selectedTable+" not found."));
+            tableOrderListView.getItems().add(new Label("No orders found for Table #" + selectedTable));
         }
     }
 }

@@ -77,6 +77,7 @@ public class Restaurant implements Runnable{
         return Restaurant.menu;
     }
 
+    public static int getNumOfTables(){ return tables.length; }
     /**
      * The manager can use the following three functions to check how the restaurant is doing.
      *
