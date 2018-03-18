@@ -1,24 +1,25 @@
 package main;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import menu.Ingredient;
 import menu.Menu;
 import menu.MenuItem;
 import restaurant.Restaurant;
-import com.jfoenix.controls.JFXListView;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+
 import java.io.FileInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class menuListController implements Initializable{
+public class MenuList implements Initializable{
     @FXML
     private JFXListView<Label> listView;
     @FXML
