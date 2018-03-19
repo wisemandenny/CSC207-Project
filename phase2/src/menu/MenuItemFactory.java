@@ -15,4 +15,3 @@ public class MenuItemFactory {
         return new MenuItemImpl(name, price, ingredients, new ArrayList<>(), new ArrayList<>(), 1);
     }
 }
-

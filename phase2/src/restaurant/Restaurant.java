@@ -5,7 +5,7 @@ import menu.*;
 
 import java.util.*;
 
-public class Restaurant implements Runnable{
+public class Restaurant implements Runnable {
     private static final Menu menu = new BurgerMenu();
     private static final Inventory inventory = new InventoryImpl(Restaurant.menu);
     private static final Set<Order> placedOrders = new HashSet<>();
@@ -45,46 +45,22 @@ public class Restaurant implements Runnable{
         return Restaurant.instance;
     }
 
-    public void start(){
-        if(t == null){
-            t = new Thread (this, "backend");
-            t.start();
-        }
-    }
-
-    public void run(){
-        eventManager = new EventManager(Restaurant.tables);
-        System.out.println("tst");
-        Queue<Event> eventQueue = eventManager.getEvents();
-        while (running) {
-            if (!eventQueue.isEmpty()) {
-                Event e = eventQueue.remove();
-                e.doEvent();
-            } else {
-                try{
-                    eventQueue.addAll(eventManager.getEvents());
-                    Thread.sleep(1000); //sleep for 1 second
-                } catch (Exception ex) {
-                    //TODO: log this exception (InterruptedException)
-                }
-            }
-        }
-
-    }
-
-    public static void end(){
-        running = false;
+    public static void end() {
+        Restaurant.running = false;
     }
 
     public static Menu getMenu() {
         return Restaurant.menu;
     }
 
-    public static int getNumOfTables(){ return tables.length; }
-
-    public static void newEvent(String eventString){
-        Restaurant.getInstance(getNumOfTables(), taxRate).eventManager.addEventFromString(eventString, tables);
+    public static int getNumOfTables() {
+        return Restaurant.tables.length;
     }
+
+    public static void newEvent(String eventString) {
+        Restaurant.getInstance(Restaurant.getNumOfTables(), Restaurant.taxRate).eventManager.addEventFromString(eventString, Restaurant.tables);
+    }
+
     /**
      * The manager can use the following three functions to check how the restaurant is doing.
      *
@@ -140,6 +116,12 @@ public class Restaurant implements Runnable{
 
     }
 
+    /**
+     * Take an order (o), and check every single item in that order to make sure that there's inventory to cook it
+     * e.g. if you have 10 cokes in the inventory and you request 11, 10 should be cooked and one should be rejected
+     *
+     * @param o
+     */
     private static void checkInventory(Order o) {
         List<MenuItem> rejectedItems = new ArrayList<>();
         List<MenuItem> acceptedItems = new ArrayList<>();
@@ -175,7 +157,6 @@ public class Restaurant implements Runnable{
             Restaurant.cookingOrders.add(new OrderImpl(acceptedItems, o.getId(), o.getTableId()));
     }
 
-
     private static Order findOrder(Set<Order> searchSet, int orderId) {
         for (Order order : searchSet) {
             if (order.getId() == orderId) {
@@ -200,5 +181,33 @@ public class Restaurant implements Runnable{
 
     public static Table getTable(int tableId) {
         return Restaurant.tables[tableId];
+    }
+
+    public void start() {
+        if (t == null) {
+            t = new Thread(this, "backend");
+            t.start();
+        }
+    }
+
+    @Override
+    public void run() {
+        eventManager = new EventManager(Restaurant.tables);
+        System.out.println("tst");
+        Queue<Event> eventQueue = eventManager.getEvents();
+        while (Restaurant.running) {
+            if (!eventQueue.isEmpty()) {
+                Event e = eventQueue.remove();
+                e.doEvent();
+            } else {
+                try {
+                    eventQueue.addAll(eventManager.getEvents());
+                    Thread.sleep(1000); //sleep for 1 second
+                } catch (Exception ex) {
+                    //TODO: log this exception (InterruptedException)
+                }
+            }
+        }
+
     }
 }
