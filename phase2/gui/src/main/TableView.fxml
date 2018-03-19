@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox minHeight="800.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.TableView">
+<VBox prefHeight="764.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.TableView">
    <children>
       <Label fx:id="tableLabel" alignment="TOP_CENTER" centerShape="false" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="249.0" style="-fx-background-color: #2196F3;" text="Table #" textFill="WHITE">
          <font>

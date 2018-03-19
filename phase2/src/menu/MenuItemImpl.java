@@ -1,20 +1,19 @@
 package menu;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class MenuItemImpl implements MenuItem {
     private final String name;
-    private List<Ingredient> extraIngredients;
-    private List<Ingredient> removedIngredients;
     private final List<Ingredient> ingredients;
+    private final List<Ingredient> extraIngredients;
+    private final List<Ingredient> removedIngredients;
     private int quantity;
     private double price;
     private String comment;
 
-      MenuItemImpl(String name, double price, List<Ingredient> ingredients, List<Ingredient> extraIngredients, List<Ingredient> removedIngredients, int quantity) {
+    MenuItemImpl(String name, double price, List<Ingredient> ingredients, List<Ingredient> extraIngredients, List<Ingredient> removedIngredients, int quantity) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -125,7 +124,7 @@ public class MenuItemImpl implements MenuItem {
      */
     @Override
     public List<Ingredient> getExtraIngredients() {
-        return new ArrayList<>(extraIngredients);
+        return extraIngredients;
     }
 
     /**
@@ -133,7 +132,7 @@ public class MenuItemImpl implements MenuItem {
      */
     @Override
     public List<Ingredient> getRemovedIngredients() {
-        return new ArrayList<>(removedIngredients);
+        return removedIngredients;
     }
 
     /**
@@ -148,7 +147,8 @@ public class MenuItemImpl implements MenuItem {
         return ret * quantity;
     }
 
-    public List<Ingredient> getAllIngredients(){
+    @Override
+    public List<Ingredient> getAllIngredients() {
         List<Ingredient> allIngredients = new ArrayList<>();
         allIngredients.addAll(getIngredients());
         allIngredients.addAll(getExtraIngredients());

@@ -1,5 +1,6 @@
 package main;
 
+import com.jfoenix.controls.JFXDecorator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +14,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
-        primaryStage.setScene(new Scene(root));
+        JFXDecorator decorator = new JFXDecorator(primaryStage, root);
+        decorator.setCustomMaximize(true);
+        Scene scene = new Scene(decorator, 800, 800);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Restaurant Manager");
         primaryStage.show();
 
     }

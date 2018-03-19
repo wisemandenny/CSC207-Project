@@ -47,7 +47,13 @@ public class OrderImpl implements Order {
 
     @Override
     public void remove(Order o) {
-        orderItems.removeAll(o.getItems());
+        for (MenuItem item : o.getItems()) {
+            for (MenuItem orderItem : orderItems) {
+                if (item.equalsWithExtras(orderItem)) {
+                    orderItems.remove(item);
+                }
+            }
+        }
     }
 
     @Override
