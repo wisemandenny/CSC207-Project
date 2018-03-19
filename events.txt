@@ -1,4 +1,3 @@
 order | table 1 | 10 Hamburger
 order | table 1 | 9 Salad
 order | table 2 | 1 Coke
-order | table 3 | 2 Poutine

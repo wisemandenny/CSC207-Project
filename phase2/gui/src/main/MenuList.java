@@ -12,6 +12,8 @@ import menu.MenuItem;
 import restaurant.Restaurant;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +23,8 @@ public class MenuList implements Initializable{
     private JFXListView<Label> listView;
     @FXML
     private JFXButton showIngredientsButton;
+
+    private List<Label> selectedItems = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -40,6 +44,10 @@ public class MenuList implements Initializable{
         }
     }
 
+    public List<Label> getSelectedItems(){
+        return selectedItems;
+    }
+
     private void addMenuLabels(boolean flag){
         listView.getItems().clear();
         Menu menu = Restaurant.getMenu();
@@ -47,6 +55,9 @@ public class MenuList implements Initializable{
             for (MenuItem i : menu.getMenu()){
                 try{
                     Label lbl = new Label(i.getName());
+                    lbl.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_PRESSED, e -> {
+                        selectedItems.add(lbl);
+                    });
                     listView.getItems().add(lbl);
                 } catch (Exception ex){
                     Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,6 +67,10 @@ public class MenuList implements Initializable{
             for (MenuItem i: menu.getMenu()){
                 try{
                     Label itemLabel = new Label(i.getName());
+                    itemLabel.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_PRESSED, e -> {
+                        selectedItems.add(itemLabel);
+                    });
+
                     listView.getItems().add(itemLabel);
                     for(Ingredient ingredient : i.getAllIngredients()){
                         listView.getItems().add(new Label("     > "+ingredient.getName()));

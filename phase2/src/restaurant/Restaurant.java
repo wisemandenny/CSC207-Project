@@ -18,6 +18,7 @@ public class Restaurant implements Runnable{
     private static Restaurant instance = null; //singleton
     private static TableImpl[] tables;
     private Thread t;
+    private EventManager eventManager;
 
 
     protected Restaurant() {
@@ -52,7 +53,8 @@ public class Restaurant implements Runnable{
     }
 
     public void run(){
-        EventManager eventManager = new EventManager(Restaurant.tables);
+        eventManager = new EventManager(Restaurant.tables);
+        System.out.println("tst");
         Queue<Event> eventQueue = eventManager.getEvents();
         while (running) {
             if (!eventQueue.isEmpty()) {
@@ -60,6 +62,7 @@ public class Restaurant implements Runnable{
                 e.doEvent();
             } else {
                 try{
+                    eventQueue.addAll(eventManager.getEvents());
                     Thread.sleep(1000); //sleep for 1 second
                 } catch (Exception ex) {
                     //TODO: log this exception (InterruptedException)
@@ -78,6 +81,10 @@ public class Restaurant implements Runnable{
     }
 
     public static int getNumOfTables(){ return tables.length; }
+
+    public static void newEvent(String eventString){
+        Restaurant.getInstance(getNumOfTables(), taxRate).eventManager.addEventFromString(eventString, tables);
+    }
     /**
      * The manager can use the following three functions to check how the restaurant is doing.
      *

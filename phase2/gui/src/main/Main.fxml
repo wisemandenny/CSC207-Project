@@ -16,17 +16,17 @@
       <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="71.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <JFXDrawer fx:id="menuDrawer" alignment="CENTER_LEFT"  cacheShape="false" centerShape="false" defaultDrawerSize="400.0" minWidth="0.0"  prefHeight="800.0" prefWidth="416.0" scaleShape="false" GridPane.rowSpan="2">
-         <children>
-            <JFXHamburger fx:id="menuHamburger" alignment="TOP_RIGHT" />
-         </children>
+      <JFXDrawer fx:id="menuDrawer" alignment="CENTER_LEFT" cacheShape="false" centerShape="false" defaultDrawerSize="400.0" minWidth="0.0" prefHeight="800.0" prefWidth="416.0" scaleShape="false" GridPane.rowSpan="2">
+
       </JFXDrawer>
-      <VBox fx:id="tableViewBox" prefHeight="1000.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowSpan="2">
+       <JFXHamburger fx:id="menuHamburger" alignment="TOP_RIGHT" fillWidth="false" />
+
+       <VBox fx:id="tableViewBox" prefHeight="1000.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowSpan="2">
               <children>
                   <fx:include source="TableView.fxml" />
               </children>
       </VBox>
-            <JFXButton fx:id="FAB" alignment="CENTER" buttonType="RAISED" onAction="#newOrder" scaleShape="false" style="-fx-background-color: #FF5722; -fx-border-radius: 100 100 100 100; -fx-background-radius: 100 100 100 100;" text="+" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <JFXButton fx:id="FAB" alignment="CENTER" buttonType="RAISED" onAction="#newOrder" scaleShape="false" style="-fx-background-color: #FF5722; -fx-border-radius: 100 100 100 100; -fx-background-radius: 100 100 100 100;" text="+" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
                 <font>
                     <Font size="31.0" />
                 </font>

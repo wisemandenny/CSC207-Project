@@ -16,7 +16,7 @@ class EventManager {
     EventManager(Table[] tables) {
         try (BufferedReader br = new BufferedReader(new FileReader("./events.txt"))) {
             do {
-                events.add(EventFactory.makeEvent(br.readLine(), tables));
+                addEventFromString(br.readLine(), tables);
             } while (br.ready());
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open events.txt");
@@ -31,6 +31,10 @@ class EventManager {
      * @return a Queue containing all of the events contained in this restaurant.EventManager
      */
     Queue<Event> getEvents() {
-        return new LinkedList<>(events); //return a copy of events so as to not expose the private internal state
+        return events;
+    }
+
+    void addEventFromString(String eventString, Table[] tables){
+        events.add(EventFactory.makeEvent(eventString, tables));
     }
 }
