@@ -8,11 +8,10 @@ import restaurant.OrderImpl;
 import static org.junit.Assert.assertTrue;
 
 public class OrderImplTest {
+    private static final Menu menu = new BurgerMenu();
 
     @Test
     public void testGetItems(){
-        // menu
-        Menu menu = new BurgerMenu();
         // order
         Order order = new OrderImpl("1 Hamburger / +Ketchup -Bacon, 1 Hamburger, 1 Coke");
         assertTrue(order.getItems().size() == 3);
@@ -39,7 +38,6 @@ public class OrderImplTest {
 
     @Test
     public void testAdd() {
-        Menu menu = new BurgerMenu();
         // order
         Order order = new OrderImpl("1 Hamburger");
         assertTrue(order.getItems().size() == 1);
@@ -67,12 +65,11 @@ public class OrderImplTest {
 
     @Test
     public void testRemove() {
-        Menu menu = new BurgerMenu();
         Order order = new OrderImpl("1 Hamburger / +Ketchup -Bacon, 1 Hamburger, 1 Coke");
         Order burger = new OrderImpl("1 Hamburger");
         order.remove(burger);
         // we are only removing 1 Hamburger (ideally the one without mods)
-        assertTrue(order.getItems().size() == 2);
+        assertTrue(order.getItems().size() == 1);
         // Create a Hamburger with mods
         MenuItem modBurger = menu.getMenuItem("Hamburger");
 
@@ -104,12 +101,17 @@ public class OrderImplTest {
 
     @Test
     public void testReturned() {
-
+        Order order = new OrderImpl("1 Hamburger / +Ketchup -Bacon, 1 Hamburger, 1 Coke");
+        MenuItem item = MenuItemFactory.makeMenuItem(menu.getMenuItem("Hamburger"));
+        order.returned(item);
+        order.getItems();
     }
 
     @Test
     public void testGetIngredients() {
-
+        Order order = new OrderImpl("1 Hamburger / +Ketchup -Bacon, 1 Hamburger, 1 Coke");
+        assertTrue(order.getIngredients().contains(IngredientFactory.makeIngredient("BurgerBun")));
+        assertTrue(order.getIngredients().size() == 15);
     }
 
     @Test

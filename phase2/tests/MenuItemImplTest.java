@@ -219,10 +219,10 @@ public class MenuItemImplTest {
         assertTrue(item.getRemovedIngredientsPrice() == 0.00);
         item.removeIngredient(patty);
         item.removeIngredient(tomato);
-        assertTrue(item.getRemovedIngredientsPrice() == 3.50);
+        assertTrue(item.getRemovedIngredientsPrice() == 2.50);
         item.addExtraIngredient(tomato);
-        assertTrue(item.getRemovedIngredientsPrice() == 3.50);
+        assertTrue(item.getRemovedIngredientsPrice() == 2.50);
         item.removeIngredient(tomato);
-        assertTrue(item.getRemovedIngredientsPrice() == 4.00);
+        assertTrue(item.getRemovedIngredientsPrice() == 3.00);
     }
 }

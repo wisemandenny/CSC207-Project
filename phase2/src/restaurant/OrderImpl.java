@@ -4,7 +4,9 @@ import menu.Ingredient;
 import menu.MenuItem;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Collections;
 
 
 public class OrderImpl implements Order {
@@ -47,12 +49,19 @@ public class OrderImpl implements Order {
 
     @Override
     public void remove(Order o) {
+        List<Integer> delete = new ArrayList<>();
         for (MenuItem item : o.getItems()) {
+            int count = 0;
             for (MenuItem orderItem : orderItems) {
                 if (item.equalsWithExtras(orderItem)) {
-                    orderItems.remove(item);
+                    delete.add(count);
                 }
+                count ++;
             }
+        }
+        Collections.sort(delete, Collections.reverseOrder());
+        for (int i : delete){
+            orderItems.remove(i);
         }
     }
 

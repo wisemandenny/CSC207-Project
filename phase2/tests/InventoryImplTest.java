@@ -1,4 +1,3 @@
-// TODO: write these tests
 
 import menu.BurgerMenu;
 import menu.Ingredient;
