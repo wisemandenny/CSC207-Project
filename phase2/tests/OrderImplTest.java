@@ -1,5 +1,3 @@
-// TODO: write these tests
-
 import menu.*;
 import org.junit.Test;
 import restaurant.Order;
@@ -96,6 +94,17 @@ public class OrderImplTest {
 
     @Test
     public void testAddThenRemove(){
+        Order order = new OrderImpl("1 Hamburger");
+        Order extra = new OrderImpl("1 Hotdog");
+        Order burgerOrder = new OrderImpl("1 Hamburger");
+        order.add(extra);
+        assertTrue(order.getItems().size() == 2);
+        MenuItem burger = menu.getMenuItem("Hamburger");
+        MenuItem hotdog = menu.getMenuItem("Hotdog");
+        order.remove(burgerOrder);
+        assertTrue(order.getItems().size() == 1);
+        assertFalse(order.getItems().contains(burger));
+        assertTrue(order.getItems().contains(hotdog));
 
     }
 
@@ -109,13 +118,15 @@ public class OrderImplTest {
        assertTrue(second.getId() == 2);
        assertTrue(third.getId() == 3);
     }
-
     @Test
     public void testReturned() {
         Order order = new OrderImpl("1 Hamburger / +Ketchup -Bacon, 1 Hamburger, 1 Coke");
-        MenuItem item = MenuItemFactory.makeMenuItem(menu.getMenuItem("Hamburger"));
+        assertTrue(order.getItems().get(1).getPrice() == 7.99);
+        MenuItem item = menu.getMenuItem("Hamburger");
+        item.setComment("Undercooked.");
         order.returned(item);
-        order.getItems();
+        assertTrue(order.getItems().get(1).getPrice() == 0);
+        assertTrue(order.getItems().get(1).getComment().equals("Undercooked."));
     }
 
     @Test
@@ -130,10 +141,5 @@ public class OrderImplTest {
         Order order = new OrderImpl("1 Hamburger / +Bacon -Cheese, 1 Hamburger / +Patty, 1 Coke");
         String expected = "1. Hamburger\nBacon\n2. Hamburger\nPatty\n3. Coke\n";
         assertTrue(expected.equals(order.toString()));
-    }
-
-    @Test
-    public void testOrderStringParser() {
-
     }
 }
