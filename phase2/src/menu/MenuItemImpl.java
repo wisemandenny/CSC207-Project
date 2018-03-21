@@ -167,7 +167,6 @@ public class MenuItemImpl implements MenuItem {
         return name.equalsIgnoreCase(m.getName());
     }
 
-    // TODO: change the logic here.
     @Override
     public boolean equalsWithExtras(MenuItem item) {
         return item.hashCode() == hashCode();

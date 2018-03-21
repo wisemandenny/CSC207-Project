@@ -4,7 +4,6 @@ import menu.Ingredient;
 import menu.MenuItem;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Collections;
 
@@ -131,7 +130,6 @@ public class OrderImpl implements Order {
         }
         return sb.toString();
     }
-
     private List<MenuItem> orderStringParser(String orderString) {
         List<MenuItem> parsedOrder = new ArrayList<>();
         for (String item : orderString.split(",\\s")) { //split the order into [1-9] <item name> substrings
