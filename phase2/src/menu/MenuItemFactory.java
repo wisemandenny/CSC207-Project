@@ -8,7 +8,7 @@ public class MenuItemFactory {
     }
 
     public static MenuItem makeMenuItem(MenuItem item) {
-        return new MenuItemImpl(item.getName(), item.getPrice(), item.getIngredients(), item.getExtraIngredients(), item.getRemovedIngredients(), 1);
+        return new MenuItemImpl(item.getName(), item.getPrice(), item.getIngredients(), new ArrayList<>(), new ArrayList<>(), 1);
     }
 
     public static MenuItem makeMenuItem(String name, double price, List<Ingredient> ingredients) {
