@@ -2,10 +2,11 @@ package main;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import menu.Ingredient;
 import menu.Menu;
 import menu.MenuItem;
@@ -18,68 +19,107 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MenuList implements Initializable{
+public class MenuList implements Initializable {
+    private final List<JFXButton> selectedItems = new ArrayList<>();
+    private final List<List<JFXButton>> itemsWithIngredients = new ArrayList<>();
     @FXML
-    private JFXListView<Label> listView;
+    private JFXListView<JFXButton> listView;
     @FXML
-    private JFXButton showIngredientsButton;
-
-    private List<Label> selectedItems = new ArrayList<>();
+    private JFXToggleButton showIngredientsButton;
+    private boolean toggleShowIngredients = false;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb){
-        addMenuLabels(false);
+    public void initialize(URL url, ResourceBundle rb) {
+        addMenuLabels();
     }
 
-    @FXML
-    public void showIngredients(ActionEvent event){
-        if(listView.isExpanded()){
-            listView.setExpanded(false);
-            listView.depthProperty().set(0);
-            addMenuLabels(false);
-        } else {
-            listView.setExpanded(true);
-            listView.depthProperty().set(1);
-            addMenuLabels(true);
-        }
-    }
-
-    public List<Label> getSelectedItems(){
+    public List<JFXButton> getSelectedItems() {
         return selectedItems;
     }
 
-    private void addMenuLabels(boolean flag){
+    private void addMenuLabels() {
         listView.getItems().clear();
         Menu menu = Restaurant.getMenu();
-        if(!flag){
-            for (MenuItem i : menu.getMenu()){
-                try{
-                    Label lbl = new Label(i.getName());
-                    lbl.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_PRESSED, e -> {
-                        selectedItems.add(lbl);
-                    });
-                    listView.getItems().add(lbl);
-                } catch (Exception ex){
-                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        } else {
-            for (MenuItem i: menu.getMenu()){
-                try{
-                    Label itemLabel = new Label(i.getName());
-                    itemLabel.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_PRESSED, e -> {
-                        selectedItems.add(itemLabel);
-                    });
-
-                    listView.getItems().add(itemLabel);
-                    for(Ingredient ingredient : i.getAllIngredients()){
-                        listView.getItems().add(new Label("     > "+ingredient.getName()));
+        for (MenuItem i : menu.getMenu()) {
+            try {
+                List<JFXButton> itemIngredients = new ArrayList<>();
+                JFXButton itemButton = new JFXButton(i.getName() + "           Price: $" + i.getPrice());
+                itemButton.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        clickOnItem(itemButton);
                     }
-                } catch (Exception ex){
-                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                });
+                listView.getItems().add(itemButton);
+                itemIngredients.add(itemButton);
+
+
+                for (Ingredient ingredient : i.getIngredients()) {
+                    JFXButton ingredientButton = new JFXButton("     > " + ingredient.getName());
+                    itemIngredients.add(ingredientButton);
                 }
+                itemsWithIngredients.add(itemIngredients);
+            } catch (Exception ex) {
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
 
+    public void toggleShowIngredients() {
+        toggleShowIngredients = !toggleShowIngredients;
+    }
+
+
+    private void clickOnItem(JFXButton itemButton) {
+        if (toggleShowIngredients) {
+            showIngredients(itemButton);
+        } else {
+            selectItems(itemButton);
+        }
+    }
+
+    private void selectItems(JFXButton itemButton) {
+        if (itemButton.getStyle().contains("-fx-background-color: green")) {
+            itemButton.setStyle("-fx-background-color: transparent");
+            selectedItems.remove(itemButton);
+        } else {
+            itemButton.setStyle("-fx-background-color: green");
+            selectedItems.add(itemButton);
+        }
+    }
+
+    private void showIngredients(JFXButton itemButton) {
+        listView.getItems().clear();
+        //itemswithingredients has lists like this:
+        //BURGER, bun, patty, etc
+        //hotdog, hotdog, bun, mustard, etc
+        //each list is made of jfxbuttons.
+
+        //go through the entire itemswithingredients list
+        //in each sublist, look at the text of the first element in the list
+        //if it matches the text of itembutton
+        //if the opacity is 100
+        //add the entire sublist (name and ingredients) to listview
+        //change the opacity of the jfxbutton name to 99
+        //else
+        //add just the name
+        //set opacity to 100
+        //else
+        //add just the first element of the sublist (the name) to list view.
+        //TODO: delete this explanation (leave it for now so if you're curious you can read it
+        for (List<JFXButton> itemList : itemsWithIngredients) {
+            JFXButton itemNameButton = itemList.get(0);
+            if (itemButton.getText().equals(itemNameButton.getText())) {
+                if (itemNameButton.getOpacity() == 1.0) {
+                    listView.getItems().addAll(itemList);
+                    itemNameButton.setOpacity(0.99);
+                } else {
+                    listView.getItems().add(itemNameButton);
+                    itemNameButton.setOpacity(1.0);
+                }
+            } else {
+                listView.getItems().add(itemNameButton);
+            }
+        }
     }
 }
