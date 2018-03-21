@@ -1,9 +1,6 @@
 package main;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXPopup;
-import com.jfoenix.controls.JFXScrollPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,13 +13,11 @@ import java.util.ResourceBundle;
 
 public class ServerView implements Initializable {
 
-    private final JFXPopup newOrderPopup = new JFXPopup();
+    //private final JFXPopup newOrderPopup = new JFXPopup();
+
     @FXML
-    private JFXHamburger menuHamburger;
-    @FXML
-    private JFXScrollPane menuScrollPane;
-    @FXML
-    private VBox tableViewBox;
+    private VBox menuVbox;
+
     @FXML
     private JFXButton FAB;
 
@@ -33,34 +28,40 @@ public class ServerView implements Initializable {
             fxmlLoader.setLocation(getClass().getResource(("MenuList.fxml")));
             VBox box = fxmlLoader.load();
             MenuList menuList = fxmlLoader.getController();
-            menuScrollPane.setContent(box);
+            menuVbox.getChildren().add(box);
 
-            fxmlLoader.setLocation(getClass().getResource("TableView.fxml"));
-            TableView tableView = fxmlLoader.getController();
-
+            FXMLLoader fxmlLoader2 = new FXMLLoader();
+            fxmlLoader2.setLocation(getClass().getResource("TableView.fxml"));
+            fxmlLoader2.load();
+            TableView tableView = fxmlLoader2.getController();
 
             List<JFXButton> selectedItemButtons = menuList.getSelectedItems();
-            initNewOrderPopup(selectedItemButtons, tableView.getShownTable());
+            FAB.setOnAction(e -> newOrder(selectedItemButtons, tableView));
 
-            FAB.setOnAction(e -> newOrder(menuList.getSelectedItems(), tableView.getShownTable()));
+            //initNewOrderPopup(selectedItemButtons, tableView.getShownTable());
             //FAB.setOnAction(e -> newOrderPopup.show(FAB, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT));
 
 
         } catch (Exception ex) {
         }
-
     }
 
-    private void newOrder(List<JFXButton> selectedItemButtons, int tableId) {
+    private void newOrder(List<JFXButton> selectedItemButtons, TableView tableView) {
+        int tableId = tableView.getShownTable();
+
         StringBuilder sb = new StringBuilder("order | table " + tableId + " | ");
         for (JFXButton button : selectedItemButtons) {
+            System.out.println(button.getText());
             sb.append("1 " + button.getText() + ", ");
         }
-        System.out.println(sb.toString());
+        sb.delete(sb.lastIndexOf(", "), sb.length());
         Restaurant.newEvent(sb.toString());
+        tableView.refresh();
+
+        //maybe add a dialog box to confirm the order is made?
 
     }
-
+    /*
     private void initNewOrderPopup(List<JFXButton> selectedItems, int tableId) {
         //JFXListView<Label> orderItems = new JFXListView<>();
         //orderItems.getItems().add(new Label("Test Label"));
@@ -71,5 +72,5 @@ public class ServerView implements Initializable {
         } catch (Exception ex) {
             //add a logger event here
         }
-    }
+    }*/
 }

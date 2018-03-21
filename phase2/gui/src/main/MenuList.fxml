@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="main.MenuList">
+<VBox xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.MenuList">
     <children>
-        <JFXListView fx:id="listView"/>
-        <JFXToggleButton fx:id="showIngredientsButton" onAction="#toggleShowIngredients"
-                         style="-fx-background-color: #FF5722;"/>
+        <JFXListView fx:id="listView" />
+        <JFXToggleButton fx:id="showIngredientsButton" onAction="#toggleShowIngredients" style="-fx-background-color: #FF5722; -fx-border-radius: 12 12 12 12; -fx-background-radius: 12 12 12 12;" text="Show Ingredients" textFill="WHITE" />
     </children>
 </VBox>

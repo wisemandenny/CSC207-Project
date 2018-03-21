@@ -81,7 +81,6 @@ public class Restaurant implements Runnable {
     public static void addPlacedOrder(Order o) {
         Restaurant.placedOrders.add(o);
         Restaurant.tables[o.getTableId()].addOrder(o);
-        System.out.println("Order #" + o.getId() + " placed.");
     }
 
     public static void addCookingOrder(int orderId) {
@@ -193,7 +192,6 @@ public class Restaurant implements Runnable {
     @Override
     public void run() {
         eventManager = new EventManager(Restaurant.tables);
-        System.out.println("tst");
         Queue<Event> eventQueue = eventManager.getEvents();
         while (Restaurant.running) {
             if (!eventQueue.isEmpty()) {

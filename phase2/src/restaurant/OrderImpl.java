@@ -4,9 +4,8 @@ import menu.Ingredient;
 import menu.MenuItem;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 
 public class OrderImpl implements Order {
@@ -48,7 +47,7 @@ public class OrderImpl implements Order {
     }
 
     @Override
-    public void remove(Order o) {
+    public void remove(Order o) { //TODO improve this algorithm later.
         List<Integer> delete = new ArrayList<>();
         for (MenuItem item : o.getItems()) {
             int count = 0;

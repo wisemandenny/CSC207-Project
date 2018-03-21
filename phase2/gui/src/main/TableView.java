@@ -3,6 +3,8 @@ package main;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXPopup;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -14,6 +16,7 @@ import restaurant.Restaurant;
 import restaurant.Table;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -29,12 +32,14 @@ public class TableView implements Initializable {
     private JFXPopup chooseTablePopup = new JFXPopup();
     private JFXPopup newOrderPopup = new JFXPopup();
 
-    public int shownTable = 1;
+    private int shownTable = 1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        int numOfTables = Restaurant.getNumOfTables();
-        initChooseTablePopup(numOfTables);
+        //TODO: some issue here with the list view not refreshing. fix this later.
+        initChooseTablePopup(Restaurant.getNumOfTables());
+        final ObservableList<Label> items = FXCollections.observableArrayList();
+        tableOrderListView.setItems(items);
         changeTable(shownTable);
 
         //display all of the ordered items for table 1.
@@ -60,16 +65,21 @@ public class TableView implements Initializable {
         changeTableButton.setOnAction(e -> chooseTablePopup.show(changeTableButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
     }
 
+    void refresh(){
+        List<Label> items = new ArrayList<>(tableOrderListView.getItems());
+        tableOrderListView.getItems().removeAll(items);
+        tableOrderListView.getItems().addAll(items);
+    }
 
     private void changeTable(int selectedTable){
         shownTable = selectedTable;
+        tableOrderListView.getItems().clear();
+        //List<Label> newItems = new ArrayList<>();
         if(!Restaurant.getTable(selectedTable).getOrders().isEmpty()){
-            tableOrderListView.getItems().clear();
             Table table = Restaurant.getTable(selectedTable);
             tableLabel.setText("Table #" + table.getId());
-            List<Order> tableOrders = table.getOrders();
             int j = 1;
-            for (Order o : tableOrders){
+            for (Order o : table.getOrders()){
                 Label lbl = new Label("Order "+ j++ + " (id# "+o.getId()+")");
                 tableOrderListView.getItems().add(lbl);
 
@@ -84,9 +94,11 @@ public class TableView implements Initializable {
                 }
             }
         } else {
+            System.out.println("inside changetable if case negative");
             tableLabel.setText("Table #" + selectedTable);
-            tableOrderListView.getItems().clear();
             tableOrderListView.getItems().add(new Label("No orders found for Table #" + selectedTable));
         }
+        //ObservableList<Label> observableList = FXCollections.observableList(newItems);
+        //tableOrderListView.setItems(observableList);
     }
 }
