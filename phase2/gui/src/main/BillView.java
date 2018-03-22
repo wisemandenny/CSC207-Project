@@ -44,7 +44,6 @@ public class BillView implements Initializable {
     private JFXPopup chooseTablePopup = new JFXPopup();
     private int shownTable = 1;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initChooseTablePopup(Restaurant.getNumOfTables());
@@ -54,14 +53,10 @@ public class BillView implements Initializable {
 
         //draw the bill for the table
         changeTable(1);
-
-        //load any elements that are already present in the tables order into the bill table.
-        //use two lists: one list for items and the other for their prices
-            //you will need a method similar to changetable (maybe showBill) which will update both lists if you choose to see your ingredients/mods
     }
     private HBox generateOrderHeader(Order order, int orderNumber){
         HBox orderBox = new HBox();
-        orderBox.getChildren().add(new JFXButton("Order " + orderNumber));
+        orderBox.getChildren().add(new JFXButton("Order " + orderNumber + " (id: " + order.getId() + ")"));
         return orderBox;
     }
     private HBox generateItemListEntry(MenuItem item){
@@ -74,6 +69,15 @@ public class BillView implements Initializable {
         return itemNameAndPrice;
     }
 
+    private HBox generateBox(double amount){
+        HBox box = new HBox();
+        Region filler = new Region();
+        HBox.setHgrow(filler, Priority.ALWAYS);
+        box.getChildren().add(filler);
+        box.getChildren().add(new JFXButton(String.format("%.2f", amount)));
+        return box;
+    }
+
     private void drawTableBill(Table table){
         int j = 1;
         for (Order order : table.getOrders()) {
@@ -82,6 +86,9 @@ public class BillView implements Initializable {
                 itemList.getItems().add(generateItemListEntry(item));
             }
         }
+
+        itemList.getItems().add(generateBox(table.getBill().getSubtotal()));
+        itemList.getItems().add(generateBox(table.getBill().getTotal()));
     }
 
     private void initChooseTablePopup(int numOfTables) {
@@ -94,7 +101,6 @@ public class BillView implements Initializable {
             box.getChildren().add(button);
         }
         chooseTablePopup.setPopupContent(box);
-
         changeTableButton.setOnAction(e -> chooseTablePopup.show(changeTableButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
     }
 
@@ -105,6 +111,7 @@ public class BillView implements Initializable {
             Table table = Restaurant.getTable(selectedTable);
             billHeader.setText("BILL FOR TABLE " + table.getId());
             drawTableBill(table);
+            updatePaid(table);
         } else {
             billHeader.setText("BILL FOR TABLE " + selectedTable);
             HBox noOrderFoundBox = new HBox();
@@ -114,6 +121,13 @@ public class BillView implements Initializable {
         //ObservableList<Label> observableList = FXCollections.observableList(newItems);
         //tableOrderListView.setItems(observableList);
     }
+
+    private void updatePaid(Table table){
+        unpaidLabel.setText(String.format("%.2f", table.getBill().getTotal() - paidAmount));
+        paidLabel.setText(String.format("%.2f", paidAmount));
+    }
+
+
     public void paySelectedItems(){}
     int getShownTable(){
         return shownTable;

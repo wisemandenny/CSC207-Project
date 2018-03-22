@@ -13,6 +13,16 @@ public interface Bill {
 
     double getSubtotal();
 
+    double getPaidAmount();
+
+    double getTipAmount();
+
+    void tip(double amount);
+
+    void pay(double amount);
+
+
+
     //We will get rid of this during phase 2.
     void printBill();
 

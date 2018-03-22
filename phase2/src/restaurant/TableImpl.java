@@ -38,6 +38,11 @@ public class TableImpl implements Table {
     }
 
     @Override
+    public Bill getBill(){
+        return bill;
+    }
+
+    @Override
     public void addOrderToBill(Order o) {
         orders.remove(o);
         bill.add(o);

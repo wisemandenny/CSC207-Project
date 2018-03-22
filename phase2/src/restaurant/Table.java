@@ -15,6 +15,8 @@ public interface Table {
 
     void printBill();
 
+    Bill getBill();
+
     int getId();
 }
 

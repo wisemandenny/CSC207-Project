@@ -4,9 +4,11 @@ import menu.Ingredient;
 import menu.MenuItem;
 
 public class BillImpl implements Bill {
-    static final double taxRate = Restaurant.getTaxRate(); //TODO: static?
+    final double taxRate = Restaurant.getTaxRate();
     private final int tableId;
     private final Order bill = new OrderImpl();
+    private double paidAmount = 0.00;
+    private double tipAmount = 0.00;
 
     BillImpl(int tableId) {
         this.tableId = tableId;
@@ -55,7 +57,7 @@ public class BillImpl implements Bill {
 
     @Override
     public double getTotal() {
-        return getSubtotal() * (1.00 + BillImpl.taxRate);
+        return getSubtotal() * (1.00 + taxRate);
     }
 
     @Override
@@ -68,6 +70,32 @@ public class BillImpl implements Bill {
             cost -= item.getRemovedIngredientsPrice();
         }
         return cost;
+    }
+
+    @Override
+    public double getPaidAmount(){
+        return paidAmount;
+    }
+
+    @Override
+    public void pay(double amount){
+        double balance = getTotal()-paidAmount;
+        if(balance-amount >= 0){
+            paidAmount += amount;
+        } else {
+            paidAmount = getTotal();
+            tipAmount += amount-balance;
+        }
+    }
+
+    @Override
+    public void tip(double amount){
+        tipAmount += amount;
+    }
+
+    @Override
+    public double getTipAmount(){
+        return tipAmount;
     }
 
     @Override
