@@ -21,6 +21,8 @@ public class ServerView implements Initializable {
     @FXML
     private JFXButton FAB;
 
+    private int displayedTableId;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -31,12 +33,13 @@ public class ServerView implements Initializable {
             menuVbox.getChildren().add(box);
 
             FXMLLoader fxmlLoader2 = new FXMLLoader();
-            fxmlLoader2.setLocation(getClass().getResource("TableView.fxml"));
+            fxmlLoader2.setLocation(getClass().getResource("BillView.fxml"));
             fxmlLoader2.load();
-            TableView tableView = fxmlLoader2.getController();
+            BillView billView = fxmlLoader2.getController();
 
             List<JFXButton> selectedItemButtons = menuList.getSelectedItems();
-            FAB.setOnAction(e -> newOrder(selectedItemButtons, tableView));
+            FAB.setOnAction(e -> newOrder(selectedItemButtons, billView));
+            displayedTableId = billView.getShownTable();
 
             //initNewOrderPopup(selectedItemButtons, tableView.getShownTable());
             //FAB.setOnAction(e -> newOrderPopup.show(FAB, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT));
@@ -46,8 +49,12 @@ public class ServerView implements Initializable {
         }
     }
 
-    private void newOrder(List<JFXButton> selectedItemButtons, TableView tableView) {
-        int tableId = tableView.getShownTable();
+    int getDisplayedTableId(){
+        return  displayedTableId;
+    }
+
+    private void newOrder(List<JFXButton> selectedItemButtons, BillView billView) {
+        int tableId = billView.getShownTable();
 
         StringBuilder sb = new StringBuilder("order | table " + tableId + " | ");
         for (JFXButton button : selectedItemButtons) {
@@ -56,7 +63,6 @@ public class ServerView implements Initializable {
         }
         sb.delete(sb.lastIndexOf(", "), sb.length());
         Restaurant.newEvent(sb.toString());
-        tableView.refresh();
 
         //maybe add a dialog box to confirm the order is made?
 

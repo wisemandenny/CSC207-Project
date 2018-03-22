@@ -1,4 +1,4 @@
-package main;
+package graveyard;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;

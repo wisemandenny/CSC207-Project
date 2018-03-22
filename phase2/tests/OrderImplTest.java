@@ -3,7 +3,8 @@ import org.junit.Test;
 import restaurant.Order;
 import restaurant.OrderImpl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class OrderImplTest {
     private static final Menu menu = new BurgerMenu();

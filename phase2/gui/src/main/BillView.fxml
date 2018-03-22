@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<VBox fx:controller="main.BillView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.BillView">
    <children>
       <GridPane style="-fx-background-color: #2196F3;">
         <columnConstraints>
@@ -30,28 +29,18 @@
                   <Font name="Lucida Handwriting Italic" size="11.0" />
                </font>
             </Label>
+             <JFXButton fx:id="changeTableButton" alignment="BASELINE_LEFT" scaleX="1.5" scaleY="1.5" style="-fx-background-color: #FF5722;" text="Pick a table..." textFill="WHITE" translateX="30.0" translateY="12.0">
+                 <font>
+                     <Font size="9.0" />
+                 </font>
+             </JFXButton>
          </children>
       </GridPane>
-      <SplitPane dividerPositions="0.7" prefHeight="410.0" prefWidth="479.0">
+      <SplitPane prefHeight="410.0" prefWidth="479.0">
          <items>
-            <Pane maxWidth="1.7976931348623157E308">
-               <children>
-                  <JFXListView fx:id="itemPriceList" maxWidth="1.7976931348623157E308" prefHeight="407.0" prefWidth="331.0" />
-               </children>
-            </Pane>
             <Pane>
                <children>
-                  <JFXListView fx:id="itemNameList" layoutX="-9.0" prefHeight="407.0" prefWidth="149.0" />
-                  <VBox layoutY="357.0" prefHeight="50.0" prefWidth="140.0">
-                     <children>
-                        <JFXButton fx:id="subtotalButton" text="Subtotal: " />
-                        <JFXButton fx:id="totalButton" text="Total: ">
-                           <VBox.margin>
-                              <Insets left="18.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                     </children>
-                  </VBox>
+                  <JFXListView fx:id="itemList" maxWidth="1.7976931348623157E308" prefHeight="407.0" prefWidth="477.0" />
                </children>
             </Pane>
          </items>
