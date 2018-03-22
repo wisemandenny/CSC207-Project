@@ -66,6 +66,8 @@ public class Restaurant implements Runnable {
      *
      * @return mmhmm i don't think so
      */
+    public static Set<Order> getPlacedOrders() { return Restaurant.placedOrders; }
+
     public static Set<Order> getCookingOrders() {
         return Restaurant.cookingOrders;
     }

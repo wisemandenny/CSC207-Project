@@ -111,7 +111,7 @@ public class BillView implements Initializable {
             Table table = Restaurant.getTable(selectedTable);
             billHeader.setText("BILL FOR TABLE " + table.getId());
             drawTableBill(table);
-            updatePaid(table);
+            //updatePaid(table); TODO: implement this
         } else {
             billHeader.setText("BILL FOR TABLE " + selectedTable);
             HBox noOrderFoundBox = new HBox();
@@ -122,13 +122,15 @@ public class BillView implements Initializable {
         //tableOrderListView.setItems(observableList);
     }
 
-    private void updatePaid(Table table){
+    private void updatePaid(Table table, double paidAmount){
         unpaidLabel.setText(String.format("%.2f", table.getBill().getTotal() - paidAmount));
         paidLabel.setText(String.format("%.2f", paidAmount));
     }
 
 
-    public void paySelectedItems(){}
+    public void paySelectedItems(){
+        //ability to select items from the bill similar to menulist
+    }
     int getShownTable(){
         return shownTable;
     }

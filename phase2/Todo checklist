@@ -3,6 +3,12 @@ DENNY'S REFACTORING TODO
 gui
 integrate gui with our code
 
+IMPORTANT!IMPORTANT!IMPORTANT!
+OrderEvent.java line 20     Restaurant.addPlacedOrder(order);
+MUST BE CHANGED BACK. WAS CHANGED FOR TESTING TOTALS.
+
+
+
 GUI TODO:
 1. make the menu list a list of sublists, when you click the item it should show the ingredients as a sublist
 2. show the prices in the menu
