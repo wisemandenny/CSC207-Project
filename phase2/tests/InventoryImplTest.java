@@ -1,4 +1,5 @@
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import menu.BurgerMenu;
 import menu.Ingredient;
 import menu.Menu;
@@ -15,8 +16,7 @@ import static restaurant.OrderFactory.makeOrder;
 import restaurant.Inventory;
 import restaurant.Order;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,6 +64,23 @@ public class InventoryImplTest {
 
     @Test
     public void testMakeRestockRequest (){
+        Inventory inventory = makeInventory(menu);
+        Ingredient ingredient = makeIngredient("Tomato");
+        inventory.makeRestockRequest(ingredient);
+
+        String fileName = "requests.txt";
+        String line;
+        try {
+            FileReader fr = new FileReader(fileName);
+            BufferedReader br = new BufferedReader(fr);
+            while((line = br.readLine()) != null) {
+                assertEquals("We need 10 more Tomato.", line);
+            }
+            br.close();
+        }
+        catch(IOException ex){
+            ex.printStackTrace();
+        }
     }
 
     @Test
