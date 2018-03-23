@@ -1,5 +1,4 @@
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import menu.BurgerMenu;
 import menu.Ingredient;
 import menu.Menu;
@@ -84,7 +83,7 @@ public class InventoryImplTest {
     }
 
     @Test
-        public void testPrintContents(){
+    public void testPrintContents(){
         Inventory inventory = makeInventory(menu);
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));

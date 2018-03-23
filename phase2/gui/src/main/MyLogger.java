@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.logging.*;
 
 public class MyLogger {
-    //Used this webpage for reference http://hanoo.org/index.php?article=how-to-generate-logs-in-java
+    //Used this website for reference http://hanoo.org/index.php?article=how-to-generate-logs-in-java
     static Logger logger;
     //file handler
     public Handler fh;
@@ -12,7 +12,7 @@ public class MyLogger {
 
     private  MyLogger() throws IOException{
         logger = Logger.getLogger(MyLogger.class.getName());
-        fh = new FileHandler("myLog.txt", true);
+        fh = new FileHandler("log.txt", true);
         plainText =  new SimpleFormatter();
         fh.setFormatter(plainText);
         logger.addHandler(fh);
@@ -35,9 +35,6 @@ public class MyLogger {
 
     //this code is for writing logs to a text file.
     /**
-    public static void main(String[] args) {
-
-
          Logger logger = Logger.getLogger("MyLog");
          FileHandler fh;
 
@@ -59,16 +56,10 @@ public class MyLogger {
          }
 
          logger.info("Hi How r u?");
-
-    }
      */
 
     //this code is what will be called from classes to log an event.
     /**
-     public class Test1 {
-        public Test1()throws IOException {
-            MyLogger.log(Level.INFO, MyLogger.class.getName());
-        }
-     }
+     MyLogger.log(Level.INFO, MyLogger.class.getName());
      */
 }

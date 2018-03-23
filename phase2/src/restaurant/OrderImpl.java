@@ -2,10 +2,12 @@ package restaurant;
 
 import menu.Ingredient;
 import menu.MenuItem;
+import src.main.MyLogger;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
 
 
 public class OrderImpl implements Order {
@@ -29,6 +31,8 @@ public class OrderImpl implements Order {
         orderItems = new ArrayList<>(items);
         this.id = id; //this might break things
         this.tableId = tableId;
+
+        MyLogger.log(Level.INFO, "Order made " + this.toString());
     }
 
 

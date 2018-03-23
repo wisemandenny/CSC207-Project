@@ -3,7 +3,6 @@ package restaurant;
 
 import menu.Menu;
 
-import restaurant.Restaurant;
 
 public class InventoryFactory {
     private InventoryFactory(){}
