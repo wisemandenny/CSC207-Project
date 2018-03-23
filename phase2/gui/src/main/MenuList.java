@@ -39,7 +39,7 @@ public class MenuList implements Initializable {
 
     private void addMenuLabels() {
         listView.getItems().clear();
-        Menu menu = Restaurant.getMenu();
+        Menu menu = Restaurant.getInstance().getMenu();
         for (MenuItem i : menu.getMenu()) {
             try {
                 List<JFXButton> itemIngredients = new ArrayList<>();

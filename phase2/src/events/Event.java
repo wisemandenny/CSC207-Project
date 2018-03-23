@@ -1,6 +1,6 @@
 package events;
 
-public interface Event {
+public interface Event{
     EventType getType();
 
     void doEvent();

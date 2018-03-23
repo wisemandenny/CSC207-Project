@@ -2,7 +2,7 @@ package events;
 
 import restaurant.Restaurant;
 
-public class UpdateEvent implements Event {
+public class UpdateEvent extends BaseEvent implements Event {
     private final EventType type;
     private final int orderId;
 
@@ -20,13 +20,13 @@ public class UpdateEvent implements Event {
     public void doEvent() {
         switch (type) {
             case COOKSEEN:
-                Restaurant.addCookingOrder(orderId);
+                Restaurant.getInstance().addCookingOrder(orderId);
                 break;
             case COOKREADY:
-                Restaurant.addReadyOrder(orderId);
+                Restaurant.getInstance().addReadyOrder(orderId);
                 break;
             case SERVERDELIVERED:
-                Restaurant.addDeliveredOrder(orderId);
+                Restaurant.getInstance().addDeliveredOrder(orderId);
                 break;
             default:
                 throw new IllegalStateException("Invalid type of Update Event"+ type);

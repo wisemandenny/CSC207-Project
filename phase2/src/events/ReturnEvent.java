@@ -6,7 +6,7 @@ import restaurant.OrderImpl;
 import restaurant.Restaurant;
 import restaurant.Table;
 
-public class ReturnEvent implements Event {
+public class ReturnEvent extends BaseEvent implements Event {
     private final Order o;
 
     ReturnEvent(Table table, String order, String reasonList) {
@@ -32,6 +32,6 @@ public class ReturnEvent implements Event {
 
     @Override
     public void doEvent() {
-        Restaurant.getTable(o.getTableId()).removeFromBill(o);
+        Restaurant.getInstance().getTable(o.getTableId()).removeFromBill(o);
     }
 }

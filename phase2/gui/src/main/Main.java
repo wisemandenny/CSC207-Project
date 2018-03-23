@@ -10,10 +10,16 @@ import restaurant.Restaurant;
 
 
 public class Main extends Application {
+    private static Restaurant restaurant;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+        MainController mc = new MainController(restaurant);
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Main.fxml"));
+        fxmlLoader.setController(mc);
+
+        Parent root = fxmlLoader.load();
         JFXDecorator decorator = new JFXDecorator(primaryStage, root);
         decorator.setCustomMaximize(true);
         Scene scene = new Scene(decorator, 800, 800);
@@ -30,8 +36,8 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        Restaurant r = Restaurant.getInstance(10, 0.13);
-        r.start();
+        restaurant = Restaurant.getInstance(10, 0.13);
+        restaurant.start();
         launch(args);
     }
 }

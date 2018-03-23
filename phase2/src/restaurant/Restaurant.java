@@ -1,22 +1,22 @@
 package restaurant;
 
-import events.Event;
+import events.BaseEvent;
 import menu.*;
 
 import java.util.*;
 
-public class Restaurant implements Runnable {
-    private static final Menu menu = new BurgerMenu();
-    private static final Inventory inventory = new InventoryImpl(Restaurant.menu);
-    private static final Set<Order> placedOrders = new HashSet<>();
-    private static final Set<Order> cookingOrders = new HashSet<>();
-    private static final Set<Order> rejectedOrders = new HashSet<>();
-    private static final Set<Order> readyOrders = new HashSet<>();
-    private static final Set<Order> deliveredOrders = new HashSet<>();
-    private static double taxRate;
-    private static boolean running;
+public class Restaurant extends Observable implements Runnable, Observer  {
     private static Restaurant instance = null; //singleton
-    private static TableImpl[] tables;
+    private final Menu menu = new BurgerMenu();
+    private final Inventory inventory = new InventoryImpl(menu);
+    private final List<Order> placedOrders = new ArrayList<>();
+    private final List<Order> cookingOrders = new ArrayList<>();
+    private final List<Order> rejectedOrders = new ArrayList<>();
+    private final List<Order> readyOrders = new ArrayList<>();
+    private final List<Order> deliveredOrders = new ArrayList<>();
+    private double taxRate;
+    private boolean running;
+    private TableImpl[] tables;
     private Thread t;
     private EventManager eventManager;
 
@@ -30,14 +30,13 @@ public class Restaurant implements Runnable {
      * @param numOfTables the number of Tables this restaurant.Restaurant should have.
      */
     private Restaurant(int numOfTables, double taxRate) {
-        Restaurant.running = true;
-        Restaurant.taxRate = taxRate;
-        Restaurant.tables = new TableImpl[numOfTables + 1];
+        running = true;
+        this.taxRate = taxRate;
+        tables = new TableImpl[numOfTables + 1];
         for (int i = 1; i <= numOfTables; i++) {
-            Restaurant.tables[i] = new TableImpl(i);
+            tables[i] = new TableImpl(i);
         }
     }
-
     public static Restaurant getInstance(int numOfTables, double taxRate) {
         if (Restaurant.instance == null) {
             Restaurant.instance = new Restaurant(numOfTables, taxRate);
@@ -45,20 +44,29 @@ public class Restaurant implements Runnable {
         return Restaurant.instance;
     }
 
+    public static Restaurant getInstance(){
+        if (Restaurant.instance == null) {
+            System.out.println("how are you here even?");
+        }
+        return Restaurant.instance;
+    }
+
+
+
     public static void end() {
-        Restaurant.running = false;
+        Restaurant.getInstance().running = false;
     }
 
-    public static Menu getMenu() {
-        return Restaurant.menu;
+    public Menu getMenu() {
+        return Restaurant.getInstance().menu;
     }
 
-    public static int getNumOfTables() {
-        return Restaurant.tables.length;
+    public int getNumOfTables() {
+        return Restaurant.getInstance().tables.length;
     }
 
-    public static void newEvent(String eventString) {
-        Restaurant.getInstance(Restaurant.getNumOfTables(), Restaurant.taxRate).eventManager.addEventFromString(eventString, Restaurant.tables);
+    public void newEvent(String eventString) {
+        Restaurant.getInstance().eventManager.addEventFromString(eventString);
     }
 
     /**
@@ -66,32 +74,32 @@ public class Restaurant implements Runnable {
      *
      * @return mmhmm i don't think so
      */
-    public static Set<Order> getPlacedOrders() { return Restaurant.placedOrders; }
+    public List<Order> getPlacedOrders() { return Restaurant.getInstance().placedOrders; }
 
-    public static Set<Order> getCookingOrders() {
-        return Restaurant.cookingOrders;
+    public List<Order> getCookingOrders() {
+        return Restaurant.getInstance().cookingOrders;
     }
 
-    public static Set<Order> getReadyOrders() {
-        return Restaurant.readyOrders;
+    public List<Order> getReadyOrders() {
+        return Restaurant.getInstance().readyOrders;
     }
 
-    public static Set<Order> getDeliveredOrders() {
-        return Restaurant.deliveredOrders;
+    public List<Order> getDeliveredOrders() {
+        return Restaurant.getInstance().deliveredOrders;
     }
 
-    public static void addPlacedOrder(Order o) {
-        Restaurant.placedOrders.add(o);
-        Restaurant.tables[o.getTableId()].addOrder(o);
+    public void addPlacedOrder(Order o) {
+        Restaurant.getInstance().placedOrders.add(o);
+        Restaurant.getInstance().tables[o.getTableId()].addOrder(o);
     }
 
-    public static void addCookingOrder(int orderId) {
-        Order order = Restaurant.findOrder(Restaurant.placedOrders, orderId);
-        Restaurant.placedOrders.remove(order);
-        Restaurant.checkInventory(order);
+    public void addCookingOrder(int orderId) {
+        Order order = Restaurant.getInstance().findOrder(Restaurant.getInstance().placedOrders, orderId);
+        Restaurant.getInstance().placedOrders.remove(order);
+        Restaurant.getInstance().checkInventory(order);
         //Restaurant.cookingOrders.add(order);
         //Todo: reject items here
-        Restaurant.inventory.removeFromInventory(order);
+        Restaurant.getInstance().inventory.removeFromInventory(order);
 
         System.out.println("Order #" + order.getId() + " is now being cooked.");
         //Restaurant.inventory.printContents();
@@ -99,19 +107,19 @@ public class Restaurant implements Runnable {
 
     }
 
-    public static void addReadyOrder(int orderId) {
-        Order order = Restaurant.findOrder(Restaurant.cookingOrders, orderId);
-        Restaurant.cookingOrders.remove(order);
-        Restaurant.readyOrders.add(order);
+    public void addReadyOrder(int orderId) {
+        Order order = Restaurant.getInstance().findOrder(Restaurant.getInstance().cookingOrders, orderId);
+        Restaurant.getInstance().cookingOrders.remove(order);
+        Restaurant.getInstance().readyOrders.add(order);
         System.out.println("Order #" + order.getId() + " is now ready for pickup.");
 
     }
 
-    public static void addDeliveredOrder(int orderId) {
-        Order order = Restaurant.findOrder(Restaurant.readyOrders, orderId);
-        Restaurant.readyOrders.remove(order);
-        Restaurant.deliveredOrders.add(order);
-        Restaurant.tables[order.getTableId()].addOrderToBill(order);
+    public void addDeliveredOrder(int orderId) {
+        Order order = Restaurant.getInstance().findOrder(Restaurant.getInstance().readyOrders, orderId);
+        Restaurant.getInstance().readyOrders.remove(order);
+        Restaurant.getInstance().deliveredOrders.add(order);
+        Restaurant.getInstance().tables[order.getTableId()].addOrderToBill(order);
 
         System.out.println("Order #" + order.getId() + " has been delivered to Table " + order.getTableId() + ".");
 
@@ -123,7 +131,7 @@ public class Restaurant implements Runnable {
      *
      * @param o
      */
-    private static void checkInventory(Order o) {
+    private void checkInventory(Order o) {
         List<MenuItem> rejectedItems = new ArrayList<>();
         List<MenuItem> acceptedItems = new ArrayList<>();
 
@@ -135,14 +143,14 @@ public class Restaurant implements Runnable {
             itemLoop:
             for (int i = 1; i <= item.getQuantity(); i++) {
                 for (Ingredient ingredient : allIngredients) {
-                    if (Restaurant.inventory.getContents().get(ingredient) == 0) {//not enough inventory
+                    if (Restaurant.getInstance().inventory.getContents().get(ingredient) == 0) {//not enough inventory
                         itemToRemove.setQuantity(item.getQuantity() - i);
                         rejectedItems.add(itemToRemove);
                         System.out.println(itemToRemove.getQuantity() + " " + itemToRemove.getName() + "(s) cannot be cooked because we are out of " + ingredient.getName() + ",");
                         //TODO: log a request here
                         break itemLoop;
                     } else { //enough inventory
-                        Restaurant.inventory.removeFromInventory(ingredient);
+                        Restaurant.getInstance().inventory.removeFromInventory(ingredient);
                         if (ingredient.equals(allIngredients.get(allIngredients.size() - 1))) {//enough inventory for the whole item
                             itemToAdd.setQuantity(i);
                         }
@@ -153,12 +161,12 @@ public class Restaurant implements Runnable {
 
         }
         if (!rejectedItems.isEmpty())
-            Restaurant.rejectedOrders.add(new OrderImpl(rejectedItems, o.getId(), o.getTableId()));
+            Restaurant.getInstance().rejectedOrders.add(new OrderImpl(rejectedItems, o.getId(), o.getTableId()));
         if (!acceptedItems.isEmpty())
-            Restaurant.cookingOrders.add(new OrderImpl(acceptedItems, o.getId(), o.getTableId()));
+            Restaurant.getInstance().cookingOrders.add(new OrderImpl(acceptedItems, o.getId(), o.getTableId()));
     }
 
-    private static Order findOrder(Set<Order> searchSet, int orderId) {
+    private Order findOrder(List<Order> searchSet, int orderId) {
         for (Order order : searchSet) {
             if (order.getId() == orderId) {
                 return order;
@@ -167,8 +175,8 @@ public class Restaurant implements Runnable {
         throw new IllegalArgumentException("Order #" + orderId + " not found.");
     }
 
-    public static void addToInventory(Map<Ingredient, Integer> shipment) {
-        Restaurant.inventory.addToInventory(shipment);
+    public void addToInventory(Map<Ingredient, Integer> shipment) {
+        Restaurant.getInstance().inventory.addToInventory(shipment);
         /* uncomment this to check inventory restock
         for (menu.Ingredient i : Restaurant.inventory.getContents().keySet()) {
             System.out.println(i.getName() + ": " + Restaurant.inventory.getContents().get(i));
@@ -176,12 +184,14 @@ public class Restaurant implements Runnable {
         */
     }
 
-    static double getTaxRate() {
-        return Restaurant.taxRate;
+    double getTaxRate() {
+        return Restaurant.getInstance().taxRate;
     }
 
-    public static Table getTable(int tableId) {
-        return Restaurant.tables[tableId];
+    Table[] getTables(){ return tables; }
+
+    public Table getTable(int tableId) {
+        return Restaurant.getInstance().tables[tableId];
     }
 
     public void start() {
@@ -193,11 +203,11 @@ public class Restaurant implements Runnable {
 
     @Override
     public void run() {
-        eventManager = new EventManager(Restaurant.tables);
-        Queue<Event> eventQueue = eventManager.getEvents();
-        while (Restaurant.running) {
+        eventManager = new EventManager();
+        Queue<BaseEvent> eventQueue = eventManager.getEvents();
+        while (Restaurant.getInstance().running) {
             if (!eventQueue.isEmpty()) {
-                Event e = eventQueue.remove();
+                BaseEvent e = eventQueue.remove();
                 e.doEvent();
             } else {
                 try {
@@ -209,5 +219,11 @@ public class Restaurant implements Runnable {
             }
         }
 
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("inside restaurant update");
+        notifyObservers();
     }
 }

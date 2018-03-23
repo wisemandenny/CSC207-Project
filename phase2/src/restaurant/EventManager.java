@@ -1,6 +1,6 @@
 package restaurant;
 
-import events.Event;
+import events.BaseEvent;
 import events.EventFactory;
 
 import java.io.BufferedReader;
@@ -11,12 +11,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 class EventManager {
-    private final Queue<Event> events = new LinkedList<>();
+    private final Queue<BaseEvent> events = new LinkedList<>();
 
-    EventManager(Table[] tables) {
+    EventManager() {
         try (BufferedReader br = new BufferedReader(new FileReader("./events.txt"))) {
             do {
-                addEventFromString(br.readLine(), tables);
+                addEventFromString(br.readLine());
             } while (br.ready());
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open events.txt");
@@ -30,11 +30,14 @@ class EventManager {
      *
      * @return a Queue containing all of the events contained in this restaurant.EventManager
      */
-    Queue<Event> getEvents() {
+    Queue<BaseEvent> getEvents() {
         return events;
     }
 
-    void addEventFromString(String eventString, Table[] tables){
-        events.add(EventFactory.makeEvent(eventString, tables));
+    void addEventFromString(String eventString){
+        Table[] tables = Restaurant.getInstance().getTables();
+        BaseEvent e = EventFactory.makeEvent(eventString, tables);
+        e.addObserver(Restaurant.getInstance());
+        events.add(e);
     }
 }

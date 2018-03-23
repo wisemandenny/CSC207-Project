@@ -19,9 +19,11 @@ import restaurant.Restaurant;
 import restaurant.Table;
 
 import java.net.URL;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
-public class BillView implements Initializable {
+public class BillView implements Initializable, Observer {
     private static int shownTable = 1;
 
     private final JFXPopup chooseTablePopup = new JFXPopup();
@@ -46,7 +48,7 @@ public class BillView implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        initChooseTablePopup(Restaurant.getNumOfTables());
+        initChooseTablePopup(Restaurant.getInstance().getNumOfTables());
         //initialize observable lists to the jfxlistviews so they will refresh on changes
         ObservableList<HBox> tableItems = FXCollections.observableArrayList();
         itemList.setItems(tableItems);
@@ -109,8 +111,8 @@ public class BillView implements Initializable {
         BillView.shownTable = selectedTable;
 
         itemList.getItems().clear();
-        if (!Restaurant.getTable(BillView.shownTable).getOrders().isEmpty()) {
-            Table table = Restaurant.getTable(BillView.shownTable);
+        if (!Restaurant.getInstance().getTable(BillView.shownTable).getOrders().isEmpty()) {
+            Table table = Restaurant.getInstance().getTable(BillView.shownTable);
             billHeader.setText("BILL FOR TABLE " + table.getId());
             drawTableBill(table);
             //updatePaid(table); TODO: implement this
@@ -138,5 +140,8 @@ public class BillView implements Initializable {
         return BillView.shownTable;
     }
 
-
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("inside BV update");
+    }
 }

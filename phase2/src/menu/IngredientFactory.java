@@ -7,6 +7,6 @@ public class IngredientFactory {
     }
 
     public static Ingredient makeIngredient(String name) {
-        return new IngredientImpl(Restaurant.getMenu().getMenuIngredient(name));
+        return new IngredientImpl(Restaurant.getInstance().getMenu().getMenuIngredient(name));
     }
 }

@@ -2,12 +2,10 @@ package restaurant;
 
 import menu.Ingredient;
 import menu.MenuItem;
-import src.main.MyLogger;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
 
 
 public class OrderImpl implements Order {
@@ -32,7 +30,6 @@ public class OrderImpl implements Order {
         this.id = id; //this might break things
         this.tableId = tableId;
 
-        MyLogger.log(Level.INFO, "Order made " + this.toString());
     }
 
 
@@ -144,7 +141,7 @@ public class OrderImpl implements Order {
             // Separate the ordered item from any modifiers, there should only be one "/" break per menu item.
             String[] orderInfoSplit = orderInfo.split("\\s/\\s", 2);
             String orderedItemName = orderInfoSplit[0];
-            MenuItem orderedMenuItem = Restaurant.getMenu().getMenuItem(orderedItemName);
+            MenuItem orderedMenuItem = Restaurant.getInstance().getMenu().getMenuItem(orderedItemName);
             orderedMenuItem.setQuantity(Integer.parseInt(orderItem[OrderImpl.QUANTITY_ADDRESS]));
 
             // If there are any modifiers:
@@ -159,9 +156,9 @@ public class OrderImpl implements Order {
                 for (String modifier : limitedModifiers) {
                     String ingredientName = modifier.substring(1);
                     if (modifier.startsWith("+")) {
-                        orderedMenuItem.addExtraIngredient(Restaurant.getMenu().getMenuIngredient(ingredientName));
+                        orderedMenuItem.addExtraIngredient(Restaurant.getInstance().getMenu().getMenuIngredient(ingredientName));
                     } else if (modifier.startsWith("-")) {
-                        orderedMenuItem.removeIngredient(Restaurant.getMenu().getMenuIngredient(ingredientName));
+                        orderedMenuItem.removeIngredient(Restaurant.getInstance().getMenu().getMenuIngredient(ingredientName));
                     } else {
                         throw new IllegalArgumentException("Invalid character found in mod: " + modifier);
                     }

@@ -4,7 +4,6 @@ import menu.Ingredient;
 import menu.MenuItem;
 
 public class BillImpl implements Bill {
-    final double taxRate = Restaurant.getTaxRate();
     private final int tableId;
     private final Order bill = new OrderImpl();
     private double paidAmount = 0.00;
@@ -57,7 +56,7 @@ public class BillImpl implements Bill {
 
     @Override
     public double getTotal() {
-        return getSubtotal() * (1.00 + taxRate);
+        return getSubtotal() * (1.00 + Restaurant.getInstance().getTaxRate());
     }
 
     @Override
