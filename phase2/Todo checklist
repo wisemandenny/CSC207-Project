@@ -15,8 +15,7 @@ GUI TODO:
 3. show the bill info in the tables
 4. make the UI reactive, especially the list of tables
 5. make 2 options for the left sidebar: menu and order status
-6. fix the draer hiding everytime you click on it
-
+6. add plus and minus button to change number of seats (milan is implementing the backend)
 n: use material css
 
 

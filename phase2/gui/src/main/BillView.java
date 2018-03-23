@@ -22,6 +22,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class BillView implements Initializable {
+    private static int shownTable = 1;
+
+    private final JFXPopup chooseTablePopup = new JFXPopup();
     @FXML
     private Label billHeader;
     @FXML
@@ -41,35 +44,33 @@ public class BillView implements Initializable {
     @FXML
     private JFXButton deleteButton;
 
-    private JFXPopup chooseTablePopup = new JFXPopup();
-    private int shownTable = 1;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initChooseTablePopup(Restaurant.getNumOfTables());
         //initialize observable lists to the jfxlistviews so they will refresh on changes
-        final ObservableList<HBox> tableItems = FXCollections.observableArrayList();
+        ObservableList<HBox> tableItems = FXCollections.observableArrayList();
         itemList.setItems(tableItems);
 
-        //draw the bill for the table
-        changeTable(1);
+        changeTable(BillView.shownTable);
     }
-    private HBox generateOrderHeader(Order order, int orderNumber){
+
+    private HBox generateOrderHeader(Order order, int orderNumber) {
         HBox orderBox = new HBox();
         orderBox.getChildren().add(new JFXButton("Order " + orderNumber + " (id: " + order.getId() + ")"));
         return orderBox;
     }
-    private HBox generateItemListEntry(MenuItem item){
+
+    private HBox generateItemListEntry(MenuItem item) {
         HBox itemNameAndPrice = new HBox();
         Region filler = new Region();
         HBox.setHgrow(filler, Priority.ALWAYS);
         itemNameAndPrice.getChildren().add(new JFXButton(item.getQuantity() + " " + item.getName()));
         itemNameAndPrice.getChildren().add(filler);
-        itemNameAndPrice.getChildren().add(new JFXButton(String.format("%.2f", item.getQuantity()*item.getPrice())));
+        itemNameAndPrice.getChildren().add(new JFXButton(String.format("%.2f", item.getQuantity() * item.getPrice())));
         return itemNameAndPrice;
     }
 
-    private HBox generateBox(double amount){
+    private HBox generateBox(double amount) {
         HBox box = new HBox();
         Region filler = new Region();
         HBox.setHgrow(filler, Priority.ALWAYS);
@@ -78,7 +79,7 @@ public class BillView implements Initializable {
         return box;
     }
 
-    private void drawTableBill(Table table){
+    private void drawTableBill(Table table) {
         int j = 1;
         for (Order order : table.getOrders()) {
             itemList.getItems().add(generateOrderHeader(order, j++)); //order header
@@ -94,8 +95,8 @@ public class BillView implements Initializable {
     private void initChooseTablePopup(int numOfTables) {
         VBox box = new VBox();
         for (int i = 1; i < numOfTables; i++) {
-            final int tableNumber = i;
-            JFXButton button = new JFXButton("Table " +tableNumber);
+            int tableNumber = i;
+            JFXButton button = new JFXButton("Table " + tableNumber);
             button.setOnAction(e -> changeTable(tableNumber));
             button.setPadding(new Insets(10));
             box.getChildren().add(button);
@@ -104,35 +105,37 @@ public class BillView implements Initializable {
         changeTableButton.setOnAction(e -> chooseTablePopup.show(changeTableButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
     }
 
-    private void changeTable(int selectedTable){
-        shownTable = selectedTable;
+    private void changeTable(int selectedTable) {
+        BillView.shownTable = selectedTable;
+
         itemList.getItems().clear();
-        if(!Restaurant.getTable(selectedTable).getOrders().isEmpty()){
-            Table table = Restaurant.getTable(selectedTable);
+        if (!Restaurant.getTable(BillView.shownTable).getOrders().isEmpty()) {
+            Table table = Restaurant.getTable(BillView.shownTable);
             billHeader.setText("BILL FOR TABLE " + table.getId());
             drawTableBill(table);
             //updatePaid(table); TODO: implement this
         } else {
-            billHeader.setText("BILL FOR TABLE " + selectedTable);
+            billHeader.setText("BILL FOR TABLE " + BillView.shownTable);
             HBox noOrderFoundBox = new HBox();
-            noOrderFoundBox.getChildren().add(new Label("No orders found for Table #" + selectedTable));
+            noOrderFoundBox.getChildren().add(new Label("No orders found for Table #" + BillView.shownTable));
             itemList.getItems().add(noOrderFoundBox);
         }
         //ObservableList<Label> observableList = FXCollections.observableList(newItems);
         //tableOrderListView.setItems(observableList);
     }
 
-    private void updatePaid(Table table, double paidAmount){
+    private void updatePaid(Table table, double paidAmount) {
         unpaidLabel.setText(String.format("%.2f", table.getBill().getTotal() - paidAmount));
         paidLabel.setText(String.format("%.2f", paidAmount));
     }
 
 
-    public void paySelectedItems(){
+    public void paySelectedItems() {
         //ability to select items from the bill similar to menulist
     }
-    int getShownTable(){
-        return shownTable;
+
+    int getShownTable() {
+        return BillView.shownTable;
     }
 
 
