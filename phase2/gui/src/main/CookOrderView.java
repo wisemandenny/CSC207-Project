@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXMasonryPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -48,7 +47,9 @@ public class CookOrderView implements Initializable {
         VBox orderBox = new VBox();
         orderBox.setOnMouseClicked(e -> orderBox.getChildren().forEach(p -> System.out.println(p.toString())));
         //order header
-        orderBox.getChildren().add(new Label("Order: " + o.getId() + "\nTable: " + o.getTableId()));
+        Label orderHeader = new Label("Order: " + o.getId() + "\nTable: " + o.getTableId());
+        orderHeader.autosize();
+        orderBox.getChildren().add(orderHeader);
         for (MenuItem item : o.getItems()) {
             orderBox.getChildren().add(makeItemLabel(item));
         }
@@ -71,15 +72,15 @@ public class CookOrderView implements Initializable {
                 orderBox.setBackground(grey);
                 break;
         }
-        orderBox.setPrefSize(100, 100);
+        orderBox.setPrefSize(100, 150);
+        orderBox.autosize();
         return orderBox;
     }
 
     private Label makeItemLabel(MenuItem item) {
         Label itemLabel = new Label(item.getQuantity() + " " + item.getName());
-        System.out.println("makeItemLabel " + item.getName());
         itemLabel.setBackground(Background.EMPTY); //transparent background
-        itemLabel.setAlignment(Pos.CENTER);
+        itemLabel.autosize();
         return itemLabel;
     }
 
