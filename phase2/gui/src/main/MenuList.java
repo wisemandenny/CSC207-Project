@@ -22,7 +22,7 @@ public class MenuList implements Initializable {
 
 
     @FXML
-    private JFXListView<JFXButton> listView;
+    private JFXListView<JFXButton> menuListView;
     @FXML
     private JFXToggleButton showIngredientsButton;
 
@@ -36,14 +36,14 @@ public class MenuList implements Initializable {
     }
 
     private void addMenuLabels() {
-        listView.getItems().clear();
+        menuListView.getItems().clear();
         Menu menu = Restaurant.getInstance().getMenu();
         for (MenuItem i : menu.getMenu()) {
             try {
                 List<JFXButton> itemIngredients = new ArrayList<>();
                 JFXButton itemButton = new JFXButton(i.getName());
                 itemButton.setOnAction(e -> clickOnItem(itemButton));
-                listView.getItems().add(itemButton);
+                menuListView.getItems().add(itemButton);
                 itemIngredients.add(itemButton);
 
                 for (Ingredient ingredient : i.getIngredients()) {
@@ -84,20 +84,20 @@ public class MenuList implements Initializable {
     }
 
     private void showIngredients(JFXButton itemButton) {
-        listView.getItems().clear();
+        menuListView.getItems().clear();
 
         for (List<JFXButton> itemList : itemsWithIngredients) {
             JFXButton itemNameButton = itemList.get(0);
             if (itemButton.getText().equals(itemNameButton.getText())) {
                 if (itemNameButton.getOpacity() == 1.0) {
-                    listView.getItems().addAll(itemList);
+                    menuListView.getItems().addAll(itemList);
                     itemNameButton.setOpacity(0.99);
                 } else {
-                    listView.getItems().add(itemNameButton);
+                    menuListView.getItems().add(itemNameButton);
                     itemNameButton.setOpacity(1.0);
                 }
             } else {
-                listView.getItems().add(itemNameButton);
+                menuListView.getItems().add(itemNameButton);
             }
         }
     }

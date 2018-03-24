@@ -36,6 +36,7 @@ public class Main extends Application implements Observer {
         FXMLLoader covLoader = new FXMLLoader();
         cookTab.setContent(covLoader.load(getClass().getResource("CookOrderView.fxml").openStream()));
         cookOrderView = covLoader.getController();
+        cookOrderView.addObserver(this);
         cookTab.setText("Cook");
         //managerTab.setContent(FXMLLoader.load(getClass().getResource("ManagerView.fxml")));
         //managerTab.setText("Manager");
@@ -62,8 +63,9 @@ public class Main extends Application implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        System.out.println("inside main update method");
         try{
-            Thread.sleep(500);
+            Thread.sleep(600);
         }catch (InterruptedException ex){
             System.out.println(ex.toString());
         }

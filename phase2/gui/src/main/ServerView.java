@@ -1,6 +1,7 @@
 package main;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +21,7 @@ public class ServerView extends Observable implements Initializable {
     @FXML
     private JFXButton FAB;
     private BillView billView;
+    private DeliverableOrdersView deliverableOrdersView;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -28,6 +30,12 @@ public class ServerView extends Observable implements Initializable {
             VBox box = menuListFXMLLoader.load();
             MenuList menuList = menuListFXMLLoader.getController();
             menuVbox.getChildren().add(box);
+
+            FXMLLoader dovLoader = getFXMLLoader("DeliverableOrdersView.fxml");
+            JFXListView dovList = dovLoader.load();
+            deliverableOrdersView = dovLoader.getController();
+            menuVbox.getChildren().add(dovList);
+
 
             FXMLLoader billViewFXMLLoader = getFXMLLoader("BillView.fxml");
             tableViewBox.getChildren().add( billViewFXMLLoader.load());
@@ -60,6 +68,7 @@ public class ServerView extends Observable implements Initializable {
     }
 
     void refresh(){
+        deliverableOrdersView.refresh();
         billView.refresh();
     }
 }
