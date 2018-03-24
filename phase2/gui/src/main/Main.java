@@ -63,7 +63,7 @@ public class Main extends Application implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         try{
-            Thread.sleep(500);
+            Thread.sleep(600);
         }catch (InterruptedException ex){
             System.out.println(ex.toString());
         }

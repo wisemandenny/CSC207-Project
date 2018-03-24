@@ -10,6 +10,7 @@ public class Restaurant extends Observable implements Runnable {
     private final Menu menu = new BurgerMenu();
     private final Inventory inventory = new InventoryImpl(menu);
     private final List<Order> placedOrders = new ArrayList<>();
+    private final List<Order> receivedOrders = new ArrayList<>();
     private final List<Order> cookingOrders = new ArrayList<>();
     private final List<Order> rejectedOrders = new ArrayList<>();
     private final List<Order> readyOrders = new ArrayList<>();
@@ -55,15 +56,15 @@ public class Restaurant extends Observable implements Runnable {
     }
 
     public Menu getMenu() {
-        return Restaurant.getInstance().menu;
+        return menu;
     }
 
     public int getNumOfTables() {
-        return Restaurant.getInstance().tables.length;
+        return tables.length;
     }
 
     public void newEvent(String eventString) {
-        Restaurant.getInstance().eventManager.addEventFromString(eventString);
+        eventManager.addEventFromString(eventString);
     }
 
     /**
@@ -71,32 +72,36 @@ public class Restaurant extends Observable implements Runnable {
      *
      * @return mmhmm i don't think so
      */
-    public List<Order> getPlacedOrders() { return Restaurant.getInstance().placedOrders; }
-
+    public List<Order> getPlacedOrders() { return placedOrders; }
+    public List<Order> getReceivedOrders() { return receivedOrders; }
     public List<Order> getCookingOrders() {
-        return Restaurant.getInstance().cookingOrders;
+        return cookingOrders;
     }
-
     public List<Order> getReadyOrders() {
-        return Restaurant.getInstance().readyOrders;
+        return readyOrders;
     }
-
     public List<Order> getDeliveredOrders() {
-        return Restaurant.getInstance().deliveredOrders;
+        return deliveredOrders;
     }
 
     public void addPlacedOrder(Order o) {
-        Restaurant.getInstance().placedOrders.add(o);
-        Restaurant.getInstance().tables[o.getTableId()].addOrder(o);
+        placedOrders.add(o);
+        tables[o.getTableId()].addOrder(o);
+    }
+
+    public void addReceivedOrder(int orderId){
+        Order order = findOrder(placedOrders, orderId);
+        placedOrders.remove(order);
+        receivedOrders.add(order);
     }
 
     public void addCookingOrder(int orderId) {
-        Order order = Restaurant.getInstance().findOrder(Restaurant.getInstance().placedOrders, orderId);
-        Restaurant.getInstance().placedOrders.remove(order);
-        Restaurant.getInstance().checkInventory(order);
+        Order order = findOrder(receivedOrders, orderId);
+        receivedOrders.remove(order);
+        checkInventory(order);
         //Restaurant.cookingOrders.add(order);
         //Todo: reject items here
-        Restaurant.getInstance().inventory.removeFromInventory(order);
+        inventory.removeFromInventory(order);
 
         System.out.println("Order #" + order.getId() + " is now being cooked.");
         //Restaurant.inventory.printContents();
@@ -105,18 +110,18 @@ public class Restaurant extends Observable implements Runnable {
     }
 
     public void addReadyOrder(int orderId) {
-        Order order = Restaurant.getInstance().findOrder(Restaurant.getInstance().cookingOrders, orderId);
-        Restaurant.getInstance().cookingOrders.remove(order);
-        Restaurant.getInstance().readyOrders.add(order);
+        Order order = findOrder(cookingOrders, orderId);
+        cookingOrders.remove(order);
+        readyOrders.add(order);
         System.out.println("Order #" + order.getId() + " is now ready for pickup.");
 
     }
 
     public void addDeliveredOrder(int orderId) {
-        Order order = Restaurant.getInstance().findOrder(Restaurant.getInstance().readyOrders, orderId);
-        Restaurant.getInstance().readyOrders.remove(order);
-        Restaurant.getInstance().deliveredOrders.add(order);
-        Restaurant.getInstance().tables[order.getTableId()].addOrderToBill(order);
+        Order order = findOrder(readyOrders, orderId);
+        readyOrders.remove(order);
+        deliveredOrders.add(order);
+        tables[order.getTableId()].addOrderToBill(order);
 
         System.out.println("Order #" + order.getId() + " has been delivered to Table " + order.getTableId() + ".");
 
@@ -140,14 +145,14 @@ public class Restaurant extends Observable implements Runnable {
             itemLoop:
             for (int i = 1; i <= item.getQuantity(); i++) {
                 for (Ingredient ingredient : allIngredients) {
-                    if (Restaurant.getInstance().inventory.getContents().get(ingredient) == 0) {//not enough inventory
+                    if (inventory.getContents().get(ingredient) == 0) {//not enough inventory
                         itemToRemove.setQuantity(item.getQuantity() - i);
                         rejectedItems.add(itemToRemove);
                         System.out.println(itemToRemove.getQuantity() + " " + itemToRemove.getName() + "(s) cannot be cooked because we are out of " + ingredient.getName() + ",");
                         //TODO: log a request here
                         break itemLoop;
                     } else { //enough inventory
-                        Restaurant.getInstance().inventory.removeFromInventory(ingredient);
+                        inventory.removeFromInventory(ingredient);
                         if (ingredient.equals(allIngredients.get(allIngredients.size() - 1))) {//enough inventory for the whole item
                             itemToAdd.setQuantity(i);
                         }
@@ -158,9 +163,9 @@ public class Restaurant extends Observable implements Runnable {
 
         }
         if (!rejectedItems.isEmpty())
-            Restaurant.getInstance().rejectedOrders.add(new OrderImpl(rejectedItems, o.getId(), o.getTableId()));
+            rejectedOrders.add(new OrderImpl(rejectedItems, o.getId(), o.getTableId()));
         if (!acceptedItems.isEmpty())
-            Restaurant.getInstance().cookingOrders.add(new OrderImpl(acceptedItems, o.getId(), o.getTableId()));
+            cookingOrders.add(new OrderImpl(acceptedItems, o.getId(), o.getTableId()));
     }
 
     private Order findOrder(List<Order> searchSet, int orderId) {
@@ -169,11 +174,11 @@ public class Restaurant extends Observable implements Runnable {
                 return order;
             }
         }
-        throw new IllegalArgumentException("Order #" + orderId + " not found.");
+        throw new IllegalArgumentException("Order #" + orderId + " not found in " + searchSet);
     }
 
     public void addToInventory(Map<Ingredient, Integer> shipment) {
-        Restaurant.getInstance().inventory.addToInventory(shipment);
+        inventory.addToInventory(shipment);
         /* uncomment this to check inventory restock
         for (menu.Ingredient i : Restaurant.inventory.getContents().keySet()) {
             System.out.println(i.getName() + ": " + Restaurant.inventory.getContents().get(i));
@@ -182,13 +187,13 @@ public class Restaurant extends Observable implements Runnable {
     }
 
     double getTaxRate() {
-        return Restaurant.getInstance().taxRate;
+        return taxRate;
     }
 
     Table[] getTables(){ return tables; }
 
     public Table getTable(int tableId) {
-        return Restaurant.getInstance().tables[tableId];
+        return tables[tableId];
     }
 
     public void start() {
@@ -202,7 +207,7 @@ public class Restaurant extends Observable implements Runnable {
     public void run() {
         eventManager = new EventManager();
         Queue<Event> eventQueue = eventManager.getEvents();
-        while (Restaurant.getInstance().running) {
+        while (running) {
             if (!eventQueue.isEmpty()) {
                 eventQueue.remove().doEvent();
                 setChanged();
