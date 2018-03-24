@@ -1,5 +1,6 @@
 import menu.*;
 import org.junit.Test;
+import restaurant.Restaurant;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,9 +9,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class BurgerMenuTest {
-
+    Restaurant r = Restaurant.getInstance(10, 0.13);
     @Test
     public void testGetMenuItem(){
+        r.start();
         Ingredient burgerBun = IngredientFactory.makeIngredient("BurgerBun");
         Ingredient patty = IngredientFactory.makeIngredient("Patty");
         Ingredient lettuce = IngredientFactory.makeIngredient("Lettuce");
@@ -31,5 +33,4 @@ public class BurgerMenuTest {
         Menu menu = new BurgerMenu();
         assertEquals(potato, menu.getMenuIngredient("Potato"));
     }
-    // TODO: test for when they fail? How does junit handle an exception?
 }

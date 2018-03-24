@@ -1,14 +1,16 @@
 import menu.Ingredient;
 import menu.IngredientFactory;
 import org.junit.Test;
+import restaurant.Restaurant;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class IngredientImplTest {
-
+    Restaurant r = Restaurant.getInstance(10, 0.13);
     @Test
     public void testGetName(){
+        r.start();
         Ingredient patty = IngredientFactory.makeIngredient("Patty");
         assertTrue(patty.getName().equals("Patty"));
         assertFalse(patty.getName().equals("patty"));

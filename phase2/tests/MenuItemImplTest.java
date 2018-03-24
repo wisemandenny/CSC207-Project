@@ -3,6 +3,7 @@ import menu.IngredientFactory;
 import menu.MenuItem;
 import menu.MenuItemFactory;
 import org.junit.Test;
+import restaurant.Restaurant;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,8 +25,10 @@ public class MenuItemImplTest {
     }
 
 
+    Restaurant r = Restaurant.getInstance(10, 0.13);
     @Test
     public void testGetName(){
+        r.start();
         MenuItem item = generateMenuItem();
         assertEquals("Hamburger", item.getName());
     }
