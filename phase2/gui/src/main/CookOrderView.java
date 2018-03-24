@@ -46,6 +46,7 @@ public class CookOrderView implements Initializable {
 
     private VBox makeOrderBox(Order o, String flag) {
         VBox orderBox = new VBox();
+        orderBox.setOnMouseClicked(e -> orderBox.getChildren().forEach(p -> System.out.println(p.toString())));
         //order header
         orderBox.getChildren().add(new Label("Order: " + o.getId() + "\nTable: " + o.getTableId()));
         for (MenuItem item : o.getItems()) {
@@ -70,7 +71,7 @@ public class CookOrderView implements Initializable {
                 orderBox.setBackground(grey);
                 break;
         }
-        orderBox.setPrefSize(50, 50);
+        orderBox.setPrefSize(100, 100);
         return orderBox;
     }
 

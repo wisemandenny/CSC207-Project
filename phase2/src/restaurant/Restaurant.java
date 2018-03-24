@@ -3,12 +3,9 @@ package restaurant;
 import events.Event;
 import menu.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
-public class Restaurant implements Runnable {
+public class Restaurant extends Observable implements Runnable {
     private static Restaurant instance = null; //singleton
     private final Menu menu = new BurgerMenu();
     private final Inventory inventory = new InventoryImpl(menu);
@@ -208,6 +205,8 @@ public class Restaurant implements Runnable {
         while (Restaurant.getInstance().running) {
             if (!eventQueue.isEmpty()) {
                 eventQueue.remove().doEvent();
+                setChanged();
+                notifyObservers();
             } else {
                 try {
                     eventQueue.addAll(eventManager.getEvents());

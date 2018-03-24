@@ -4,10 +4,10 @@
 <?import com.jfoenix.controls.JFXMasonryPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox fx:controller="main.CookOrderView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.CookOrderView">
    <children>
-      <JFXMasonryPane fx:id="orderMasonryPane" prefHeight="350.0" prefWidth="600.0" />
-      <HBox prefHeight="60.0" prefWidth="600.0">
+      <JFXMasonryPane fx:id="orderMasonryPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="600.0" />
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="600.0">
          <children>
             <JFXButton text="Order Received" />
             <JFXButton text="Order Fired" />
