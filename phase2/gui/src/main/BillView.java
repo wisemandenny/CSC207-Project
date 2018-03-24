@@ -93,7 +93,6 @@ public class BillView implements Initializable {
     }
 
     void changeTable(int selectedTable) {
-        System.out.println("inside changeTable " + this.toString());
         BillView.shownTable = selectedTable;
         refresh();
         //updatePaid() TODO: implement this

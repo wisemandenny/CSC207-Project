@@ -6,12 +6,12 @@
 <?import javafx.scene.layout.VBox?>
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.CookOrderView">
    <children>
-      <JFXMasonryPane fx:id="orderMasonryPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="600.0" />
-      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="600.0">
+      <JFXMasonryPane fx:id="orderMasonryPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="600.0"  />
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="600.0" alignment="BOTTOM_CENTER">
          <children>
-            <JFXButton text="Order Received" />
-            <JFXButton text="Order Fired" />
-            <JFXButton text="Order Ready" />
+            <JFXButton fx:id="receivedButton" text="Order Received" />
+            <JFXButton fx:id="firedButton" text="Order Fired" />
+            <JFXButton fx:id="readyButton" text="Order Ready" />
          </children>
       </HBox>
    </children>

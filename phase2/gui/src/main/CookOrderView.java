@@ -1,10 +1,10 @@
 package main;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -24,8 +24,22 @@ public class CookOrderView implements Initializable {
     @FXML
     private JFXMasonryPane orderMasonryPane;
 
+    @FXML
+    private JFXButton receivedButton;
+
+    @FXML
+    private JFXButton firedButton;
+
+    @FXML
+    private JFXButton readyButton;
+
+    private VBox selectedOrderBox;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        receivedButton.setOnAction(e -> receiveOrder());
+        firedButton.setOnAction(e -> fireOrder());
+        readyButton.setOnAction(e -> readyOrder());
         refresh();
     }
 
@@ -43,12 +57,19 @@ public class CookOrderView implements Initializable {
         }
         orderMasonryPane.getChildren().addAll(orderList);
     }
+    //class orderBox(Order o, String)
+    //TODO: make an internal class orderbox which holds the order itself and the Vbox representation.
+    //then add orderbox.getVbox or something to the masonry pane
+    //when you need to update the order, you can do Restaurant.makeEvent(orderBox.getOrder) which will update the sttus of the order in the backend
+    //then you can just do refresh and it will update the order's color in the frontend
 
     private VBox makeOrderBox(Order o, String flag) {
         VBox orderBox = new VBox();
-        orderBox.setOnMouseClicked(e -> orderBox.getChildren().forEach(p -> System.out.println(p.toString())));
+        orderBox.setOnMouseClicked(e -> selectBox(orderBox));
         //order header
-        orderBox.getChildren().add(new Label("Order: " + o.getId() + "\nTable: " + o.getTableId()));
+        Label orderHeader = new Label("Order: " + o.getId() + "\nTable: " + o.getTableId());
+        orderHeader.autosize();
+        orderBox.getChildren().add(orderHeader);
         for (MenuItem item : o.getItems()) {
             orderBox.getChildren().add(makeItemLabel(item));
         }
@@ -71,18 +92,23 @@ public class CookOrderView implements Initializable {
                 orderBox.setBackground(grey);
                 break;
         }
-        orderBox.setPrefSize(100, 100);
+        orderBox.setPrefSize(100, 150);
+        orderBox.autosize();
         return orderBox;
     }
 
     private Label makeItemLabel(MenuItem item) {
         Label itemLabel = new Label(item.getQuantity() + " " + item.getName());
-        System.out.println("makeItemLabel " + item.getName());
         itemLabel.setBackground(Background.EMPTY); //transparent background
-        itemLabel.setAlignment(Pos.CENTER);
+        itemLabel.autosize();
         return itemLabel;
     }
 
-    //private void selectBox()
+    private void selectBox(VBox orderBox){
+        selectedOrderBox = orderBox;
+    }
 
+    private void receiveOrder(){}
+    private void fireOrder(){}
+    private void readyOrder(){}
 }
