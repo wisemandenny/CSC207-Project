@@ -1,11 +1,14 @@
 package restaurant;
 
-import events.BaseEvent;
+import events.Event;
 import menu.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
-public class Restaurant extends Observable implements Runnable, Observer  {
+public class Restaurant implements Runnable {
     private static Restaurant instance = null; //singleton
     private final Menu menu = new BurgerMenu();
     private final Inventory inventory = new InventoryImpl(menu);
@@ -45,9 +48,6 @@ public class Restaurant extends Observable implements Runnable, Observer  {
     }
 
     public static Restaurant getInstance(){
-        if (Restaurant.instance == null) {
-            System.out.println("how are you here even?");
-        }
         return Restaurant.instance;
     }
 
@@ -204,11 +204,10 @@ public class Restaurant extends Observable implements Runnable, Observer  {
     @Override
     public void run() {
         eventManager = new EventManager();
-        Queue<BaseEvent> eventQueue = eventManager.getEvents();
+        Queue<Event> eventQueue = eventManager.getEvents();
         while (Restaurant.getInstance().running) {
             if (!eventQueue.isEmpty()) {
-                BaseEvent e = eventQueue.remove();
-                e.doEvent();
+                eventQueue.remove().doEvent();
             } else {
                 try {
                     eventQueue.addAll(eventManager.getEvents());
@@ -219,11 +218,5 @@ public class Restaurant extends Observable implements Runnable, Observer  {
             }
         }
 
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        System.out.println("inside restaurant update");
-        notifyObservers();
     }
 }

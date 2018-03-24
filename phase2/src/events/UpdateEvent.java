@@ -2,7 +2,7 @@ package events;
 
 import restaurant.Restaurant;
 
-public class UpdateEvent extends BaseEvent implements Event {
+public class UpdateEvent implements Event {
     private final EventType type;
     private final int orderId;
 

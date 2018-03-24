@@ -19,11 +19,9 @@ import restaurant.Restaurant;
 import restaurant.Table;
 
 import java.net.URL;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.ResourceBundle;
 
-public class BillView implements Initializable, Observer {
+public class BillView implements Initializable {
     private static int shownTable = 1;
 
     private final JFXPopup chooseTablePopup = new JFXPopup();
@@ -46,13 +44,12 @@ public class BillView implements Initializable, Observer {
     @FXML
     private JFXButton deleteButton;
 
+    final ObservableList<HBox> tableItems = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initChooseTablePopup(Restaurant.getInstance().getNumOfTables());
-        //initialize observable lists to the jfxlistviews so they will refresh on changes
-        ObservableList<HBox> tableItems = FXCollections.observableArrayList();
         itemList.setItems(tableItems);
-
         changeTable(BillView.shownTable);
     }
 
@@ -81,18 +78,6 @@ public class BillView implements Initializable, Observer {
         return box;
     }
 
-    private void drawTableBill(Table table) {
-        int j = 1;
-        for (Order order : table.getOrders()) {
-            itemList.getItems().add(generateOrderHeader(order, j++)); //order header
-            for (MenuItem item : order.getItems()) {
-                itemList.getItems().add(generateItemListEntry(item));
-            }
-        }
-
-        itemList.getItems().add(generateBox(table.getBill().getSubtotal()));
-        itemList.getItems().add(generateBox(table.getBill().getTotal()));
-    }
 
     private void initChooseTablePopup(int numOfTables) {
         VBox box = new VBox();
@@ -107,41 +92,47 @@ public class BillView implements Initializable, Observer {
         changeTableButton.setOnAction(e -> chooseTablePopup.show(changeTableButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
     }
 
-    private void changeTable(int selectedTable) {
+    void changeTable(int selectedTable) {
+        System.out.println("inside changeTable " + this.toString());
         BillView.shownTable = selectedTable;
-
-        itemList.getItems().clear();
-        if (!Restaurant.getInstance().getTable(BillView.shownTable).getOrders().isEmpty()) {
-            Table table = Restaurant.getInstance().getTable(BillView.shownTable);
-            billHeader.setText("BILL FOR TABLE " + table.getId());
-            drawTableBill(table);
-            //updatePaid(table); TODO: implement this
-        } else {
-            billHeader.setText("BILL FOR TABLE " + BillView.shownTable);
-            HBox noOrderFoundBox = new HBox();
-            noOrderFoundBox.getChildren().add(new Label("No orders found for Table #" + BillView.shownTable));
-            itemList.getItems().add(noOrderFoundBox);
-        }
-        //ObservableList<Label> observableList = FXCollections.observableList(newItems);
-        //tableOrderListView.setItems(observableList);
+        refresh();
+        //updatePaid() TODO: implement this
     }
 
     private void updatePaid(Table table, double paidAmount) {
         unpaidLabel.setText(String.format("%.2f", table.getBill().getTotal() - paidAmount));
         paidLabel.setText(String.format("%.2f", paidAmount));
     }
-
-
     public void paySelectedItems() {
         //ability to select items from the bill similar to menulist
     }
-
     int getShownTable() {
         return BillView.shownTable;
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        System.out.println("inside BV update");
+    public void refresh(){
+        tableItems.clear();
+        billHeader.setText("BILL FOR TABLE " + shownTable);
+        if(!Restaurant.getInstance().getTable(BillView.shownTable).getOrders().isEmpty()){
+            int j = 1;
+            Table table = Restaurant.getInstance().getTable(shownTable);
+            for (Order order : table.getOrders()) {
+                tableItems.add(generateOrderHeader(order, j++)); //order header
+                for (MenuItem item : order.getItems()) {
+                    if(tableItems.contains(generateItemListEntry(item))){
+                    } else{
+                        tableItems.add(generateItemListEntry(item));
+                    }
+                }
+            }
+            tableItems.add(generateBox(Restaurant.getInstance().getTable(shownTable).getBill().getSubtotal()));
+            tableItems.add(generateBox(Restaurant.getInstance().getTable(shownTable).getBill().getTotal()));
+        } else {
+            HBox noOrderFoundBox = new HBox();
+            noOrderFoundBox.getChildren().add(new Label("No orders found for Table #" + BillView.shownTable));
+            tableItems.add(noOrderFoundBox);
+        }
+        itemList.setItems(tableItems);
     }
+
 }

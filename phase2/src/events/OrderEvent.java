@@ -6,7 +6,7 @@ import restaurant.Restaurant;
 import restaurant.Table;
 
 
-class OrderEvent extends BaseEvent implements Event {
+class OrderEvent implements Event {
     private final Order order;
     private final Table table;
 
@@ -24,7 +24,6 @@ class OrderEvent extends BaseEvent implements Event {
     @Override
     public void doEvent() {
         Restaurant.getInstance().addPlacedOrder(order);
-        notifyObservers();
     }
 
     Order getOrder() {

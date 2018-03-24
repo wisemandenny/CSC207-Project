@@ -14,8 +14,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class MenuList implements Initializable {
     private final List<JFXButton> selectedItems = new ArrayList<>();
@@ -57,7 +55,7 @@ public class MenuList implements Initializable {
 
                 //showIngredientsButton.setPadding(new Insets(24));
             } catch (Exception ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                //TODO: log this exception
             }
         }
     }

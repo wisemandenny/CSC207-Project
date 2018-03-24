@@ -1,6 +1,6 @@
 package restaurant;
 
-import events.BaseEvent;
+import events.Event;
 import events.EventFactory;
 
 import java.io.BufferedReader;
@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 class EventManager {
-    private final Queue<BaseEvent> events = new LinkedList<>();
+    private final Queue<Event> events = new LinkedList<>();
 
     EventManager() {
         try (BufferedReader br = new BufferedReader(new FileReader("./events.txt"))) {
@@ -30,14 +30,13 @@ class EventManager {
      *
      * @return a Queue containing all of the events contained in this restaurant.EventManager
      */
-    Queue<BaseEvent> getEvents() {
+    Queue<Event> getEvents() {
         return events;
     }
 
     void addEventFromString(String eventString){
         Table[] tables = Restaurant.getInstance().getTables();
-        BaseEvent e = EventFactory.makeEvent(eventString, tables);
-        e.addObserver(Restaurant.getInstance());
+        Event e = EventFactory.makeEvent(eventString, tables);
         events.add(e);
     }
 }

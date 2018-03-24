@@ -12,7 +12,7 @@ public class EventFactory {
     private EventFactory() {
     }
 
-    public static BaseEvent makeEvent(String eventLine, Table[] tables) {
+    public static Event makeEvent(String eventLine, Table[] tables) {
         String[] splitString = eventLine.split("\\s\\|\\s", 4);
         if (splitString.length < 2 || splitString.length > 5) {
             throw new IllegalArgumentException("Invalid line in events.txt" + eventLine);

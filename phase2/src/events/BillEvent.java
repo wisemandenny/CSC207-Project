@@ -2,7 +2,7 @@ package events;
 
 import restaurant.Table;
 
-public class BillEvent extends BaseEvent implements Event {
+public class BillEvent implements Event {
     private final Table table;
 
     BillEvent(Table table) {

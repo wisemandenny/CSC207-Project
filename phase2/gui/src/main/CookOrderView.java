@@ -1,11 +1,10 @@
 package main;
 
 import com.jfoenix.controls.JFXMasonryPane;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -17,55 +16,36 @@ import restaurant.Order;
 import restaurant.Restaurant;
 
 import java.net.URL;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class CookOrderView implements Initializable, Observer {
-    private ObservableList<Order> placedOrders;
-    private ObservableList<Order> cookingOrders; //= Restaurant.getCookingOrders();
-    private ObservableList<Order> readyOrders; //= Restaurant.getReadyOrders();
-
+public class CookOrderView implements Initializable {
     @FXML
     private JFXMasonryPane orderMasonryPane;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        updateOrderSet();
+        refresh();
     }
 
-    private void initOrderSets(){}
-
-    void updateOrderSet() {
-        if (!orderMasonryPane.getChildren().isEmpty()) {
-            orderMasonryPane.getChildren().clear();
+     void refresh() {
+        orderMasonryPane.getChildren().clear();
+        List<VBox> orderList = new ArrayList<>();
+        for (Order placedOrder : Restaurant.getInstance().getPlacedOrders()) {
+            orderList.add(makeOrderBox(placedOrder, "placed"));
         }
-        for (Order o : Restaurant.getInstance().getPlacedOrders()){
-            System.out.println(o.toString());
+        for (Order cookingOrder : Restaurant.getInstance().getCookingOrders()) {
+           orderList.add(makeOrderBox(cookingOrder, "cooking"));
         }
-        placedOrders = FXCollections.observableArrayList(Restaurant.getInstance().getPlacedOrders());
-        cookingOrders = FXCollections.observableArrayList(Restaurant.getInstance().getCookingOrders());
-        readyOrders = FXCollections.observableArrayList(Restaurant.getInstance().getReadyOrders());
-
-        drawOrders();
-
-    }
-
-    private void drawOrders() {
-        for (Order placedOrder : placedOrders) {
-            orderMasonryPane.getChildren().add(makeOrderBox(placedOrder, "placed"));
+        for (Order readyOrder : Restaurant.getInstance().getReadyOrders()) {
+            orderList.add(makeOrderBox(readyOrder, "ready"));
         }
-        for (Order cookingOrder : cookingOrders) {
-            orderMasonryPane.getChildren().add(makeOrderBox(cookingOrder, "cooking"));
-        }
-        for (Order readyOrder : readyOrders) {
-            orderMasonryPane.getChildren().add(makeOrderBox(readyOrder, "ready"));
-        }
+        orderMasonryPane.getChildren().addAll(orderList);
     }
 
     private VBox makeOrderBox(Order o, String flag) {
-        VBox orderBox = new VBox(5);
+        VBox orderBox = new VBox();
         //order header
         orderBox.getChildren().add(new Label("Order: " + o.getId() + "\nTable: " + o.getTableId()));
         for (MenuItem item : o.getItems()) {
@@ -90,19 +70,16 @@ public class CookOrderView implements Initializable, Observer {
                 orderBox.setBackground(grey);
                 break;
         }
+        orderBox.setPrefSize(50, 50);
         return orderBox;
     }
 
     private Label makeItemLabel(MenuItem item) {
         Label itemLabel = new Label(item.getQuantity() + " " + item.getName());
+        System.out.println("makeItemLabel " + item.getName());
         itemLabel.setBackground(Background.EMPTY); //transparent background
+        itemLabel.setAlignment(Pos.CENTER);
         return itemLabel;
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        System.out.println("inside COV update");
-        updateOrderSet();
     }
 
     //private void selectBox()

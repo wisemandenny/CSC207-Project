@@ -7,7 +7,7 @@ import restaurant.Restaurant;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShipmentEvent extends BaseEvent implements Event {
+public class ShipmentEvent implements Event {
     private static final int QUANTITY_ADDRESS = 0;
     private static final int NAME_ADDRESS = 1;
     private final Map<Ingredient, Integer> shipment = new HashMap<>();

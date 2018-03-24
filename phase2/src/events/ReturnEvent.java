@@ -6,7 +6,7 @@ import restaurant.OrderImpl;
 import restaurant.Restaurant;
 import restaurant.Table;
 
-public class ReturnEvent extends BaseEvent implements Event {
+public class ReturnEvent implements Event {
     private final Order o;
 
     ReturnEvent(Table table, String order, String reasonList) {

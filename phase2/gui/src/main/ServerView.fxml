@@ -17,7 +17,6 @@
       <VBox fx:id="menuVbox" prefHeight="200.0" prefWidth="100.0" />
         <VBox fx:id="tableViewBox" prefHeight="1000.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.vgrow="NEVER">
             <children>
-                <fx:include source="BillView.fxml" />
             </children>
         </VBox>
         <JFXButton fx:id="FAB" alignment="CENTER" buttonType="RAISED" scaleShape="false" style="-fx-background-color: #FF5722; -fx-border-radius: 100 100 100 100; -fx-background-radius: 100 100 100 100;" text="+" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
