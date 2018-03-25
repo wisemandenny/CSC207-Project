@@ -67,3 +67,13 @@ Mar 25, 2018 5:51:24 PM restaurant.RestaurantLogger log
 WARNING: 8 Salad(s) cannot be made because we are out of Lettuce.
 Mar 25, 2018 5:51:24 PM restaurant.RestaurantLogger log
 WARNING: 0 Poutine(s) cannot be made because we are out of Cheese.
+Mar 25, 2018 6:02:15 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@59918337ordered1. Chicken Fingers
+
+Mar 25, 2018 6:06:24 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@3e76b548ordered1. Coke
+
+Mar 25, 2018 6:06:33 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@3e76b548ordered1. Coke
+2. Chicken Fingers
+
