@@ -4,6 +4,7 @@ import events.Event;
 import menu.*;
 
 import java.util.*;
+import java.util.logging.Level;
 
 public class Restaurant extends Observable implements Runnable {
     private static Restaurant instance = null; //singleton
@@ -70,7 +71,7 @@ public class Restaurant extends Observable implements Runnable {
 
     public void addPlacedOrder(Order o) {
         placedOrders.add(o);
-        tables[o.getTableId()].addOrder(o);
+        tables[o.getTableId()].getSeat(o.getSeatId()).addOrder(o); //TODO: check
     }
 
     public void addReceivedOrder(int orderId){
@@ -98,6 +99,7 @@ public class Restaurant extends Observable implements Runnable {
         readyOrders.remove(order);
         deliveredOrders.add(order);
         tables[order.getTableId()].addOrderToBill(order);
+        tables[order.getTableId()].getSeat(order.getSeatId()).addOrderToBill(order);
     }
 
     /**
@@ -121,8 +123,7 @@ public class Restaurant extends Observable implements Runnable {
                     if (inventory.getContents().get(ingredient) == 0) {//not enough inventory
                         itemToRemove.setQuantity(item.getQuantity() - i);
                         rejectedItems.add(itemToRemove);
-                        System.out.println(itemToRemove.getQuantity() + " " + itemToRemove.getName() + "(s) cannot be cooked because we are out of " + ingredient.getName() + ",");
-                        //TODO: log a request here
+                        RestaurantLogger.log(Level.WARNING, itemToRemove.getQuantity() + " " + itemToRemove.getName() + "(s) cannot be made because we are out of " + ingredient.getName() + ".");
                         break itemLoop;
                     } else { //enough inventory
                         inventory.removeFromInventory(ingredient);
@@ -137,8 +138,11 @@ public class Restaurant extends Observable implements Runnable {
         }
         if (!rejectedItems.isEmpty())
             rejectedOrders.add(new OrderImpl(rejectedItems, o.getId(), o.getTableId()));
-        if (!acceptedItems.isEmpty())
-            cookingOrders.add(new OrderImpl(acceptedItems, o.getId(), o.getTableId()));
+        if (!acceptedItems.isEmpty()) {
+            Order ord = new OrderImpl(acceptedItems, o.getId(), o.getTableId());
+            ord.setSeatId(o.getSeatId()); //TODO: check
+            cookingOrders.add(ord);
+        }
     }
 
     private Order findOrder(List<Order> searchSet, int orderId) {
@@ -190,7 +194,7 @@ public class Restaurant extends Observable implements Runnable {
                     eventQueue.addAll(eventManager.getEvents());
                     Thread.sleep(100); //wait for new events to be added by the frontend.
                 } catch (Exception ex) {
-                    //TODO: log this exception (InterruptedException)
+                    RestaurantLogger.log(Level.SEVERE, "Exception: " + ex.toString());
                 }
             }
         }

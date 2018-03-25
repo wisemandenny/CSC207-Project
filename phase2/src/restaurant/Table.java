@@ -13,10 +13,20 @@ public interface Table {
 
     void comp(Order o);
 
-    void printBill();
-
     Bill getBill();
 
     int getId();
+
+    void addSeats(int amount);
+
+    void removeSeats(int amount);
+
+    Seat getSeat(int index);
+
+
+    void printBill();
+
+
+
 }
 

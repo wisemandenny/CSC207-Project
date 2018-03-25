@@ -15,6 +15,7 @@ public class OrderImpl implements Order {
     private final List<MenuItem> orderItems;
     private int tableId;
     private int id;
+    private int seatId;
 
     OrderImpl() {
         orderItems = new ArrayList<>();
@@ -48,20 +49,37 @@ public class OrderImpl implements Order {
     }
 
     @Override
-    public void remove(Order o) { //TODO improve this algorithm later.
+    public void remove(Order o) {
         List<Integer> delete = new ArrayList<>();
+        List<Integer> amount = new ArrayList<>();
         for (MenuItem item : o.getItems()) {
             int count = 0;
             for (MenuItem orderItem : orderItems) {
                 if (item.equalsWithExtras(orderItem)) {
-                    delete.add(count);
+                    if (item.getQuantity() == orderItem.getQuantity()) {
+                        delete.add(count);
+                        amount.add(0);
+                    } else if(item.getQuantity() > orderItem.getQuantity()){
+                        throw new IllegalArgumentException("You cannot remove this many!");
+                    } else {
+                        amount.add(orderItem.getQuantity() - item.getQuantity());
+                    }
+                } else {
+                    amount.add(orderItem.getQuantity() - item.getQuantity());
                 }
                 count ++;
             }
         }
+        // First do quantity decreases
+        int i;
+        for (i = 0; i < orderItems.size(); i++){
+            orderItems.get(i).setQuantity(amount.get(i));
+        }
+
+        // Next do total item removals
         Collections.sort(delete, Collections.reverseOrder());
-        for (int i : delete){
-            orderItems.remove(i);
+        for (int j : delete){
+            orderItems.remove(j);
         }
     }
 
@@ -78,6 +96,14 @@ public class OrderImpl implements Order {
     @Override
     public void setTableId(int tableId) {
         this.tableId = tableId;
+    }
+
+    @Override
+    public void setSeatId(int seatId) { this.seatId = seatId; }
+
+    @Override
+    public int getSeatId(){
+        return seatId;
     }
 
     /**
@@ -149,9 +175,7 @@ public class OrderImpl implements Order {
                 String[] orderedMenuItemModifiers = orderInfoSplit[1].split("\\s");
                 List<String> limitedModifiers = new ArrayList<>();
                 for (String mod : orderedMenuItemModifiers) {
-                    if (limitedModifiers.size() < 5) {
-                        limitedModifiers.add(mod);
-                    }
+                    limitedModifiers.add(mod);
                 }
                 for (String modifier : limitedModifiers) {
                     String ingredientName = modifier.substring(1);

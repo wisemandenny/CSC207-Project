@@ -9,10 +9,11 @@ import restaurant.Table;
 public class ReturnEvent implements Event {
     private final Order o;
 
-    ReturnEvent(Table table, String order, String reasonList) {
+    ReturnEvent(Table table, int seat, String order, String reasonList) {
         //set the price of the item in the order to be 0, then add the reason somewhere
         o = new OrderImpl(order);
         o.setTableId(table.getId());
+        o.setSeatId(seat);
 
         int index = 0;
         String[] comments = new String[o.getItems().size()];
@@ -32,6 +33,6 @@ public class ReturnEvent implements Event {
 
     @Override
     public void doEvent() {
-        Restaurant.getInstance().getTable(o.getTableId()).removeFromBill(o);
+        Restaurant.getInstance().getTable(o.getTableId()).getSeat(o.getSeatId()).removeFromBill(o);
     }
 }

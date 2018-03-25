@@ -14,6 +14,7 @@ import static restaurant.OrderFactory.makeOrder;
 
 import restaurant.Inventory;
 import restaurant.Order;
+import restaurant.Restaurant;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -24,8 +25,10 @@ import java.util.Map;
 public class InventoryImplTest {
     private static final Menu menu = new BurgerMenu();
 
+    Restaurant r = Restaurant.getInstance(10, 0.13);
     @Test
     public void testAddToInventory(){
+        r.start();
         Inventory inventory = makeInventory(menu);
         Ingredient i =  makeIngredient("Tomato");
         int currValue = inventory.getContents().get(i);
