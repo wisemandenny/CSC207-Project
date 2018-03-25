@@ -1,6 +1,9 @@
 package events;
 
+import restaurant.RestaurantLogger;
 import restaurant.Table;
+
+import java.util.logging.Level;
 
 public class BillEvent implements Event {
     private final Table table;
@@ -15,6 +18,7 @@ public class BillEvent implements Event {
     public void doEvent() {
 //        table.printBill();
         table.getSeat(seat).printBill();
+        RestaurantLogger.log(Level.INFO, table.toString() + "billed");
     }
 
     @Override
