@@ -40,7 +40,14 @@ public class TableImpl implements Table {
     @Override
     public List<Order> getOrders(){ return orders; }
 
-
+    @Override
+    public List<List<Order>> getAllOrders(){
+        List<List<Order>> allOrders = new ArrayList<>();
+        for(int i = 0; i < seats.size(); i++){
+            allOrders.add(getSeat(i).getOrders());
+        }
+        return allOrders;
+    }
     @Override
     public int getId() {
         return id;

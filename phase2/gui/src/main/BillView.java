@@ -9,20 +9,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import menu.MenuItem;
 import restaurant.Order;
 import restaurant.Restaurant;
 import restaurant.Table;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class BillView implements Initializable {
-    private static int shownTable = 1;
+    private int shownTable = 1;
+    private int selectedSeat = 0;
+    private static final Background GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#EEEEEE"), CornerRadii.EMPTY, Insets.EMPTY));
+    private static final Background LIGHT_GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#FAFAFA"), CornerRadii.EMPTY, Insets.EMPTY));
 
     private final JFXPopup chooseTablePopup = new JFXPopup();
     @FXML
@@ -50,13 +52,26 @@ public class BillView implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initChooseTablePopup(Restaurant.getInstance().getNumOfTables());
         itemList.setItems(tableItems);
-        changeTable(BillView.shownTable);
+        changeTable(shownTable);
+    }
+
+    private HBox generateSeatHeader(int seatNumber){
+        HBox seatHeaderBox = new HBox();
+        if (seatNumber == 0) { //"shared" seat (items that belong to the whole table
+            seatHeaderBox.getChildren().add(new JFXButton("Shared Items"));
+        } else {
+            seatHeaderBox.getChildren().add(new JFXButton("Seat " + seatNumber));
+        }
+        seatHeaderBox.setBackground(GREY_BACKGROUND);
+        seatHeaderBox.setOnMouseClicked(e -> selectSeat(seatNumber));
+        return seatHeaderBox;
     }
 
     private HBox generateOrderHeader(Order order, int orderNumber) {
-        HBox orderBox = new HBox();
-        orderBox.getChildren().add(new JFXButton("Order " + orderNumber + " (id: " + order.getId() + ")"));
-        return orderBox;
+        HBox orderHeaderBox = new HBox();
+        orderHeaderBox.getChildren().add(new JFXButton("Order " + orderNumber + " (id: " + order.getId() + ")"));
+        orderHeaderBox.setBackground(LIGHT_GREY_BACKGROUND);
+        return orderHeaderBox;
     }
 
     private HBox generateItemListEntry(MenuItem item) {
@@ -69,7 +84,7 @@ public class BillView implements Initializable {
         return itemNameAndPrice;
     }
 
-    private HBox generateBox(double amount) {
+    private HBox generateTotalBox(double amount) {
         HBox box = new HBox();
         Region filler = new Region();
         HBox.setHgrow(filler, Priority.ALWAYS);
@@ -78,6 +93,9 @@ public class BillView implements Initializable {
         return box;
     }
 
+    private void selectSeat(int seatNumber){
+        selectedSeat = seatNumber;
+    }
 
     private void initChooseTablePopup(int numOfTables) {
         VBox box = new VBox();
@@ -93,7 +111,7 @@ public class BillView implements Initializable {
     }
 
     void changeTable(int selectedTable) {
-        BillView.shownTable = selectedTable;
+        shownTable = selectedTable;
         refresh();
         //updatePaid() TODO: implement this
     }
@@ -106,32 +124,39 @@ public class BillView implements Initializable {
         //ability to select items from the bill similar to menulist
     }
     int getShownTable() {
-        return BillView.shownTable;
+        return shownTable;
+    }
+
+    int getSelectedSeat() {
+        return selectedSeat;
     }
 
     public void refresh(){
         tableItems.clear();
         billHeader.setText("BILL FOR TABLE " + shownTable);
-        if(!Restaurant.getInstance().getTable(BillView.shownTable).getOrders().isEmpty()){
-            int j = 1;
-            Table table = Restaurant.getInstance().getTable(shownTable);
-            for (Order order : table.getOrders()) {
-                tableItems.add(generateOrderHeader(order, j++)); //order header
-                for (MenuItem item : order.getItems()) {
-                    if(tableItems.contains(generateItemListEntry(item))){
-                    } else{
+        List<List<Order>> allTableOrders = Restaurant.getInstance().getTable(shownTable).getAllOrders();
+        if(!allTableOrders.isEmpty()){
+            int seatNumber = 0;
+            for(List<Order> seatOrderList : allTableOrders){
+                tableItems.add(generateSeatHeader(seatNumber++));
+                int orderNumber = 1;
+                double seatSubtotal = 0.0;
+                for(Order order : seatOrderList){
+                    tableItems.add(generateOrderHeader(order, orderNumber++));
+                    for(MenuItem item: order.getItems()){
                         tableItems.add(generateItemListEntry(item));
+                        seatSubtotal += item.getQuantity() * item.getPrice();
                     }
                 }
+                tableItems.add(generateTotalBox(seatSubtotal));
             }
-            tableItems.add(generateBox(Restaurant.getInstance().getTable(shownTable).getBill().getSubtotal()));
-            tableItems.add(generateBox(Restaurant.getInstance().getTable(shownTable).getBill().getTotal()));
+        tableItems.add(generateTotalBox(Restaurant.getInstance().getTable(shownTable).getBill().getSubtotal()));
+        tableItems.add(generateTotalBox(Restaurant.getInstance().getTable(shownTable).getBill().getTotal()));
         } else {
             HBox noOrderFoundBox = new HBox();
-            noOrderFoundBox.getChildren().add(new Label("No orders found for Table #" + BillView.shownTable));
+            noOrderFoundBox.getChildren().add(new Label("No orders found for Table #" + shownTable));
             tableItems.add(noOrderFoundBox);
         }
         itemList.setItems(tableItems);
     }
-
 }

@@ -6,6 +6,7 @@ public interface Table {
     void addOrder(Order o);
 
     List<Order> getOrders();
+    List<List<Order>> getAllOrders();
 
     void addOrderToBill(Order o);
 

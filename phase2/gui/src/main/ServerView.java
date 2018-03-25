@@ -52,7 +52,7 @@ public class ServerView extends Observable implements Initializable, Observer{
     }
 
     private void newOrder(List<JFXButton> selectedItemButtons) {
-        StringBuilder sb = new StringBuilder("order | table " + billView.getShownTable() + " > 0 | ");
+        StringBuilder sb = new StringBuilder("order | table " + billView.getShownTable() + " > " + billView.getSelectedSeat() + " | ");
         for (JFXButton button : selectedItemButtons) {
             sb.append("1 " + button.getText() + ", ");
         }
