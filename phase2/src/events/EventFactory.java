@@ -28,6 +28,8 @@ public class EventFactory {
                 switch (EventType.fromString(splitString[1])) {
                     case COOKSEEN:
                         return new UpdateEvent(EventType.COOKSEEN, orderId);
+                    case COOKFIRED:
+                        return new UpdateEvent(EventType.COOKFIRED, orderId);
                     case COOKREADY:
                         return new UpdateEvent(EventType.COOKREADY, orderId);
                     case SERVERDELIVERED:

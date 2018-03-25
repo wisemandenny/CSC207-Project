@@ -45,27 +45,11 @@ public class Restaurant extends Observable implements Runnable {
         return Restaurant.instance;
     }
 
-    public static Restaurant getInstance(){
-        return Restaurant.instance;
-    }
-
-
-
-    public static void end() {
-        Restaurant.getInstance().running = false;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public int getNumOfTables() {
-        return tables.length;
-    }
-
-    public void newEvent(String eventString) {
-        eventManager.addEventFromString(eventString);
-    }
+    public static Restaurant getInstance(){ return Restaurant.instance; }
+    public static void end(){ Restaurant.getInstance().running = false; }
+    public Menu getMenu() { return menu; }
+    public int getNumOfTables() { return tables.length; }
+    public void newEvent(String eventString) { eventManager.addEventFromString(eventString); }
 
     /**
      * The manager can use the following three functions to check how the restaurant is doing.
@@ -99,22 +83,14 @@ public class Restaurant extends Observable implements Runnable {
         Order order = findOrder(receivedOrders, orderId);
         receivedOrders.remove(order);
         checkInventory(order);
-        //Restaurant.cookingOrders.add(order);
         //Todo: reject items here
         inventory.removeFromInventory(order);
-
-        System.out.println("Order #" + order.getId() + " is now being cooked.");
-        //Restaurant.inventory.printContents();
-
-
     }
 
     public void addReadyOrder(int orderId) {
         Order order = findOrder(cookingOrders, orderId);
         cookingOrders.remove(order);
         readyOrders.add(order);
-        System.out.println("Order #" + order.getId() + " is now ready for pickup.");
-
     }
 
     public void addDeliveredOrder(int orderId) {
@@ -122,9 +98,6 @@ public class Restaurant extends Observable implements Runnable {
         readyOrders.remove(order);
         deliveredOrders.add(order);
         tables[order.getTableId()].addOrderToBill(order);
-
-        System.out.println("Order #" + order.getId() + " has been delivered to Table " + order.getTableId() + ".");
-
     }
 
     /**
@@ -215,7 +188,7 @@ public class Restaurant extends Observable implements Runnable {
             } else {
                 try {
                     eventQueue.addAll(eventManager.getEvents());
-                    Thread.sleep(100);
+                    Thread.sleep(100); //wait for new events to be added by the frontend.
                 } catch (Exception ex) {
                     //TODO: log this exception (InterruptedException)
                 }

@@ -5,7 +5,6 @@ import restaurant.OrderImpl;
 import restaurant.Restaurant;
 import restaurant.Table;
 
-
 class OrderEvent implements Event {
     private final Order order;
     private final Table table;

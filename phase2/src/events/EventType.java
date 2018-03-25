@@ -5,6 +5,7 @@ public enum EventType {
     UPDATE("update"),
     BILL("check please!"),
     COOKSEEN("received"),
+    COOKFIRED("fired"),
     COOKREADY("ready"),
     SERVERDELIVERED("delivered"),
     SERVERRETURNED("serverReturned"),

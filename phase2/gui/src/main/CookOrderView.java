@@ -25,23 +25,14 @@ public class CookOrderView extends Observable implements Initializable {
     private static final Background GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#BDBDBD"), CornerRadii.EMPTY, Insets.EMPTY));
     private static final Background SELECTED_BACKGROUND = new Background(new BackgroundFill(Color.web("#29B6F6"), CornerRadii.EMPTY, Insets.EMPTY));
 
-    @FXML
-    private JFXMasonryPane orderMasonryPane;
-
-    @FXML
-    private JFXButton receivedButton;
-
-    @FXML
-    private JFXButton firedButton;
-
-    @FXML
-    private JFXButton readyButton;
+    @FXML private JFXMasonryPane orderMasonryPane;
+    @FXML private JFXButton receivedButton;
+    @FXML private JFXButton firedButton;
+    @FXML private JFXButton readyButton;
 
     private List<OrderBox> orderBoxList = new ArrayList<>();
     private VBox selectedOrderBox;
     private Background storedBoxBackground;
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -112,6 +103,7 @@ public class CookOrderView extends Observable implements Initializable {
 
     void refresh() {
         orderMasonryPane.getChildren().clear();
+
         orderBoxList.clear();
         List<VBox> orderList = new ArrayList<>();
         for (Order placedOrder : Restaurant.getInstance().getPlacedOrders()) {
@@ -128,10 +120,6 @@ public class CookOrderView extends Observable implements Initializable {
         }
         orderMasonryPane.getChildren().addAll(orderList);
     }
-    //TODO: make an internal class orderbox which holds the order itself and the Vbox representation.
-    //then add orderbox.getVbox or something to the masonry pane
-    //when you need to update the order, you can do Restaurant.makeEvent(orderBox.getOrder) which will update the sttus of the order in the backend
-    //then you can just do refresh and it will update the order's color in the frontend
 
     private VBox makeOrderBox(Order o, String flag) {
         OrderBox orderBox = new OrderBox(o, flag);
@@ -158,35 +146,48 @@ public class CookOrderView extends Observable implements Initializable {
         for(OrderBox orderBox : orderBoxList){
             int orderId = orderBox.getOrder().getId();
             if(orderBox.getVBox().equals(selectedOrderBox)){
-                Restaurant.getInstance().addReceivedOrder(orderId);
+                Restaurant.getInstance().newEvent("update | received | "+orderId);
                 deselectBox(orderBox.getVBox());
+                sleep();
                 refresh();
                 break;
             }
         }
-
     }
+
     private void fireOrder(){
         for(OrderBox orderBox : orderBoxList){
             int orderId = orderBox.getOrder().getId();
             if(orderBox.getVBox().equals(selectedOrderBox)){
-                Restaurant.getInstance().addCookingOrder(orderId);
+                Restaurant.getInstance().newEvent("update | fired | "+orderId);
                 deselectBox(orderBox.getVBox());
+                sleep();
                 refresh();
                 break;
             }
         }
     }
+
+
     private void readyOrder(){
         for(OrderBox orderBox : orderBoxList){
             int orderId = orderBox.getOrder().getId();
             if(orderBox.getVBox().equals(selectedOrderBox)){
-                Restaurant.getInstance().addReadyOrder(orderId);
+                Restaurant.getInstance().newEvent("update | ready | "+orderId);
                 deselectBox(orderBox.getVBox());
+                sleep();
                 setChanged();
                 notifyObservers();
                 break;
             }
+        }
+    }
+
+    private void sleep(){
+        try{
+            Thread.sleep(300);
+        }catch(InterruptedException ex){
+            //TODO: log this error
         }
     }
 }
