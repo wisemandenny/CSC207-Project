@@ -1,10 +1,10 @@
 package main;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import restaurant.Restaurant;
 
@@ -32,7 +32,7 @@ public class ServerView extends Observable implements Initializable {
             menuVbox.getChildren().add(box);
 
             FXMLLoader dovLoader = getFXMLLoader("DeliverableOrdersView.fxml");
-            JFXListView dovList = dovLoader.load();
+            StackPane dovList = dovLoader.load();
             deliverableOrdersView = dovLoader.getController();
             menuVbox.getChildren().add(dovList);
 
@@ -56,6 +56,11 @@ public class ServerView extends Observable implements Initializable {
         }
         sb.delete(sb.lastIndexOf(", "), sb.length());
         Restaurant.getInstance().newEvent(sb.toString());
+        try { //delay this thread to allow the backend to catch up
+            Thread.sleep(300);
+        }catch (InterruptedException ex){
+            System.out.println(ex);
+        }
         setChanged();
         notifyObservers();
         //TODO: add a dialog box to confirm the order is made?

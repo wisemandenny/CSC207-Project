@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
+<?import com.jfoenix.controls.JFXDialog?>
 <?import com.jfoenix.controls.JFXListView?>
-<JFXListView xmlns="http://javafx.com/javafx"
-             xmlns:fx="http://javafx.com/fxml"
-             fx:controller="main.DeliverableOrdersView"
-             fx:id="deliverableOrdersListView"
-             prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.layout.StackPane?>
+<StackPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.DeliverableOrdersView" fx:id="deliverableOrderStackPane">
+   <children>
+      <JFXListView fx:id="deliverableOrdersListView" prefHeight="400.0" prefWidth="600.0">
 
 </JFXListView>
+      <JFXDialog fx:id="deliverDialog" />
+   </children>
+</StackPane>

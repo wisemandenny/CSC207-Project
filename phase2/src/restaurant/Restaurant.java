@@ -215,7 +215,7 @@ public class Restaurant extends Observable implements Runnable {
             } else {
                 try {
                     eventQueue.addAll(eventManager.getEvents());
-                    Thread.sleep(1000); //sleep for 1 second
+                    Thread.sleep(100);
                 } catch (Exception ex) {
                     //TODO: log this exception (InterruptedException)
                 }

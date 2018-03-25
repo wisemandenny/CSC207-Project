@@ -64,11 +64,6 @@ public class Main extends Application implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         System.out.println("inside main update method");
-        try{
-            Thread.sleep(600);
-        }catch (InterruptedException ex){
-            System.out.println(ex.toString());
-        }
         cookOrderView.refresh();
         serverView.refresh();
     }
