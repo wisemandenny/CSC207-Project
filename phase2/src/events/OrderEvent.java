@@ -1,9 +1,8 @@
 package events;
 
-import restaurant.Order;
-import restaurant.OrderImpl;
-import restaurant.Restaurant;
-import restaurant.Table;
+import restaurant.*;
+
+import java.util.logging.Level;
 
 
 class OrderEvent implements Event {
@@ -25,6 +24,7 @@ class OrderEvent implements Event {
     @Override
     public void doEvent() {
         Restaurant.getInstance().addPlacedOrder(order);
+        RestaurantLogger.log(Level.INFO, table.toString() + "ordered" + order.toString());
     }
 
     Order getOrder() {
