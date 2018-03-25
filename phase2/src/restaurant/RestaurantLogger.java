@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.logging.*;
 
 public class RestaurantLogger {
-    private static Logger logger;
+    private static Logger logger; //singleton
 
     private  RestaurantLogger() throws IOException{
         Handler fh;
@@ -28,6 +28,5 @@ public class RestaurantLogger {
     }
     public static void log(Level level, String msg){
         getLogger().log(level, msg);
-        System.out.println(msg);
     }
 }

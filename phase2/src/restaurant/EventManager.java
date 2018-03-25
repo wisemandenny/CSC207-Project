@@ -19,9 +19,9 @@ class EventManager {
                 addEventFromString(br.readLine());
             } while (br.ready());
         } catch (FileNotFoundException ex) {
-            System.out.println("Unable to open events.txt");
+
         } catch (IOException ex) {
-            System.out.println("Error reading events.txt");
+
         }
     }
 

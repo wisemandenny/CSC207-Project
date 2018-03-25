@@ -158,7 +158,7 @@ public class Restaurant extends Observable implements Runnable {
         inventory.addToInventory(shipment);
         /* uncomment this to check inventory restock
         for (menu.Ingredient i : Restaurant.inventory.getContents().keySet()) {
-            System.out.println(i.getName() + ": " + Restaurant.inventory.getContents().get(i));
+
         }
         */
     }

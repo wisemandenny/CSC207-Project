@@ -25,7 +25,7 @@ class OrderEvent implements Event {
     public void doEvent() {
         table.addOrder(order);
         Restaurant.addPlacedOrder(order);
-        //System.out.println(order + "added to table.");
+        //List
     }
 
     Order getOrder() {

@@ -20,7 +20,7 @@ public class TextInputBox implements Initializable{
 
     public void submitOrder(){
         String s = orderStringBox.getText();
-        System.out.println("inside submit order: "+ s);
+
         Restaurant.getInstance().newEvent(s);
     }
 
