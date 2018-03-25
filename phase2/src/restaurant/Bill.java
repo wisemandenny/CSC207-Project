@@ -20,10 +20,4 @@ public interface Bill {
     void tip(double amount);
 
     void pay(double amount);
-
-
-
-    //We will get rid of this during phase 2.
-    void printBill();
-
 }

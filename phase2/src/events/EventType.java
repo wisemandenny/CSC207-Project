@@ -7,6 +7,8 @@ public enum EventType {
     COOKSEEN("received"),
     COOKFIRED("fired"),
     COOKREADY("ready"),
+    ADDSEAT("addseat"),
+    REMOVESEAT("removeseat"),
     SERVERDELIVERED("delivered"),
     SERVERRETURNED("serverReturned"),
     RECEIVEDSHIPMENT("receivedShipment");

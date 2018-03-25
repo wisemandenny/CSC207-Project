@@ -1,1 +1,69 @@
 
+Mar 25, 2018 4:30:11 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@399c5de6ordered1. Hamburger
+
+Mar 25, 2018 4:30:11 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@399c5de6ordered1. Hamburger
+
+Mar 25, 2018 4:30:11 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@399c5de6ordered1. Salad
+
+Mar 25, 2018 4:30:11 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@14c5c8f3ordered1. Coke
+
+Mar 25, 2018 4:30:11 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@f5b0a14ordered1. Poutine
+
+Mar 25, 2018 4:31:50 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@1ffa3c17ordered1. Hamburger
+
+Mar 25, 2018 4:31:50 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@1ffa3c17ordered1. Hamburger
+
+Mar 25, 2018 4:31:50 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@1ffa3c17ordered1. Salad
+
+Mar 25, 2018 4:31:50 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@7a04403eordered1. Coke
+
+Mar 25, 2018 4:31:50 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@2072f83ordered1. Poutine
+
+Mar 25, 2018 5:48:35 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@399c5de6ordered1. Hamburger
+
+Mar 25, 2018 5:48:35 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@399c5de6ordered1. Hamburger
+
+Mar 25, 2018 5:48:35 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@399c5de6ordered1. Salad
+
+Mar 25, 2018 5:48:35 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@14c5c8f3ordered1. Coke
+
+Mar 25, 2018 5:48:35 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@f5b0a14ordered1. Poutine
+
+Mar 25, 2018 5:51:24 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@629b5ecdordered1. Hamburger
+
+Mar 25, 2018 5:51:24 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@629b5ecdordered1. Hamburger
+
+Mar 25, 2018 5:51:24 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@629b5ecdordered1. Salad
+
+Mar 25, 2018 5:51:24 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@5057278cordered1. Coke
+
+Mar 25, 2018 5:51:24 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@53be4b99ordered1. Poutine
+
+Mar 25, 2018 5:51:24 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@629b5ecdbilled
+Mar 25, 2018 5:51:24 PM restaurant.RestaurantLogger log
+WARNING: 1 Hamburger(s) cannot be made because we are out of BurgerBun.
+Mar 25, 2018 5:51:24 PM restaurant.RestaurantLogger log
+WARNING: 8 Salad(s) cannot be made because we are out of Lettuce.
+Mar 25, 2018 5:51:24 PM restaurant.RestaurantLogger log
+WARNING: 0 Poutine(s) cannot be made because we are out of Cheese.

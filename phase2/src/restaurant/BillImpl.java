@@ -97,8 +97,4 @@ public class BillImpl implements Bill {
         return tipAmount;
     }
 
-    @Override
-    public void printBill() {
-        System.out.println(getBillString());
-    }
 }

@@ -1,17 +1,23 @@
 package events;
 
+import restaurant.RestaurantLogger;
 import restaurant.Table;
 
-public class BillEvent implements Event {
-    private final Table table;
+import java.util.logging.Level;
 
-    BillEvent(Table table) {
+public class BillEvent implements Event {
+    private Table table;
+    private int seat;
+
+    BillEvent(Table table, int seat) {
         this.table = table;
+        this.seat = seat;
     }
 
     @Override
     public void doEvent() {
-        table.printBill();
+        //table.getSeat(seat).getBillString()
+        RestaurantLogger.log(Level.INFO, table.toString() + "billed");
     }
 
     @Override

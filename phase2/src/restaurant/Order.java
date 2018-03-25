@@ -23,6 +23,10 @@ public interface Order {
 
     void setTableId(int id);
 
+    int getSeatId();
+
+    void setSeatId(int id);
+
     /**
      * Returns a list of the Ingredients that are in the MenuItems in this restaurant.Order.
      *

@@ -1,19 +1,11 @@
-
 import menu.BurgerMenu;
 import menu.Ingredient;
 import menu.Menu;
 import menu.MenuItem;
-
 import org.junit.Test;
-
-import static menu.IngredientFactory.makeIngredient;
-import static menu.MenuItemFactory.makeMenuItem;
-import static org.junit.Assert.*;
-import static restaurant.InventoryFactory.makeInventory;
-import static restaurant.OrderFactory.makeOrder;
-
 import restaurant.Inventory;
 import restaurant.Order;
+import restaurant.Restaurant;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,11 +13,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static menu.IngredientFactory.makeIngredient;
+import static menu.MenuItemFactory.makeMenuItem;
+import static org.junit.Assert.*;
+import static restaurant.InventoryFactory.makeInventory;
+import static restaurant.OrderFactory.makeOrder;
+
 public class InventoryImplTest {
     private static final Menu menu = new BurgerMenu();
 
+    Restaurant r = Restaurant.getInstance(10, 0.13);
     @Test
     public void testAddToInventory(){
+        r.start();
         Inventory inventory = makeInventory(menu);
         Ingredient i =  makeIngredient("Tomato");
         int currValue = inventory.getContents().get(i);

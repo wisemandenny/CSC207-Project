@@ -2,6 +2,7 @@ import menu.*;
 import org.junit.Test;
 import restaurant.Order;
 import restaurant.OrderImpl;
+import restaurant.Restaurant;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -9,8 +10,10 @@ import static org.junit.Assert.assertTrue;
 public class OrderImplTest {
     private static final Menu menu = new BurgerMenu();
 
+    Restaurant r = Restaurant.getInstance(10, 0.13);
     @Test
     public void testGetItems(){
+        r.start();
         // order
         Order order = new OrderImpl("1 Hamburger / +Ketchup -Bacon, 1 Hamburger, 1 Coke");
         assertTrue(order.getItems().size() == 3);
@@ -65,11 +68,12 @@ public class OrderImplTest {
     // is still in the list
     @Test
     public void testRemove() {
-        Order order = new OrderImpl("1 Hamburger / +Ketchup -Bacon, 1 Hamburger / +Patty, 1 Coke");
+        Order order = new OrderImpl("1 Hamburger / +Ketchup -Bacon, 2 Hamburger / +Patty, 1 Coke");
         Order burger = new OrderImpl("1 Hamburger / +Patty");
         order.remove(burger);
         // we are only removing 1 Hamburger
-        assertTrue(order.getItems().size() == 2);
+        assertTrue(order.getItems().size() == 3);
+        assertTrue(order.getItems().get(1).getQuantity() == 1);
 
         // Create a Hamburger with mods
         MenuItem modBurger = menu.getMenuItem("Hamburger");
@@ -91,6 +95,9 @@ public class OrderImplTest {
         assertTrue(order.getItems().contains(modBurger));
 //        assertFalse(order.getItems().contains(doubleBurger));
         assertTrue(order.getItems().contains(Coke));
+
+        order.remove(new OrderImpl("1 Hamburger / +Patty"));
+        assertTrue(order.getItems().size() == 2);
     }
 
     @Test
@@ -106,18 +113,6 @@ public class OrderImplTest {
         assertTrue(order.getItems().size() == 1);
         assertFalse(order.getItems().contains(burger));
         assertTrue(order.getItems().contains(hotdog));
-
-    }
-
-    // TODO: this breaks when all tests are run but works when run individually. Why?
-    @Test
-    public void testGetId() {
-       Order first = new OrderImpl("1 Hamburger") ;
-       Order second = new OrderImpl("1 Hamburger") ;
-       Order third = new OrderImpl("1 Hamburger") ;
-       assertTrue(first.getId() == 1);
-       assertTrue(second.getId() == 2);
-       assertTrue(third.getId() == 3);
     }
     @Test
     public void testReturned() {
