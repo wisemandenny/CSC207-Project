@@ -4,6 +4,7 @@ import events.Event;
 import menu.*;
 
 import java.util.*;
+import java.util.logging.Level;
 
 public class Restaurant extends Observable implements Runnable {
     private static Restaurant instance = null; //singleton
@@ -148,8 +149,7 @@ public class Restaurant extends Observable implements Runnable {
                     if (inventory.getContents().get(ingredient) == 0) {//not enough inventory
                         itemToRemove.setQuantity(item.getQuantity() - i);
                         rejectedItems.add(itemToRemove);
-                        System.out.println(itemToRemove.getQuantity() + " " + itemToRemove.getName() + "(s) cannot be made because we are out of " + ingredient.getName() + ".");
-                        //TODO: log a request here
+                        RestaurantLogger.log(Level.WARNING, itemToRemove.getQuantity() + " " + itemToRemove.getName() + "(s) cannot be made because we are out of " + ingredient.getName() + ".");
                         break itemLoop;
                     } else { //enough inventory
                         inventory.removeFromInventory(ingredient);
@@ -220,7 +220,7 @@ public class Restaurant extends Observable implements Runnable {
                     eventQueue.addAll(eventManager.getEvents());
                     Thread.sleep(1000); //sleep for 1 second
                 } catch (Exception ex) {
-                    //TODO: log this exception (InterruptedException)
+                    RestaurantLogger.log(Level.SEVERE, "Exception: " + ex.toString());
                 }
             }
         }
