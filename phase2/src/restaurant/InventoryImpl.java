@@ -79,7 +79,7 @@ public class InventoryImpl implements Inventory {
     @Override
     public void printContents() {
         for(Map.Entry<Ingredient, Integer> entry : inventory.entrySet()){
-            System.out.println("Name: " +entry.getKey().getName() + "       Quantity: " + entry.getValue());
+
         }
     }
 }

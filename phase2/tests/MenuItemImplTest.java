@@ -141,7 +141,7 @@ public class MenuItemImplTest {
     public void testIncorrectAdditionalGetExtraIngredientPrice(){
         MenuItem item = generateMenuItem();
         item.addExtraIngredient(IngredientFactory.makeIngredient("Bacon"));
-        System.out.println(item.getExtraIngredients());
+
         assertFalse(item.getExtraIngredientPrice() == 0.00);
     }
 
