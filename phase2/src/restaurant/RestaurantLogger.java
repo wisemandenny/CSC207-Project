@@ -1,14 +1,14 @@
+package restaurant;
+
 import java.io.IOException;
 import java.util.logging.*;
 
 public class RestaurantLogger {
-    //Used this website for reference http://hanoo.org/index.php?article=how-to-generate-logs-in-java
-    static Logger logger;
-    //file handler
-    public Handler fh;
-    Formatter plainText;
+    private static Logger logger;
 
     private  RestaurantLogger() throws IOException{
+        Handler fh;
+        Formatter plainText;
         logger = Logger.getLogger(RestaurantLogger.class.getName());
         fh = new FileHandler("log.txt", true);
         plainText =  new SimpleFormatter();
@@ -30,9 +30,4 @@ public class RestaurantLogger {
         getLogger().log(level, msg);
         System.out.println(msg);
     }
-
-    //this code is what will be called from classes to log an event.
-    /**
-     MyLogger.log(Level.INFO, MyLogger.class.getName());
-     */
 }
