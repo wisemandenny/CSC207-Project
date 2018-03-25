@@ -86,7 +86,7 @@ public class Restaurant extends Observable implements Runnable {
 
     public void addPlacedOrder(Order o) {
         placedOrders.add(o);
-        tables[o.getTableId()].addOrder(o);
+        tables[o.getTableId()].getSeat(o.getSeatId()).addOrder(o);
     }
 
     public void addReceivedOrder(int orderId){
@@ -103,7 +103,7 @@ public class Restaurant extends Observable implements Runnable {
         //Todo: reject items here
         inventory.removeFromInventory(order);
 
-        System.out.println("Order #" + order.getId() + " is now being cooked.");
+        System.out.println("Order #" + order.getId() + " is now being made.");
         //Restaurant.inventory.printContents();
 
 
@@ -121,9 +121,9 @@ public class Restaurant extends Observable implements Runnable {
         Order order = findOrder(readyOrders, orderId);
         readyOrders.remove(order);
         deliveredOrders.add(order);
-        tables[order.getTableId()].addOrderToBill(order);
+        tables[order.getTableId()].getSeat(order.getSeatId()).addOrderToBill(order);
 
-        System.out.println("Order #" + order.getId() + " has been delivered to Table " + order.getTableId() + ".");
+        System.out.println("Order #" + order.getId() + " has been delivered to Table " + order.getTableId() + " seat " + order.getSeatId() + ".");
 
     }
 
@@ -148,7 +148,7 @@ public class Restaurant extends Observable implements Runnable {
                     if (inventory.getContents().get(ingredient) == 0) {//not enough inventory
                         itemToRemove.setQuantity(item.getQuantity() - i);
                         rejectedItems.add(itemToRemove);
-                        System.out.println(itemToRemove.getQuantity() + " " + itemToRemove.getName() + "(s) cannot be cooked because we are out of " + ingredient.getName() + ",");
+                        System.out.println(itemToRemove.getQuantity() + " " + itemToRemove.getName() + "(s) cannot be made because we are out of " + ingredient.getName() + ".");
                         //TODO: log a request here
                         break itemLoop;
                     } else { //enough inventory
@@ -164,8 +164,11 @@ public class Restaurant extends Observable implements Runnable {
         }
         if (!rejectedItems.isEmpty())
             rejectedOrders.add(new OrderImpl(rejectedItems, o.getId(), o.getTableId()));
-        if (!acceptedItems.isEmpty())
-            cookingOrders.add(new OrderImpl(acceptedItems, o.getId(), o.getTableId()));
+        if (!acceptedItems.isEmpty()) {
+            Order ord = new OrderImpl(acceptedItems, o.getId(), o.getTableId());
+            ord.setSeatId(o.getSeatId());
+            cookingOrders.add(ord);
+        }
     }
 
     private Order findOrder(List<Order> searchSet, int orderId) {

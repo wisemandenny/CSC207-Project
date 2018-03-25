@@ -15,6 +15,7 @@ public class OrderImpl implements Order {
     private final List<MenuItem> orderItems;
     private int tableId;
     private int id;
+    private int seatId;
 
     OrderImpl() {
         orderItems = new ArrayList<>();
@@ -97,6 +98,14 @@ public class OrderImpl implements Order {
         this.tableId = tableId;
     }
 
+    @Override
+    public void setSeatId(int seatId) { this.seatId = seatId; }
+
+    @Override
+    public int getSeatId(){
+        return seatId;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -166,9 +175,7 @@ public class OrderImpl implements Order {
                 String[] orderedMenuItemModifiers = orderInfoSplit[1].split("\\s");
                 List<String> limitedModifiers = new ArrayList<>();
                 for (String mod : orderedMenuItemModifiers) {
-                    if (limitedModifiers.size() < 5) {
-                        limitedModifiers.add(mod);
-                    }
+                    limitedModifiers.add(mod);
                 }
                 for (String modifier : limitedModifiers) {
                     String ingredientName = modifier.substring(1);

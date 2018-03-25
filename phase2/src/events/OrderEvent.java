@@ -10,10 +10,11 @@ class OrderEvent implements Event {
     private final Order order;
     private final Table table;
 
-    OrderEvent(Table table, String orderString) {
+    OrderEvent(Table table, int seat, String orderString) {
         this.table = table;
         order = new OrderImpl(orderString);
         order.setTableId(table.getId());
+        order.setSeatId(seat);
     }
 
     @Override

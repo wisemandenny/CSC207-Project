@@ -38,14 +38,15 @@ public class EventFactory {
             case RECEIVEDSHIPMENT:
                 return new ShipmentEvent(splitString[1]);
             default:
-                Table table = tables[Integer.parseInt(splitString[EventFactory.TABLEID_ADDRESS].substring(EventFactory.TABLE_LENGTH))];
+                Table table = tables[Integer.parseInt(splitString[EventFactory.TABLEID_ADDRESS].substring(EventFactory.TABLE_LENGTH).split(" > ")[0])];
+                Integer seat = Integer.parseInt(splitString[EventFactory.TABLEID_ADDRESS].substring(EventFactory.TABLE_LENGTH).split(" > ")[1]);
                 switch (type) {
                     case ORDER:
-                        return new OrderEvent(table, splitString[EventFactory.ORDER_ADDRESS]);
+                        return new OrderEvent(table, seat, splitString[EventFactory.ORDER_ADDRESS]);
                     case BILL:
-                        return new BillEvent(table);
+                        return new BillEvent(table, seat);
                     case SERVERRETURNED:
-                        return new ReturnEvent(table, splitString[EventFactory.ORDER_ADDRESS], splitString[EventFactory.COMMENT_ADDRESS]);
+                        return new ReturnEvent(table, seat, splitString[EventFactory.ORDER_ADDRESS], splitString[EventFactory.COMMENT_ADDRESS]);
                     default:
                         throw new IllegalArgumentException("broken event line in text file" + eventLine);
                 }

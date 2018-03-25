@@ -20,6 +20,7 @@ public class UpdateEvent implements Event {
     public void doEvent() {
         switch (type) {
             case COOKSEEN:
+                Restaurant.getInstance().addReceivedOrder(orderId);
                 Restaurant.getInstance().addCookingOrder(orderId);
                 break;
             case COOKREADY:
