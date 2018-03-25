@@ -12,7 +12,7 @@ public class OrderImpl implements Order {
     private static final int QUANTITY_ADDRESS = 0;
     private static final int ORDER_ADDRESS = 1;
     private static int idCounter = 1;
-    private final List<MenuItem> orderItems;
+    private List<MenuItem> orderItems;
     private int tableId;
     private int id;
     private int seatId;
@@ -33,7 +33,6 @@ public class OrderImpl implements Order {
 
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -41,7 +40,6 @@ public class OrderImpl implements Order {
     public List<MenuItem> getItems() {
         return new ArrayList<>(orderItems);
     }
-
 
     @Override
     public void add(Order o) {
@@ -60,7 +58,8 @@ public class OrderImpl implements Order {
                         delete.add(count);
                         amount.add(0);
                     } else if(item.getQuantity() > orderItem.getQuantity()){
-                        throw new IllegalArgumentException("You cannot remove this many!");
+                        //TODO: change this exception into a logger event
+                        throw new IllegalArgumentException("You cannot remove this many! Tried to remove " + item.getQuantity() + " when there were only " + orderItem.getQuantity() + "." );
                     } else {
                         amount.add(orderItem.getQuantity() - item.getQuantity());
                     }
@@ -71,8 +70,7 @@ public class OrderImpl implements Order {
             }
         }
         // First do quantity decreases
-        int i;
-        for (i = 0; i < orderItems.size(); i++){
+        for (int i = 0; i < orderItems.size(); i++){
             orderItems.get(i).setQuantity(amount.get(i));
         }
 

@@ -21,12 +21,6 @@ public interface Table {
 
     void removeSeats(int amount);
 
-    Seat getSeat(int index);
-
-
-    void printBill();
-
-
-
+    Table getSeat(int index);
 }
 

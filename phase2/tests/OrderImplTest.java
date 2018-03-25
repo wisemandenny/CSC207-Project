@@ -2,7 +2,7 @@ import menu.*;
 import org.junit.Test;
 import restaurant.Order;
 import restaurant.OrderImpl;
-import restaurant.*;
+import restaurant.Restaurant;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

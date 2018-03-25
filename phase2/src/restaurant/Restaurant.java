@@ -36,7 +36,7 @@ public class Restaurant extends Observable implements Runnable {
         this.taxRate = taxRate;
         tables = new TableImpl[numOfTables + 1];
         for (int i = 1; i <= numOfTables; i++) {
-            tables[i] = new TableImpl(i);
+            tables[i] = new TableImpl(i, false);
         }
     }
     public static Restaurant getInstance(int numOfTables, double taxRate) {
@@ -151,7 +151,7 @@ public class Restaurant extends Observable implements Runnable {
                 return order;
             }
         }
-        throw new IllegalArgumentException("Order #" + orderId + " not found in " + searchSet);
+        throw new IllegalArgumentException("Order #" + orderId + " not found in " + searchSet.toString());
     }
 
     public void addToInventory(Map<Ingredient, Integer> shipment) {
