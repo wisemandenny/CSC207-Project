@@ -11,9 +11,10 @@ import restaurant.Restaurant;
 import java.net.URL;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
-public class ServerView extends Observable implements Initializable {
+public class ServerView extends Observable implements Initializable, Observer{
     @FXML
     private VBox tableViewBox;
     @FXML
@@ -34,6 +35,7 @@ public class ServerView extends Observable implements Initializable {
             FXMLLoader dovLoader = getFXMLLoader("DeliverableOrdersView.fxml");
             StackPane dovList = dovLoader.load();
             deliverableOrdersView = dovLoader.getController();
+            deliverableOrdersView.addObserver(this);
             menuVbox.getChildren().add(dovList);
 
 
@@ -75,5 +77,11 @@ public class ServerView extends Observable implements Initializable {
     void refresh(){
         deliverableOrdersView.refresh();
         billView.refresh();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        setChanged();
+        notifyObservers();
     }
 }

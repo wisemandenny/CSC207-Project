@@ -1,10 +1,16 @@
 package main;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import menu.Ingredient;
 import menu.Menu;
 import menu.MenuItem;
@@ -16,6 +22,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class MenuList implements Initializable {
+    private static final Background SELECTED_BACKGROUND = new Background(new BackgroundFill(Color.web("#29B6F6"), CornerRadii.EMPTY, Insets.EMPTY));
     private final List<JFXButton> selectedItems = new ArrayList<>();
     private final List<List<JFXButton>> itemsWithIngredients = new ArrayList<>();
     private boolean toggleShowIngredients = false;
@@ -74,13 +81,21 @@ public class MenuList implements Initializable {
     }
 
     private void selectItems(JFXButton itemButton) {
+        JFXListCell<JFXButton> selectedCell = (JFXListCell<JFXButton>) itemButton.getParent();
+        if(selectedCell.getBackground().equals(SELECTED_BACKGROUND)){
+            selectedCell.setBackground(Background.EMPTY);
+            selectedItems.remove(itemButton);
+        } else {
+            selectedCell.setBackground(SELECTED_BACKGROUND);
+            selectedItems.add(itemButton);
+        }/*
         if (itemButton.getStyle().contains("-fx-background-color: green")) {
             itemButton.setStyle("-fx-background-color: transparent");
             selectedItems.remove(itemButton);
         } else {
             itemButton.setStyle("-fx-background-color: green");
             selectedItems.add(itemButton);
-        }
+        }*/
     }
 
     private void showIngredients(JFXButton itemButton) {

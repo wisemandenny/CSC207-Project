@@ -4,30 +4,23 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXListView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import menu.MenuItem;
 import restaurant.Order;
 import restaurant.Restaurant;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
+import java.util.Observable;
 
-public class DeliverableOrdersView implements Initializable{
+public class DeliverableOrdersView extends Observable {
     @FXML private StackPane deliverableOrderStackPane;
     @FXML private JFXListView<HBox> deliverableOrdersListView;
     private final List<OrderBox> deliverableOrders = new ArrayList<>();
-    private HBox selectedDeliverableOrder;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //refresh();
-    }
-
     private void addDeliverableOrders(){
         List<Order> orderList = Restaurant.getInstance().getReadyOrders();
         for(Order o : orderList){
@@ -38,7 +31,7 @@ public class DeliverableOrdersView implements Initializable{
     private HBox makeOrderHBox(Order o){
         OrderBox orderBox = new OrderBox(o);
         deliverableOrders.add(orderBox);
-        return orderBox.getHBox();
+        return orderBox.getHbox();
 
     }
 
@@ -48,22 +41,54 @@ public class DeliverableOrdersView implements Initializable{
     }
 
     private class OrderBox {
-        private HBox HBox;
+        private HBox hbox;
         private Order order;
 
         OrderBox(Order order){
             this.order = order;
             Label orderHeader = new Label("Order: " + order.getId() + " Table: " + order.getTableId());
             Region filler = new Region();
-            HBox = new HBox();
-            HBox.setOnMouseClicked(e -> loadDialog(HBox));
+            hbox = new HBox();
+            hbox.setOnMouseClicked(e -> loadDialog(order));
 
             HBox.setHgrow(filler, Priority.ALWAYS);
-            HBox.getChildren().add(orderHeader);
-            HBox.getChildren().add(filler);
+            hbox.getChildren().add(orderHeader);
+            hbox.getChildren().add(filler);
             for(MenuItem item : order.getItems()){
-                HBox.getChildren().add(makeItemLabel(item));
+                hbox.getChildren().add(makeItemLabel(item));
             }
+        }
+        private void loadDialog(Order o){
+            Label deliverDialogHeader = new Label("Deliver This Order"); //maybe add the order info here
+            HBox container = new HBox();
+            JFXListView<Label> orderItemListView = new JFXListView<>();
+            orderItemListView.setMinSize(200, 200);
+            container.getChildren().add(orderItemListView);
+            addOrderToListView(orderItemListView, o);
+            VBox buttonContainer = new VBox();
+            JFXButton deliverButton = new JFXButton("Deliver");
+            JFXButton closeButton = new JFXButton("Close");
+
+            buttonContainer.getChildren().addAll(deliverButton, closeButton);
+            container.getChildren().add(buttonContainer);
+            StackPane stackPane = (StackPane) deliverableOrderStackPane.getParent().getParent().getParent();
+            JFXDialogLayout content = new JFXDialogLayout();
+            content.setHeading(deliverDialogHeader);
+            content.setBody(container);
+            JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, true);
+            deliverButton.setOnAction(e -> {
+                deliver();
+                dialog.close();
+            });
+            closeButton.setOnAction(e -> dialog.close());
+            dialog.show();
+        }
+        private void addOrderToListView(JFXListView<Label> lv, Order o){
+            ObservableList<Label> orderItemList = FXCollections.observableArrayList();
+            for(MenuItem item : o.getItems()){
+                orderItemList.add(makeItemLabel(item));
+            }
+            lv.setItems(orderItemList);
         }
         private Label makeItemLabel(MenuItem item){
             Label itemLabel = new Label(item.getQuantity() + " " + item.getName());
@@ -71,25 +96,17 @@ public class DeliverableOrdersView implements Initializable{
             return itemLabel;
         }
         Order getOrder(){ return order; }
-        HBox getHBox() { return HBox; }
-    }
+        HBox getHbox() { return hbox; }
 
-    private void loadDialog(HBox box){
-        Label deliverDialogHeader = new Label("Deliver This Order"); //maybe add the order info here
-        HBox container = new HBox();
-        JFXListView orderItemListView = new JFXListView();
-        container.getChildren().add(orderItemListView);
-        VBox buttonContainer = new VBox();
-        JFXButton deliverButton = new JFXButton("Deliver");
-        JFXButton returnButton = new JFXButton("Return");
-        buttonContainer.getChildren().addAll(deliverButton, returnButton);
-        container.getChildren().add(buttonContainer);
-        StackPane stackPane = (StackPane) deliverableOrderStackPane.getParent().getParent().getParent();
-
-        JFXDialogLayout content = new JFXDialogLayout();
-        content.setHeading(deliverDialogHeader);
-        content.setBody(container);
-        JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, true);
-        dialog.show();
+        private void deliver(){
+            Restaurant.getInstance().newEvent("update | delivered | " + getOrder().getId());
+            try{ //wait for backend....
+                Thread.sleep(300);
+            } catch(InterruptedException ex) {
+                //TODO: log this exception
+            }
+            setChanged();
+            notifyObservers();
+        }
     }
 }

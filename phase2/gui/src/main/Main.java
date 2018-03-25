@@ -63,7 +63,6 @@ public class Main extends Application implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("inside main update method");
         cookOrderView.refresh();
         serverView.refresh();
     }
