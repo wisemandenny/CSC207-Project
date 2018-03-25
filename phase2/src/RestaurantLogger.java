@@ -1,17 +1,15 @@
-package main;
-
 import java.io.IOException;
 import java.util.logging.*;
 
-public class MyLogger {
+public class RestaurantLogger {
     //Used this website for reference http://hanoo.org/index.php?article=how-to-generate-logs-in-java
     static Logger logger;
     //file handler
     public Handler fh;
     Formatter plainText;
 
-    private  MyLogger() throws IOException{
-        logger = Logger.getLogger(MyLogger.class.getName());
+    private  RestaurantLogger() throws IOException{
+        logger = Logger.getLogger(RestaurantLogger.class.getName());
         fh = new FileHandler("log.txt", true);
         plainText =  new SimpleFormatter();
         fh.setFormatter(plainText);
@@ -21,7 +19,7 @@ public class MyLogger {
     private static Logger getLogger(){
         if(logger == null){
             try {
-                new MyLogger();
+                new RestaurantLogger();
             } catch (IOException e) {
                 e.printStackTrace();
             }
