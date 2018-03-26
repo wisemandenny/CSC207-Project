@@ -37,6 +37,7 @@ public class BillView extends Observable implements Initializable {
     @FXML private JFXButton deleteButton;
     @FXML private JFXButton addSeat;
     @FXML private JFXButton removeSeat;
+    @FXML private JFXButton joinButton;
 
 
     final ObservableList<HBox> tableItems = FXCollections.observableArrayList();
@@ -145,6 +146,10 @@ public class BillView extends Observable implements Initializable {
     }
     @FXML private void removeSeat(){
         Restaurant.getInstance().newEvent("removeseat | table " + shownTable + " | " + selectedSeat);
+        letBackendCatchUp();
+    }
+    @FXML private void joinCheques(){
+        Restaurant.getInstance().newEvent("join | table "+ shownTable);
         letBackendCatchUp();
     }
 

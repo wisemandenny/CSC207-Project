@@ -113,4 +113,22 @@ public class TableImpl implements Table {
         }
         return 0.0;
     }
+
+    @Override
+    public void joinCheques() {
+        if(seats.size() == 0){
+            System.out.println("can't join seats cheques (need to join the TABLE'S cheques"); //TODO: change this to loger
+        } else{
+            List<Order> allOrders = new ArrayList<>();
+            for(Table seat : seats){
+                List<Order> ordersToRemove = new ArrayList<>();
+                for(Order seatOrder : seat.getOrders()){
+                    allOrders.add(seatOrder);
+                   ordersToRemove.add(seatOrder);
+                }
+                seat.getOrders().removeAll(ordersToRemove);
+            }
+            seats.get(0).getOrders().addAll(allOrders);
+        }
+    }
 }

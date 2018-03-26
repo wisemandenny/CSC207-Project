@@ -38,7 +38,6 @@ public class ServerView extends Observable implements Initializable, Observer{
             deliverableOrdersView.addObserver(this);
             menuVbox.getChildren().add(dovList);
 
-
             FXMLLoader billViewFXMLLoader = getFXMLLoader("BillView.fxml");
             tableViewBox.getChildren().add( billViewFXMLLoader.load());
             billView = billViewFXMLLoader.getController();
@@ -70,7 +69,6 @@ public class ServerView extends Observable implements Initializable, Observer{
         }
         setChanged();
         notifyObservers();
-        //TODO: add a dialog box to confirm the order is made?
     }
 
     private FXMLLoader getFXMLLoader(String source) {
