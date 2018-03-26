@@ -107,7 +107,7 @@ public class BillView extends Observable implements Initializable {
         HBox box = new HBox();
         Region filler = new Region();
         HBox.setHgrow(filler, Priority.ALWAYS);
-        box.getChildren().add(new Label("AN AUTOMATIC GRATUITY OF 18% HAS BEEN ADDED TO YOUR BILL"));
+        box.getChildren().add(new Label("AN AUTOMATIC GRATUITY OF "+ Restaurant.getInstance().getAutoGratRate() * 100 + "% HAS BEEN ADDED TO YOUR BILL"));
         box.getChildren().add(filler);
         box.getChildren().add(new JFXButton(String.format("%.2f", amount)));
         return box;
