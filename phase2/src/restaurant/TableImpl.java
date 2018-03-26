@@ -96,7 +96,7 @@ public class TableImpl implements Table {
             if (s.getOrders().isEmpty()){
                 seats.remove(s);
             } else {
-                throw new IllegalArgumentException("You cannot remove seats because orders have been made!");
+                System.out.println("You cannot remove seats because orders have been made!"); //TODO: change this to logger
             }
         }
     }
@@ -112,5 +112,23 @@ public class TableImpl implements Table {
             return bill.getSubtotal() * Restaurant.getInstance().getAutoGratRate();
         }
         return 0.0;
+    }
+
+    @Override
+    public void joinCheques() {
+        if(seats.isEmpty()){
+            System.out.println("can't join seats cheques (need to join the TABLE'S cheques"); //TODO: change this to loger
+        } else{
+            List<Order> allOrders = new ArrayList<>();
+            for(Table seat : seats){
+                List<Order> ordersToRemove = new ArrayList<>();
+                for(Order seatOrder : seat.getOrders()){
+                    allOrders.add(seatOrder);
+                   ordersToRemove.add(seatOrder);
+                }
+                seat.getOrders().removeAll(ordersToRemove);
+            }
+            seats.get(0).getOrders().addAll(allOrders);
+        }
     }
 }

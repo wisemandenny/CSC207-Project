@@ -15,22 +15,22 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 
 public class ServerView extends Observable implements Initializable, Observer{
-    @FXML
-    private VBox tableViewBox;
-    @FXML
-    private VBox menuVbox;
-    @FXML
-    private JFXButton FAB;
+    @FXML private VBox tableViewBox;
+    @FXML private VBox menuVbox;
+    @FXML private StackPane serverViewStackPane;
+    @FXML private JFXButton FAB;
+
     private BillView billView;
     private DeliverableOrdersView deliverableOrdersView;
+    private OrderDetailsPopup orderDetailsPopup;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
             FXMLLoader menuListFXMLLoader = getFXMLLoader("MenuList.fxml");
-            VBox box = menuListFXMLLoader.load();
+            StackPane stackPane = menuListFXMLLoader.load();
             MenuList menuList = menuListFXMLLoader.getController();
-            menuVbox.getChildren().add(box);
+            menuVbox.getChildren().add(stackPane);
 
             FXMLLoader dovLoader = getFXMLLoader("DeliverableOrdersView.fxml");
             StackPane dovList = dovLoader.load();
@@ -38,19 +38,27 @@ public class ServerView extends Observable implements Initializable, Observer{
             deliverableOrdersView.addObserver(this);
             menuVbox.getChildren().add(dovList);
 
-
             FXMLLoader billViewFXMLLoader = getFXMLLoader("BillView.fxml");
             tableViewBox.getChildren().add( billViewFXMLLoader.load());
             billView = billViewFXMLLoader.getController();
+            billView.addObserver(this);
 
             List<JFXButton> selectedItemButtons = menuList.getSelectedItems();
 
-            FAB.setOnAction(e -> newOrder(selectedItemButtons));
+            FAB.setOnAction(e -> loadAddDialog(serverViewStackPane, selectedItemButtons));
         } catch (Exception ex) {
             //TODO: add a logger
         }
     }
-
+    @Override
+    public void update(Observable o, Object arg) {
+        setChanged();
+        notifyObservers();
+    }
+    void refresh(){
+        deliverableOrdersView.refresh();
+        billView.refresh();
+    }
     private void newOrder(List<JFXButton> selectedItemButtons) {
         StringBuilder sb = new StringBuilder("order | table " + billView.getShownTable() + " > " + billView.getSelectedSeat() + " | ");
         for (JFXButton button : selectedItemButtons) {
@@ -69,23 +77,15 @@ public class ServerView extends Observable implements Initializable, Observer{
         }
         setChanged();
         notifyObservers();
-        //TODO: add a dialog box to confirm the order is made?
     }
-
     private FXMLLoader getFXMLLoader(String source) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(source));
         return loader;
     }
-
-    void refresh(){
-        deliverableOrdersView.refresh();
-        billView.refresh();
+    private void loadAddDialog(StackPane parent, List<JFXButton> selectedItemButtons){
+        orderDetailsPopup = new OrderDetailsPopup(parent, selectedItemButtons);
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        setChanged();
-        notifyObservers();
-    }
+
 }

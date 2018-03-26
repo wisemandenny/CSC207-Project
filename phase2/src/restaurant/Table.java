@@ -15,6 +15,8 @@ public interface Table {
     void comp(Order o);
 
     Bill getBill();
+    void joinCheques();
+
     double getAutogratuityAmount();
 
     int getId();

@@ -58,12 +58,14 @@
          <children>
             <VBox>
                <children>
-                  <JFXButton style="-fx-background-color: #2196F3;" text="Split Cheques">
+                  <JFXButton fx:id="joinButton" onAction="#joinCheques" style="-fx-background-color: #2196F3;" text="Join All Cheques">
                      <VBox.margin>
-                        <Insets bottom="24.0" />
+                        <Insets top="20.0" />
                      </VBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </JFXButton>
-                  <JFXButton style="-fx-background-color: #2196F3;" text="Join Cheques" />
                </children>
                <HBox.margin>
                   <Insets left="24.0" right="48.0" top="24.0" />
