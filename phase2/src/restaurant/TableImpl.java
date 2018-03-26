@@ -116,7 +116,7 @@ public class TableImpl implements Table {
 
     @Override
     public void joinCheques() {
-        if(seats.size() == 0){
+        if(seats.isEmpty()){
             System.out.println("can't join seats cheques (need to join the TABLE'S cheques"); //TODO: change this to loger
         } else{
             List<Order> allOrders = new ArrayList<>();

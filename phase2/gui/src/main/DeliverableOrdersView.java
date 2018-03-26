@@ -59,7 +59,7 @@ public class DeliverableOrdersView extends Observable {
             }
         }
         private void loadDialog(Order o){
-            Label deliverDialogHeader = new Label("Deliver This Order"); //maybe add the order info here
+            Label deliverDialogHeader = new Label("Deliver This Order");
             HBox container = new HBox();
             JFXListView<Label> orderItemListView = new JFXListView<>();
             orderItemListView.setMinSize(200, 200);

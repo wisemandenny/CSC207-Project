@@ -27,11 +27,8 @@ public class MenuList implements Initializable {
     private final List<List<JFXButton>> itemsWithIngredients = new ArrayList<>();
     private boolean toggleShowIngredients = false;
 
-
-    @FXML
-    private JFXListView<JFXButton> menuListView;
-    @FXML
-    private JFXToggleButton showIngredientsButton;
+    @FXML private JFXListView<JFXButton> menuListView;
+    @FXML private JFXToggleButton showIngredientsButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

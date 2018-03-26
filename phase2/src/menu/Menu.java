@@ -19,4 +19,5 @@ public interface Menu {
     Ingredient getMenuIngredient(String query);
 
     MenuItem getMenuItem(String itemName);
+    List<Ingredient> getAllIngredients();
 }
