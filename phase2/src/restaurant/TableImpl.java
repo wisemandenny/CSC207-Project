@@ -96,7 +96,7 @@ public class TableImpl implements Table {
             if (s.getOrders().isEmpty()){
                 seats.remove(s);
             } else {
-                throw new IllegalArgumentException("You cannot remove seats because orders have been made!");
+                System.out.println("You cannot remove seats because orders have been made!"); //TODO: change this to logger
             }
         }
     }

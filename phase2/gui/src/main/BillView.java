@@ -18,9 +18,10 @@ import restaurant.Table;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
-public class BillView implements Initializable {
+public class BillView extends Observable implements Initializable {
     private static final Background GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#EEEEEE"), CornerRadii.EMPTY, Insets.EMPTY));
     private static final Background LIGHT_GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#FAFAFA"), CornerRadii.EMPTY, Insets.EMPTY));
     private static final Background BLUE_GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#607D8B"), CornerRadii.EMPTY, Insets.EMPTY));
@@ -140,9 +141,21 @@ public class BillView implements Initializable {
     }
     @FXML private void addSeat(){
         Restaurant.getInstance().newEvent("addseat | table " + shownTable);
+        letBackendCatchUp();
     }
     @FXML private void removeSeat(){
         Restaurant.getInstance().newEvent("removeseat | table " + shownTable + " | " + selectedSeat);
+        letBackendCatchUp();
+    }
+
+    private void letBackendCatchUp(){
+        try{
+            Thread.sleep(300);
+        } catch (InterruptedException ex){
+            //TODO: log this excpetion
+        }
+        setChanged();
+        notifyObservers();
     }
     void changeTable(int selectedTable) {
         shownTable = selectedTable;

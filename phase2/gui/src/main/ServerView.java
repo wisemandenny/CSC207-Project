@@ -42,6 +42,7 @@ public class ServerView extends Observable implements Initializable, Observer{
             FXMLLoader billViewFXMLLoader = getFXMLLoader("BillView.fxml");
             tableViewBox.getChildren().add( billViewFXMLLoader.load());
             billView = billViewFXMLLoader.getController();
+            billView.addObserver(this);
 
             List<JFXButton> selectedItemButtons = menuList.getSelectedItems();
 

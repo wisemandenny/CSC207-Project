@@ -17,17 +17,13 @@ public class Restaurant extends Observable implements Runnable {
     private final List<Order> readyOrders = new ArrayList<>();
     private final List<Order> deliveredOrders = new ArrayList<>();
     private final double autoGratRate = 0.15;
-
     private double taxRate;
     private boolean running;
     private TableImpl[] tables;
     private Thread t;
     private EventManager eventManager;
-
-
     protected Restaurant() {
     }
-
     /**
      * Constructs a new restaurant.Restaurant object.
      *
@@ -47,7 +43,6 @@ public class Restaurant extends Observable implements Runnable {
         }
         return Restaurant.instance;
     }
-
     public static Restaurant getInstance(){ return Restaurant.instance; }
     public static void end(){ Restaurant.getInstance().running = false; }
     public Menu getMenu() { return menu; }
@@ -57,7 +52,6 @@ public class Restaurant extends Observable implements Runnable {
     public double getAutoGratRate() { return autoGratRate; }
     public int getNumOfTables() { return tables.length; }
     public void newEvent(String eventString) { eventManager.addEventFromString(eventString); }
-
     /**
      * The manager can use the following three functions to check how the restaurant is doing.
      *
@@ -74,18 +68,15 @@ public class Restaurant extends Observable implements Runnable {
     public List<Order> getDeliveredOrders() {
         return deliveredOrders;
     }
-
     public void addPlacedOrder(Order o) {
         placedOrders.add(o);
         tables[o.getTableId()].getSeat(o.getSeatId()).addOrder(o); //TODO: check
     }
-
     public void addReceivedOrder(int orderId){
         Order order = findOrder(placedOrders, orderId);
         placedOrders.remove(order);
         receivedOrders.add(order);
     }
-
     public void addCookingOrder(int orderId) {
         Order order = findOrder(receivedOrders, orderId);
         receivedOrders.remove(order);
@@ -93,13 +84,11 @@ public class Restaurant extends Observable implements Runnable {
         //Todo: reject items here
         inventory.removeFromInventory(order);
     }
-
     public void addReadyOrder(int orderId) {
         Order order = findOrder(cookingOrders, orderId);
         cookingOrders.remove(order);
         readyOrders.add(order);
     }
-
     public void addDeliveredOrder(int orderId) {
         Order order = findOrder(readyOrders, orderId);
         readyOrders.remove(order);
@@ -107,7 +96,6 @@ public class Restaurant extends Observable implements Runnable {
         tables[order.getTableId()].addOrderToBill(order);
         tables[order.getTableId()].getSeat(order.getSeatId()).addOrderToBill(order);
     }
-
     /**
      * Take an order (o), and check every single item in that order to make sure that there's inventory to cook it
      * e.g. if you have 10 cokes in the inventory and you request 11, 10 should be cooked and one should be rejected
@@ -149,7 +137,6 @@ public class Restaurant extends Observable implements Runnable {
             cookingOrders.add(ord);
         }
     }
-
     private Order findOrder(List<Order> searchSet, int orderId) {
         for (Order order : searchSet) {
             if (order.getId() == orderId) {
@@ -158,7 +145,6 @@ public class Restaurant extends Observable implements Runnable {
         }
         throw new IllegalArgumentException("Order #" + orderId + " not found in " + searchSet.toString());
     }
-
     public void addToInventory(Map<Ingredient, Integer> shipment) {
         inventory.addToInventory(shipment);
         /* uncomment this to check inventory restock
@@ -168,18 +154,15 @@ public class Restaurant extends Observable implements Runnable {
         */
     }
     Table[] getTables(){ return tables; }
-
     public Table getTable(int tableId) {
         return tables[tableId];
     }
-
     public void start() {
         if (t == null) {
             t = new Thread(this, "backend");
             t.start();
         }
     }
-
     @Override
     public void run() {
         eventManager = new EventManager();

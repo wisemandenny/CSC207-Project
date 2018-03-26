@@ -25,5 +25,5 @@ update | delivered | 2
 update | delivered | 3
 update | delivered | 4
 update | delivered | 5
-addseat | table 1 | 2
+addseat | table 1
 removeseat | table 3 | 3
