@@ -1,16 +1,15 @@
 package main;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import menu.Ingredient;
 import restaurant.Restaurant;
 
@@ -18,11 +17,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 class OrderDetailsPopup {
-    StackPane parent;
-    List<menu.MenuItem> orderItems = new ArrayList<>();
-    menu.MenuItem currentlySelectedItem;
-    List<Ingredient> currentlySelectedItemExtras;
-    List<Ingredient> currentlySelectedItemRemoves;
+    //private static final Background SELECTED_BACKGROUND = new Background(new BackgroundFill(Color.web("#29B6F6"), CornerRadii.EMPTY, Insets.EMPTY));
+    private static final Background RED_BACKGROUND = new Background(new BackgroundFill(Color.web("#EF5350"), CornerRadii.EMPTY, Insets.EMPTY));
+    private static final Background GREEN_BACKGROUND = new Background(new BackgroundFill(Color.web("#9CCC65"), CornerRadii.EMPTY, Insets.EMPTY));
+    private StackPane parent;
+    private int tableId;
+    private int seatId;
+    private List<menu.MenuItem> orderItems = new ArrayList<>();
+    private menu.MenuItem currentlySelectedItem;
 
     //there is a cuurrent selected item. that is the one with the loaded  mod lists.
     //set the items quantity every time you change the dropdown menu
@@ -30,11 +32,15 @@ class OrderDetailsPopup {
     //every time an ingredient is selected in the left list, add it to the item
     //every time an ingredient is selected in the right list, remove it from the item
 
-    OrderDetailsPopup(StackPane parent, List<JFXButton> selectedItemButtons){
+    OrderDetailsPopup(StackPane parent, List<JFXButton> selectedItemButtons, int tableId, int seatId){
         this.parent = parent;
+        this.tableId = tableId;
+        this.seatId = seatId;
         loadAddDialog(selectedItemButtons);
         for(JFXButton itemButton : selectedItemButtons){
-            orderItems.add(Restaurant.getInstance().getMenu().getMenuItem(itemButton.getText()));
+            menu.MenuItem item = Restaurant.getInstance().getMenu().getMenuItem(itemButton.getText());
+            orderItems.add(item);
+           // allSelectedExtras.add(item.g);
         }
     }
 
@@ -44,9 +50,7 @@ class OrderDetailsPopup {
         orderItems.get(orderItems.indexOf(updateItem)).setQuantity(quantity);
     }
 
-    //private void changeItemExtras(menu.MenuItem item, )
-
-    private HBox makeItemHBox(JFXButton button, JFXListView extras, JFXListView removed){
+    private HBox makeItemHBox(JFXButton button, JFXListView<Hyperlink> extras, JFXListView<Hyperlink> removed){
         HBox itemBox = new HBox();
         Region filler = new Region();
         HBox.setHgrow(filler, Priority.ALWAYS);
@@ -61,38 +65,55 @@ class OrderDetailsPopup {
             quantitySelector.getItems().add(quantity);
         }
         itemBox.getChildren().addAll(quantitySelector, filler, new Label(button.getText()));
+
         itemBox.setOnMouseClicked(e -> loadModLists(Restaurant.getInstance().getMenu().getMenuItem(button.getText()), extras, removed));
         return itemBox;
     }
-
-    private void loadModLists(menu.MenuItem item, JFXListView<JFXButton> extras, JFXListView<JFXButton> removed){
+    private void selectEvent(Hyperlink clickedHyperlink, boolean isExtra){
+        JFXListCell<Hyperlink> selectedCell = (JFXListCell<Hyperlink>) clickedHyperlink.getParent();
+        if(isExtra) {
+            if (selectedCell.getBackground().equals(GREEN_BACKGROUND)) {
+                selectedCell.setBackground(Background.EMPTY);
+                clickedHyperlink.setBackground(Background.EMPTY);
+                orderItems.get(orderItems.indexOf(currentlySelectedItem)).getExtraIngredients().remove(Restaurant.getInstance().getMenu().getMenuIngredient(clickedHyperlink.getText()));
+            } else {
+                selectedCell.setBackground(GREEN_BACKGROUND);
+                clickedHyperlink.setBackground(Background.EMPTY);
+                orderItems.get(orderItems.indexOf(currentlySelectedItem)).getExtraIngredients().add(Restaurant.getInstance().getMenu().getMenuIngredient(clickedHyperlink.getText()));
+            }
+        } else {
+            if (selectedCell.getBackground().equals(RED_BACKGROUND)){
+                selectedCell.setBackground(Background.EMPTY);
+                clickedHyperlink.setBackground(Background.EMPTY);
+                orderItems.get(orderItems.indexOf(currentlySelectedItem)).getRemovedIngredients().remove(Restaurant.getInstance().getMenu().getMenuIngredient(clickedHyperlink.getText()));
+            } else {
+                selectedCell.setBackground(RED_BACKGROUND);
+                clickedHyperlink.setBackground(Background.EMPTY);
+                orderItems.get(orderItems.indexOf(currentlySelectedItem)).getRemovedIngredients().add(Restaurant.getInstance().getMenu().getMenuIngredient(clickedHyperlink.getText()));
+            }
+        }
+    }
+    private void loadModLists(menu.MenuItem item, JFXListView<Hyperlink> extras, JFXListView<Hyperlink> removed){
         currentlySelectedItem = item;
 
         List<Ingredient> allIngredients = Restaurant.getInstance().getMenu().getAllIngredients();
         allIngredients.removeAll(item.getIngredients());
-        ObservableList<JFXButton> addableIngredients = FXCollections.observableArrayList();
+        ObservableList<Hyperlink> addableIngredients = FXCollections.observableArrayList();
         for(Ingredient i : allIngredients){
-            addableIngredients.add(new JFXButton(i.getName()));
+            Hyperlink addIngredient = new Hyperlink(i.getName());
+            addIngredient.setOnMousePressed(e -> selectEvent(addIngredient, true));
+            addableIngredients.add(addIngredient);
         }
         extras.setItems(addableIngredients);
 
-        ObservableList<JFXButton> removeableIngredients = FXCollections.observableArrayList();
+        ObservableList<Hyperlink> removeableIngredients = FXCollections.observableArrayList();
         for (Ingredient i : item.getIngredients()){
-            removeableIngredients.add(new JFXButton(i.getName()));
+            Hyperlink removeIngredient = new Hyperlink(i.getName());
+            removeIngredient.setOnMousePressed(e -> selectEvent(removeIngredient, false));
+            removeableIngredients.add(removeIngredient);
         }
         removed.setPrefHeight(extras.getHeight());
         removed.setItems(removeableIngredients);
-
-        extras.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("ListView selection changed from oldValue = "
-                    + oldValue + " to newValue = " + newValue);
-        });
-        removed.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            ObservableList<JFXButton> selectedItems = removed.getSelectionModel().getSelectedItems();
-            for(JFXButton button : selectedItems){
-                System.out.println("selected item: " + button);
-            }
-        });
     }
     private void loadAddDialog(List<JFXButton> selectedItemButtons){
         //HEADER
@@ -102,13 +123,10 @@ class OrderDetailsPopup {
         //PARENT AND LIST COMPONENTS
         VBox dialogRoot = new VBox(5);
         dialogRoot.setMinHeight(700);
-        JFXListView<JFXButton> extraIngredientsListView = new JFXListView<>();
+        JFXListView<Hyperlink> extraIngredientsListView = new JFXListView<>();
         extraIngredientsListView.setMinHeight(300);
-        JFXListView<JFXButton> removedIngredientsListView = new JFXListView<>();
+        JFXListView<Hyperlink> removedIngredientsListView = new JFXListView<>();
         removedIngredientsListView.setMinHeight(300);
-        extraIngredientsListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        removedIngredientsListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
 
         //LIST OF SELECTED ITEMS AND THEIR QUANTITIES
         VBox top = new VBox();
@@ -145,8 +163,36 @@ class OrderDetailsPopup {
         cancelButton.setOnAction(e -> dialog.close());
         confirmButton.setOnAction(e -> {
             //newOrder
+            Restaurant.getInstance().newEvent(buildOrderString());
             dialog.close();
         });
         dialog.show();
+    }
+
+    private String buildOrderString(){
+        StringBuilder sb = new StringBuilder("order | " + tableId + " > " + seatId + " | ");
+        for(menu.MenuItem item : orderItems){
+            sb.append(item.getQuantity() + " " + item.getName());
+            if(!item.getExtraIngredients().isEmpty() || !item.getRemovedIngredients().isEmpty()){
+                sb.append(" / ");
+                if(!item.getExtraIngredients().isEmpty()){
+                    for(Ingredient extra : item.getExtraIngredients()){
+                        sb.append("+" + extra.getName() + " "); //check that trailing space
+                    }
+                    sb.deleteCharAt(sb.lastIndexOf(" "));
+                }
+                if(!item.getRemovedIngredients().isEmpty()){
+                    for(Ingredient remove : item.getRemovedIngredients()){
+                        sb.append("-" + remove.getName() + " "); //check that trailing space
+                    }
+                    sb.deleteCharAt(sb.lastIndexOf(" "));
+                }
+            }
+            sb.append(", ");
+        }
+        sb.delete(sb.length()-2, sb.length());
+        String ret = sb.toString();
+        System.out.println(ret);
+        return ret;
     }
 }

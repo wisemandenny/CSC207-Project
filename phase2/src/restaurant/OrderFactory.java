@@ -32,7 +32,7 @@ public class OrderFactory {
             String orderInfo = orderItem[ORDER_ADDRESS];
 
             // Separate the ordered item from any modifiers, there should only be one "/" break per menu item.
-            String[] orderInfoSplit = orderInfo.split("\\s/\\s", 2);
+            String[] orderInfoSplit = orderInfo.split("\\s/\\s");
             String orderedItemName = orderInfoSplit[0];
             MenuItem orderedMenuItem = Restaurant.getInstance().getMenu().getMenuItem(orderedItemName);
             orderedMenuItem.setQuantity(Integer.parseInt(orderItem[QUANTITY_ADDRESS]));

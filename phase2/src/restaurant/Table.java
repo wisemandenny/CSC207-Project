@@ -80,5 +80,6 @@ public interface Table {
      */
     Table getSeat(int index);
 
+    String getTableBillString();
 }
 

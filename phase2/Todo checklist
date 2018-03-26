@@ -17,6 +17,8 @@ d. make a paid event in the backend
 a. change item quantity from gui DONE
 b. change item extras from gui
 c. change item removals from gui
+d. make the selected items have a green background
+e. make the selected removals have a red background
 (you will need to use listselectionmodel for this)
 
 5. add server returns (use delete button, which you should change to return item)
