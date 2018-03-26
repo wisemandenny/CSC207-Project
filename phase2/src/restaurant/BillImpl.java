@@ -1,5 +1,6 @@
 package restaurant;
 
+import menu.Ingredient;
 import menu.MenuItem;
 
 public class BillImpl implements Bill {
@@ -116,5 +117,27 @@ public class BillImpl implements Bill {
     @Override
     public double getTipAmount(){
         return tipAmount;
+    }
+
+    @Override
+    public String getBillString() {
+        StringBuilder sb = new StringBuilder("");
+        for (MenuItem item : bill.getItems()) {
+            if (item.getPrice() == 0.0) {
+                sb.append(item.getQuantity() + " " + item.getName() + ": $" + String.format("%.2f", item.getTotal()) + "   Sent back because: " + item.getComment() + ".\n");
+            } else {
+                sb.append(item.getQuantity() + " " + item.getName() + ": $" + String.format("%.2f", item.getTotal()) + "\n");
+            }
+            for (Ingredient addedIng : item.getExtraIngredients()) {
+                sb.append("add " + item.getQuantity() + " " + addedIng.getName() + ": $" + String.format("%.2f", addedIng.getPrice() * item.getQuantity()) + "\n");
+            }
+            for (Ingredient removedIng : item.getRemovedIngredients()) {
+                sb.append("remove " + item.getQuantity() + " " + removedIng.getName() + ": -$" + String.format("%.2f", removedIng.getPrice() * item.getQuantity()) + "\n");
+            }
+
+        }
+        sb.append("Subtotal: $" + String.format("%.2f", getSubtotal()) + "\n");
+        sb.append("Total: $" + String.format("%.2f", getTotal()) + "\n");
+        return sb.toString();
     }
 }

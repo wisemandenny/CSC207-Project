@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.*;
 import menu.Ingredient;
 import restaurant.Restaurant;
@@ -20,6 +21,8 @@ class OrderDetailsPopup {
     StackPane parent;
     List<menu.MenuItem> orderItems = new ArrayList<>();
     menu.MenuItem currentlySelectedItem;
+    List<Ingredient> currentlySelectedItemExtras;
+    List<Ingredient> currentlySelectedItemRemoves;
 
     //there is a cuurrent selected item. that is the one with the loaded  mod lists.
     //set the items quantity every time you change the dropdown menu
@@ -51,7 +54,10 @@ class OrderDetailsPopup {
         for (int i = 1; i < 11; i++) {
             final int j = i;
             MenuItem quantity = new MenuItem(String.valueOf(j));
-            quantity.setOnAction(e -> changeItemQuantity(quantitySelector, j, button.getText())); //will need more here
+            quantity.setOnAction(e -> {
+                changeItemQuantity(quantitySelector, j, button.getText());
+                loadModLists(Restaurant.getInstance().getMenu().getMenuItem(button.getText()), extras, removed);
+            }); //will need more here
             quantitySelector.getItems().add(quantity);
         }
         itemBox.getChildren().addAll(quantitySelector, filler, new Label(button.getText()));
@@ -60,6 +66,8 @@ class OrderDetailsPopup {
     }
 
     private void loadModLists(menu.MenuItem item, JFXListView<JFXButton> extras, JFXListView<JFXButton> removed){
+        currentlySelectedItem = item;
+
         List<Ingredient> allIngredients = Restaurant.getInstance().getMenu().getAllIngredients();
         allIngredients.removeAll(item.getIngredients());
         ObservableList<JFXButton> addableIngredients = FXCollections.observableArrayList();
@@ -74,6 +82,17 @@ class OrderDetailsPopup {
         }
         removed.setPrefHeight(extras.getHeight());
         removed.setItems(removeableIngredients);
+
+        extras.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("ListView selection changed from oldValue = "
+                    + oldValue + " to newValue = " + newValue);
+        });
+        removed.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            ObservableList<JFXButton> selectedItems = removed.getSelectionModel().getSelectedItems();
+            for(JFXButton button : selectedItems){
+                System.out.println("selected item: " + button);
+            }
+        });
     }
     private void loadAddDialog(List<JFXButton> selectedItemButtons){
         //HEADER
@@ -87,6 +106,8 @@ class OrderDetailsPopup {
         extraIngredientsListView.setMinHeight(300);
         JFXListView<JFXButton> removedIngredientsListView = new JFXListView<>();
         removedIngredientsListView.setMinHeight(300);
+        extraIngredientsListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        removedIngredientsListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
 
         //LIST OF SELECTED ITEMS AND THEIR QUANTITIES

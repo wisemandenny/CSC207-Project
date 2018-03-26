@@ -21,7 +21,7 @@ public class OrderImpl implements Order {
 
     OrderImpl(List<MenuItem> items, int id, int tableId, int seatId) {
         orderItems = new ArrayList<>(items);
-        this.id = id; //this might break things
+        this.id = id;
         this.tableId = tableId;
         this.seatId = seatId;
 

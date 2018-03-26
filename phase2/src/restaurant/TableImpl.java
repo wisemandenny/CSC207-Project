@@ -171,4 +171,10 @@ public class TableImpl implements Table {
             seats.get(0).getOrders().addAll(allOrders);
         }
     }
+
+    @Override
+    public String getTableBillString(){
+        String billString = getBill().getBillString();
+        return ("BILL FOR TABLE " + id).concat(billString);
+    }
 }

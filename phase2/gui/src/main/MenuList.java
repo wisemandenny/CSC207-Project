@@ -35,7 +35,7 @@ public class MenuList implements Initializable {
         addMenuLabels();
     }
 
-    public List<JFXButton> getSelectedItems() {
+    List<JFXButton> getSelectedItems() {
         return selectedItems;
     }
 
@@ -85,14 +85,7 @@ public class MenuList implements Initializable {
         } else {
             selectedCell.setBackground(SELECTED_BACKGROUND);
             selectedItems.add(itemButton);
-        }/*
-        if (itemButton.getStyle().contains("-fx-background-color: green")) {
-            itemButton.setStyle("-fx-background-color: transparent");
-            selectedItems.remove(itemButton);
-        } else {
-            itemButton.setStyle("-fx-background-color: green");
-            selectedItems.add(itemButton);
-        }*/
+        }
     }
 
     private void showIngredients(JFXButton itemButton) {

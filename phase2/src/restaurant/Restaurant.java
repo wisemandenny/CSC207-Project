@@ -80,9 +80,7 @@ public class Restaurant extends Observable implements Runnable {
     public void addCookingOrder(int orderId) {
         Order order = findOrder(receivedOrders, orderId);
         receivedOrders.remove(order);
-        checkInventory(order);
-        //Todo: reject items here
-        inventory.removeFromInventory(order);
+        cookingOrders.add(checkInventory(order));
     }
     public void addReadyOrder(int orderId) {
         Order order = findOrder(cookingOrders, orderId);
@@ -102,7 +100,7 @@ public class Restaurant extends Observable implements Runnable {
      *
      * @param o
      */
-    private void checkInventory(Order o) {
+    private Order checkInventory(Order o) {
         List<MenuItem> rejectedItems = new ArrayList<>();
         List<MenuItem> acceptedItems = new ArrayList<>();
 
@@ -130,12 +128,15 @@ public class Restaurant extends Observable implements Runnable {
             acceptedItems.add(itemToAdd);
 
         }
+
         if (!rejectedItems.isEmpty())
             rejectedOrders.add(OrderFactory.makeOrder(rejectedItems, o.getId(), o.getTableId(), o.getSeatId()));
+        Order ord = OrderFactory.makeOrder(Collections.<MenuItem>emptyList(), o.getId(), o.getTableId(), o.getSeatId());
         if (!acceptedItems.isEmpty()) {
-            Order ord = OrderFactory.makeOrder(rejectedItems, o.getId(), o.getTableId(), o.getSeatId());
-            cookingOrders.add(ord);
+            ord = OrderFactory.makeOrder(rejectedItems, o.getId(), o.getTableId(), o.getSeatId());
+            inventory.removeFromInventory(ord);
         }
+        return ord;
     }
     private Order findOrder(List<Order> searchSet, int orderId) {
         for (Order order : searchSet) {

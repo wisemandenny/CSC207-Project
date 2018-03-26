@@ -52,7 +52,7 @@ public class EventFactory {
                     case ORDER:
                         return new OrderEvent(table, seat, splitString[EventFactory.ORDER_ADDRESS]);
                     case BILL:
-                        return new BillEvent(table, seat);
+                        return new BillEvent(table);
                     case SERVERRETURNED:
                         return new ReturnEvent(table, seat, splitString[EventFactory.ORDER_ADDRESS], splitString[EventFactory.COMMENT_ADDRESS]);
                     default:
