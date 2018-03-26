@@ -3,9 +3,11 @@ package events;
 import menu.Ingredient;
 import menu.IngredientFactory;
 import restaurant.Restaurant;
+import restaurant.RestaurantLogger;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 public class ShipmentEvent implements Event {
     private static final int QUANTITY_ADDRESS = 0;
@@ -30,5 +32,10 @@ public class ShipmentEvent implements Event {
     @Override
     public void doEvent() {
         Restaurant.getInstance().addToInventory(shipment);
+        String s = "";
+        for (Map.Entry<Ingredient, Integer> entry : shipment.entrySet()){
+            s += entry.getValue().toString() + " " + entry.getKey().getName() + ", ";
+        }
+        RestaurantLogger.log(Level.INFO, "Shipement of ingredients recieved" + s + " were added to inventory." );
     }
 }
