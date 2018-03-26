@@ -105,4 +105,12 @@ public class TableImpl implements Table {
     public Table getSeat(int index){
         return seats.get(index);
     }
+
+    @Override
+    public double getAutoGrat(){
+        if (seats.size() >= 8)
+            return 0.15;
+        else
+            return 0.0;
+    }
 }

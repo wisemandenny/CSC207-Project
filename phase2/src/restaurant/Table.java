@@ -23,5 +23,7 @@ public interface Table {
     void removeSeats(int amount);
 
     Table getSeat(int index);
+
+    double getAutoGrat();
 }
 
