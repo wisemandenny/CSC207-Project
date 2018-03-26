@@ -169,3 +169,6 @@ INFO: restaurant.TableImpl@64010b8fordered1. Hotdog
 Mar 25, 2018 10:19:46 PM restaurant.RestaurantLogger log
 INFO: restaurant.TableImpl@26318e65ordered1. Chicken Fingers
 
+Mar 25, 2018 10:30:08 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@26318e65ordered1. Coke
+

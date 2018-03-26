@@ -7,9 +7,9 @@ class SeatEvent implements Event{
     private int seatNumber;
     private EventType type;
 
-    SeatEvent(int tableId, char flag) {
+    SeatEvent(int tableId) {
         this.tableId = tableId;
-        type = flag == '+' ? EventType.ADDSEAT : EventType.REMOVESEAT;
+        type = EventType.ADDSEAT;
     }
 
     SeatEvent(int tableId, int seatNumber){

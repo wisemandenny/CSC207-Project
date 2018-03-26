@@ -40,9 +40,9 @@ public class EventFactory {
             case RECEIVEDSHIPMENT:
                 return new ShipmentEvent(splitString[1]);
             case ADDSEAT:
-                return new SeatEvent(Integer.parseInt(splitString[EventFactory.TABLEID_ADDRESS].substring(EventFactory.TABLE_LENGTH)),'+');
+                return new SeatEvent(Integer.parseInt(splitString[EventFactory.TABLEID_ADDRESS].substring(EventFactory.TABLE_LENGTH)));
             case REMOVESEAT:
-                return new SeatEvent(Integer.parseInt(splitString[EventFactory.TABLEID_ADDRESS].substring(EventFactory.TABLE_LENGTH)), '-');
+                return new SeatEvent(Integer.parseInt(splitString[EventFactory.TABLEID_ADDRESS].substring(EventFactory.TABLE_LENGTH)), Integer.parseInt(splitString[2]));
             default:
                 Table table = tables[Integer.parseInt(splitString[EventFactory.TABLEID_ADDRESS].substring(EventFactory.TABLE_LENGTH).split(" > ")[0])];
                 Integer seat = Integer.parseInt(splitString[EventFactory.TABLEID_ADDRESS].substring(EventFactory.TABLE_LENGTH).split(" > ")[1]);
