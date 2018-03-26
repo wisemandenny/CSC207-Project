@@ -6,21 +6,25 @@ import java.util.Map;
 
 public interface Inventory {
     /**
-     * Adds menu.Ingredient i with quantity amount to the restaurant.Inventory.
+     * Adds a shipment with a given quantity of ingredients to Inventory.
      *
-     * @param i      the ingredient being added to the inventory
-     * @param amount the amount of the menu.Ingredient being added
+     * @param shipment a hash map data structure with Ingredients as the keys
+     *                 and an associated Integer value as the amount of Ingredients
+     *                 in the shipment
      */
     void addToInventory(Map<Ingredient, Integer> shipment);
 
     /**
-     * Removes the Ingredients in the specified menu.MenuItem from the restaurant.Inventory.
+     * Removes the Ingredients necessary to fulfill an order o from Inventory
      *
-     * @param item the menu.MenuItem that is composed of certain Ingredients
-     * @param t    the restaurant.TableImpl that ordered the menu.MenuItem
+     * @param o An order of menu items.
      */
     void removeFromInventory(Order o);
 
+    /**
+     * Removes Ingredient i from Inventory.
+     * @param i An Ingredient
+     */
     void removeFromInventory(Ingredient i);
 
     /**
