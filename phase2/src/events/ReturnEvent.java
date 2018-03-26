@@ -1,10 +1,9 @@
 package events;
 
 import menu.MenuItem;
-import restaurant.Order;
-import restaurant.OrderFactory;
-import restaurant.Restaurant;
-import restaurant.Table;
+import restaurant.*;
+
+import java.util.logging.Level;
 
 public class ReturnEvent implements Event {
     private final Order o;
@@ -32,5 +31,7 @@ public class ReturnEvent implements Event {
     @Override
     public void doEvent() {
         Restaurant.getInstance().getTable(o.getTableId()).getSeat(o.getSeatId()).removeFromBill(o);
+        RestaurantLogger.log(Level.INFO, "Table " + String.valueOf(o.getTableId()) + " has returned " +
+                o.toString() + ". Order number " + String.valueOf(o.getId()));
     }
 }
