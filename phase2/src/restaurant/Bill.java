@@ -73,4 +73,6 @@ public interface Bill {
      * @param amount the amount that the guest is paying.
      */
     void pay(double amount);
+
+    String getBillString();
 }

@@ -7,17 +7,14 @@ import java.util.logging.Level;
 
 public class BillEvent implements Event {
     private Table table;
-    private int seat;
 
-    BillEvent(Table table, int seat) {
+    BillEvent(Table table) {
         this.table = table;
-        this.seat = seat;
     }
 
     @Override
     public void doEvent() {
-        //table.getSeat(seat).getBillString()
-        RestaurantLogger.log(Level.INFO, table.toString() + "billed");
+        RestaurantLogger.log(Level.INFO, table.getTableBillString());
     }
 
     @Override

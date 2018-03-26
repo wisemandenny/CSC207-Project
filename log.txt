@@ -219,3 +219,23 @@ Mar 25, 2018 11:26:16 PM restaurant.RestaurantLogger log
 INFO: restaurant.TableImpl@56041086ordered1. Hotdog
 2. Coke
 
+Mar 26, 2018 12:11:25 PM restaurant.RestaurantLogger log
+INFO: addseat number 0 from table 1.
+Mar 26, 2018 12:11:28 PM restaurant.RestaurantLogger log
+INFO: removeseat number 1 from table 1.
+Mar 26, 2018 12:11:28 PM restaurant.RestaurantLogger log
+INFO: removeseat number 1 from table 1.
+Mar 26, 2018 12:11:29 PM restaurant.RestaurantLogger log
+INFO: removeseat number 1 from table 1.
+Mar 26, 2018 12:12:49 PM restaurant.RestaurantLogger log
+INFO: Table 7has had their bill joined.
+Mar 26, 2018 12:13:04 PM restaurant.RestaurantLogger log
+INFO: addseat number 0 from table 7.
+Mar 26, 2018 12:13:04 PM restaurant.RestaurantLogger log
+INFO: addseat number 0 from table 7.
+Mar 26, 2018 12:13:05 PM restaurant.RestaurantLogger log
+INFO: addseat number 0 from table 7.
+Mar 26, 2018 12:13:06 PM restaurant.RestaurantLogger log
+INFO: addseat number 0 from table 7.
+Mar 26, 2018 12:13:08 PM restaurant.RestaurantLogger log
+INFO: addseat number 0 from table 7.
