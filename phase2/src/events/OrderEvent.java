@@ -21,7 +21,8 @@ class OrderEvent implements Event {
     @Override
     public void doEvent() {
         Restaurant.getInstance().addPlacedOrder(order);
-        RestaurantLogger.log(Level.INFO, table.toString() + "ordered" + order.toString());
+        RestaurantLogger.log(Level.INFO, "Table " + String.valueOf(order.getTableId()) + " has ordered " +
+                order.toString() + ". Order number " + String.valueOf(order.getId()));
     }
 
     Order getOrder() {
