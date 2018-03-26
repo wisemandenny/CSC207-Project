@@ -175,18 +175,24 @@ class OrderDetailsPopup {
             sb.append(item.getQuantity() + " " + item.getName());
             if(!item.getExtraIngredients().isEmpty() || !item.getRemovedIngredients().isEmpty()){
                 sb.append(" / ");
+
+                boolean flag = false;
                 if(!item.getExtraIngredients().isEmpty()){
                     for(Ingredient extra : item.getExtraIngredients()){
-                        sb.append("+" + extra.getName() + " "); //check that trailing space
+                        sb.append("+" + extra.getName() + " ");
                     }
-                    sb.deleteCharAt(sb.lastIndexOf(" "));
+                    flag = true;
+                    //sb.deleteCharAt(sb.lastIndexOf(" "));
                 }
                 if(!item.getRemovedIngredients().isEmpty()){
                     for(Ingredient remove : item.getRemovedIngredients()){
-                        sb.append("-" + remove.getName() + " "); //check that trailing space
+                        sb.append("-" + remove.getName() + " ");
                     }
-                    sb.deleteCharAt(sb.lastIndexOf(" "));
+                    flag = true;
+                    //sb.deleteCharAt(sb.lastIndexOf(" "));
                 }
+                if (flag)
+                    sb.deleteCharAt(sb.lastIndexOf(" "));
             }
             sb.append(", ");
         }
