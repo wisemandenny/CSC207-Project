@@ -1,17 +1,11 @@
 package restaurant;
 
-import menu.Ingredient;
 import menu.MenuItem;
 
 public class BillImpl implements Bill {
-    private final int tableId;
     private final Order bill = new OrderImpl();
     private double paidAmount = 0.00;
     private double tipAmount = 0.00;
-
-    BillImpl(int tableId) {
-        this.tableId = tableId;
-    }
 
     @Override
     public void add(Order o) {
@@ -30,45 +24,35 @@ public class BillImpl implements Bill {
         }
     }
 
+    @Override
+    public Order getOrder(){
+        return bill;
+    }
 
     @Override
-    public String getBillString() {
-        StringBuilder sb = new StringBuilder("");
-        sb.append("BILL FOR TABLE #" + tableId + "\n");
-        for (MenuItem item : bill.getItems()) {
-            if (item.getPrice() == 0.0) {
-                sb.append(item.getQuantity() + " " + item.getName() + ": $" + String.format("%.2f", item.getTotal()) + "   Sent back because: " + item.getComment() + ".\n");
-            } else {
-                sb.append(item.getQuantity() + " " + item.getName() + ": $" + String.format("%.2f", item.getTotal()) + "\n");
-            }
-            for (Ingredient addedIng : item.getExtraIngredients()) {
-                sb.append("add " + item.getQuantity() + " " + addedIng.getName() + ": $" + String.format("%.2f", addedIng.getPrice() * item.getQuantity()) + "\n");
-            }
-            for (Ingredient removedIng : item.getRemovedIngredients()) {
-                sb.append("remove " + item.getQuantity() + " " + removedIng.getName() + ": -$" + String.format("%.2f", removedIng.getPrice() * item.getQuantity()) + "\n");
-            }
-
-        }
-        sb.append("Subtotal: $" + String.format("%.2f", getSubtotal()) + "\n");
-        sb.append("Total: $" + String.format("%.2f", getTotal()) + "\n");
-        return sb.toString();
+    public void joinBill(Bill toJoin) {
+        bill.add(toJoin.getOrder());
     }
 
     @Override
     public double getTotal() {
-        return getSubtotal() * (1.00 + Restaurant.getInstance().getTaxRate());
+        return getSubtotal() + getTaxAmount();
     }
 
     @Override
     public double getSubtotal() {
-        double cost = 0.00;
+        double subtotal = 0.00;
 
         for (MenuItem item : bill.getItems()) {
-            cost += (item.getPrice() * item.getQuantity());
-            cost += item.getExtraIngredientPrice();
-            cost -= item.getRemovedIngredientsPrice();
+            subtotal += (item.getPrice() * item.getQuantity());
+            subtotal += item.getExtraIngredientPrice();
+            subtotal -= item.getRemovedIngredientsPrice();
         }
-        return cost;
+        return subtotal;
+    }
+    @Override
+    public double getTaxAmount(){
+        return getSubtotal() * Restaurant.getInstance().getTaxRate();
     }
 
     @Override
@@ -96,5 +80,4 @@ public class BillImpl implements Bill {
     public double getTipAmount(){
         return tipAmount;
     }
-
 }

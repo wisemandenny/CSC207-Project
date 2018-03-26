@@ -10,9 +10,7 @@ class OrderEvent implements Event {
 
     OrderEvent(Table table, int seat, String orderString) {
         this.table = table;
-        order = new OrderImpl(orderString);
-        order.setTableId(table.getId());
-        order.setSeatId(seat);
+        order = OrderFactory.makeOrder(orderString, table.getId(), seat);
     }
 
     @Override

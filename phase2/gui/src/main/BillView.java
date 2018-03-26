@@ -21,32 +21,27 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class BillView implements Initializable {
-    private int shownTable = 1;
-    private int selectedSeat = 0;
     private static final Background GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#EEEEEE"), CornerRadii.EMPTY, Insets.EMPTY));
     private static final Background LIGHT_GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#FAFAFA"), CornerRadii.EMPTY, Insets.EMPTY));
+    private static final Background BLUE_GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#607D8B"), CornerRadii.EMPTY, Insets.EMPTY));
 
-    private final JFXPopup chooseTablePopup = new JFXPopup();
-    @FXML
-    private Label billHeader;
-    @FXML
-    private JFXButton changeTableButton;
-    @FXML
-    private JFXListView<HBox> itemList;
-    @FXML
-    private JFXButton subtotalButton;
-    @FXML
-    private JFXButton totalButton;
-    @FXML
-    private Label unpaidLabel;
-    @FXML
-    private Label paidLabel;
-    @FXML
-    private JFXButton payButton;
-    @FXML
-    private JFXButton deleteButton;
+    @FXML private Label billHeader;
+    @FXML private JFXButton changeTableButton;
+    @FXML private JFXListView<HBox> itemList;
+    @FXML private JFXButton subtotalButton;
+    @FXML private JFXButton totalButton;
+    @FXML private Label unpaidLabel;
+    @FXML private Label paidLabel;
+    @FXML private JFXButton payButton;
+    @FXML private JFXButton deleteButton;
+    @FXML private JFXButton addSeat;
+    @FXML private JFXButton removeSeat;
+
 
     final ObservableList<HBox> tableItems = FXCollections.observableArrayList();
+    private int shownTable = 1;
+    private int selectedSeat = 0;
+    private final JFXPopup chooseTablePopup = new JFXPopup();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -54,7 +49,14 @@ public class BillView implements Initializable {
         itemList.setItems(tableItems);
         changeTable(shownTable);
     }
-
+    private HBox generateSpacerBox(){
+        HBox box = new HBox();
+        Region filler = new Region();
+        HBox.setHgrow(filler, Priority.ALWAYS);
+        box.getChildren().add(filler);
+        filler.setBackground(BLUE_GREY_BACKGROUND);
+        return box;
+    }
     private HBox generateSeatHeader(int seatNumber){
         HBox seatHeaderBox = new HBox();
         if (seatNumber == 0) { //"shared" seat (items that belong to the whole table
@@ -66,14 +68,12 @@ public class BillView implements Initializable {
         seatHeaderBox.setOnMouseClicked(e -> selectSeat(seatNumber));
         return seatHeaderBox;
     }
-
     private HBox generateOrderHeader(Order order, int orderNumber) {
         HBox orderHeaderBox = new HBox();
         orderHeaderBox.getChildren().add(new JFXButton("Order " + orderNumber + " (id: " + order.getId() + ")"));
         orderHeaderBox.setBackground(LIGHT_GREY_BACKGROUND);
         return orderHeaderBox;
     }
-
     private HBox generateItemListEntry(MenuItem item) {
         HBox itemNameAndPrice = new HBox();
         Region filler = new Region();
@@ -83,20 +83,45 @@ public class BillView implements Initializable {
         itemNameAndPrice.getChildren().add(new JFXButton(String.format("%.2f", item.getQuantity() * item.getPrice())));
         return itemNameAndPrice;
     }
-
-    private HBox generateTotalBox(double amount) {
+    private HBox generateSubtotalBox(double amount) {
         HBox box = new HBox();
         Region filler = new Region();
         HBox.setHgrow(filler, Priority.ALWAYS);
+        box.getChildren().add(new Label("Subtotal: "));
         box.getChildren().add(filler);
         box.getChildren().add(new JFXButton(String.format("%.2f", amount)));
         return box;
     }
-
+    private HBox generateTaxBox(double amount){
+        HBox box = new HBox();
+        Region filler = new Region();
+        HBox.setHgrow(filler, Priority.ALWAYS);
+        box.getChildren().add(new Label("Tax (" + Restaurant.getInstance().getTaxRate()*100 +"%):"));
+        box.getChildren().add(filler);
+        box.getChildren().add(new JFXButton(String.format("%.2f", amount)));
+        return box;
+    }
+    private HBox generateGratuityBox(double amount){
+        HBox box = new HBox();
+        Region filler = new Region();
+        HBox.setHgrow(filler, Priority.ALWAYS);
+        box.getChildren().add(new Label("AN AUTOMATIC GRATUITY OF 18% HAS BEEN ADDED TO YOUR BILL"));
+        box.getChildren().add(filler);
+        box.getChildren().add(new JFXButton(String.format("%.2f", amount)));
+        return box;
+    }
+    private HBox generateTotalBox(double amount){
+        HBox box = new HBox();
+        Region filler = new Region();
+        HBox.setHgrow(filler, Priority.ALWAYS);
+        box.getChildren().add(new Label("Total: "));
+        box.getChildren().add(filler);
+        box.getChildren().add(new JFXButton(String.format("%.2f", amount)));
+        return box;
+    }
     private void selectSeat(int seatNumber){
         selectedSeat = seatNumber;
     }
-
     private void initChooseTablePopup(int numOfTables) {
         VBox box = new VBox();
         for (int i = 1; i < numOfTables; i++) {
@@ -109,32 +134,36 @@ public class BillView implements Initializable {
         chooseTablePopup.setPopupContent(box);
         changeTableButton.setOnAction(e -> chooseTablePopup.show(changeTableButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
     }
-
+    private void updatePaid(Table table, double paidAmount) {
+        unpaidLabel.setText(String.format("%.2f", table.getBill().getTotal() - paidAmount));
+        paidLabel.setText(String.format("%.2f", paidAmount));
+    }
+    @FXML private void addSeat(){
+        Restaurant.getInstance().newEvent("addseat | table " + shownTable);
+    }
+    @FXML private void removeSeat(){
+        Restaurant.getInstance().newEvent("removeseat | table " + shownTable + " | " + selectedSeat);
+    }
     void changeTable(int selectedTable) {
         shownTable = selectedTable;
         refresh();
         //updatePaid() TODO: implement this
     }
-
-    private void updatePaid(Table table, double paidAmount) {
-        unpaidLabel.setText(String.format("%.2f", table.getBill().getTotal() - paidAmount));
-        paidLabel.setText(String.format("%.2f", paidAmount));
-    }
-    public void paySelectedItems() {
-        //ability to select items from the bill similar to menulist
-    }
     int getShownTable() {
         return shownTable;
     }
-
     int getSelectedSeat() {
         return selectedSeat;
+    }
+    public void paySelectedItems() {
+        //ability to select items from the bill similar to menulist
     }
 
     public void refresh(){
         tableItems.clear();
         billHeader.setText("BILL FOR TABLE " + shownTable);
-        List<List<Order>> allTableOrders = Restaurant.getInstance().getTable(shownTable).getAllOrders();
+        Table selectedTable = Restaurant.getInstance().getTable(shownTable);
+        List<List<Order>> allTableOrders = selectedTable.getAllOrders();
         if(!allTableOrders.isEmpty()){
             int seatNumber = 0;
             for(List<Order> seatOrderList : allTableOrders){
@@ -148,10 +177,16 @@ public class BillView implements Initializable {
                         seatSubtotal += item.getQuantity() * item.getPrice();
                     }
                 }
-                tableItems.add(generateTotalBox(seatSubtotal));
+                tableItems.add(generateSubtotalBox(seatSubtotal));
             }
-        tableItems.add(generateTotalBox(Restaurant.getInstance().getTable(shownTable).getBill().getSubtotal()));
-        tableItems.add(generateTotalBox(Restaurant.getInstance().getTable(shownTable).getBill().getTotal()));
+
+            tableItems.add(generateSpacerBox());
+            tableItems.add(generateSubtotalBox(selectedTable.getBill().getSubtotal()));
+            tableItems.add(generateTaxBox(selectedTable.getBill().getTaxAmount()));
+            if (selectedTable.getAutogratuityAmount() > 0) {
+                tableItems.add(generateGratuityBox(selectedTable.getAutogratuityAmount()));
+            }
+            tableItems.add(generateTotalBox(selectedTable.getBill().getTotal() + selectedTable.getAutogratuityAmount()));
         } else {
             HBox noOrderFoundBox = new HBox();
             noOrderFoundBox.getChildren().add(new Label("No orders found for Table #" + shownTable));

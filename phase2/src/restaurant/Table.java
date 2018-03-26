@@ -15,12 +15,13 @@ public interface Table {
     void comp(Order o);
 
     Bill getBill();
+    double getAutogratuityAmount();
 
     int getId();
 
-    void addSeats(int amount);
+    void addSeat();
 
-    void removeSeats(int amount);
+    void removeSeat(int seatNumber);
 
     Table getSeat(int index);
 

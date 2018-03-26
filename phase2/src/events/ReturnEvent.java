@@ -2,7 +2,7 @@ package events;
 
 import menu.MenuItem;
 import restaurant.Order;
-import restaurant.OrderImpl;
+import restaurant.OrderFactory;
 import restaurant.Restaurant;
 import restaurant.Table;
 
@@ -11,9 +11,7 @@ public class ReturnEvent implements Event {
 
     ReturnEvent(Table table, int seat, String order, String reasonList) {
         //set the price of the item in the order to be 0, then add the reason somewhere
-        o = new OrderImpl(order);
-        o.setTableId(table.getId());
-        o.setSeatId(seat);
+        o = OrderFactory.makeOrder(order, table.getId(), seat);
 
         int index = 0;
         String[] comments = new String[o.getItems().size()];

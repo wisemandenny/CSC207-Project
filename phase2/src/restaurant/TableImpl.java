@@ -19,7 +19,7 @@ public class TableImpl implements Table {
      */
     TableImpl(int id, boolean isSubtable) {
         this.id = id;
-        bill = new BillImpl(id);
+        bill = new BillImpl();
         //initialize all tables with 4 seats
         if(!isSubtable) {
             for (int i = 0; i <= 4; i++) {
@@ -55,7 +55,17 @@ public class TableImpl implements Table {
 
     @Override
     public Bill getBill(){
-        return bill;
+        if(seats.isEmpty()){ //seat bill
+            return bill;
+        } else {
+            //add all the bills together and return that bill
+            Bill joinedBill = new BillImpl();
+            for(Table seat : seats){
+                joinedBill.joinBill(seat.getBill());
+            }
+            return  joinedBill;
+        }
+
     }
 
     @Override
@@ -75,28 +85,18 @@ public class TableImpl implements Table {
     }
 
     @Override
-    public void addSeats(int amount){
-        if (amount > 0) { //the amount of seats being removed should always be positive
-            for (int i = 1; i < amount; i++){
-                int lastSeat = seats.size()-1;
-                //int last = seats.get(seats.size() - 1).getId(); //get the index of the last seat
-                // TODO this might throw an error if the array list is empty
-                seats.add(new TableImpl(lastSeat + i, true)); //add a new seat at this index
-            }
-        }
+    public void addSeat(){
+        seats.add(new TableImpl(seats.size()+1, true));
     }
 
     @Override
-    public void removeSeats(int amount){
-        if (amount > 0 && seats.size() + amount >= 0) { //if the amount of seats being removed from the table is positive and there are enough seats to remove
-//if there are enough seats to remove
-            for (Table s : seats){
-                if (! s.getOrders().isEmpty()){ //check if there are orders for that seat.
-                    throw new IllegalArgumentException("You cannot remove seats because orders have been made!");
-                }
-            }
-            for (int i = 1; i <= amount; i++) { //no orders on any of the seats
-                seats.remove(seats.size() - 1); //remove the seat
+    public void removeSeat(int seatNumber){
+        if (seats.size() - 1 >= 0 && seats.get(seatNumber) != null) { //if there are seats to remove, and the sel
+            Table s = seats.get(seatNumber);
+            if (s.getOrders().isEmpty()){
+                seats.remove(s);
+            } else {
+                throw new IllegalArgumentException("You cannot remove seats because orders have been made!");
             }
         }
     }
@@ -107,10 +107,10 @@ public class TableImpl implements Table {
     }
 
     @Override
-    public double getAutoGrat(){
-        if (seats.size() >= 8)
-            return 0.15;
-        else
-            return 0.0;
+    public double getAutogratuityAmount() {
+        if(seats.size() >= 8){
+            return bill.getSubtotal() * Restaurant.getInstance().getAutoGratRate();
+        }
+        return 0.0;
     }
 }

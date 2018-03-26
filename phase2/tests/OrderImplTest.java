@@ -1,7 +1,7 @@
 import menu.*;
 import org.junit.Test;
 import restaurant.Order;
-import restaurant.OrderImpl;
+import restaurant.OrderFactory;
 import restaurant.Restaurant;
 
 import static org.junit.Assert.assertFalse;
@@ -15,7 +15,7 @@ public class OrderImplTest {
     public void testGetItems(){
         r.start();
         // order
-        Order order = new OrderImpl("1 Hamburger / +Ketchup -Bacon, 1 Hamburger, 1 Coke");
+        Order order = OrderFactory.makeOrder("1 Hamburger / +Ketchup -Bacon, 1 Hamburger, 1 Coke");
         assertTrue(order.getItems().size() == 3);
 
         // Check if there is a plain hamburger in the inventory
@@ -41,11 +41,11 @@ public class OrderImplTest {
     @Test
     public void testAdd() {
         // order
-        Order order = new OrderImpl("1 Hamburger");
+        Order order = OrderFactory.makeOrder("1 Hamburger");
         assertTrue(order.getItems().size() == 1);
 
         // Add a new order
-        Order next = new OrderImpl("1 Hamburger / +Ketchup -Bacon, 1 Coke");
+        Order next = OrderFactory.makeOrder("1 Hamburger / +Ketchup -Bacon, 1 Coke");
         order.add(next);
         assertTrue(order.getItems().size() == 3);
 
@@ -68,8 +68,8 @@ public class OrderImplTest {
     // is still in the list
     @Test
     public void testRemove() {
-        Order order = new OrderImpl("1 Hamburger / +Ketchup -Bacon, 2 Hamburger / +Patty, 1 Coke");
-        Order burger = new OrderImpl("1 Hamburger / +Patty");
+        Order order = OrderFactory.makeOrder("1 Hamburger / +Ketchup -Bacon, 2 Hamburger / +Patty, 1 Coke");
+        Order burger = OrderFactory.makeOrder("1 Hamburger / +Patty");
         order.remove(burger);
         // we are only removing 1 Hamburger
         assertTrue(order.getItems().size() == 3);
@@ -96,15 +96,15 @@ public class OrderImplTest {
 //        assertFalse(order.getItems().contains(doubleBurger));
         assertTrue(order.getItems().contains(Coke));
 
-        order.remove(new OrderImpl("1 Hamburger / +Patty"));
+        order.remove(OrderFactory.makeOrder("1 Hamburger / +Patty"));
         assertTrue(order.getItems().size() == 2);
     }
 
     @Test
     public void testAddThenRemove(){
-        Order order = new OrderImpl("1 Hamburger");
-        Order extra = new OrderImpl("1 Hotdog");
-        Order burgerOrder = new OrderImpl("1 Hamburger");
+        Order order = OrderFactory.makeOrder("1 Hamburger");
+        Order extra = OrderFactory.makeOrder("1 Hotdog");
+        Order burgerOrder = OrderFactory.makeOrder("1 Hamburger");
         order.add(extra);
         assertTrue(order.getItems().size() == 2);
         MenuItem burger = menu.getMenuItem("Hamburger");
@@ -116,7 +116,7 @@ public class OrderImplTest {
     }
     @Test
     public void testReturned() {
-        Order order = new OrderImpl("1 Hamburger / +Ketchup -Bacon, 1 Hamburger, 1 Coke");
+        Order order = OrderFactory.makeOrder("1 Hamburger / +Ketchup -Bacon, 1 Hamburger, 1 Coke");
         assertTrue(order.getItems().get(1).getPrice() == 7.99);
         MenuItem item = menu.getMenuItem("Hamburger");
         item.setComment("Undercooked.");
@@ -127,14 +127,14 @@ public class OrderImplTest {
 
     @Test
     public void testGetIngredients() {
-        Order order = new OrderImpl("1 Hamburger / +Ketchup -Bacon, 1 Hamburger, 1 Coke");
+        Order order = OrderFactory.makeOrder("1 Hamburger / +Ketchup -Bacon, 1 Hamburger, 1 Coke");
         assertTrue(order.getIngredients().contains(IngredientFactory.makeIngredient("BurgerBun")));
         assertTrue(order.getIngredients().size() == 15);
     }
 
     @Test
     public void testToString() {
-        Order order = new OrderImpl("1 Hamburger / +Bacon -Cheese, 1 Hamburger / +Patty, 1 Coke");
+        Order order = OrderFactory.makeOrder("1 Hamburger / +Bacon -Cheese, 1 Hamburger / +Patty, 1 Coke");
         String expected = "1. Hamburger\nBacon\n2. Hamburger\nPatty\n3. Coke\n";
         assertTrue(expected.equals(order.toString()));
     }
