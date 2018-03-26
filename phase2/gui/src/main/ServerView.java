@@ -56,7 +56,11 @@ public class ServerView extends Observable implements Initializable, Observer{
         for (JFXButton button : selectedItemButtons) {
             sb.append("1 " + button.getText() + ", ");
         }
-        sb.delete(sb.lastIndexOf(", "), sb.length());
+        try {
+            sb.delete(sb.lastIndexOf(", "), sb.length());
+        } catch (StringIndexOutOfBoundsException ex) {
+            System.out.println("make sure you select the item properly on the left :)");
+        }
         Restaurant.getInstance().newEvent(sb.toString());
         try { //delay this thread to allow the backend to catch up
             Thread.sleep(300);

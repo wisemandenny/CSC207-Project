@@ -77,3 +77,95 @@ Mar 25, 2018 6:06:33 PM restaurant.RestaurantLogger log
 INFO: restaurant.TableImpl@3e76b548ordered1. Coke
 2. Chicken Fingers
 
+Mar 25, 2018 8:17:46 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@51befed6ordered1. Hotdog
+
+Mar 25, 2018 9:03:10 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@52480accordered1. Veggie Burger
+
+Mar 25, 2018 9:03:58 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@52480accordered1. Fries
+
+Mar 25, 2018 9:07:08 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@5a02003aordered1. Chicken Fingers
+
+Mar 25, 2018 9:08:38 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@5a02003aordered1. Chicken Fingers
+
+Mar 25, 2018 9:08:52 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@5a02003aordered1. Fries
+
+Mar 25, 2018 9:08:58 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@5a02003aordered1. Fries
+
+Mar 25, 2018 9:10:15 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@3b392e1bordered1. Fries
+
+Mar 25, 2018 9:10:19 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@3b392e1bordered1. Fries
+
+Mar 25, 2018 9:10:21 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@3b392e1bordered1. Fries
+
+Mar 25, 2018 9:10:25 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@3b392e1bordered1. Fries
+
+Mar 25, 2018 9:10:26 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@3b392e1bordered1. Fries
+
+Mar 25, 2018 9:10:29 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@3b392e1bordered1. Fries
+
+Mar 25, 2018 9:13:09 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@2722d656ordered1. Hotdog
+
+Mar 25, 2018 9:13:12 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@2722d656ordered1. Hotdog
+
+Mar 25, 2018 9:13:15 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@2722d656ordered1. Hotdog
+
+Mar 25, 2018 9:13:17 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@2722d656ordered1. Hotdog
+
+Mar 25, 2018 9:13:20 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@2722d656ordered1. Hotdog
+
+Mar 25, 2018 9:19:30 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@399c5de6ordered1. Chicken Burger
+
+Mar 25, 2018 9:19:58 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@399c5de6ordered1. Chicken Burger
+2. Veggie Burger
+3. Fries
+4. Hotdog
+
+Mar 25, 2018 9:42:57 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@1ffa3c17ordered1. Hotdog
+2. Veggie Burger
+3. Chicken Burger
+
+Mar 25, 2018 9:50:41 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@61f959feordered1. Chicken Fingers
+
+Mar 25, 2018 9:55:40 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@1ffa3c17ordered1. Coke
+
+Mar 25, 2018 9:55:41 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@1ffa3c17ordered1. Coke
+
+Mar 25, 2018 9:58:18 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@4657b3a0ordered1. Hotdog
+
+Mar 25, 2018 10:02:01 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@64010b8fordered1. Hotdog
+
+Mar 25, 2018 10:02:42 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@64010b8fordered1. Hotdog
+2. Chicken Burger
+3. Veggie Burger
+4. Fries
+
+Mar 25, 2018 10:19:46 PM restaurant.RestaurantLogger log
+INFO: restaurant.TableImpl@26318e65ordered1. Chicken Fingers
+

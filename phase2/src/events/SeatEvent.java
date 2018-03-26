@@ -4,13 +4,18 @@ import restaurant.Restaurant;
 
 class SeatEvent implements Event{
     private int tableId;
-    private int amount;
+    private int seatNumber;
     private EventType type;
 
-    SeatEvent(int tableId, int amount, char flag) {
+    SeatEvent(int tableId, char flag) {
         this.tableId = tableId;
-        this.amount = amount;
         type = flag == '+' ? EventType.ADDSEAT : EventType.REMOVESEAT;
+    }
+
+    SeatEvent(int tableId, int seatNumber){
+        this.tableId = tableId;
+        this.seatNumber = seatNumber;
+        type = EventType.REMOVESEAT;
     }
 
     @Override
@@ -20,7 +25,7 @@ class SeatEvent implements Event{
 
     @Override
     public void doEvent() {
-        if(type.equals(EventType.ADDSEAT)) Restaurant.getInstance().getTable(tableId).addSeats(amount);
-        else Restaurant.getInstance().getTable(tableId).removeSeats(amount);
+        if(type.equals(EventType.ADDSEAT)) Restaurant.getInstance().getTable(tableId).addSeat();
+        else Restaurant.getInstance().getTable(tableId).removeSeat(seatNumber);
     }
 }

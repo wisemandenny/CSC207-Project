@@ -16,6 +16,8 @@ public class Restaurant extends Observable implements Runnable {
     private final List<Order> rejectedOrders = new ArrayList<>();
     private final List<Order> readyOrders = new ArrayList<>();
     private final List<Order> deliveredOrders = new ArrayList<>();
+    private final double autoGratRate = 0.15;
+
     private double taxRate;
     private boolean running;
     private TableImpl[] tables;
@@ -49,6 +51,10 @@ public class Restaurant extends Observable implements Runnable {
     public static Restaurant getInstance(){ return Restaurant.instance; }
     public static void end(){ Restaurant.getInstance().running = false; }
     public Menu getMenu() { return menu; }
+    public double getTaxRate() {
+        return taxRate;
+    }
+    public double getAutoGratRate() { return autoGratRate; }
     public int getNumOfTables() { return tables.length; }
     public void newEvent(String eventString) { eventManager.addEventFromString(eventString); }
 
@@ -137,10 +143,9 @@ public class Restaurant extends Observable implements Runnable {
 
         }
         if (!rejectedItems.isEmpty())
-            rejectedOrders.add(new OrderImpl(rejectedItems, o.getId(), o.getTableId()));
+            rejectedOrders.add(OrderFactory.makeOrder(rejectedItems, o.getId(), o.getTableId(), o.getSeatId()));
         if (!acceptedItems.isEmpty()) {
-            Order ord = new OrderImpl(acceptedItems, o.getId(), o.getTableId());
-            ord.setSeatId(o.getSeatId()); //TODO: check
+            Order ord = OrderFactory.makeOrder(rejectedItems, o.getId(), o.getTableId(), o.getSeatId());
             cookingOrders.add(ord);
         }
     }
@@ -162,11 +167,6 @@ public class Restaurant extends Observable implements Runnable {
         }
         */
     }
-
-    double getTaxRate() {
-        return taxRate;
-    }
-
     Table[] getTables(){ return tables; }
 
     public Table getTable(int tableId) {

@@ -53,7 +53,7 @@ public class InventoryImplTest {
         ingredients.add(makeIngredient("Tomato"));
         MenuItem item = makeMenuItem("Hamburger", 100.00, ingredients);
         items.add(item);
-        Order o = makeOrder(items, 19, 77);
+        Order o = makeOrder(items, 19, 77, 1);
         currValue = inventory.getContents().get(ingredient);
         inventory.removeFromInventory(o);
 

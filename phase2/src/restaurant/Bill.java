@@ -7,11 +7,14 @@ public interface Bill {
 
     void comp(Order o);
 
-    String getBillString();
+    void joinBill(Bill toJoin);
 
+    Order getOrder();
+
+    double getTaxAmount();
+    double getSubtotal();
     double getTotal();
 
-    double getSubtotal();
 
     double getPaidAmount();
 

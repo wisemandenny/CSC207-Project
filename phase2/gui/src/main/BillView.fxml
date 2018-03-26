@@ -2,7 +2,8 @@
 
 <?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.BillView">
@@ -24,16 +25,24 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label text="Thank you very much for dining with us, and we hope to see you again soon!" textFill="WHITE" GridPane.columnSpan="3" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Lucida Handwriting Italic" size="11.0" />
-               </font>
-            </Label>
-             <JFXButton fx:id="changeTableButton" alignment="BASELINE_LEFT" scaleX="1.5" scaleY="1.5" style="-fx-background-color: #FF5722;" text="Pick a table..." textFill="WHITE" translateX="30.0" translateY="12.0">
+             <JFXButton fx:id="changeTableButton" alignment="BASELINE_LEFT" scaleX="1.5" scaleY="1.5" style="-fx-background-color: #FF5722;" text="Pick a table..." textFill="WHITE">
                  <font>
                      <Font size="9.0" />
                  </font>
+               <GridPane.margin>
+                  <Insets left="30.0" top="12.0" />
+               </GridPane.margin>
              </JFXButton>
+            <JFXButton fx:id="addSeat" onAction="#addSeat" style="-fx-background-color: #FF5722;" text="SEAT +" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+               <GridPane.margin>
+                  <Insets right="30.0" top="12.0" />
+               </GridPane.margin>
+            </JFXButton>
+            <JFXButton fx:id="removeSeat" onAction="#removeSeat" style="-fx-background-color: #FF5722;" text="SEAT - " textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="30.0" top="36.0" />
+               </GridPane.margin>
+            </JFXButton>
          </children>
       </GridPane>
       <SplitPane prefHeight="410.0" prefWidth="479.0">

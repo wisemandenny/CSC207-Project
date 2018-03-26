@@ -53,7 +53,6 @@ public class Main extends Application implements Observer {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Restaurant Manager");
         primaryStage.show();
-
     }
 
     @Override
