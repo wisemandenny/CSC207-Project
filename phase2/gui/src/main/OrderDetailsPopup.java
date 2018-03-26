@@ -19,6 +19,13 @@ import java.util.List;
 class OrderDetailsPopup {
     StackPane parent;
     List<menu.MenuItem> orderItems = new ArrayList<>();
+    menu.MenuItem currentlySelectedItem;
+
+    //there is a cuurrent selected item. that is the one with the loaded  mod lists.
+    //set the items quantity every time you change the dropdown menu
+
+    //every time an ingredient is selected in the left list, add it to the item
+    //every time an ingredient is selected in the right list, remove it from the item
 
     OrderDetailsPopup(StackPane parent, List<JFXButton> selectedItemButtons){
         this.parent = parent;
@@ -32,8 +39,9 @@ class OrderDetailsPopup {
         dropdownMenu.setText(String.valueOf(quantity));
         menu.MenuItem updateItem = Restaurant.getInstance().getMenu().getMenuItem(itemName);
         orderItems.get(orderItems.indexOf(updateItem)).setQuantity(quantity);
-        orderItems.forEach(e -> System.out.println(e.getQuantity() + " " + e.getName()));
     }
+
+    //private void changeItemExtras(menu.MenuItem item, )
 
     private HBox makeItemHBox(JFXButton button, JFXListView extras, JFXListView removed){
         HBox itemBox = new HBox();

@@ -1,33 +1,31 @@
-DENNY'S REFACTORING TODO
-1. reject items do to lack of inventory shortage
-gui
-integrate gui with our code
-
 IMPORTANT!IMPORTANT!IMPORTANT!
 OrderEvent.java line 20     Restaurant.addPlacedOrder(order);
 MUST BE CHANGED BACK. WAS CHANGED FOR TESTING TOTALS.
 
-
-
 GUI TODO:
 1. make the menu list a list of sublists, when you click the item it should show the ingredients as a sublist
 2. show the prices in the menu
-3. show the bill info in the tables
-4. make the UI reactive, especially the list of tables
-5. make 2 options for the left sidebar: menu and order status
-6. add plus and minus button to change number of seats (milan is implementing the backend)
 n: use material css
 
+3. add support for payment
+a. pay function in billview
+b. need a dialog box to input amount (and need to design this)
+c. update the paid/unpaid labels
+d. make a paid event in the backend
 
+4. extend ordering
+a. change item quantity from gui DONE
+b. change item extras from gui
+c. change item removals from gui
+(you will need to use listselectionmodel for this)
 
+5. add server returns (use delete button, which you should change to return item)
+a. add a dialog box to add a reason for return
+b.
 
+6. remake menulist.java selection method using the built in listselectionmodel thing
+7. make billview grow properly
 
-
-
-
-
-add seat orders (like the ability to get seperate bills)
-add junit testing
 
 EXTRA FEATURES
 ability to cancel before they're cooked
@@ -42,27 +40,21 @@ add menu items
 
 
 TIMELINE:
-refactored before new features March 15th (3 days)
-
-designed gui March 16th
-
-build the gui with tests March 20th use material ui https://github.com/jfoenixadmin/JFoenix
-
-added a test suite March 20th
-
-integrate the gui to the codebase March 22nd
-
-added at least 1 extra feature March 24th
-
+refactored before new features March 15th (3 days) DONE
+designed gui March 16th DONE
+build the gui with tests March 20th use material ui https://github.com/jfoenixadmin/JFoenix DONE
+added a test suite March 20th DONE
+integrate the gui to the codebase March 22nd DONE
+added at least 1 extra feature March 24th DONE?
 added at least 3 extra features March 26th
-
 Code refactored  and documented March 28th
+Make UML Diagram March 29th
 
 DUTIES:
-refactoring code before new features: Denny
-design gui: all 4 (meet somewhere, time and place TBD)
-test suite: ak (TBD,   milan)
-build gui: denny (TBD,  milan)
-
+refactoring code before new features: denny
+design gui: denny
+test suite: milan
+build gui: denny
+logger: achilles
 
 
