@@ -37,9 +37,15 @@ public class TableImpl implements Table {
         orders.add(o);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Order> getOrders(){ return orders; }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<List<Order>> getAllOrders(){
         List<List<Order>> allOrders = new ArrayList<>();
@@ -48,11 +54,18 @@ public class TableImpl implements Table {
         }
         return allOrders;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getId() {
         return id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Bill getBill(){
         if(seats.isEmpty()){ //seat bill
@@ -68,30 +81,48 @@ public class TableImpl implements Table {
 
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addOrderToBill(Order o) {
         orders.remove(o);
         bill.add(o);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeFromBill(Order o) {
         bill.remove(o);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void comp(Order o) {
         bill.comp(o);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addSeat(){
         seats.add(new TableImpl(seats.size()+1, true));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeSeat(int seatNumber){
         if (seats.size() - 1 >= 0 && seats.get(seatNumber) != null) { //if there are seats to remove, and the sel
+
             Table s = seats.get(seatNumber);
             if (s.getOrders().isEmpty()){
                 seats.remove(s);
@@ -101,11 +132,17 @@ public class TableImpl implements Table {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Table getSeat(int index){
         return seats.get(index);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getAutogratuityAmount() {
         if(seats.size() >= 8){
@@ -114,6 +151,9 @@ public class TableImpl implements Table {
         return 0.0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void joinCheques() {
         if(seats.isEmpty()){
