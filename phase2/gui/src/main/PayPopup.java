@@ -91,7 +91,9 @@ class PayPopup {
 
     private void appendText(String appendChar){
         StringBuilder sb = new StringBuilder(inputAmountField.getText());
-        sb.append(appendChar);
+        if(!(appendChar.equals(".") && sb.toString().contains("."))){
+            sb.append(appendChar);
+        }
         inputAmountField.setText(sb.toString());
     }
     private void pay(){

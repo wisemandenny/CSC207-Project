@@ -149,7 +149,8 @@ public class CookOrderView extends Observable implements Initializable {
                 Restaurant.getInstance().newEvent("update | received | "+orderId);
                 deselectBox(orderBox.getVBox());
                 sleep();
-                refresh();
+                setChanged();
+                notifyObservers();
                 break;
             }
         }
@@ -162,7 +163,8 @@ public class CookOrderView extends Observable implements Initializable {
                 Restaurant.getInstance().newEvent("update | fired | "+orderId);
                 deselectBox(orderBox.getVBox());
                 sleep();
-                refresh();
+                setChanged();
+                notifyObservers();
                 break;
             }
         }

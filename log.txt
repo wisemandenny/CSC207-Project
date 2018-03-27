@@ -338,3 +338,6 @@ INFO: Table 1 has ordered 1. Hotdog
 Mar 27, 2018 3:13:46 PM restaurant.RestaurantLogger log
 INFO: Table 1 has ordered 1. Hotdog
 . Order number 2
+Mar 27, 2018 3:21:24 PM restaurant.RestaurantLogger log
+INFO: Table 1 has ordered 1. Fries
+. Order number 1

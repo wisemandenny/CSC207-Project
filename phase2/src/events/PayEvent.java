@@ -31,5 +31,9 @@ public class PayEvent implements Event {
         System.out.println("Bill unpaid amount: " + bill.getUnpaidAmount());
         System.out.println("Bill paid amount :" + bill.getPaidAmount());
         System.out.println("Amount to be paid: " + paymentAmount);
+        //all these souts are for testing
+
+        //TODO: @Achilles please log the payment info here.
+        String logString = "Payment of $" + paymentAmount + " received from Table " + table.getId() + " seat " + seatNumber;
     }
 }
