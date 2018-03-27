@@ -31,7 +31,12 @@ public class ReturnEvent implements Event {
     @Override
     public void doEvent() {
         Restaurant.getInstance().getTable(o.getTableId()).getSeat(o.getSeatId()).removeFromBill(o);
-        RestaurantLogger.log(Level.INFO, "Table " + String.valueOf(o.getTableId()) + " has returned " +
-                o.toString() + ". Order number " + String.valueOf(o.getId()));
+        String s = "";
+        for (MenuItem item: o.getItems()){
+            if (item.getComment() != null && !item.getComment().isEmpty()){
+                s += item.getName() + " for the following reason(s): " + item.getComment();
+            }
+        }
+        RestaurantLogger.log(Level.INFO, "Table " + String.valueOf(o.getTableId()) + " has returned " + s + ". Order number " + String.valueOf(o.getId()));
     }
 }
