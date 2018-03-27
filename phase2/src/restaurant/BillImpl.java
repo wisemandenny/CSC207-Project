@@ -64,7 +64,6 @@ public class BillImpl implements Bill {
     @Override
     public double getSubtotal() {
         double subtotal = 0.00;
-        if()
         for (MenuItem item : bill.getItems()) {
             subtotal += (item.getPrice() * item.getQuantity());
             subtotal += item.getExtraIngredientPrice();
