@@ -26,6 +26,7 @@ public class BillView extends Observable implements Initializable {
     private static final Background LIGHT_GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#FAFAFA"), CornerRadii.EMPTY, Insets.EMPTY));
     private static final Background BLUE_GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#607D8B"), CornerRadii.EMPTY, Insets.EMPTY));
 
+    @FXML private VBox billViewRoot;
     @FXML private Label billHeader;
     @FXML private JFXButton changeTableButton;
     @FXML private JFXListView<HBox> itemList;
@@ -174,6 +175,7 @@ public class BillView extends Observable implements Initializable {
         return selectedSeat;
     }
     public void paySelectedItems() {
+        PayPopup payPopup = new PayPopup((StackPane)billViewRoot.getParent().getParent().getParent(), Restaurant.getInstance().getTable(shownTable).getSeat(selectedSeat));
         //ability to select items from the bill similar to menulist
     }
 

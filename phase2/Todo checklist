@@ -15,11 +15,10 @@ d. make a paid event in the backend
 
 4. extend ordering
 a. change item quantity from gui DONE
-b. change item extras from gui
+b. change item extras from gui DONE
 c. change item removals from gui
-d. make the selected items have a green background
-e. make the selected removals have a red background
-(you will need to use listselectionmodel for this)
+d. make the selected items have a green background DONE
+e. make the selected removals have a red background DONE
 
 5. add server returns (use delete button, which you should change to return item)
 a. add a dialog box to add a reason for return

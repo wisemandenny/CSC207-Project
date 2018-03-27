@@ -15,8 +15,9 @@ import restaurant.Restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-class OrderDetailsPopup {
+class OrderDetailsPopup extends Observable {
     //private static final Background SELECTED_BACKGROUND = new Background(new BackgroundFill(Color.web("#29B6F6"), CornerRadii.EMPTY, Insets.EMPTY));
     private static final Background RED_BACKGROUND = new Background(new BackgroundFill(Color.web("#EF5350"), CornerRadii.EMPTY, Insets.EMPTY));
     private static final Background GREEN_BACKGROUND = new Background(new BackgroundFill(Color.web("#9CCC65"), CornerRadii.EMPTY, Insets.EMPTY));
@@ -71,7 +72,7 @@ class OrderDetailsPopup {
     }
     private void selectEvent(Hyperlink clickedHyperlink, boolean isExtra){
         JFXListCell<Hyperlink> selectedCell = (JFXListCell<Hyperlink>) clickedHyperlink.getParent();
-        if(isExtra) {
+        if(isExtra) { //add the modifier
             if (selectedCell.getBackground().equals(GREEN_BACKGROUND)) {
                 selectedCell.setBackground(Background.EMPTY);
                 clickedHyperlink.setBackground(Background.EMPTY);
@@ -81,12 +82,12 @@ class OrderDetailsPopup {
                 clickedHyperlink.setBackground(Background.EMPTY);
                 orderItems.get(orderItems.indexOf(currentlySelectedItem)).getExtraIngredients().add(Restaurant.getInstance().getMenu().getMenuIngredient(clickedHyperlink.getText()));
             }
-        } else {
-            if (selectedCell.getBackground().equals(RED_BACKGROUND)){
+        } else { //remove the modifier
+            if (selectedCell.getBackground().equals(RED_BACKGROUND)){ //item is already clicked
                 selectedCell.setBackground(Background.EMPTY);
                 clickedHyperlink.setBackground(Background.EMPTY);
                 orderItems.get(orderItems.indexOf(currentlySelectedItem)).getRemovedIngredients().remove(Restaurant.getInstance().getMenu().getMenuIngredient(clickedHyperlink.getText()));
-            } else {
+            } else { //item is not clicked
                 selectedCell.setBackground(RED_BACKGROUND);
                 clickedHyperlink.setBackground(Background.EMPTY);
                 orderItems.get(orderItems.indexOf(currentlySelectedItem)).getRemovedIngredients().add(Restaurant.getInstance().getMenu().getMenuIngredient(clickedHyperlink.getText()));
@@ -164,18 +165,19 @@ class OrderDetailsPopup {
         confirmButton.setOnAction(e -> {
             //newOrder
             Restaurant.getInstance().newEvent(buildOrderString());
+            setChanged();
+            notifyObservers();
             dialog.close();
         });
         dialog.show();
     }
 
     private String buildOrderString(){
-        StringBuilder sb = new StringBuilder("order | " + tableId + " > " + seatId + " | ");
+        StringBuilder sb = new StringBuilder("order | table " + tableId + " > " + seatId + " | ");
         for(menu.MenuItem item : orderItems){
             sb.append(item.getQuantity() + " " + item.getName());
             if(!item.getExtraIngredients().isEmpty() || !item.getRemovedIngredients().isEmpty()){
                 sb.append(" / ");
-
                 boolean flag = false;
                 if(!item.getExtraIngredients().isEmpty()){
                     for(Ingredient extra : item.getExtraIngredients()){
@@ -197,8 +199,6 @@ class OrderDetailsPopup {
             sb.append(", ");
         }
         sb.delete(sb.length()-2, sb.length());
-        String ret = sb.toString();
-        System.out.println(ret);
-        return ret;
+        return sb.toString();
     }
 }

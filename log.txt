@@ -239,3 +239,31 @@ Mar 26, 2018 12:13:06 PM restaurant.RestaurantLogger log
 INFO: addseat number 0 from table 7.
 Mar 26, 2018 12:13:08 PM restaurant.RestaurantLogger log
 INFO: addseat number 0 from table 7.
+Mar 26, 2018 8:09:34 PM restaurant.RestaurantLogger log
+INFO: Table 1 has ordered 1. Chicken Fingers
+Gravy
+Mustard
+2. Coke
+. Order number 1
+Mar 26, 2018 8:14:09 PM restaurant.RestaurantLogger log
+INFO: Table 1 has ordered 1. Hotdog
+. Order number 1
+Mar 26, 2018 8:14:30 PM restaurant.RestaurantLogger log
+INFO: Table 1 has ordered 1. Coke
+. Order number 2
+Mar 26, 2018 9:45:20 PM restaurant.RestaurantLogger log
+INFO: Table 1 has ordered 1. Hotdog
+Patty
+ChickenPatty
+. Order number 1
+Mar 26, 2018 9:57:17 PM restaurant.RestaurantLogger log
+INFO: Table 1 has ordered 1. Hotdog
+2. Fries
+ChickenPatty
+Lettuce
+. Order number 1
+Mar 26, 2018 9:57:52 PM restaurant.RestaurantLogger log
+INFO: Table 1 has ordered 1. Hotdog
+BurgerBun
+2. Coke
+. Order number 1

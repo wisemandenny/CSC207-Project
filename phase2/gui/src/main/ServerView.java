@@ -59,6 +59,11 @@ public class ServerView extends Observable implements Initializable, Observer{
         deliverableOrdersView.refresh();
         billView.refresh();
     }
+
+    javafx.scene.layout.StackPane getServerViewStackPane() {
+        return serverViewStackPane;
+    }
+
     private void newOrder(List<JFXButton> selectedItemButtons) {
         StringBuilder sb = new StringBuilder("order | table " + billView.getShownTable() + " > " + billView.getSelectedSeat() + " | ");
         for (JFXButton button : selectedItemButtons) {
