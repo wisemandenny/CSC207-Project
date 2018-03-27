@@ -6,6 +6,7 @@ import menu.MenuItem;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
 
 
 public class OrderImpl implements Order {
@@ -52,8 +53,7 @@ public class OrderImpl implements Order {
                         delete.add(count);
                         amount.add(0);
                     } else if(item.getQuantity() > orderItem.getQuantity()){
-                        //TODO: change this exception into a logger event
-                        throw new IllegalArgumentException("You cannot remove this many! Tried to remove " + item.getQuantity() + " when there were only " + orderItem.getQuantity() + "." );
+                        RestaurantLogger.log(Level.SEVERE, "You cannot remove this many! Tried to remove " + item.getQuantity() + " when there were only " + orderItem.getQuantity() + ".");
                     } else {
                         amount.add(orderItem.getQuantity() - item.getQuantity());
                     }
