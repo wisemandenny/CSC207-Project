@@ -39,10 +39,11 @@ public class Restaurant extends Observable implements Runnable {
     }
 
     /**
+     * Returns an instance of a Restaurant. This exists because a Restaurant is a Singleton.
      *
-     * @param numOfTables
-     * @param taxRate
-     * @return
+     * @param numOfTables the number of tables in this Restaurant.
+     * @param taxRate the tax rate of this Restaurant.
+     * @return  an instance of this Restaurant.
      */
     public static Restaurant getInstance(int numOfTables, double taxRate) {
         if (Restaurant.instance == null) {
@@ -52,87 +53,99 @@ public class Restaurant extends Observable implements Runnable {
     }
 
     /**
+     * Returns an instance of a Restaurant.
      *
-     * @return
+     * @return  an instance of this Restaurant.
      */
     public static Restaurant getInstance(){ return Restaurant.instance; }
 
     /**
-     *
+     * End the simulation of this Restaurant.
      */
     public static void end(){ Restaurant.getInstance().running = false; }
 
     /**
+     * Returns this Restaurants menu.
      *
-     * @return
+     * @return  Menu object of this Restaurant.
      */
     public Menu getMenu() { return menu; }
 
     /**
+     * Returns the tax rate of this Restaurant.
      *
-     * @return
+     * @return  a double that represents this Restaurant's tax rate.
      */
     public double getTaxRate() {
         return taxRate;
     }
 
     /**
+     * Returns the auto gratuity rate of this Restaurant.
      *
-     * @return
+     * @return  a double that represents this Restaurant's auto gratuity rate.
      */
     public double getAutoGratRate() { return autoGratRate; }
 
     /**
+     * Returns the number of tables in this Restaurant.
      *
-     * @return
+     * @return  an int representing the number of Tables in this Restaurant.
      */
     public int getNumOfTables() { return tables.length; }
 
     /**
+     * Adds the event found in eventString to the event manager.
      *
-     * @param eventString
+     * @param eventString a String with event information.
      */
     public void newEvent(String eventString) { eventManager.addEventFromString(eventString); }
+
     /**
-     * The manager can use the following three functions to check how the restaurant is doing.
+     * Returns a List of Orders that have been placed.
      *
-     * @return mmhmm i don't think so
+     * @return  a List of Orders that have been placed.
      */
     public List<Order> getPlacedOrders() { return placedOrders; }
 
     /**
+     * Returns a List of Orders that have been received by the cook.
      *
-     * @return
+     * @return  a List of Orders that have been received.
      */
     public List<Order> getReceivedOrders() { return receivedOrders; }
 
     /**
+     * Returns a List of Orders that are being made.
      *
-     * @return
+     * @return  a List of Orders that are being cooked.
      */
     public List<Order> getCookingOrders() {
         return cookingOrders;
     }
 
     /**
+     * Returns a List of Orders that are ready to be served.
      *
-     * @return
+     * @return  a List of Orders that are ready to be served.
      */
     public List<Order> getReadyOrders() {
         return readyOrders;
     }
 
     /**
+     * Returns a List of Orders that have been delivered.
      *
-     * @return
+     * @return  a List of Orders that have been delivered.
      */
     public List<Order> getDeliveredOrders() {
         return deliveredOrders;
     }
 
     /**
+     * Adds Order o to the placed orders List and adds the Order to the seat.
      *
-     * @param o
+     * @param o the Order that is to be added.
      */
     public void addPlacedOrder(Order o) {
         placedOrders.add(o);
@@ -140,8 +153,10 @@ public class Restaurant extends Observable implements Runnable {
     }
 
     /**
+     * Adds Order with ID orderId to the received orders list and removes it from the placed
+     * orders list.
      *
-     * @param orderId
+     * @param orderId the Order ID.
      */
     public void addReceivedOrder(int orderId){
         Order order = findOrder(placedOrders, orderId);
@@ -150,8 +165,10 @@ public class Restaurant extends Observable implements Runnable {
     }
 
     /**
+     * Adds Order with ID orderId to the cooking orders list and removes it from the received
+     * orders list.
      *
-     * @param orderId
+     * @param orderId the Order ID.
      */
     public void addCookingOrder(int orderId) {
         Order order = findOrder(receivedOrders, orderId);
@@ -160,8 +177,10 @@ public class Restaurant extends Observable implements Runnable {
     }
 
     /**
+     * Adds Order with ID orderId to the ready orders list and removes it from the cooking
+     * orders list.
      *
-     * @param orderId
+     * @param orderId the Order ID.
      */
     public void addReadyOrder(int orderId) {
         Order order = findOrder(cookingOrders, orderId);
@@ -170,8 +189,10 @@ public class Restaurant extends Observable implements Runnable {
     }
 
     /**
+     * Adds Order with ID orderId to the ready orders list and remove it from the delivered
+     * orders list.
      *
-     * @param orderId
+     * @param orderId the Order ID.
      */
     public void addDeliveredOrder(int orderId) {
         Order order = findOrder(readyOrders, orderId);
@@ -181,10 +202,10 @@ public class Restaurant extends Observable implements Runnable {
         tables[order.getTableId()].getSeat(order.getSeatId()).addOrderToBill(order);
     }
     /**
-     * Take an order (o), and check every single item in that order to make sure that there's inventory to cook it
-     * e.g. if you have 10 cokes in the inventory and you request 11, 10 should be cooked and one should be rejected
+     * Takes an order (o), and checks every single item in that order to make sure that there's inventory to cook it.
+     * e.g. if you have 10 cokes in the inventory and you request 11, 10 should be cooked and one should be rejected.
      *
-     * @param o
+     * @param o the Order that is to be analyzed.
      */
     private Order checkInventory(Order o) {
         List<MenuItem> rejectedItems = new ArrayList<>();
@@ -226,10 +247,11 @@ public class Restaurant extends Observable implements Runnable {
     }
 
     /**
+     * Returns an Order from the List of Orders in searchSet that has the ID orderId
      *
-     * @param searchSet
-     * @param orderId
-     * @return
+     * @param searchSet the List of Orders to be searched.
+     * @param orderId the desired Order ID.
+     * @return  the Order with Order ID orderId.
      */
     private Order findOrder(List<Order> searchSet, int orderId) {
         for (Order order : searchSet) {
@@ -241,8 +263,9 @@ public class Restaurant extends Observable implements Runnable {
     }
 
     /**
+     * Add the shipment to the inventory.
      *
-     * @param shipment
+     * @param shipment the Map of Ingredients being shipped to the Restaurant.
      */
     public void addToInventory(Map<Ingredient, Integer> shipment) {
         inventory.addToInventory(shipment);
@@ -254,8 +277,9 @@ public class Restaurant extends Observable implements Runnable {
     }
 
     /**
+     * Returns an array of Tables that belong to this Restaurant.
      *
-     * @return
+     * @return  an Array of Tables.
      */
     Table[] getTables(){ return tables; }
     public Table getTable(int tableId) {
@@ -269,7 +293,7 @@ public class Restaurant extends Observable implements Runnable {
     }
 
     /**
-     *
+     * Runs the simulation.
      */
     @Override
     public void run() {
