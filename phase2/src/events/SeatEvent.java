@@ -28,9 +28,24 @@ class SeatEvent implements Event{
 
     @Override
     public void doEvent() {
-        if(type.equals(EventType.ADDSEAT)) Restaurant.getInstance().getTable(tableId).addSeat();
-        else Restaurant.getInstance().getTable(tableId).removeSeat(seatNumber);
-        RestaurantLogger.log(Level.INFO, type.toString() + " number " +
-                String.valueOf(seatNumber) + " from table " + String.valueOf(tableId) + ".");
+        StringBuilder s = new StringBuilder();
+        if(type.equals(EventType.ADDSEAT)) {
+            Restaurant.getInstance().getTable(tableId).addSeat();
+            s.append("Added seat number ");
+            s.append(Integer.toString(seatNumber));
+            s.append(" to table ");
+            s.append(Integer.toString(tableId));
+            s.append(".");
+        }
+        else{
+            Restaurant.getInstance().getTable(tableId).removeSeat(seatNumber);
+            s.append("Removed seat number ");
+            s.append(Integer.toString(seatNumber));
+            s.append(" from table ");
+            s.append(Integer.toString(tableId));
+            s.append(".");
+        }
+
+        RestaurantLogger.log(Level.INFO, "" + s);
     }
 }
