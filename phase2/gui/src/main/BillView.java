@@ -152,9 +152,10 @@ public class BillView extends Observable implements Initializable {
         chooseTablePopup.setPopupContent(box);
         changeTableButton.setOnAction(e -> chooseTablePopup.show(changeTableButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
     }
-    private void updatePaid(Table table, double paidAmount) {
-        unpaidLabel.setText(String.format("%.2f", table.getBill().getTotal() - paidAmount));
-        paidLabel.setText(String.format("%.2f", paidAmount));
+    private void updatePaid(Table table) {
+        unpaidLabel.setText("Unpaid amount: "+String.format("%.2f", table.getBill().getUnpaidAmount()));
+        paidLabel.setText("Paid amount: "+String.format("%.2f", table.getBill().getPaidAmount()));
+
     }
     @FXML private void addSeat(){
         Restaurant.getInstance().newEvent("addseat | table " + shownTable);
@@ -191,6 +192,7 @@ public class BillView extends Observable implements Initializable {
     }
     void changeTable(int selectedTable) {
         shownTable = selectedTable;
+        updatePaid(Restaurant.getInstance().getTable(shownTable));
         refresh();
         //updatePaid() TODO: implement this
     }
@@ -201,7 +203,10 @@ public class BillView extends Observable implements Initializable {
         return selectedSeat;
     }
     public void paySelectedItems() {
-        PayPopup payPopup = new PayPopup((StackPane)billViewRoot.getParent().getParent().getParent(), Restaurant.getInstance().getTable(shownTable).getSeat(selectedSeat));
+        Table selectedTable = Restaurant.getInstance().getTable(shownTable);
+        Table currentlySelectedSeat = selectedTable.getSeat(selectedSeat);
+        PayPopup payPopup = new PayPopup((StackPane)billViewRoot.getParent().getParent().getParent(), selectedTable, currentlySelectedSeat);
+        updatePaid(selectedTable);
         //ability to select items from the bill similar to menulist
     }
 

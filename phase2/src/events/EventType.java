@@ -10,6 +10,7 @@ public enum EventType {
     ADDSEAT("addseat"),
     REMOVESEAT("removeseat"),
     JOIN("join"),
+    PAY("pay"),
     SERVERDELIVERED("delivered"),
     SERVERRETURNED("serverReturned"),
     RECEIVEDSHIPMENT("receivedShipment");

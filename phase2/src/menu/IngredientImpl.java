@@ -53,6 +53,9 @@ public class IngredientImpl implements Ingredient {
         return name.equalsIgnoreCase(i.getName());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Objects.hash(name);

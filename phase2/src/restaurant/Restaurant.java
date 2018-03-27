@@ -159,9 +159,15 @@ public class Restaurant extends Observable implements Runnable {
      * @param orderId the Order ID.
      */
     public void addReceivedOrder(int orderId){
-        Order order = findOrder(placedOrders, orderId);
-        placedOrders.remove(order);
-        receivedOrders.add(order);
+        try{
+            Order order = findOrder(placedOrders, orderId);
+            placedOrders.remove(order);
+            receivedOrders.add(order);
+        } catch (IllegalArgumentException ex){
+            //shhouldn't do anything at all, for now lett's just print the error
+            System.out.println(ex.getMessage());
+        }
+
     }
 
     /**
@@ -171,9 +177,14 @@ public class Restaurant extends Observable implements Runnable {
      * @param orderId the Order ID.
      */
     public void addCookingOrder(int orderId) {
-        Order order = findOrder(receivedOrders, orderId);
-        receivedOrders.remove(order);
-        cookingOrders.add(checkInventory(order));
+        try{
+            Order order = findOrder(receivedOrders, orderId);
+            receivedOrders.remove(order);
+            cookingOrders.add(checkInventory(order));
+        } catch (IllegalArgumentException ex){
+            System.out.println(ex.getMessage());
+        }
+
     }
 
     /**
@@ -183,9 +194,13 @@ public class Restaurant extends Observable implements Runnable {
      * @param orderId the Order ID.
      */
     public void addReadyOrder(int orderId) {
-        Order order = findOrder(cookingOrders, orderId);
-        cookingOrders.remove(order);
-        readyOrders.add(order);
+        try{
+            Order order = findOrder(cookingOrders, orderId);
+            cookingOrders.remove(order);
+            readyOrders.add(order);
+        } catch (IllegalArgumentException ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     /**
@@ -195,11 +210,16 @@ public class Restaurant extends Observable implements Runnable {
      * @param orderId the Order ID.
      */
     public void addDeliveredOrder(int orderId) {
-        Order order = findOrder(readyOrders, orderId);
-        readyOrders.remove(order);
-        deliveredOrders.add(order);
-        tables[order.getTableId()].addOrderToBill(order);
-        tables[order.getTableId()].getSeat(order.getSeatId()).addOrderToBill(order);
+        try{
+            Order order = findOrder(readyOrders, orderId);
+            readyOrders.remove(order);
+            deliveredOrders.add(order);
+            tables[order.getTableId()].addOrderToBill(order);
+            tables[order.getTableId()].getSeat(order.getSeatId()).addOrderToBill(order);
+
+        } catch (IllegalArgumentException ex){
+            System.out.println(ex.getMessage());
+        }
     }
     /**
      * Takes an order (o), and checks every single item in that order to make sure that there's inventory to cook it.
@@ -240,7 +260,7 @@ public class Restaurant extends Observable implements Runnable {
             rejectedOrders.add(OrderFactory.makeOrder(rejectedItems, o.getId(), o.getTableId(), o.getSeatId()));
         Order ord = OrderFactory.makeOrder(Collections.<MenuItem>emptyList(), o.getId(), o.getTableId(), o.getSeatId());
         if (!acceptedItems.isEmpty()) {
-            ord = OrderFactory.makeOrder(rejectedItems, o.getId(), o.getTableId(), o.getSeatId());
+            ord = OrderFactory.makeOrder(acceptedItems, o.getId(), o.getTableId(), o.getSeatId());
             inventory.removeFromInventory(ord);
         }
         return ord;

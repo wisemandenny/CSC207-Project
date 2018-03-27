@@ -64,7 +64,7 @@ public class BillImpl implements Bill {
     @Override
     public double getSubtotal() {
         double subtotal = 0.00;
-
+        if()
         for (MenuItem item : bill.getItems()) {
             subtotal += (item.getPrice() * item.getQuantity());
             subtotal += item.getExtraIngredientPrice();
@@ -92,9 +92,17 @@ public class BillImpl implements Bill {
     /**
      * {@inheritDoc}
      */
+    @Override //TODO: might be able to delete this or make it private
+    public double getUnpaidAmount(){
+        return getSubtotal() - paidAmount;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void pay(double amount){
-        double balance = getTotal()-paidAmount;
+        double balance = getUnpaidAmount();
         if(balance-amount >= 0){
             paidAmount += amount;
         } else {
