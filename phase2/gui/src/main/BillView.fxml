@@ -94,7 +94,7 @@
                         <Insets bottom="12.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="deleteButton" scaleX="1.8" scaleY="1.8" style="-fx-background-color: #F44336;" text="DELETE" textFill="WHITE">
+                  <JFXButton fx:id="returnButton" onAction="#sendBackOrder" scaleX="1.8" scaleY="1.8" style="-fx-background-color: #F44336;" text="RETURN" textFill="WHITE">
                      <padding>
                         <Insets right="-1.0" />
                      </padding>

@@ -90,6 +90,8 @@ public class ServerView extends Observable implements Initializable, Observer{
     }
     private void loadAddDialog(StackPane parent, List<JFXButton> selectedItemButtons){
         orderDetailsPopup = new OrderDetailsPopup(parent, selectedItemButtons, billView.getShownTable(), billView.getSelectedSeat());
+        orderDetailsPopup.addObserver(this);
+        orderDetailsPopup.loadAddDialog();
     }
 
 

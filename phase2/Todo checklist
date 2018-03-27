@@ -9,7 +9,15 @@ n: use material css
 
 3. add support for payment
 a. pay function in billview
-b. need a dialog box to input amount (and need to design this)
+b. need a dialog box to input amount (and need to design this) DONE
+c. skin the dialog box
+
+4. DeliverableOrderItems is not:
+a. completed orders should be green
+b. not loading the items into the view
+c. not updating the totals
+d. maybe not even delivering?
+
 c. update the paid/unpaid labels
 d. make a paid event in the backend
 
@@ -19,12 +27,13 @@ b. change item extras from gui DONE
 c. change item removals from gui
 d. make the selected items have a green background DONE
 e. make the selected removals have a red background DONE
+f. FIX VERTICAL STRETCHING
 
-5. add server returns (use delete button, which you should change to return item)
-a. add a dialog box to add a reason for return
-b.
+5. add server returns (use delete button, which you should change to return item) DONE
+a. add a dialog box to add a reason for return DONE
+b. make the dialog box's listview load as intended
+c. verify that this is actually working
 
-6. remake menulist.java selection method using the built in listselectionmodel thing
 7. make billview grow properly
 
 

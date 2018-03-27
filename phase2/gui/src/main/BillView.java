@@ -25,6 +25,7 @@ public class BillView extends Observable implements Initializable {
     private static final Background GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#EEEEEE"), CornerRadii.EMPTY, Insets.EMPTY));
     private static final Background LIGHT_GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#FAFAFA"), CornerRadii.EMPTY, Insets.EMPTY));
     private static final Background BLUE_GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#607D8B"), CornerRadii.EMPTY, Insets.EMPTY));
+    private static final Background SELECTED_BACKGROUND = new Background(new BackgroundFill(Color.web("#29B6F6"), CornerRadii.EMPTY, Insets.EMPTY));
 
     @FXML private VBox billViewRoot;
     @FXML private Label billHeader;
@@ -35,7 +36,7 @@ public class BillView extends Observable implements Initializable {
     @FXML private Label unpaidLabel;
     @FXML private Label paidLabel;
     @FXML private JFXButton payButton;
-    @FXML private JFXButton deleteButton;
+    @FXML private JFXButton returnButton;
     @FXML private JFXButton addSeat;
     @FXML private JFXButton removeSeat;
     @FXML private JFXButton joinButton;
@@ -44,6 +45,8 @@ public class BillView extends Observable implements Initializable {
     final ObservableList<HBox> tableItems = FXCollections.observableArrayList();
     private int shownTable = 1;
     private int selectedSeat = 0;
+    private int selectedOrderId = -1;
+
     private final JFXPopup chooseTablePopup = new JFXPopup();
 
     @Override
@@ -57,7 +60,7 @@ public class BillView extends Observable implements Initializable {
         Region filler = new Region();
         HBox.setHgrow(filler, Priority.ALWAYS);
         box.getChildren().add(filler);
-        filler.setBackground(BLUE_GREY_BACKGROUND);
+        box.setBackground(BLUE_GREY_BACKGROUND);
         return box;
     }
     private HBox generateSeatHeader(int seatNumber){
@@ -75,6 +78,18 @@ public class BillView extends Observable implements Initializable {
         HBox orderHeaderBox = new HBox();
         orderHeaderBox.getChildren().add(new JFXButton("Order " + orderNumber + " (id: " + order.getId() + ")"));
         orderHeaderBox.setBackground(LIGHT_GREY_BACKGROUND);
+        orderHeaderBox.setOnMouseClicked(e -> {
+            if(orderHeaderBox.getBackground().equals(LIGHT_GREY_BACKGROUND)){ //click on an order box that is not already selected and no other order has been clicked on previously
+                if(selectedOrderId == -1){
+                    selectedOrderId = order.getId();
+                    orderHeaderBox.setBackground(SELECTED_BACKGROUND);
+                    System.out.println("clicked order: " + order.getId() + " " + order.getItems());
+                }
+            } else {
+                selectedOrderId = -1;
+                orderHeaderBox.setBackground(LIGHT_GREY_BACKGROUND);
+            }
+        });
         return orderHeaderBox;
     }
     private HBox generateItemListEntry(MenuItem item) {
@@ -152,6 +167,17 @@ public class BillView extends Observable implements Initializable {
     @FXML private void joinCheques(){
         Restaurant.getInstance().newEvent("join | table "+ shownTable);
         letBackendCatchUp();
+    }
+    @FXML private void sendBackOrder(){
+        Order selectedOrder;
+        for(Order o: Restaurant.getInstance().getDeliveredOrders()){
+            if(o.getId() == selectedOrderId){
+                selectedOrder = o;
+                System.out.println("match found");
+                ReturnPopup returnPopup = new ReturnPopup(((StackPane)billViewRoot.getParent().getParent().getParent()), selectedOrder);
+            }
+        }
+
     }
 
     private void letBackendCatchUp(){

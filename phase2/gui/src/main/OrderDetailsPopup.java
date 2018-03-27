@@ -24,6 +24,7 @@ class OrderDetailsPopup extends Observable {
     private StackPane parent;
     private int tableId;
     private int seatId;
+    List<JFXButton> selectedItemButtons;
     private List<menu.MenuItem> orderItems = new ArrayList<>();
     private menu.MenuItem currentlySelectedItem;
 
@@ -37,7 +38,7 @@ class OrderDetailsPopup extends Observable {
         this.parent = parent;
         this.tableId = tableId;
         this.seatId = seatId;
-        loadAddDialog(selectedItemButtons);
+        this.selectedItemButtons = selectedItemButtons;
         for(JFXButton itemButton : selectedItemButtons){
             menu.MenuItem item = Restaurant.getInstance().getMenu().getMenuItem(itemButton.getText());
             orderItems.add(item);
@@ -116,7 +117,7 @@ class OrderDetailsPopup extends Observable {
         removed.setPrefHeight(extras.getHeight());
         removed.setItems(removeableIngredients);
     }
-    private void loadAddDialog(List<JFXButton> selectedItemButtons){
+    void loadAddDialog(){
         //HEADER
         JFXDialogLayout content = new JFXDialogLayout();
         Label orderDetailsDialogHeader = new Label("Order Details");
@@ -165,6 +166,11 @@ class OrderDetailsPopup extends Observable {
         confirmButton.setOnAction(e -> {
             //newOrder
             Restaurant.getInstance().newEvent(buildOrderString());
+            try{
+                Thread.sleep(300);
+            } catch (InterruptedException ex){
+                //TODO: log this
+            }
             setChanged();
             notifyObservers();
             dialog.close();
