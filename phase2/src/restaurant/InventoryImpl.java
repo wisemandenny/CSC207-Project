@@ -40,6 +40,9 @@ public class InventoryImpl implements Inventory {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeFromInventory(Order o) {
         for (Ingredient i : o.getIngredients()) {
@@ -48,6 +51,9 @@ public class InventoryImpl implements Inventory {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeFromInventory(Ingredient i) {
         if(inventory.get(i) > 0) {
@@ -67,6 +73,9 @@ public class InventoryImpl implements Inventory {
         return inventory;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void makeRestockRequest(Ingredient i) {
         try (FileWriter fw = new FileWriter("requests.txt", true)) {
@@ -76,6 +85,9 @@ public class InventoryImpl implements Inventory {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void printContents() {
         for(Map.Entry<Ingredient, Integer> entry : inventory.entrySet()){

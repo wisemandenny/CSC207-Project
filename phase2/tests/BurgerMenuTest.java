@@ -1,4 +1,5 @@
 import menu.*;
+import restaurant.*;
 import org.junit.Test;
 import restaurant.Restaurant;
 
@@ -32,5 +33,13 @@ public class BurgerMenuTest {
         Ingredient potato = IngredientFactory.makeIngredient("Potato");
         Menu menu = new BurgerMenu();
         assertEquals(potato, menu.getMenuIngredient("Potato"));
+        Ingredient hotdog = IngredientFactory.makeIngredient("Hotdog");
+        Ingredient bun = IngredientFactory.makeIngredient("HotdogBun");
+        List<Ingredient> l = Arrays.asList(hotdog, bun);
+        MenuItem item = MenuItemFactory.makeMenuItem("Hotdog", 1.50, l);
+        item.removeIngredient(hotdog);
+        assertTrue(item.getRemovedIngredients().size() == 1);
+        assertTrue(item.getRemovedIngredients().contains(hotdog));
+        assertTrue(menu.getMenuIngredient("Hotdog").equals(hotdog));
     }
 }

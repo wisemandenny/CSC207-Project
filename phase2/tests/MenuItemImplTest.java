@@ -111,13 +111,17 @@ public class MenuItemImplTest {
     @Test
     public void testRemoveIngredient(){
         MenuItem item = generateMenuItem();
+        Ingredient bun = IngredientFactory.makeIngredient("BurgerBun");
+        item.removeIngredient(bun);
+        assertTrue(item.getRemovedIngredients().size() == 1);
+        assertTrue(item.getRemovedIngredients().contains(bun));
 
         item.addExtraIngredient(IngredientFactory.makeIngredient("Bacon"));
         assertTrue(item.getExtraIngredients().size() == 1);
         item.removeIngredient(IngredientFactory.makeIngredient("Bacon"));
         assertTrue(item.getExtraIngredients().size() == 1);
         item.removeIngredient(IngredientFactory.makeIngredient("Lettuce"));
-        assertTrue(item.getRemovedIngredients().size() == 2);
+        assertTrue(item.getRemovedIngredients().size() == 3);
     }
 
     @Test

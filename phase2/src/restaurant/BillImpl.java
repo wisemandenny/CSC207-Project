@@ -119,6 +119,9 @@ public class BillImpl implements Bill {
         return tipAmount;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getBillString() {
         StringBuilder sb = new StringBuilder("");

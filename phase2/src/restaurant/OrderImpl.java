@@ -36,11 +36,17 @@ public class OrderImpl implements Order {
         return new ArrayList<>(orderItems);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void add(Order o) {
         orderItems.addAll(o.getItems());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void remove(Order o) {
         List<Integer> delete = new ArrayList<>();
@@ -75,24 +81,39 @@ public class OrderImpl implements Order {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getId() {
         return id;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getTableId() {
         return tableId;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setTableId(int tableId) {
         this.tableId = tableId;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setSeatId(int seatId) { this.seatId = seatId; }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getSeatId(){
         return seatId;

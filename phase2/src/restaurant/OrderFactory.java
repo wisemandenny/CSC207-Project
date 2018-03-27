@@ -12,19 +12,47 @@ public class OrderFactory {
 
     private OrderFactory() {}
 
+    /**
+     * Returns an Order that has a list of MenuItems, an ID, a Table ID, and a seat ID.
+     *
+     * @param items a List of MenuItems that are part of this Order.
+     * @param orderId the unique ID of this Order.
+     * @param tableId the Table ID of this Order.
+     * @param seatId the seat ID of this Order's Table.
+     * @return  an Order with all this information.
+     */
     public static Order makeOrder(List<MenuItem> items, int orderId, int tableId, int seatId){
         return new OrderImpl(items, orderId, tableId, seatId);
     }
 
+    /**
+     * Returns an Order with orderString MenuItems, Table ID tableId, and seat ID seatId.
+     *
+     * @param orderString a String that must be parsed, which contains MenuItems and information about them.
+     * @param tableId the Table ID of this Order.
+     * @param seatId the seat ID of this Order's Table.
+     * @return  an Order with all this information.
+     */
     public static Order makeOrder(String orderString, int tableId, int seatId){
         return makeOrder(orderStringParser(orderString), idCounter++, tableId, seatId);
-
     }
 
+    /**
+     * Returns an Order based on information extracted from String orderString.
+     *
+     * @param orderString a String that must be parsed, which contains information about an order.
+     * @return  an Order based on information extracted from String orderString.
+     */
     public static Order makeOrder(String orderString){
         return makeOrder(orderStringParser(orderString), idCounter++, 1, 1);
     }
 
+    /**
+     * Returns a List of MenuItems that are extracted from String orderString.
+     *
+     * @param orderString a String containing information that can be gathered to build Orders.
+     * @return  a List of MenuItems based on information extracted from String orderString.
+     */
     private static List<MenuItem> orderStringParser(String orderString) {
         List<MenuItem> parsedOrder = new ArrayList<>();
         for (String item : orderString.split(",\\s")) { //split the order into [1-9] <item name> substrings

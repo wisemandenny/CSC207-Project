@@ -34,7 +34,15 @@ public interface Inventory {
      */
     Map<Ingredient, Integer> getContents();
 
+    /**
+     * Writes a request to a text file to restock Ingredient i.
+     *
+     * @param i the Ingredient that needs to be restocked.
+     */
     void makeRestockRequest(Ingredient i);
 
+    /**
+     * Prints the contents of the inventory.
+     */
     void printContents();
 }

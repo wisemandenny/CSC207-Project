@@ -17,14 +17,39 @@ public interface Order {
      */
     List<MenuItem> getItems();
 
+    /**
+     * Return the ID of this Order.
+     *
+     * @return an int representing this Order's ID.
+     */
     int getId();
 
+    /**
+     * Return this Order's Table ID.
+     *
+     * @return an int representing this Order's Table ID.
+     */
     int getTableId();
 
+    /**
+     * Sets this Order's Table ID.
+     *
+     * @param id the int that will represent this Order's Table ID.
+     */
     void setTableId(int id);
 
+    /**
+     * Return this Order's seat ID.
+     *
+     * @return an int representing this Order's seat ID.
+     */
     int getSeatId();
 
+    /**
+     * Sets this Order's seat ID.
+     *
+     * @param id the int that will represent this Order's seat ID.
+     */
     void setSeatId(int id);
 
     /**
@@ -35,7 +60,7 @@ public interface Order {
     List<Ingredient> getIngredients();
 
     /**
-     * A boolean that represents if an restaurant.Order has been returned by the server.
+     * A boolean that represents if a restaurant.Order has been returned by the server.
      */
     void returned(MenuItem item);
 }

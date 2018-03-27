@@ -172,6 +172,9 @@ public class TableImpl implements Table {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getTableBillString(){
         String billString = getBill().getBillString();

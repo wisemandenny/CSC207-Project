@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 class EventManager {
+
     private final Queue<Event> events = new LinkedList<>();
 
     EventManager() {
@@ -34,6 +35,11 @@ class EventManager {
         return events;
     }
 
+    /**
+     * Add events extracted from eventString to the events queue.
+     *
+     * @param eventString a String that contains information on events.
+     */
     void addEventFromString(String eventString){
         Table[] tables = Restaurant.getInstance().getTables();
         Event e = EventFactory.makeEvent(eventString, tables);

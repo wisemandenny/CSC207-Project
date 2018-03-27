@@ -88,6 +88,9 @@ public class BurgerMenu implements Menu {
         throw new IllegalArgumentException(query + " is not a valid ingredient.");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Ingredient> getAllIngredients() {
         return ingredientMenu;
