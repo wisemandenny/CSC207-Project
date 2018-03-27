@@ -32,9 +32,12 @@ public class ShipmentEvent implements Event {
     @Override
     public void doEvent() {
         Restaurant.getInstance().addToInventory(shipment);
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (Map.Entry<Ingredient, Integer> entry : shipment.entrySet()){
-            s += entry.getValue().toString() + " " + entry.getKey().getName() + ", ";
+            s.append( entry.getValue().toString());
+            s.append(" ");
+            s.append(entry.getKey().getName());
+            s.append(", ");
         }
         RestaurantLogger.log(Level.INFO, "Shipement of ingredients recieved" + s + " were added to inventory." );
     }
