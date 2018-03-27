@@ -1,5 +1,6 @@
 package events;
 
+import menu.MenuItem;
 import restaurant.*;
 
 import java.util.logging.Level;
@@ -21,8 +22,26 @@ class OrderEvent implements Event {
     @Override
     public void doEvent() {
         Restaurant.getInstance().addPlacedOrder(order);
-        RestaurantLogger.log(Level.INFO, "Table " + String.valueOf(order.getTableId()) + " has ordered " +
-                order.toString() + ". Order number " + String.valueOf(order.getId()));
+
+        StringBuilder s = new StringBuilder();
+        s.append("Order number ");
+        s.append(Integer.toString(order.getId()));
+        s.append(": Table ");
+        s.append(Integer.toString(order.getTableId()));
+        s.append(" ordered ");
+        for (MenuItem i: order.getItems()){
+            s.append(Integer.toString(i.getQuantity()));
+            s.append(" ");
+            s.append(i.getName());
+            s.append("(s)");
+
+            if (order.getItems().indexOf(i) == (order.getItems().size() - 1)){
+                s.append(".");
+            } else {
+                s.append(", ");
+            }
+        }
+        RestaurantLogger.log(Level.INFO, "" + s);
     }
 
     Order getOrder() {
