@@ -18,6 +18,18 @@ public interface Menu {
      */
     Ingredient getMenuIngredient(String query);
 
+    /**
+     * Returns the MenuItem with the name itemName.
+     *
+     * @param itemName the MenuItem's name
+     * @return  a MenuItem
+     */
     MenuItem getMenuItem(String itemName);
+
+    /**
+     * Returns a List of all Ingredients.
+     *
+     * @return  a List of all the Ingredients.
+     */
     List<Ingredient> getAllIngredients();
 }

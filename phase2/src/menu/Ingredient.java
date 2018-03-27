@@ -22,11 +22,13 @@ public interface Ingredient {
      */
     void setPrice(double price);
 
+
     /**
-     * Returns if this menu.Ingredient has the same name as menu.Ingredient i.
+     * Returns if this menu.Ingredient has the same name as menu.Ingredient o, which is an Object because it Overrides
+     * another equals method.
      *
-     * @param i the menu.Ingredient in question
-     * @return a boolean that represents whether this menu.Ingredient has the same name as menu.Ingredient i
+     * @param o an Ingredient Object.
+     * @return  a boolean that represents whether this menu.Ingredient has the same name as menu.Ingredient i
      */
     @Override
     boolean equals(Object o);

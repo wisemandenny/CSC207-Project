@@ -38,6 +38,9 @@ public class MenuItemImpl implements MenuItem {
         return quantity;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setQuantity(int quantity) {
         this.quantity = quantity;
@@ -147,6 +150,9 @@ public class MenuItemImpl implements MenuItem {
         return ret * quantity;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Ingredient> getAllIngredients() {
         List<Ingredient> allIngredients = new ArrayList<>();
@@ -156,6 +162,9 @@ public class MenuItemImpl implements MenuItem {
         return allIngredients;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -167,16 +176,27 @@ public class MenuItemImpl implements MenuItem {
         return name.equalsIgnoreCase(m.getName());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equalsWithExtras(MenuItem item) {
         return item.hashCode() == hashCode();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Objects.hash(concatenate());
     }
 
+    /**
+     * Returns the concatenation of this MenuItem's name and its mods.
+     *
+     * @return  a String built from the MenuItem's name and mods.
+     */
     private String concatenate() {
         StringBuilder mods = new StringBuilder("");
         for (Ingredient i : extraIngredients) {
