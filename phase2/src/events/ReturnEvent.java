@@ -39,6 +39,6 @@ public class ReturnEvent implements Event {
                 s.append(item.getComment());
             }
         }
-        RestaurantLogger.log(Level.INFO, "Table " + String.valueOf(o.getTableId()) + " has returned " + s + ". Order number " + String.valueOf(o.getId()));
+        RestaurantLogger.log(Level.INFO, "Table " + String.valueOf(o.getTableId()) + " has returned " + s.toString() + ". Order number " + String.valueOf(o.getId()));
     }
 }

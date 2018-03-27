@@ -11,8 +11,9 @@ n: use material css
 a. pay function in billview
 b. need a dialog box to input amount (and need to design this) DONE
 c. skin the dialog box
+d. make the dialog box functional
 
-4. DeliverableOrderItems is not:
+4. DeliverableOrderItems is not: ALL DONE
 a. completed orders should be green
 b. not loading the items into the view
 c. not updating the totals

@@ -201,7 +201,9 @@ public class BillView extends Observable implements Initializable {
         return selectedSeat;
     }
     public void paySelectedItems() {
-        PayPopup payPopup = new PayPopup((StackPane)billViewRoot.getParent().getParent().getParent(), Restaurant.getInstance().getTable(shownTable).getSeat(selectedSeat));
+        Table selectedTable = Restaurant.getInstance().getTable(shownTable);
+        Table currentlySelectedSeat = selectedTable.getSeat(selectedSeat);
+        PayPopup payPopup = new PayPopup((StackPane)billViewRoot.getParent().getParent().getParent(), selectedTable, currentlySelectedSeat);
         //ability to select items from the bill similar to menulist
     }
 

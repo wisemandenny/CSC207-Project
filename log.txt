@@ -317,3 +317,24 @@ INFO: Table 1 has ordered 1. Coke
 Mar 27, 2018 1:16:19 AM restaurant.RestaurantLogger log
 INFO: Table 1 has ordered 1. Hotdog
 . Order number 1
+Mar 27, 2018 3:09:34 PM restaurant.RestaurantLogger log
+INFO: Table 1 has ordered 1. Hotdog
+2. Fries
+. Order number 1
+Mar 27, 2018 3:10:06 PM restaurant.RestaurantLogger log
+INFO: Table 1 has ordered 1. Veggie Burger
+2. Chicken Burger
+. Order number 1
+Mar 27, 2018 3:11:23 PM restaurant.RestaurantLogger log
+INFO: Table 1 has ordered 1. Hotdog
+2. Fries
+. Order number 1
+Mar 27, 2018 3:13:19 PM restaurant.RestaurantLogger log
+INFO: Table 1 has ordered 1. Veggie Burger
+. Order number 1
+Mar 27, 2018 3:13:46 PM restaurant.RestaurantLogger log
+INFO: Table 1 has ordered 1. Hotdog
+. Order number 1
+Mar 27, 2018 3:13:46 PM restaurant.RestaurantLogger log
+INFO: Table 1 has ordered 1. Hotdog
+. Order number 2

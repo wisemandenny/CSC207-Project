@@ -219,7 +219,7 @@ public class Restaurant extends Observable implements Runnable {
             rejectedOrders.add(OrderFactory.makeOrder(rejectedItems, o.getId(), o.getTableId(), o.getSeatId()));
         Order ord = OrderFactory.makeOrder(Collections.<MenuItem>emptyList(), o.getId(), o.getTableId(), o.getSeatId());
         if (!acceptedItems.isEmpty()) {
-            ord = OrderFactory.makeOrder(rejectedItems, o.getId(), o.getTableId(), o.getSeatId());
+            ord = OrderFactory.makeOrder(acceptedItems, o.getId(), o.getTableId(), o.getSeatId());
             inventory.removeFromInventory(ord);
         }
         return ord;

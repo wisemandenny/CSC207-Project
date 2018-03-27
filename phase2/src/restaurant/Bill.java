@@ -66,6 +66,13 @@ public interface Bill {
     double getPaidAmount();
 
     /**
+     * Return the remaining balance on the bill.
+     *
+     * @return a double representing the remaining balance on the bill.
+     */
+    double getUnpaidAmount();
+
+    /**
      * Return the amount the guest tipped the restaurant.
      *
      * @return a double representing the tip.

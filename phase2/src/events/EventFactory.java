@@ -4,8 +4,10 @@ import restaurant.Table;
 
 public class EventFactory {
     private static final int TYPE_ADDRESS = 0;
+    private static final int UPDATE_TYPE_ADDRESS = 1;
     private static final int TABLEID_ADDRESS = 1;
     private static final int ORDER_ADDRESS = 2;
+    private static final int PAYMENT_ADDRESS = 2;
     private static final int COMMENT_ADDRESS = 3;
     private static final int TABLE_LENGTH = 6;
 
@@ -25,7 +27,7 @@ public class EventFactory {
         switch (type) {
             case UPDATE:
                 int orderId = Integer.parseInt(splitString[ORDER_ADDRESS]);
-                switch (EventType.fromString(splitString[1])) {
+                switch (EventType.fromString(splitString[UPDATE_TYPE_ADDRESS])) {
                     case COOKSEEN:
                         return new UpdateEvent(EventType.COOKSEEN, orderId);
                     case COOKFIRED:
@@ -55,6 +57,8 @@ public class EventFactory {
                         return new BillEvent(table);
                     case SERVERRETURNED:
                         return new ReturnEvent(table, seat, splitString[EventFactory.ORDER_ADDRESS], splitString[EventFactory.COMMENT_ADDRESS]);
+                    case PAY:
+                        return new PayEvent(table, seat, splitString[EventFactory.PAYMENT_ADDRESS]);
                     default:
                         throw new IllegalArgumentException("broken event line in text file" + eventLine);
                 }
