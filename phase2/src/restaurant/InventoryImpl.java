@@ -89,7 +89,7 @@ public class InventoryImpl implements Inventory {
      */
     @Override
     public Map<Ingredient, Integer> getContents() {
-        return inventory;
+        return new HashMap<>(inventory);
     }
 
     /**

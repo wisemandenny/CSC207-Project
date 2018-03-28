@@ -1,9 +1,9 @@
 package main;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.*;
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,10 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.TreeItem;
+import javafx.scene.layout.*;
 import menu.Ingredient;
 import menu.MenuItem;
 import restaurant.Order;
@@ -124,7 +122,18 @@ public class ManagerView extends Observable implements Initializable {
         loadIncomeLabels();
     }
     @FXML private void openInventoryViewer(){
-        //TODO: build this function
+        JFXDialogLayout content = new JFXDialogLayout();
+        content.setHeading(new Label("Inventory viewer"));
+
+        JFXButton okButton = new JFXButton("OK");
+        content.setActions(okButton);
+
+        InventoryViewer viewer = new InventoryViewer();
+        content.setBody(viewer.getFlowPane());
+
+        JFXDialog inventoryViewerPopup = new JFXDialog(rootStackPane, content, JFXDialog.DialogTransition.CENTER, true);
+        okButton.setOnAction(e -> inventoryViewerPopup.close());
+        inventoryViewerPopup.show();
     }
 
     private class ShipmentPopup{
@@ -255,6 +264,49 @@ public class ManagerView extends Observable implements Initializable {
             JFXDialog popup = new JFXDialog(rootStackPane, content, JFXDialog.DialogTransition.CENTER, true);
             okButton.setOnAction(e -> popup.close());
             return popup;
+        }
+    }
+    private class InventoryViewer{
+        private FlowPane flowPane;
+        private Map<Ingredient, Integer> inventory;
+        InventoryViewer(){
+            inventory = Restaurant.getInstance().getInventory();
+            flowPane = new FlowPane();
+            JFXTreeTableView<InventoryEntry> treeView = new JFXTreeTableView<>();
+
+            JFXTreeTableColumn<InventoryEntry, String> ingredientName = new JFXTreeTableColumn<>("Ingredient");
+            ingredientName.setPrefWidth(150);
+            ingredientName.setCellValueFactory(param -> param.getValue().getValue().ingredientName);
+
+            JFXTreeTableColumn<InventoryEntry, String> ingredientQuantity = new JFXTreeTableColumn<>("Quantity");
+            ingredientQuantity.setPrefWidth(100);
+            ingredientQuantity.setCellValueFactory(param -> param.getValue().getValue().quantity);
+
+            ObservableList<InventoryEntry> entries = FXCollections.observableArrayList();
+            for(Map.Entry<Ingredient, Integer> inventoryEntry : inventory.entrySet()){
+                entries.add(new InventoryEntry(inventoryEntry.getKey().getName(), String.valueOf(inventoryEntry.getValue())));
+            }
+
+            final TreeItem<InventoryEntry> root = new RecursiveTreeItem<>(entries, RecursiveTreeObject::getChildren);
+            treeView.setRoot(root);
+            treeView.setShowRoot(false);
+            treeView.getColumns().setAll(ingredientName, ingredientQuantity);
+
+            flowPane.getChildren().add(treeView);
+        }
+
+        private FlowPane getFlowPane() {
+            return flowPane;
+        }
+
+        private class InventoryEntry extends RecursiveTreeObject<InventoryEntry> {
+            StringProperty ingredientName;
+            StringProperty quantity;
+
+            private InventoryEntry(String ingredientName, String quantity) {
+                this.ingredientName = new SimpleStringProperty(ingredientName);
+                this.quantity = new SimpleStringProperty(quantity);
+            }
         }
     }
 }

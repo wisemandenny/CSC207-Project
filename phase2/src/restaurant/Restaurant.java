@@ -302,6 +302,10 @@ public class Restaurant extends Observable implements Runnable {
         */
     }
 
+    public Map<Ingredient, Integer> getInventory(){
+        return inventory.getContents();
+    }
+
     /**
      * Returns an array of Tables that belong to this Restaurant.
      *
