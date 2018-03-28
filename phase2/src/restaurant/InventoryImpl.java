@@ -65,7 +65,7 @@ public class InventoryImpl implements Inventory {
                }else{ s.append(", ");}
            }
         }
-        RestaurantLogger.log(Level.INFO, "" + s.toString());
+        RestaurantLogger.log(Level.INFO, s.toString());
     }
 
     /**
@@ -79,8 +79,8 @@ public class InventoryImpl implements Inventory {
                 makeRestockRequest();
             }
 
-            RestaurantLogger.log(Level.INFO, "1 " + i.getName() + " removed from inventory. There are " + Integer.toString(inventory.get(i))
-                    + " " + i.getName() + " remaining.");
+           // RestaurantLogger.log(Level.INFO, "1 " + i.getName() + " removed from inventory. There are " + Integer.toString(inventory.get(i))
+                  //  + " " + i.getName() + " remaining.");
         }
     }
 
