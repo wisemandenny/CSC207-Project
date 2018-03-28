@@ -183,6 +183,7 @@ public class ManagerView extends Observable implements Initializable {
                     receivedItems.put(ingredient, Integer.valueOf(newValue));
                 }
             });
+            quantityField.setMaxWidth(48);
             Label ingredientNameLabel = new Label(ingredient.getName());
 
             entryBox.getChildren().addAll(quantityField, filler, ingredientNameLabel);

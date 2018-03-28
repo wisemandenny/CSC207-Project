@@ -393,3 +393,5 @@ Mar 28, 2018 5:52:04 PM restaurant.RestaurantLogger log
 INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), 1 Hotdog(s), and 1 Coke(s).
 Mar 28, 2018 5:54:03 PM restaurant.RestaurantLogger log
 INFO: Table 1 order number 1, ordered the following item(s):1 Veggie Burger(s), 1 Hotdog(s), and 1 Fries(s).
+Mar 28, 2018 6:44:52 PM restaurant.RestaurantLogger log
+INFO: Shipment of ingredients received: 3 VegetarianPatty,  were added to inventory.

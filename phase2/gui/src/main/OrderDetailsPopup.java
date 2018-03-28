@@ -62,7 +62,7 @@ class OrderDetailsPopup extends Observable {
         HBox itemBox = new HBox();
         Region filler = new Region();
         HBox.setHgrow(filler, Priority.ALWAYS);
-        MenuButton quantitySelector = new MenuButton("Select Quantity");
+        MenuButton quantitySelector = new MenuButton("1");
         for (int i = 1; i < 11; i++) {
             final int j = i;
             MenuItem quantity = new MenuItem(String.valueOf(j));
