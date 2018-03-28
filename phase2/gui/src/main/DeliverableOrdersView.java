@@ -21,6 +21,7 @@ public class DeliverableOrdersView extends Observable {
     @FXML private StackPane deliverableOrderStackPane;
     @FXML private JFXListView<HBox> deliverableOrdersListView;
     private final List<OrderBox> deliverableOrders = new ArrayList<>();
+
     private void addDeliverableOrders(){
         List<Order> orderList = Restaurant.getInstance().getReadyOrders();
         for(Order o : orderList){

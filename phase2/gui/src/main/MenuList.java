@@ -33,6 +33,16 @@ public class MenuList implements Initializable {
     List<JFXButton> getSelectedItems() {
         return selectedItems;
     }
+    void clearSelected(){
+        List<JFXButton> buttonsToRemove = new ArrayList<>();
+        for(JFXButton selectedButton : selectedItems){
+            JFXListCell<JFXButton> selectedCell = (JFXListCell<JFXButton>) selectedButton.getParent();
+            selectedCell.setBackground(Background.EMPTY);
+            buttonsToRemove.add(selectedButton);
+        }
+        selectedItems.removeAll(buttonsToRemove);
+        addMenuLabels();
+    }
 
     private void addMenuLabels() {
         menuListView.getItems().clear();

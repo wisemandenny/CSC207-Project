@@ -46,6 +46,6 @@ class SeatEvent implements Event{
             s.append(".");
         }
 
-        RestaurantLogger.log(Level.INFO,  "" + s.toString());
+        RestaurantLogger.log(Level.INFO,  s.toString());
     }
 }
