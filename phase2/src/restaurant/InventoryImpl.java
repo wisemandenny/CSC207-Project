@@ -7,6 +7,7 @@ import menu.MenuItem;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Level;
 
 public class InventoryImpl implements Inventory {
     private final Map<Ingredient, Integer> inventory = new HashMap<>();
@@ -48,7 +49,23 @@ public class InventoryImpl implements Inventory {
         for (Ingredient i : o.getIngredients()) {
             removeFromInventory(i);
         }
-
+        StringBuilder s = new StringBuilder();
+        for (MenuItem i: o.getItems()){
+            s.append("Cooked ");
+            s.append(Integer.toString(i.getQuantity()));
+            s.append(" ");
+            s.append(i.getName());
+            s.append(": removed ");
+           for (Ingredient in: i.getIngredients()){
+               s.append(Integer.toString(i.getQuantity()));
+               s.append(" ");
+               s.append(in.getName());
+               if (i.getIngredients().indexOf(in) == i.getIngredients().size() - 1){
+                   s.append(" from inventory.");
+               }else{ s.append(", ");}
+           }
+        }
+        RestaurantLogger.log(Level.INFO, "" + s.toString());
     }
 
     /**
@@ -61,6 +78,9 @@ public class InventoryImpl implements Inventory {
             if(inventory.get(i) < 5){
                 makeRestockRequest();
             }
+
+            RestaurantLogger.log(Level.INFO, "1 " + i.getName() + " removed from inventory. There are " + Integer.toString(inventory.get(i))
+                    + " " + i.getName() + " remaining.");
         }
     }
 
