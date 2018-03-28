@@ -11,11 +11,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import menu.MenuItem;
-import restaurant.Bill;
-import restaurant.Order;
-import restaurant.Restaurant;
-import restaurant.RestaurantLogger;
-import restaurant.Table;
+import restaurant.*;
 
 import java.net.URL;
 import java.util.List;

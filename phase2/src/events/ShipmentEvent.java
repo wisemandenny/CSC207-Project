@@ -39,6 +39,6 @@ public class ShipmentEvent implements Event {
             s.append(entry.getKey().getName());
             s.append(", ");
         }
-        RestaurantLogger.log(Level.INFO, "Shipement of ingredients recieved" + s + " were added to inventory." );
+        RestaurantLogger.log(Level.INFO, "Shipment of ingredients received: " + s + " were added to inventory." );
     }
 }

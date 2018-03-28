@@ -1,0 +1,6 @@
+Mar 28, 2018 12:41:15 PM restaurant.RestaurantLogger log
+INFO: Shipment of ingredients received2 Patty,  were added to inventory.
+Mar 28, 2018 12:41:56 PM restaurant.RestaurantLogger log
+INFO: Shipment of ingredients received3 Patty,  were added to inventory.
+Mar 28, 2018 12:43:50 PM restaurant.RestaurantLogger log
+INFO: Shipment of ingredients received1111000 VegetarianPatty,  were added to inventory.

@@ -7,12 +7,13 @@ a. fix this so that it refuses in situations like (10 Hamburgers, 10 Chicken Bur
 
 NEW FUNCTIONS
 1. implement manager view fully
-a. make a shipment received dialog box
+a. make a shipment received dialog box DONE
 b. make a email textfield dialog box
 
 3. clear table button
 4. prevent cook from cooking anything but the first order
 a. visual feedback (alert popup)
+5. Inventory viewer?
 
 VISUAL BUGS
 1. make billview hgrow properly
@@ -24,7 +25,7 @@ LOOK AND FEEL
 1: use material csS
 2. skin the dialog boxes
 3. make the buttons in cook order view red/yellow/green
-
+4. make shipmentpopup input boxes smaller (digit sized)
 
 
 
