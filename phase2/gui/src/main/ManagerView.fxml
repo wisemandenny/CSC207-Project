@@ -3,56 +3,62 @@
 <?import com.jfoenix.controls.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <StackPane fx:id="rootStackPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ManagerView">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Accordion prefHeight="548.0" prefWidth="396.0" HBox.hgrow="ALWAYS">
+            <Accordion prefHeight="548.0" prefWidth="396.0" style="-fx-background-color: #FFFFFF;" HBox.hgrow="ALWAYS">
               <panes>
-                <TitledPane animated="false" text="Customer Placed Orders">
+                <TitledPane text="Customer Placed Orders">
                      <content>
-                        <JFXListView fx:id="placedList" />
+                        <JFXListView fx:id="placedList" style="-fx-background-color: #FFFFFF;" />
                      </content>
                 </TitledPane>
-                <TitledPane animated="false" text="Kitchen Received Orders">
+                <TitledPane text="Kitchen Received Orders">
                      <content>
-                        <JFXListView fx:id="receivedList" />
+                        <JFXListView fx:id="receivedList" style="-fx-background-color: #FFFFFF;" />
                      </content>
                 </TitledPane>
-                <TitledPane animated="false" text="Cooking Orders">
+                <TitledPane text="Cooking Orders">
                      <content>
-                        <JFXListView fx:id="firedList" />
+                        <JFXListView fx:id="firedList" style="-fx-background-color: #FFFFFF;" />
                      </content>
                 </TitledPane>
-                  <TitledPane animated="false" text="Orders Ready for Pickup">
+                  <TitledPane text="Orders Ready for Pickup">
                      <content>
-                        <JFXListView fx:id="readyList" />
+                        <JFXListView fx:id="readyList" style="-fx-background-color: #FFFFFF;" />
                      </content>
                   </TitledPane>
-                  <TitledPane animated="false" text="Delivered Orders">
+                  <TitledPane text="Delivered Orders">
                      <content>
-                        <JFXListView fx:id="deliveredList" />
+                        <JFXListView fx:id="deliveredList" style="-fx-background-color: #FFFFFF;" />
                      </content>
                   </TitledPane>
               </panes>
             </Accordion>
-            <AnchorPane prefHeight="548.0" prefWidth="443.0">
-               <children>
-                  <Label fx:id="incomeLabel" layoutX="102.0" layoutY="27.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #2196F3;" text="Total income:" textFill="WHITE" AnchorPane.leftAnchor="102.0">
+            <ToolBar orientation="VERTICAL" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;">
+              <items>
+                  <Label fx:id="incomeLabel" prefWidth="200.0" style="-fx-background-color: #2196F3;" text="Total income:" textFill="WHITE">
                      <padding>
-                        <Insets bottom="4.0" right="50.0" top="4.0" />
+                        <Insets bottom="4.0" top="4.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="tipLabel" layoutX="102.0" layoutY="139.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #2196F3;" text="Tip Total:" textFill="WHITE" AnchorPane.leftAnchor="102.0">
+                  <Label fx:id="tipLabel" prefWidth="200.0" style="-fx-background-color: #2196F3;" text="Tip Total:" textFill="WHITE">
                      <padding>
-                        <Insets bottom="4.0" right="50.0" top="4.0" />
+                        <Insets bottom="4.0" top="4.0" />
                      </padding>
                   </Label>
-                  <JFXButton fx:id="emailButton" layoutX="102.0" layoutY="430.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FF5722;" text="Generate Email to Suppliers" textFill="WHITE" AnchorPane.leftAnchor="102.0" />
-                  <JFXButton fx:id="shipmentButton" layoutX="102.0" layoutY="287.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FF5722;" text="Receive a Shipment" textFill="WHITE" AnchorPane.leftAnchor="102.0" />
-               </children>
-            </AnchorPane>
+                  <JFXButton fx:id="inventoryViewerButton" buttonType="RAISED" onAction="#openInventoryViewer" prefWidth="200.0" style="-fx-background-color: #FF5722;" text="Inventory Viewer" textFill="WHITE" />
+                  <JFXButton fx:id="emailButton" buttonType="RAISED" prefWidth="200.0" style="-fx-background-color: #FF5722;" text="Generate Email" textFill="WHITE" />
+                  <JFXButton fx:id="shipmentButton" buttonType="RAISED" prefWidth="200.0" style="-fx-background-color: #FF5722;" text="Receive Shipment" textFill="WHITE" />
+                  <JFXButton text="Inventory Viewer" textFill="WHITE" />
+              </items>
+               <padding>
+                  <Insets left="30.0" right="30.0" top="24.0" />
+               </padding>
+            </ToolBar>
          </children>
       </HBox>
    </children>

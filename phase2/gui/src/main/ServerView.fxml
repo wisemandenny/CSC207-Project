@@ -7,20 +7,26 @@
 <?import javafx.scene.text.Font?>
 <StackPane fx:id="serverViewStackPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ServerView">
    <children>
-      <GridPane prefHeight="764.0" style="-fx-background-color: #FFFFFF;">
+      <GridPane style="-fx-background-color: #FFFFFF;">
           <columnConstraints>
-              <ColumnConstraints hgrow="SOMETIMES" maxWidth="792.0" minWidth="10.0" prefWidth="326.0" />
-              <ColumnConstraints hgrow="SOMETIMES" maxWidth="526.0" minWidth="10.0" prefWidth="474.0" />
+              <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="326.0" />
+              <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="474.0" />
           </columnConstraints>
           <rowConstraints>
-              <RowConstraints maxHeight="784.0" minHeight="10.0" prefHeight="729.0" vgrow="SOMETIMES" />
-              <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="71.0" vgrow="SOMETIMES" />
+              <RowConstraints minHeight="10.0" prefHeight="729.0" vgrow="ALWAYS" />
+              <RowConstraints minHeight="10.0" prefHeight="71.0" vgrow="NEVER" />
           </rowConstraints>
           <children>
-            <VBox fx:id="menuVbox" prefHeight="200.0" prefWidth="100.0" />
-              <VBox fx:id="tableViewBox" prefHeight="1000.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowSpan="2" GridPane.vgrow="NEVER">
+            <VBox fx:id="menuVbox" prefHeight="200.0" prefWidth="100.0" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin></VBox>
+              <VBox fx:id="tableViewBox" prefHeight="1000.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                   <children>
             </children>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
               </VBox>
               <JFXButton fx:id="FAB" alignment="CENTER" buttonType="RAISED" scaleShape="false" style="-fx-background-color: #FF5722; -fx-border-radius: 100 100 100 100; -fx-background-radius: 100 100 100 100;" text="+" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
                   <font>

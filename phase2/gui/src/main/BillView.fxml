@@ -3,16 +3,15 @@
 <?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<VBox fx:id="billViewRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.BillView">
+<VBox fx:id="billViewRoot" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.BillView">
    <children>
       <GridPane style="-fx-background-color: #2196F3;">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -53,76 +52,76 @@
             </JFXButton>
          </children>
       </GridPane>
-      <SplitPane prefHeight="410.0" prefWidth="479.0">
-         <items>
-            <Pane>
-               <children>
-                  <JFXListView fx:id="itemList" maxWidth="1.7976931348623157E308" prefHeight="407.0" prefWidth="477.0" />
-               </children>
-            </Pane>
-         </items>
-      </SplitPane>
-      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+      <VBox VBox.vgrow="ALWAYS">
          <children>
-            <VBox>
+            <HBox VBox.vgrow="ALWAYS">
                <children>
-                  <JFXButton fx:id="joinButton" onAction="#joinCheques" style="-fx-background-color: #FF5722;" text="Join All Cheques" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </JFXButton>
+                  <JFXListView fx:id="itemList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="433.0" prefWidth="479.0" HBox.hgrow="ALWAYS" />
                </children>
-               <HBox.margin>
-                  <Insets left="24.0" right="48.0" top="24.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox>
-               <HBox.margin>
-                  <Insets left="24.0" right="48.0" top="24.0" />
-               </HBox.margin>
+            </HBox>
+            <HBox fillHeight="false" maxHeight="-Infinity" prefHeight="47.0" prefWidth="479.0" scaleShape="false" style="-fx-background-color: #FFFFFF;" VBox.vgrow="NEVER">
                <children>
-                  <JFXButton fx:id="returnButton" onAction="#sendBackOrder" scaleX="1.8" scaleY="1.8" style="-fx-background-color: #F44336;" text="RETURN" textFill="WHITE" VBox.vgrow="ALWAYS">
-                     <padding>
-                        <Insets bottom="10.0" left="3.0" right="3.0" top="10.0" />
-                     </padding>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </JFXButton>
-                  <Label text="(Select an Order)" textFill="WHITE">
-                     <font>
-                        <Font name="System Italic" size="7.0" />
-                     </font>
-                  </Label>
+                  <VBox HBox.hgrow="ALWAYS">
+                     <children>
+                        <JFXButton fx:id="joinButton" onAction="#joinCheques" style="-fx-background-color: #FF5722;" text="Join All Cheques" textFill="WHITE" wrapText="true" VBox.vgrow="NEVER">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </JFXButton>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="24.0" right="48.0" top="24.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="24.0" right="48.0" top="24.0" />
+                     </HBox.margin>
+                     <children>
+                        <JFXButton fx:id="returnButton" onAction="#sendBackOrder" scaleX="1.8" scaleY="1.8" style="-fx-background-color: #F44336;" text="RETURN" textFill="WHITE" VBox.vgrow="NEVER">
+                           <padding>
+                              <Insets bottom="10.0" left="3.0" right="3.0" top="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <Label text="(Select an Order)" textFill="WHITE" VBox.vgrow="NEVER">
+                           <font>
+                              <Font name="System Italic" size="7.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox HBox.hgrow="ALWAYS">
+                     <children>
+                        <JFXButton fx:id="payButton" onAction="#paySelectedItems" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #1B5E20;" text="PAY" textFill="WHITE" VBox.vgrow="NEVER">
+                           <padding>
+                              <Insets bottom="10.0" left="8.0" right="8.0" top="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXButton>
+                        <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" text="(Select an Order)" textFill="WHITE" VBox.vgrow="NEVER">
+                           <font>
+                              <Font name="System Italic" size="7.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="-5.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="48.0" right="48.0" top="24.0" />
+                     </HBox.margin>
+                  </VBox>
                </children>
-            </VBox>
-            <VBox>
-               <children>
-                  <JFXButton fx:id="payButton" onAction="#paySelectedItems" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #1B5E20;" text="PAY" textFill="WHITE" VBox.vgrow="ALWAYS">
-                     <padding>
-                        <Insets bottom="10.0" left="8.0" right="8.0" top="10.0" />
-                     </padding>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </JFXButton>
-                  <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" text="(Select an Order)" textFill="WHITE">
-                     <font>
-                        <Font name="System Italic" size="7.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="-5.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-               <HBox.margin>
-                  <Insets left="48.0" right="48.0" top="24.0" />
-               </HBox.margin>
-            </VBox>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
    </children>
 </VBox>

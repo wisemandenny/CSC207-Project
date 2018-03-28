@@ -4,23 +4,14 @@ BUG FIXES
 1. fix item removals from gui order detailsbox
 2. prevent server from placing order if item is not cookable
 a. fix this so that it refuses in situations like (10 Hamburgers, 10 Chicken Burgers) 20 BurgerBun > inventory amoun, should return false but returns true (see Restaurant.checkInventory
-3. fix duplicates in requests.txt DONE
+4. replace all @FXML public functions with @FXML private functions
 
 NEW FUNCTIONS
-1. implement manager view fully DONE
-a. make a shipment received dialog box DONE
-b. make a email textfield dialog box DONE
-
-3. clear table button DONE
-4. prevent cook from cooking anything but the first order DONE
-a. visual feedback (alert popup) DONE
 5. Inventory viewer?
 
 VISUAL BUGS
-1. make billview hgrow properly
 2. fix random resizing of orderboxes in cookorder view
 a. they don't cover the whole order if you make a big order either
-3. remove weird window above the deliverable orders view
 
 LOOK AND FEEL
 1: use material csS
@@ -28,6 +19,8 @@ LOOK AND FEEL
 3. make the buttons in cook order view red/yellow/green
 4. make shipmentpopup input boxes smaller (digit sized)
 
+SMALL ANNOYANCES
+1. when you maximize server view, the list view doesn't vertically grow
 
 
 

@@ -2,14 +2,20 @@
 
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.*?>
-<StackPane fx:id="menuStackPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.MenuList">
+<StackPane fx:id="menuStackPane" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.MenuList">
    <children>
       <VBox>
           <children>
-              <JFXListView fx:id="menuListView" prefHeight="450.0" VBox.vgrow="ALWAYS" />
-              <JFXToggleButton fx:id="showIngredientsButton" onAction="#toggleShowIngredients" style="-fx-background-color: #FF5722; -fx-border-radius: 12 12 12 12; -fx-background-radius: 12 12 12 12;" text="Show Ingredients" textFill="WHITE" VBox.vgrow="NEVER" />
-              <JFXListView fx:id="readyOrdersListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="216.0" prefWidth="248.0" VBox.vgrow="ALWAYS" />
+              <JFXListView fx:id="menuListView" prefHeight="450.0" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></JFXListView>
+              <JFXToggleButton fx:id="showIngredientsButton" onAction="#toggleShowIngredients" style="-fx-background-color: #FF5722;" text="Show Ingredients" textFill="WHITE">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin></JFXToggleButton>
           </children>
       </VBox>
    </children>

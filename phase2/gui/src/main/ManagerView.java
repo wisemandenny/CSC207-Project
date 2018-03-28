@@ -48,6 +48,7 @@ public class ManagerView extends Observable implements Initializable {
 
     JFXDialog shipmentDialog;
     JFXDialog emailDialog;
+    //JFXDialog inventoryDialog;
     /**
      * Called to initialize a controller after its root element has been
      * completely processed.
@@ -121,6 +122,9 @@ public class ManagerView extends Observable implements Initializable {
     void refresh(){
         loadOrdersLists();
         loadIncomeLabels();
+    }
+    @FXML private void openInventoryViewer(){
+        //TODO: build this function
     }
 
     private class ShipmentPopup{
