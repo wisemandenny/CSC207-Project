@@ -24,11 +24,11 @@ class OrderEvent implements Event {
         Restaurant.getInstance().addPlacedOrder(order);
 
         StringBuilder s = new StringBuilder();
-        s.append("Order number ");
-        s.append(Integer.toString(order.getId()));
-        s.append(": Table ");
+        s.append("Table ");
         s.append(Integer.toString(order.getTableId()));
-        s.append(" ordered ");
+        s.append(" order number ");
+        s.append(Integer.toString(order.getId()));
+        s.append(", ordered the following item(s):");
         for (MenuItem i: order.getItems()){
             if (order.getItems().indexOf(i) == (order.getItems().size() - 1) && order.getItems().size() > 1){
                 s.append("and ");
