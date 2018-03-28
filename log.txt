@@ -1,0 +1,12 @@
+Mar 27, 2018 10:29:39 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Chicken Burger(s), and 2 Veggie Burger(s).
+Mar 27, 2018 10:30:13 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 2 Fries(s), and 1 Hotdog(s).
+Mar 27, 2018 10:31:37 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Fries(s), and 1 Veggie Burger(s).
+Mar 27, 2018 10:34:14 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Hotdog(s), and 1 Fries(s).
+Mar 27, 2018 10:34:35 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Hotdog(s), and 1 Fries(s).
+Mar 27, 2018 10:36:50 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Hotdog(s).
