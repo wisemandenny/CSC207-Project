@@ -2,7 +2,10 @@ package events;
 
 import restaurant.Bill;
 import restaurant.Restaurant;
+import restaurant.RestaurantLogger;
 import restaurant.Table;
+
+import java.util.logging.Level;
 
 public class PayEvent implements Event {
     private Table table;
@@ -38,7 +41,7 @@ public class PayEvent implements Event {
         System.out.println("Amount to be paid: " + paymentAmount);
         //all these souts are for testing
 
-        //TODO: @Achilles please log the payment info here.
         String logString = "Payment of $" + paymentAmount + " received from Table " + table.getId() + " seat " + seatNumber;
+        RestaurantLogger.log(Level.INFO, logString);
     }
 }
