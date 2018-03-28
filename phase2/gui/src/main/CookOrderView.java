@@ -4,9 +4,14 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import menu.MenuItem;
 import restaurant.Order;
@@ -41,9 +46,10 @@ public class CookOrderView extends Observable implements Initializable {
 
         OrderBox(Order order, String flag){
             this.order = order;
-            box = new VBox();
+            box = new VBox(10);
             box.setOnMouseClicked(e -> selectBox(box));
             Label orderHeader = new Label("Order: " + order.getId() + "\nTable: " + order.getTableId());
+
             box.getChildren().add(orderHeader);
             for (MenuItem item : order.getItems()){
                 box.getChildren().add(makeItemLabel(item));
@@ -66,18 +72,15 @@ public class CookOrderView extends Observable implements Initializable {
                     box.setBackground(Backgrounds.GREY_BACKGROUND);
                     break;
             }
-
-            box.setPrefSize(100, 150);
-            box.autosize();
         }
         private Label makeItemLabel(MenuItem item) {
             Label itemLabel = new Label(item.getQuantity() + " " + item.getName());
             itemLabel.setBackground(Background.EMPTY); //transparent background
-            itemLabel.autosize();
             return itemLabel;
         }
         Order getOrder(){ return order; }
-        VBox getVBox() { return box; }
+        VBox getVBox() {
+            return box; }
 
         @Override
         public boolean equals(Object o) {
@@ -96,8 +99,8 @@ public class CookOrderView extends Observable implements Initializable {
 
     void refresh() {
         orderMasonryPane.getChildren().clear();
-
         orderBoxList.clear();
+
         List<VBox> orderList = new ArrayList<>();
         for (Order placedOrder : Restaurant.getInstance().getPlacedOrders()) {
             orderList.add(makeOrderBox(placedOrder, "placed"));
@@ -111,7 +114,21 @@ public class CookOrderView extends Observable implements Initializable {
         for (Order readyOrder : Restaurant.getInstance().getReadyOrders()) {
             orderList.add(makeOrderBox(readyOrder, "ready"));
         }
-        orderMasonryPane.getChildren().addAll(orderList);
+        //In order for the vboxes' size to be calculated, they need to be put into a scene and then called applyCss and layout.
+        //if not, the boxes will not be rendered because there height and width will be null.
+        Group group = new Group();
+        Scene scene = new Scene(group);
+        group.getChildren().addAll(orderList);
+        group.applyCss();
+        group.layout();
+        for(Node n : group.getChildren()){
+            VBox v = (VBox) n;
+            v.setMinWidth(v.getWidth() + v.getSpacing());
+            VBox.setVgrow(v, Priority.NEVER);
+            v.setPadding(new Insets(10,10,10,10));
+            v.autosize();
+        }
+        orderMasonryPane.getChildren().addAll(group.getChildren());
     }
 
     private VBox makeOrderBox(Order o, String flag) {
@@ -168,7 +185,6 @@ public class CookOrderView extends Observable implements Initializable {
             }
         }
     }
-
 
     private void readyOrder(){
         for(OrderBox orderBox : orderBoxList){

@@ -248,3 +248,148 @@ Mar 28, 2018 4:24:50 PM restaurant.RestaurantLogger log
 INFO: Order number 1 ready!
 Mar 28, 2018 4:24:57 PM restaurant.RestaurantLogger log
 INFO: Order number 1 delivered!
+Mar 28, 2018 5:00:33 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):2 Fries(s).
+Mar 28, 2018 5:00:41 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Coke(s), 1 Hotdog(s), 1 Fries(s), and 1 Veggie Burger(s).
+Mar 28, 2018 5:01:31 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Coke(s).
+Mar 28, 2018 5:01:37 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), 1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 5:02:22 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s).
+Mar 28, 2018 5:02:28 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), and 1 Hotdog(s).
+Mar 28, 2018 5:04:31 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s).
+Mar 28, 2018 5:04:52 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Coke(s), 1 Hotdog(s), and 1 Chicken Fingers(s).
+Mar 28, 2018 5:05:08 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s).
+Mar 28, 2018 5:05:16 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Chicken Fingers(s).
+Mar 28, 2018 5:06:32 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), 1 Fries(s), and 1 Veggie Burger(s).
+Mar 28, 2018 5:06:54 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s), 1 Fries(s), 1 Veggie Burger(s), 1 Chicken Burger(s), and 1 Hamburger(s).
+Mar 28, 2018 5:07:36 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), 1 Fries(s), 1 Veggie Burger(s), 1 Chicken Burger(s), and 1 Hamburger(s).
+Mar 28, 2018 5:11:15 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), and 1 Fries(s).
+Mar 28, 2018 5:19:19 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 5:19:57 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), and 1 Coke(s).
+Mar 28, 2018 5:21:34 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Coke(s), 1 Hotdog(s), and 1 Chicken Fingers(s).
+Mar 28, 2018 5:21:58 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), 1 Fries(s), 1 Veggie Burger(s), and 1 Chicken Burger(s).
+Mar 28, 2018 5:22:05 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Chicken Fingers(s).
+Mar 28, 2018 5:22:40 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s), and 1 Chicken Fingers(s).
+Mar 28, 2018 5:22:47 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), and 1 Fries(s).
+Mar 28, 2018 5:22:57 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 3, ordered the following item(s):1 Onion Rings(s).
+Mar 28, 2018 5:23:19 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 5:23:27 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), and 1 Fries(s).
+Mar 28, 2018 5:23:41 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 3, ordered the following item(s):1 Onion Rings(s), 1 Poutine(s), 1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), 1 Veggie Burger(s), 1 Fries(s), 1 Chicken Burger(s), 1 Hamburger(s), and 1 Salad(s).
+Mar 28, 2018 5:24:12 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s).
+Mar 28, 2018 5:24:19 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Onion Rings(s), and 1 Chicken Fingers(s).
+Mar 28, 2018 5:24:53 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), and 1 Coke(s).
+Mar 28, 2018 5:25:57 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Fries(s), and 1 Veggie Burger(s).
+Mar 28, 2018 5:26:04 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 5:26:21 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 3, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), and 1 Coke(s).
+Mar 28, 2018 5:26:45 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), 1 Fries(s), 1 Chicken Burger(s), and 1 Hamburger(s).
+Mar 28, 2018 5:26:57 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), 1 Fries(s), and 1 Hotdog(s).
+Mar 28, 2018 5:27:30 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), 1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 5:27:36 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), 1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 5:29:44 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), 1 Fries(s), 1 Veggie Burger(s), and 1 Chicken Burger(s).
+Mar 28, 2018 5:30:49 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), 1 Fries(s), and 1 Veggie Burger(s).
+Mar 28, 2018 5:31:03 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), and 1 Coke(s).
+Mar 28, 2018 5:31:11 PM restaurant.RestaurantLogger log
+WARNING: java.lang.IllegalArgumentException: Order #1 not found in [1. Onion Rings
+2. Chicken Fingers
+3. Coke
+]
+Mar 28, 2018 5:31:42 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), 1 Fries(s), and 1 Veggie Burger(s).
+Mar 28, 2018 5:32:12 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Coke(s), 1 Hotdog(s), 1 Fries(s), and 1 Veggie Burger(s).
+Mar 28, 2018 5:32:50 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), and 1 Fries(s).
+Mar 28, 2018 5:33:57 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 5:34:23 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Fries(s).
+Mar 28, 2018 5:34:26 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 5:34:29 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 3, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), 1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 5:34:44 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Onion Rings: removed 1 Onion, 1 Breadcrumbs from inventory.Cooked 1 Chicken Fingers: removed 1 Chicken, 1 Breadcrumbs from inventory.Cooked 1 Coke: removed 1 Coke from inventory.Cooked 1 Hotdog: removed 1 Hotdog, 1 HotdogBun from inventory.
+Mar 28, 2018 5:34:44 PM restaurant.RestaurantLogger log
+INFO: Order number 3 prepared!
+Mar 28, 2018 5:34:47 PM restaurant.RestaurantLogger log
+WARNING: java.lang.IllegalArgumentException: Order #2 not found in [1. Onion Rings
+2. Chicken Fingers
+3. Coke
+4. Hotdog
+]
+Mar 28, 2018 5:34:47 PM restaurant.RestaurantLogger log
+INFO: Order number 2 ready!
+Mar 28, 2018 5:36:20 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s), 1 Coke(s), 1 Hotdog(s), 1 Chicken Fingers(s), 1 Fries(s), 1 Veggie Burger(s), 1 Chicken Burger(s), 1 Hamburger(s), 1 Poutine(s), and 1 Salad(s).
+Mar 28, 2018 5:38:09 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), 1 Veggie Burger(s), 1 Chicken Burger(s), and 1 Fries(s).
+Mar 28, 2018 5:38:49 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), 1 Fries(s), and 1 Veggie Burger(s).
+Mar 28, 2018 5:39:30 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Coke(s), 1 Hotdog(s), and 1 Fries(s).
+Mar 28, 2018 5:40:07 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s), 1 Coke(s), and 1 Chicken Fingers(s).
+Mar 28, 2018 5:41:20 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 5:42:04 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s).
+Mar 28, 2018 5:44:05 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), and 1 Coke(s).
+Mar 28, 2018 5:45:20 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), and 1 Hotdog(s).
+Mar 28, 2018 5:46:33 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), 1 Fries(s), and 1 Veggie Burger(s).
+Mar 28, 2018 5:48:54 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 5:49:12 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 5:49:47 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), and 1 Coke(s).
+Mar 28, 2018 5:50:05 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Hotdog(s), and 1 Coke(s).
+Mar 28, 2018 5:50:46 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 5:51:22 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s), 1 Fries(s), 1 Veggie Burger(s), 1 Chicken Burger(s), 1 Hamburger(s), 1 Coke(s), 1 Chicken Fingers(s), 1 Onion Rings(s), 1 Poutine(s), and 1 Salad(s).
+Mar 28, 2018 5:51:45 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), 1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 5:52:04 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s), 1 Chicken Fingers(s), 1 Hotdog(s), and 1 Coke(s).
+Mar 28, 2018 5:54:03 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Veggie Burger(s), 1 Hotdog(s), and 1 Fries(s).
