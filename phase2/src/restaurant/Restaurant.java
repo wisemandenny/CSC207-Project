@@ -180,7 +180,9 @@ public class Restaurant extends Observable implements Runnable {
         try{
             Order order = findOrder(receivedOrders, orderId);
             receivedOrders.remove(order);
-            cookingOrders.add(checkInventory(order));
+            if (checkInventory(order)) {
+                cookingOrders.add(order);
+            }
         } catch (IllegalArgumentException ex){
             System.out.println(ex.getMessage());
         }
@@ -227,7 +229,7 @@ public class Restaurant extends Observable implements Runnable {
      *
      * @param o the Order that is to be analyzed.
      */
-    private Order checkInventory(Order o) {
+    private Boolean checkInventory(Order o) {
         List<MenuItem> rejectedItems = new ArrayList<>();
         List<MenuItem> acceptedItems = new ArrayList<>();
 
@@ -243,7 +245,7 @@ public class Restaurant extends Observable implements Runnable {
                         itemToRemove.setQuantity(item.getQuantity() - i);
                         rejectedItems.add(itemToRemove);
                         RestaurantLogger.log(Level.WARNING, itemToRemove.getQuantity() + " " + itemToRemove.getName() + "(s) cannot be made because we are out of " + ingredient.getName() + ".");
-                        break itemLoop;
+                        return false;
                     } else { //enough inventory
                         inventory.removeFromInventory(ingredient);
                         if (ingredient.equals(allIngredients.get(allIngredients.size() - 1))) {//enough inventory for the whole item
@@ -263,7 +265,7 @@ public class Restaurant extends Observable implements Runnable {
             ord = OrderFactory.makeOrder(acceptedItems, o.getId(), o.getTableId(), o.getSeatId());
             inventory.removeFromInventory(ord);
         }
-        return ord;
+        return true;
     }
 
     /**
