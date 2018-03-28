@@ -2,6 +2,7 @@ package restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class TableImpl implements Table {
     private final int id;
@@ -114,7 +115,7 @@ public class TableImpl implements Table {
             if (s.getOrders().isEmpty()){
                 seats.remove(s);
             } else {
-                System.out.println("You cannot remove seats because orders have been made!"); //TODO: change this to logger
+                RestaurantLogger.log(Level.WARNING, "You cannot remove seats because orders have been made!");
             }
         }
     }
@@ -141,7 +142,7 @@ public class TableImpl implements Table {
     @Override
     public void joinCheques() {
         if(seats.isEmpty()){
-            System.out.println("can't join seats cheques (need to join the TABLE'S cheques"); //TODO: change this to loger
+            RestaurantLogger.log(Level.WARNING, "Cannot join a seats' cheque (need to join the TABLE'S cheque)");
         } else{
             List<Order> allOrders = new ArrayList<>();
             for(Table seat : seats){
