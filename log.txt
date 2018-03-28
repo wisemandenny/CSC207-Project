@@ -156,3 +156,33 @@ Mar 28, 2018 1:51:27 PM restaurant.RestaurantLogger log
 INFO: Table 1 order number 1, ordered the following item(s):10 Veggie Burger(s), 10 Chicken Burger(s), and 10 Hamburger(s).
 Mar 28, 2018 1:51:32 PM restaurant.RestaurantLogger log
 INFO: Order number 1 prepared!
+Mar 28, 2018 2:11:48 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hamburger(s).
+Mar 28, 2018 2:11:54 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 2:11:55 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 2:11:58 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 2:12:05 PM restaurant.RestaurantLogger log
+INFO: Payment of $10.0 received from Table 1 seat 0
+Mar 28, 2018 2:12:28 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):4 Hotdog(s), and 6 Fries(s).
+Mar 28, 2018 2:12:37 PM restaurant.RestaurantLogger log
+INFO: Order number 2 prepared!
+Mar 28, 2018 2:12:38 PM restaurant.RestaurantLogger log
+INFO: Order number 2 ready!
+Mar 28, 2018 2:12:41 PM restaurant.RestaurantLogger log
+INFO: Order number 2 delivered!
+Mar 28, 2018 2:12:49 PM restaurant.RestaurantLogger log
+INFO: Payment of $33.0 received from Table 1 seat 0
+Mar 28, 2018 2:13:44 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):4 Veggie Burger(s), and 5 Chicken Burger(s).
+Mar 28, 2018 2:13:48 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 2:13:49 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 2:13:52 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 2:14:05 PM restaurant.RestaurantLogger log
+INFO: Payment of $58.0 received from Table 1 seat 0

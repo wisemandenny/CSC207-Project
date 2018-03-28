@@ -23,8 +23,9 @@ import java.util.logging.Level;
 public class BillView extends Observable implements Initializable, Observer {
     @FXML private VBox billViewRoot;
     @FXML private Label billHeader;
-    @FXML private JFXButton changeTableButton;
     @FXML private JFXListView<HBox> itemList;
+    @FXML private JFXButton changeTableButton;
+    @FXML private JFXButton clearTableButton;
     @FXML private JFXButton subtotalButton;
     @FXML private JFXButton totalButton;
     @FXML private JFXButton payButton;
@@ -174,6 +175,10 @@ public class BillView extends Observable implements Initializable, Observer {
     }
     @FXML private void removeSeat(){
         Restaurant.getInstance().newEvent("removeseat | table " + shownTable + " | " + selectedSeat);
+        letBackendCatchUp();
+    }
+    @FXML private void clearTable(){
+        Restaurant.getInstance().newEvent("clearTable | table " + shownTable);
         letBackendCatchUp();
     }
     @FXML private void joinCheques(){

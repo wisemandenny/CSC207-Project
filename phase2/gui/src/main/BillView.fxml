@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 <VBox fx:id="billViewRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.BillView">
    <children>
       <GridPane style="-fx-background-color: #2196F3;">
@@ -41,6 +41,14 @@
             <JFXButton fx:id="removeSeat" onAction="#removeSeat" style="-fx-background-color: #FF5722;" text="SEAT - " textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="30.0" top="36.0" />
+               </GridPane.margin>
+            </JFXButton>
+            <JFXButton fx:id="clearTableButton" alignment="BASELINE_LEFT" layoutX="40.0" layoutY="22.0" onAction="#clearTable" scaleX="1.5" scaleY="1.5" style="-fx-background-color: #FF5722;" text="Clear table" textFill="WHITE" GridPane.rowIndex="2">
+               <font>
+                  <Font size="9.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="12.0" left="30.0" />
                </GridPane.margin>
             </JFXButton>
          </children>

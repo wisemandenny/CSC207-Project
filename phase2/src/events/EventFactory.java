@@ -47,6 +47,8 @@ public class EventFactory {
                 return new SeatEvent(Integer.parseInt(splitString[EventFactory.TABLEID_ADDRESS].substring(EventFactory.TABLE_LENGTH)), Integer.parseInt(splitString[2]));
             case JOIN:
                 return new JoinEvent(Integer.parseInt(splitString[EventFactory.TABLEID_ADDRESS].substring(EventFactory.TABLE_LENGTH)));
+            case CLEAR:
+                return new ClearEvent(Integer.parseInt(splitString[EventFactory.TABLEID_ADDRESS].substring(EventFactory.TABLE_LENGTH)));
             default:
                 Table table = tables[Integer.parseInt(splitString[EventFactory.TABLEID_ADDRESS].substring(EventFactory.TABLE_LENGTH).split(" > ")[0])];
                 Integer seat = Integer.parseInt(splitString[EventFactory.TABLEID_ADDRESS].substring(EventFactory.TABLE_LENGTH).split(" > ")[1]);

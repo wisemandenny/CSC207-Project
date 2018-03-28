@@ -7,7 +7,7 @@ import java.util.logging.Level;
 public class TableImpl implements Table {
     private final int id;
     private final List<Order> orders = new ArrayList<>();
-    private final Bill bill;
+    private Bill bill;
     //a table has seats. the seats are "subtables" of the parent table. There is a placeholder table, table 0, which
     //holds items which will be paid by the whole table (split)
     private final List<Table> seats = new ArrayList<>();
@@ -16,7 +16,7 @@ public class TableImpl implements Table {
      *  @param id the integer representing the id of this restaurant.TableImpl
      *
      */
-    TableImpl(int id, boolean isSubtable) {
+    public TableImpl(int id, boolean isSubtable) {
         this.id = id;
         bill = new BillImpl();
         //initialize all tables with 4 seats
@@ -156,6 +156,18 @@ public class TableImpl implements Table {
             seats.get(0).getOrders().addAll(allOrders);
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void resetTable(){
+        bill = new BillImpl();
+        seats.clear();
+        for (int i = 0; i <= 4; i++) {
+            seats.add(new TableImpl(i, true));
+        }
+    }
     /**
      * {@inheritDoc}
      */
@@ -164,4 +176,5 @@ public class TableImpl implements Table {
         String billString = getBill().getBillString();
         return ("BILL FOR TABLE " + id).concat(billString);
     }
+
 }

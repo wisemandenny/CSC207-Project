@@ -94,6 +94,11 @@ public interface Table {
     Table getSeat(int index);
 
     /**
+     * After a table has paid the bill, the table must be reset so that the table can serve another customer. This method resets tables to an empty state.
+     */
+    void resetTable();
+
+    /**
      * Return a String representation of the Bill for the Table.
      *
      * @return a String representation of the Bill for the Table.
