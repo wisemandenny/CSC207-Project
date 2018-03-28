@@ -10,10 +10,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.*;
 import menu.Ingredient;
 import restaurant.Restaurant;
+import restaurant.RestaurantLogger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.logging.Level;
 
 class OrderDetailsPopup extends Observable {
     private StackPane parent;
@@ -164,7 +166,7 @@ class OrderDetailsPopup extends Observable {
             try{
                 Thread.sleep(300);
             } catch (InterruptedException ex){
-                //TODO: log this
+                RestaurantLogger.log(Level.SEVERE, ex.toString());
             }
             setChanged();
             notifyObservers();

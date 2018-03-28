@@ -12,10 +12,12 @@ import javafx.scene.layout.*;
 import menu.MenuItem;
 import restaurant.Order;
 import restaurant.Restaurant;
+import restaurant.RestaurantLogger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.logging.Level;
 
 public class DeliverableOrdersView extends Observable {
     @FXML private StackPane deliverableOrderStackPane;
@@ -104,7 +106,7 @@ public class DeliverableOrdersView extends Observable {
             try{ //wait for backend....
                 Thread.sleep(300);
             } catch(InterruptedException ex) {
-                //TODO: log this exception
+                RestaurantLogger.log(Level.SEVERE, ex.toString());
             }
             setChanged();
             notifyObservers();
