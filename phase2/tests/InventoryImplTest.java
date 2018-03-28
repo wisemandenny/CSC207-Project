@@ -67,7 +67,7 @@ public class InventoryImplTest {
     public void testMakeRestockRequest (){
         Inventory inventory = makeInventory(menu);
         Ingredient ingredient = makeIngredient("Tomato");
-        inventory.makeRestockRequest(ingredient);
+        inventory.makeRestockRequest();
 
         String fileName = "requests.txt";
         String line;

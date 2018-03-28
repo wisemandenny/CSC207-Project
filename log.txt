@@ -4,3 +4,155 @@ Mar 28, 2018 12:41:56 PM restaurant.RestaurantLogger log
 INFO: Shipment of ingredients received3 Patty,  were added to inventory.
 Mar 28, 2018 12:43:50 PM restaurant.RestaurantLogger log
 INFO: Shipment of ingredients received1111000 VegetarianPatty,  were added to inventory.
+Mar 28, 2018 12:49:13 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):5 Hamburger(s).
+Mar 28, 2018 12:49:46 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 12:49:48 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 12:49:51 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 12:50:04 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):5 Hamburger(s).
+Mar 28, 2018 12:50:09 PM restaurant.RestaurantLogger log
+INFO: Order number 2 prepared!
+Mar 28, 2018 12:50:10 PM restaurant.RestaurantLogger log
+INFO: Order number 2 ready!
+Mar 28, 2018 12:50:14 PM restaurant.RestaurantLogger log
+INFO: Order number 2 delivered!
+Mar 28, 2018 12:53:25 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):10 Fries(s).
+Mar 28, 2018 12:54:05 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):5 Hamburger(s), and 1 Chicken Burger(s).
+Mar 28, 2018 12:54:10 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 12:54:12 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 12:54:17 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 12:54:21 PM restaurant.RestaurantLogger log
+INFO: Order number 2 prepared!
+Mar 28, 2018 12:54:22 PM restaurant.RestaurantLogger log
+INFO: Order number 2 ready!
+Mar 28, 2018 12:54:25 PM restaurant.RestaurantLogger log
+INFO: Order number 2 delivered!
+Mar 28, 2018 12:54:35 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 3, ordered the following item(s):5 Hamburger(s).
+Mar 28, 2018 12:54:41 PM restaurant.RestaurantLogger log
+INFO: Order number 3 prepared!
+Mar 28, 2018 12:56:56 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):8 Veggie Burger(s).
+Mar 28, 2018 12:57:00 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 12:57:01 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 12:57:04 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 1:02:15 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):8 Veggie Burger(s).
+Mar 28, 2018 1:03:08 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):5 Hotdog(s).
+Mar 28, 2018 1:03:16 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 1:03:30 PM restaurant.RestaurantLogger log
+INFO: Order number 2 prepared!
+Mar 28, 2018 1:03:32 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 1:03:52 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 3, ordered the following item(s):3 Hamburger(s).
+Mar 28, 2018 1:03:56 PM restaurant.RestaurantLogger log
+INFO: Order number 3 prepared!
+Mar 28, 2018 1:03:58 PM restaurant.RestaurantLogger log
+INFO: Order number 2 ready!
+Mar 28, 2018 1:04:11 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 1:04:13 PM restaurant.RestaurantLogger log
+INFO: Order number 2 delivered!
+Mar 28, 2018 1:04:19 PM restaurant.RestaurantLogger log
+INFO: Order number 3 ready!
+Mar 28, 2018 1:04:22 PM restaurant.RestaurantLogger log
+INFO: Order number 3 delivered!
+Mar 28, 2018 1:05:36 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):10 Hamburger(s).
+Mar 28, 2018 1:05:41 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):10 Fries(s).
+Mar 28, 2018 1:05:46 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 1:05:48 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 1:05:52 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 1:05:56 PM restaurant.RestaurantLogger log
+INFO: Order number 2 prepared!
+Mar 28, 2018 1:05:58 PM restaurant.RestaurantLogger log
+INFO: Order number 2 ready!
+Mar 28, 2018 1:06:04 PM restaurant.RestaurantLogger log
+INFO: Order number 2 delivered!
+Mar 28, 2018 1:21:37 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):5 Coke(s).
+Mar 28, 2018 1:21:41 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 1:21:54 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):2 Coke(s).
+Mar 28, 2018 1:22:00 PM restaurant.RestaurantLogger log
+INFO: Order number 2 prepared!
+Mar 28, 2018 1:22:35 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 1:22:37 PM restaurant.RestaurantLogger log
+INFO: Order number 2 ready!
+Mar 28, 2018 1:22:40 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 1:22:42 PM restaurant.RestaurantLogger log
+INFO: Order number 2 delivered!
+Mar 28, 2018 1:23:16 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 3, ordered the following item(s):8 Hamburger(s).
+Mar 28, 2018 1:23:20 PM restaurant.RestaurantLogger log
+INFO: Order number 3 prepared!
+Mar 28, 2018 1:25:56 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):10 Chicken Burger(s).
+Mar 28, 2018 1:26:00 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 1:30:10 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):10 Chicken Fingers(s), and 10 Coke(s).
+Mar 28, 2018 1:30:19 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 1:31:57 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):9 Hotdog(s).
+Mar 28, 2018 1:32:01 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 1:32:11 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 1:33:51 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):9 Chicken Burger(s).
+Mar 28, 2018 1:33:57 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 1:38:34 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):9 Hotdog(s).
+Mar 28, 2018 1:38:37 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 1:44:27 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):10 Coke(s).
+Mar 28, 2018 1:44:31 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 1:45:27 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):9 Fries(s).
+Mar 28, 2018 1:45:31 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 1:46:04 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):9 Hotdog(s).
+Mar 28, 2018 1:46:08 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 1:49:29 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):9 Fries(s).
+Mar 28, 2018 1:49:33 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 1:49:47 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):5 Hotdog(s).
+Mar 28, 2018 1:49:55 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 3, ordered the following item(s):8 Chicken Fingers(s).
+Mar 28, 2018 1:50:02 PM restaurant.RestaurantLogger log
+INFO: Order number 3 prepared!
+Mar 28, 2018 1:51:27 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):10 Veggie Burger(s), 10 Chicken Burger(s), and 10 Hamburger(s).
+Mar 28, 2018 1:51:32 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!

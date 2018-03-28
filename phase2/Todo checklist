@@ -4,11 +4,12 @@ BUG FIXES
 1. fix item removals from gui order detailsbox
 2. prevent server from placing order if item is not cookable
 a. fix this so that it refuses in situations like (10 Hamburgers, 10 Chicken Burgers) 20 BurgerBun > inventory amoun, should return false but returns true (see Restaurant.checkInventory
+3. fix duplicates in requests.txt DONE
 
 NEW FUNCTIONS
-1. implement manager view fully
+1. implement manager view fully DONE
 a. make a shipment received dialog box DONE
-b. make a email textfield dialog box
+b. make a email textfield dialog box DONE
 
 3. clear table button
 4. prevent cook from cooking anything but the first order

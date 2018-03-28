@@ -58,11 +58,10 @@ public class InventoryImpl implements Inventory {
     public void removeFromInventory(Ingredient i) {
         if(inventory.get(i) > 0) {
             inventory.put(i, inventory.get(i) - 1);
+            if(inventory.get(i) < 5){
+                makeRestockRequest();
+            }
         }
-    }
-
-    void orderIngredient(Ingredient ingredient) { //TODO: remove duplication of inventory orders in output file
-
     }
 
     /**
@@ -77,9 +76,16 @@ public class InventoryImpl implements Inventory {
      * {@inheritDoc}
      */
     @Override
-    public void makeRestockRequest(Ingredient i) {
-        try (FileWriter fw = new FileWriter("requests.txt", true)) {
-            fw.write("We need 10 more " + i.getName() + ".\n");
+    public void makeRestockRequest() {
+        StringBuilder sb = new StringBuilder();
+        for(Map.Entry<Ingredient, Integer> entry: inventory.entrySet()) {
+            if (entry.getValue() < 5) {
+                sb.append("We need more " + entry.getKey().getName() + ".\n");
+            }
+        }
+        try (FileWriter fw = new FileWriter("requests.txt")) {
+            fw.write(sb.toString());
+            fw.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
