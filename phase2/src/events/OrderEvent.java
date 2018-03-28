@@ -45,7 +45,7 @@ class OrderEvent implements Event {
                 } else {s.append("(s), ");}
             }
         }
-        RestaurantLogger.log(Level.INFO, "" + s);
+        RestaurantLogger.log(Level.INFO, "" + s.toString());
     }
 
     Order getOrder() {

@@ -1,0 +1,21 @@
+Mar 27, 2018 5:37:00 PM restaurant.RestaurantLogger log
+INFO: Table 1 has ordered 1. Hamburger
+. Order number 1
+Mar 27, 2018 5:51:48 PM restaurant.RestaurantLogger log
+INFO: Table 1 ordered 4 Hamburger. This is order number 1
+Mar 27, 2018 5:54:50 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 4 Hamburger.
+Mar 27, 2018 5:55:57 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Hamburger(s), 2 Chicken Burger(s).
+Mar 27, 2018 6:17:45 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Hamburger(s), 2 Chicken Burger(s),  and 2 Veggie Burger(s).
+Mar 27, 2018 6:19:59 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 2 Hamburger(s), 2 Chicken Burger(s), 2 Veggie Burger(s), and 1 Fries(s).
+Mar 27, 2018 6:47:31 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered and 1 Hamburger(s).
+Mar 27, 2018 6:49:22 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Hamburger(s), 
+Mar 27, 2018 6:52:48 PM restaurant.RestaurantLogger log
+INFO: Order number 2: Table 1 ordered 1 Chicken Burger(s), 
+Mar 27, 2018 6:58:22 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Hamburger(s).

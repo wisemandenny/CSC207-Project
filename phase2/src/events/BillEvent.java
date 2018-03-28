@@ -36,7 +36,7 @@ public class BillEvent implements Event {
         s.append("Total: ");
         s.append(String.valueOf(table.getBill().getTotal()));
 
-        RestaurantLogger.log(Level.INFO, "" + s);
+        RestaurantLogger.log(Level.INFO, "" + s.toString());
     }
 
     @Override
