@@ -19,12 +19,14 @@ import menu.Ingredient;
 import menu.MenuItem;
 import restaurant.Order;
 import restaurant.Restaurant;
+import restaurant.RestaurantLogger;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.logging.Level;
 
 public class ManagerView extends Observable implements Initializable {
     @FXML StackPane rootStackPane;
@@ -227,7 +229,7 @@ public class ManagerView extends Observable implements Initializable {
                 emailTextArea.setText(sb.toString());
                 //emailText = sb.toString();
             } catch (IOException ex){
-                //TODO log "can't find requests.txt
+                RestaurantLogger.log(Level.WARNING, ex.toString());
             }
         }
 
