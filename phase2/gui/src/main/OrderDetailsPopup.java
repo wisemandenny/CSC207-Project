@@ -3,13 +3,11 @@ package main;
 import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import menu.Ingredient;
 import restaurant.Restaurant;
 
@@ -18,9 +16,6 @@ import java.util.List;
 import java.util.Observable;
 
 class OrderDetailsPopup extends Observable {
-    //private static final Background SELECTED_BACKGROUND = new Background(new BackgroundFill(Color.web("#29B6F6"), CornerRadii.EMPTY, Insets.EMPTY));
-    private static final Background RED_BACKGROUND = new Background(new BackgroundFill(Color.web("#EF5350"), CornerRadii.EMPTY, Insets.EMPTY));
-    private static final Background GREEN_BACKGROUND = new Background(new BackgroundFill(Color.web("#9CCC65"), CornerRadii.EMPTY, Insets.EMPTY));
     private StackPane parent;
     private int tableId;
     private int seatId;
@@ -74,22 +69,22 @@ class OrderDetailsPopup extends Observable {
     private void selectEvent(Hyperlink clickedHyperlink, boolean isExtra){
         JFXListCell<Hyperlink> selectedCell = (JFXListCell<Hyperlink>) clickedHyperlink.getParent();
         if(isExtra) { //add the modifier
-            if (selectedCell.getBackground().equals(GREEN_BACKGROUND)) {
+            if (selectedCell.getBackground().equals(Backgrounds.GREEN_BACKGROUND)) {
                 selectedCell.setBackground(Background.EMPTY);
                 clickedHyperlink.setBackground(Background.EMPTY);
                 orderItems.get(orderItems.indexOf(currentlySelectedItem)).getExtraIngredients().remove(Restaurant.getInstance().getMenu().getMenuIngredient(clickedHyperlink.getText()));
             } else {
-                selectedCell.setBackground(GREEN_BACKGROUND);
+                selectedCell.setBackground(Backgrounds.GREEN_BACKGROUND);
                 clickedHyperlink.setBackground(Background.EMPTY);
                 orderItems.get(orderItems.indexOf(currentlySelectedItem)).getExtraIngredients().add(Restaurant.getInstance().getMenu().getMenuIngredient(clickedHyperlink.getText()));
             }
         } else { //remove the modifier
-            if (selectedCell.getBackground().equals(RED_BACKGROUND)){ //item is already clicked
+            if (selectedCell.getBackground().equals(Backgrounds.RED_BACKGROUND)){ //item is already clicked
                 selectedCell.setBackground(Background.EMPTY);
                 clickedHyperlink.setBackground(Background.EMPTY);
                 orderItems.get(orderItems.indexOf(currentlySelectedItem)).getRemovedIngredients().remove(Restaurant.getInstance().getMenu().getMenuIngredient(clickedHyperlink.getText()));
             } else { //item is not clicked
-                selectedCell.setBackground(RED_BACKGROUND);
+                selectedCell.setBackground(Backgrounds.RED_BACKGROUND);
                 clickedHyperlink.setBackground(Background.EMPTY);
                 orderItems.get(orderItems.indexOf(currentlySelectedItem)).getRemovedIngredients().add(Restaurant.getInstance().getMenu().getMenuIngredient(clickedHyperlink.getText()));
             }
@@ -124,7 +119,6 @@ class OrderDetailsPopup extends Observable {
 
         //PARENT AND LIST COMPONENTS
         VBox dialogRoot = new VBox(5);
-        dialogRoot.setMinHeight(700);
         JFXListView<Hyperlink> extraIngredientsListView = new JFXListView<>();
         extraIngredientsListView.setMinHeight(300);
         JFXListView<Hyperlink> removedIngredientsListView = new JFXListView<>();
@@ -162,6 +156,7 @@ class OrderDetailsPopup extends Observable {
 
         //BUILD THE DIALOG AND SET THE ACTIONS
         JFXDialog dialog = new JFXDialog(parent, content, JFXDialog.DialogTransition.CENTER);
+
         cancelButton.setOnAction(e -> dialog.close());
         confirmButton.setOnAction(e -> {
             //newOrder

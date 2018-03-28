@@ -10,8 +10,6 @@ public class TableImpl implements Table {
     //a table has seats. the seats are "subtables" of the parent table. There is a placeholder table, table 0, which
     //holds items which will be paid by the whole table (split)
     private final List<Table> seats = new ArrayList<>();
-
-
     /**
      * Constructs a new restaurant.TableImpl object.
      *  @param id the integer representing the id of this restaurant.TableImpl
@@ -36,13 +34,11 @@ public class TableImpl implements Table {
     public void addOrder(Order o) {
         orders.add(o);
     }
-
     /**
      * {@inheritDoc}
      */
     @Override
     public List<Order> getOrders(){ return orders; }
-
     /**
      * {@inheritDoc}
      */
@@ -54,7 +50,6 @@ public class TableImpl implements Table {
         }
         return allOrders;
     }
-
     /**
      * {@inheritDoc}
      */
@@ -62,7 +57,6 @@ public class TableImpl implements Table {
     public int getId() {
         return id;
     }
-
     /**
      * {@inheritDoc}
      */
@@ -80,8 +74,6 @@ public class TableImpl implements Table {
         }
 
     }
-
-
     /**
      * {@inheritDoc}
      */
@@ -90,8 +82,6 @@ public class TableImpl implements Table {
         orders.remove(o);
         bill.add(o);
     }
-
-
     /**
      * {@inheritDoc}
      */
@@ -99,7 +89,6 @@ public class TableImpl implements Table {
     public void removeFromBill(Order o) {
         bill.remove(o);
     }
-
     /**
      * {@inheritDoc}
      */
@@ -107,7 +96,6 @@ public class TableImpl implements Table {
     public void comp(Order o) {
         bill.comp(o);
     }
-
     /**
      * {@inheritDoc}
      */
@@ -115,7 +103,6 @@ public class TableImpl implements Table {
     public void addSeat(){
         seats.add(new TableImpl(seats.size()+1, true));
     }
-
     /**
      * {@inheritDoc}
      */
@@ -131,7 +118,6 @@ public class TableImpl implements Table {
             }
         }
     }
-
     /**
      * {@inheritDoc}
      */
@@ -139,18 +125,16 @@ public class TableImpl implements Table {
     public Table getSeat(int index){
         return seats.get(index);
     }
-
     /**
      * {@inheritDoc}
      */
     @Override
     public double getAutogratuityAmount() {
-        if(seats.size() >= 8){
+        if(seats.size() >= 9){
             return bill.getSubtotal() * Restaurant.getInstance().getAutoGratRate();
         }
         return 0.0;
     }
-
     /**
      * {@inheritDoc}
      */
@@ -171,7 +155,6 @@ public class TableImpl implements Table {
             seats.get(0).getOrders().addAll(allOrders);
         }
     }
-
     /**
      * {@inheritDoc}
      */

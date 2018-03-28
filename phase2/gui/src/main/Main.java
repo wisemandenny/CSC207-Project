@@ -17,8 +17,6 @@ public class Main extends Application implements Observer {
     ServerView serverView;
     CookOrderView cookOrderView;
 
-
-
     @Override
     public void start(Stage primaryStage) throws Exception{
         //Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
