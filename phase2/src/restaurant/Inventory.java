@@ -41,8 +41,5 @@ public interface Inventory {
      */
     void makeRestockRequest(Ingredient i);
 
-    /**
-     * Prints the contents of the inventory.
-     */
-    void printContents();
+    boolean enoughIngredients(Ingredient i, int amount);
 }

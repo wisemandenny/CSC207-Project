@@ -14,6 +14,7 @@ public class RestaurantLogger {
         plainText =  new SimpleFormatter();
         fh.setFormatter(plainText);
         logger.addHandler(fh);
+        logger.setUseParentHandlers(false);
     }
 
     private static Logger getLogger(){

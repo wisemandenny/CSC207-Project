@@ -1,7 +1,10 @@
 package restaurant;
 
 import events.Event;
-import menu.*;
+import menu.BurgerMenu;
+import menu.Ingredient;
+import menu.Menu;
+import menu.MenuItem;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -182,9 +185,9 @@ public class Restaurant extends Observable implements Runnable {
         try{
             Order order = findOrder(receivedOrders, orderId);
             receivedOrders.remove(order);
-            if (checkInventory(order)) {
-                cookingOrders.add(order);
-            }
+            Order o = OrderFactory.makeOrder(order.getItems(), order.getId(), order.getTableId(), order.getSeatId());
+            inventory.removeFromInventory(o);
+            cookingOrders.add(o); //why does this cause it to fail
         } catch (IllegalArgumentException ex){
             System.out.println(ex.getMessage());
         }
@@ -247,43 +250,24 @@ public class Restaurant extends Observable implements Runnable {
      * Takes an order (o), and checks every single item in that order to make sure that there's inventory to cook it.
      * e.g. if you have 10 cokes in the inventory and you request 11, 10 should be cooked and one should be rejected.
      *
-     * @param o the Order that is to be analyzed.
+     * @param checkItems the list of items that is to be analyzed.
      */
-    private Boolean checkInventory(Order o) {
-        List<MenuItem> rejectedItems = new ArrayList<>();
-        List<MenuItem> acceptedItems = new ArrayList<>();
-
-        for (MenuItem item : o.getItems()) {
-            List<Ingredient> allIngredients = item.getAllIngredients();
-            MenuItem itemToAdd = MenuItemFactory.makeMenuItem(item);
-            MenuItem itemToRemove = MenuItemFactory.makeMenuItem(item);
-
-            itemLoop:
-            for (int i = 1; i <= item.getQuantity(); i++) {
-                for (Ingredient ingredient : allIngredients) {
-                    if (inventory.getContents().get(ingredient) == 0) {//not enough inventory
-                        itemToRemove.setQuantity(item.getQuantity() - i);
-                        rejectedItems.add(itemToRemove);
-                        RestaurantLogger.log(Level.WARNING, itemToRemove.getQuantity() + " " + itemToRemove.getName() + "(s) cannot be made because we are out of " + ingredient.getName() + ".");
-                        return false;
-                    } else { //enough inventory
-                        inventory.removeFromInventory(ingredient);
-                        if (ingredient.equals(allIngredients.get(allIngredients.size() - 1))) {//enough inventory for the whole item
-                            itemToAdd.setQuantity(i);
-                        }
-                    }
+    public Boolean checkInventory(List<MenuItem> checkItems){ ///TODO: this does not work when if you order 10 Hamburgers, 10 Chicken Burgers, for example (inventory does not have 20 hamburgerbuns)
+        Map<Ingredient, Integer> ingredientsToQuantity = new HashMap<>();
+        for (MenuItem item : checkItems){
+            for(Ingredient i : item.getAllIngredients()){
+                //add all the ingredients to the map.
+                if(ingredientsToQuantity.containsKey(i)){
+                    ingredientsToQuantity.put(i, ingredientsToQuantity.get(i) + item.getQuantity());
+                } else {
+                    ingredientsToQuantity.put(i, item.getQuantity());
                 }
             }
-            acceptedItems.add(itemToAdd);
-
         }
-
-        if (!rejectedItems.isEmpty())
-            rejectedOrders.add(OrderFactory.makeOrder(rejectedItems, o.getId(), o.getTableId(), o.getSeatId()));
-        Order ord = OrderFactory.makeOrder(Collections.<MenuItem>emptyList(), o.getId(), o.getTableId(), o.getSeatId());
-        if (!acceptedItems.isEmpty()) {
-            ord = OrderFactory.makeOrder(acceptedItems, o.getId(), o.getTableId(), o.getSeatId());
-            inventory.removeFromInventory(ord);
+        for(Map.Entry<Ingredient, Integer> entry : ingredientsToQuantity.entrySet()){
+            if(!inventory.enoughIngredients(entry.getKey(), entry.getValue())){
+                return false;
+            }
         }
         return true;
     }

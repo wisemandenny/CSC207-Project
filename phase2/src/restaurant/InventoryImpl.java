@@ -85,13 +85,8 @@ public class InventoryImpl implements Inventory {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void printContents() {
-        for(Map.Entry<Ingredient, Integer> entry : inventory.entrySet()){
-
-        }
+    public boolean enoughIngredients(Ingredient i, int amount) {
+        return inventory.get(i) < amount;
     }
 }

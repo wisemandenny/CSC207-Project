@@ -61,6 +61,7 @@ public class ManagerView extends Observable implements Initializable {
                 listViewItems.add(generateItemListEntry(i));
             }
         }
+        if (listViewItems.isEmpty()) listViewItems.add(new Label("No orders found."));
         listView.setItems(listViewItems);
     }
 

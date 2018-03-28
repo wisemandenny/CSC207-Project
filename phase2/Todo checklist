@@ -1,41 +1,33 @@
 GUI TODO:
-0. MAKE A MANAGER VIEW
 
-1. make the menu list a list of sublists, when you click the item it should show the ingredients as a sublist
-2. show the prices in the menu
-3. move all PFS BG elemtns to the backgrounds class DONE
-n: use material css
+BUG FIXES
+1. fix item removals from gui order detailsbox
+2. prevent server from placing order if item is not cookable
+a. fix this so that it refuses in situations like (10 Hamburgers, 10 Chicken Burgers) 20 BurgerBun > inventory amoun, should return false but returns true (see Restaurant.checkInventory
 
-3. add support for payment
-a. pay function in billview DONE
-b. need a dialog box to input amount (and need to design this) DONE
-c. skin the dialog box
-d. make the dialog box functional DONE
-e. update the labels in billview DONE
-f. MAKE THE BILLVIEW REFRESH WHEN A PAY EVENT IS DONE
+NEW FUNCTIONS
+1. implement manager view fully
+a. make a shipment received dialog box
+b. make a email textfield dialog box
 
-4. DeliverableOrderItems is not: ALL DONE
-a. completed orders should be green
-b. not loading the items into the view DONE
-c. not updating the totals DONE
-d. maybe not even delivering? DONE
+3. clear table button
+4. prevent cook from cooking anything but the first order
+a. visual feedback (alert popup)
 
-d. make a paid event in the backend DONE
+VISUAL BUGS
+1. make billview hgrow properly
+2. fix random resizing of orderboxes in cookorder view
+a. they don't cover the whole order if you make a big order either
+3. remove weird window above the deliverable orders view
 
-4. extend ordering
-a. change item quantity from gui DONE
-b. change item extras from gui DONE
-c. change item removals from gui
-d. make the selected items have a green background DONE
-e. make the selected removals have a red background DONE
-f. FIX VERTICAL STRETCHING DONE
+LOOK AND FEEL
+1: use material csS
+2. skin the dialog boxes
+3. make the buttons in cook order view red/yellow/green
 
-5. add server returns (use delete button, which you should change to return item) DONE
-a. add a dialog box to add a reason for return DONE
-b. make the dialog box's listview load as intended DONE
-c. verify that this is actually working
 
-7. make billview grow properly
+
+
 
 
 EXTRA FEATURES

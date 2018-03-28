@@ -19,6 +19,10 @@ class OrderDetailsPopup extends Observable {
     private StackPane parent;
     private int tableId;
     private int seatId;
+
+    private JFXButton cancelButton = new JFXButton("Cancel");
+    private JFXButton confirmButton = new JFXButton("Confirm Order");
+
     List<JFXButton> selectedItemButtons;
     private List<menu.MenuItem> orderItems = new ArrayList<>();
     private menu.MenuItem currentlySelectedItem;
@@ -45,6 +49,11 @@ class OrderDetailsPopup extends Observable {
         dropdownMenu.setText(String.valueOf(quantity));
         menu.MenuItem updateItem = Restaurant.getInstance().getMenu().getMenuItem(itemName);
         orderItems.get(orderItems.indexOf(updateItem)).setQuantity(quantity);
+        if(Restaurant.getInstance().checkInventory(orderItems)){
+            confirmButton.setDisable(true);
+        } else {
+            confirmButton.setDisable(false);
+        }
     }
 
     private HBox makeItemHBox(JFXButton button, JFXListView<Hyperlink> extras, JFXListView<Hyperlink> removed){
@@ -148,8 +157,6 @@ class OrderDetailsPopup extends Observable {
         //JOIN ALL COMPONENTS
         bottom.getChildren().addAll(left, right);
         dialogRoot.getChildren().addAll(top, bottom);
-        JFXButton cancelButton = new JFXButton("Cancel");
-        JFXButton confirmButton = new JFXButton("Confirm Order");
         content.setHeading(orderDetailsDialogHeader);
         content.setBody(dialogRoot);
         content.setActions(cancelButton, confirmButton);

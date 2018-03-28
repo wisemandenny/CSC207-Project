@@ -50,6 +50,7 @@ public class DeliverableOrdersView extends Observable {
             Label orderHeader = new Label("Order: " + order.getId() + " Table: " + order.getTableId());
             Region filler = new Region();
             hbox = new HBox();
+            hbox.setBackground(Backgrounds.GREEN_BACKGROUND);
             hbox.setOnMouseClicked(e -> loadDialog(order));
 
             HBox.setHgrow(filler, Priority.ALWAYS);
