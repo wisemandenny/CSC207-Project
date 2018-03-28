@@ -58,9 +58,9 @@
          <children>
             <VBox>
                <children>
-                  <JFXButton fx:id="joinButton" onAction="#joinCheques" style="-fx-background-color: #2196F3;" text="Join All Cheques">
+                  <JFXButton fx:id="joinButton" onAction="#joinCheques" style="-fx-background-color: #FF5722;" text="Join All Cheques" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets />
                      </VBox.margin>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -72,37 +72,47 @@
                </HBox.margin>
             </VBox>
             <VBox>
+               <HBox.margin>
+                  <Insets left="24.0" right="48.0" top="24.0" />
+               </HBox.margin>
                <children>
-                  <Label fx:id="unpaidLabel" style="-fx-background-color: #C62828;" text="Unpaid Amount: " textFill="WHITE" />
-                  <Label fx:id="paidLabel" style="-fx-background-color: #558B2F;" text="Paid Amount" textFill="WHITE">
+                  <JFXButton fx:id="returnButton" onAction="#sendBackOrder" scaleX="1.8" scaleY="1.8" style="-fx-background-color: #F44336;" text="RETURN" textFill="WHITE" VBox.vgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="10.0" left="3.0" right="3.0" top="10.0" />
+                     </padding>
                      <VBox.margin>
-                        <Insets top="24.0" />
+                        <Insets />
+                     </VBox.margin>
+                  </JFXButton>
+                  <Label text="(Select an Order)" textFill="WHITE">
+                     <font>
+                        <Font name="System Italic" size="7.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <JFXButton fx:id="payButton" onAction="#paySelectedItems" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #1B5E20;" text="PAY" textFill="WHITE" VBox.vgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="10.0" left="8.0" right="8.0" top="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </JFXButton>
+                  <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" text="(Select an Order)" textFill="WHITE">
+                     <font>
+                        <Font name="System Italic" size="7.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="-5.0" />
                      </VBox.margin>
                   </Label>
                </children>
                <HBox.margin>
-                  <Insets left="48.0" top="24.0" />
+                  <Insets left="48.0" right="48.0" top="24.0" />
                </HBox.margin>
-            </VBox>
-            <VBox>
-               <HBox.margin>
-                  <Insets left="96.0" top="24.0" />
-               </HBox.margin>
-               <children>
-                  <JFXButton fx:id="payButton" onAction="#paySelectedItems" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #1B5E20;" text="PAY" textFill="WHITE">
-                     <VBox.margin>
-                        <Insets bottom="12.0" />
-                     </VBox.margin>
-                  </JFXButton>
-                  <JFXButton fx:id="returnButton" onAction="#sendBackOrder" scaleX="1.8" scaleY="1.8" style="-fx-background-color: #F44336;" text="RETURN" textFill="WHITE">
-                     <padding>
-                        <Insets right="-1.0" />
-                     </padding>
-                     <VBox.margin>
-                        <Insets top="16.0" />
-                     </VBox.margin>
-                  </JFXButton>
-               </children>
             </VBox>
          </children>
       </HBox>

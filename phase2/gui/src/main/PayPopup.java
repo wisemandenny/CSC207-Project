@@ -11,17 +11,24 @@ import javafx.scene.layout.VBox;
 import restaurant.Restaurant;
 import restaurant.Table;
 
-class PayPopup {
+import java.util.Observable;
+
+class PayPopup extends Observable {
     StackPane parent;
     Table selectedTable;
     Table selectedSeat;
     TextField inputAmountField;
 
-    PayPopup(StackPane parent, Table selectedTable, Table selectedSeat){
+    PayPopup(){};
+
+    private PayPopup(StackPane parent, Table selectedTable, Table selectedSeat){
         this.parent = parent;
         this.selectedTable = selectedTable;
         this.selectedSeat = selectedSeat;
         loadPayPopup(selectedSeat);
+    }
+    static PayPopup loadPayPopup(StackPane parent, Table selectedTable, Table selectedSeat){
+        return new PayPopup(parent, selectedTable, selectedSeat);
     }
 
     private void loadPayPopup(Table selectedSeat){
@@ -99,5 +106,12 @@ class PayPopup {
     private void pay(){
         String payEventString = "pay | table " + selectedTable.getId() + " > " + selectedSeat.getId() + " | " +  inputAmountField.getText(); // pay | table 1 > 1 | 45.54
         Restaurant.getInstance().newEvent(payEventString);
+        try{
+            Thread.sleep(300);
+        } catch (InterruptedException ex){
+            //TODO: log this
+        }
+        setChanged();
+        notifyObservers();
     }
 }
