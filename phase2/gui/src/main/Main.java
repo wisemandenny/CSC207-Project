@@ -16,6 +16,7 @@ import java.util.Observer;
 public class Main extends Application implements Observer {
     ServerView serverView;
     CookOrderView cookOrderView;
+    ManagerView managerView;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -37,11 +38,14 @@ public class Main extends Application implements Observer {
         cookOrderView = covLoader.getController();
         cookOrderView.addObserver(this);
         cookTab.setText("Cook");
-        //managerTab.setContent(FXMLLoader.load(getClass().getResource("ManagerView.fxml")));
-        //managerTab.setText("Manager");
-        //tabPane.getTabs().addAll(serverTab, cookTab, managerTab);
 
-        tabPane.getTabs().addAll(serverTab, cookTab);
+        FXMLLoader mvLoader = new FXMLLoader();
+        managerTab.setContent(mvLoader.load(getClass().getResource("ManagerView.fxml").openStream()));
+        managerView = mvLoader.getController();
+        managerView.addObserver(this);
+        managerTab.setText("Manager");
+
+        tabPane.getTabs().addAll(serverTab, cookTab, managerTab);
         Parent root = tabPane;
         root.prefHeight(800);
         root.prefWidth(800);
@@ -63,6 +67,7 @@ public class Main extends Application implements Observer {
     public void update(Observable o, Object arg) {
         cookOrderView.refresh();
         serverView.refresh();
+        managerView.refresh();
     }
 
     public static void main(String[] args) {

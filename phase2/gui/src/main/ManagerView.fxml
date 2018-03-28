@@ -1,9 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="main.ManagerView"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<StackPane fx:id="rootStackPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="805.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ManagerView">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Accordion prefHeight="548.0" prefWidth="396.0" HBox.hgrow="ALWAYS">
+              <panes>
+                <TitledPane animated="false" text="Customer Placed Orders">
+                     <content>
+                        <JFXListView fx:id="placedList" />
+                     </content>
+                </TitledPane>
+                <TitledPane animated="false" text="Kitchen Received Orders">
+                     <content>
+                        <JFXListView fx:id="receivedList" />
+                     </content>
+                </TitledPane>
+                <TitledPane animated="false" text="Cooking Orders">
+                     <content>
+                        <JFXListView fx:id="firedList" />
+                     </content>
+                </TitledPane>
+                  <TitledPane animated="false" text="Orders Ready for Pickup">
+                     <content>
+                        <JFXListView fx:id="readyList" />
+                     </content>
+                  </TitledPane>
+                  <TitledPane animated="false" text="Delivered Orders">
+                     <content>
+                        <JFXListView fx:id="deliveredList" />
+                     </content>
+                  </TitledPane>
+              </panes>
+            </Accordion>
+            <AnchorPane prefHeight="548.0" prefWidth="443.0">
+               <children>
+                  <Label fx:id="incomeLabel" layoutX="102.0" layoutY="27.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #2196F3;" text="Total income:" textFill="WHITE" AnchorPane.leftAnchor="102.0">
+                     <padding>
+                        <Insets bottom="4.0" right="50.0" top="4.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="tipLabel" layoutX="102.0" layoutY="139.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #2196F3;" text="Tip Total:" textFill="WHITE" AnchorPane.leftAnchor="102.0">
+                     <padding>
+                        <Insets bottom="4.0" right="50.0" top="4.0" />
+                     </padding>
+                  </Label>
+                  <JFXButton fx:id="emailButton" layoutX="102.0" layoutY="430.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FF5722;" text="Generate Email to Suppliers" textFill="WHITE" AnchorPane.leftAnchor="102.0" />
+                  <JFXButton fx:id="shipmentButton" layoutX="102.0" layoutY="287.0" scaleX="2.0" scaleY="2.0" style="-fx-background-color: #FF5722;" text="Receive a Shipment" textFill="WHITE" AnchorPane.leftAnchor="102.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</StackPane>

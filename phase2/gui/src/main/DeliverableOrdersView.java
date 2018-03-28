@@ -92,7 +92,7 @@ public class DeliverableOrdersView extends Observable {
             lv.setItems(orderItemList);
         }
         private Label makeItemLabel(MenuItem item){
-            Label itemLabel = new Label(item.getQuantity() + " " + item.getName());
+            Label itemLabel = new Label(item.getQuantity() + " " + item.getName() + " ");
             itemLabel.autosize();
             return itemLabel;
         }

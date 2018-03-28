@@ -18,6 +18,8 @@ public class Restaurant extends Observable implements Runnable {
     private final List<Order> deliveredOrders = new ArrayList<>();
     private final double autoGratRate = 0.15;
     private double taxRate;
+    private double dailyIncomeTotal = 0;
+    private double tipTotal = 0;
     private boolean running;
     private TableImpl[] tables;
     private Thread t;
@@ -223,6 +225,24 @@ public class Restaurant extends Observable implements Runnable {
             System.out.println(ex.getMessage());
         }
     }
+
+    public void addPayment(double amount){
+        dailyIncomeTotal += amount;
+    }
+
+    public double getDailyIncomeTotal(){
+        return  dailyIncomeTotal;
+    }
+
+    public void addToTipTotal(double amount){
+        tipTotal += amount;
+    }
+
+    public double getTipTotal(){
+        return tipTotal;
+    }
+
+
     /**
      * Takes an order (o), and checks every single item in that order to make sure that there's inventory to cook it.
      * e.g. if you have 10 cokes in the inventory and you request 11, 10 should be cooked and one should be rejected.
