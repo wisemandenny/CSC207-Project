@@ -1,6 +1,7 @@
 package events;
 
 import restaurant.Bill;
+import restaurant.Restaurant;
 import restaurant.Table;
 
 public class PayEvent implements Event {
@@ -28,6 +29,8 @@ public class PayEvent implements Event {
         System.out.println("Amount to be paid: " + paymentAmount);
         System.out.println("BILL PAID");
         table.getSeat(seatNumber).getBill().pay(paymentAmount);
+        Restaurant.getInstance().addPayment(bill.getTotal());
+        Restaurant.getInstance().addToTipTotal(bill.getTipAmount());
         System.out.println("Bill subtotal: " + bill.getSubtotal());
         System.out.println("Bill unpaid amount: " + bill.getUnpaidAmount());
         System.out.println("Bill paid amount :" + bill.getPaidAmount());

@@ -10,3 +10,35 @@ Mar 27, 2018 10:34:35 PM restaurant.RestaurantLogger log
 INFO: Order number 1: Table 1 ordered 1 Hotdog(s), and 1 Fries(s).
 Mar 27, 2018 10:36:50 PM restaurant.RestaurantLogger log
 INFO: Order number 1: Table 1 ordered 1 Hotdog(s).
+Mar 27, 2018 11:37:04 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Hotdog(s).
+Mar 27, 2018 11:44:22 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Chicken Fingers(s), and 1 Coke(s).
+Mar 27, 2018 11:47:57 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Chicken Burger(s), and 1 Veggie Burger(s).
+Mar 27, 2018 11:48:57 PM restaurant.RestaurantLogger log
+INFO: Order number 2: Table 1 ordered 1 Hotdog(s), and 1 Coke(s).
+Mar 27, 2018 11:51:11 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Hotdog(s).
+Mar 28, 2018 12:04:23 AM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Coke(s), and 1 Chicken Fingers(s).
+Mar 28, 2018 12:04:28 AM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 12:04:30 AM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 12:04:34 AM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 12:07:47 AM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Fries(s), and 1 Veggie Burger(s).
+Mar 28, 2018 12:08:03 AM restaurant.RestaurantLogger log
+INFO: Order number 2: Table 1 ordered 1 Hamburger(s), and 1 Chicken Burger(s).
+Mar 28, 2018 12:08:27 AM restaurant.RestaurantLogger log
+INFO: Order number 3: Table 1 ordered 1 Fries(s), and 1 Hotdog(s).
+Mar 28, 2018 12:08:46 AM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Chicken Burger(s), and 1 Veggie Burger(s).
+Mar 28, 2018 12:08:50 AM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 12:08:51 AM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 12:08:59 AM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!

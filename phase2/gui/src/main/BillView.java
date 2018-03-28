@@ -11,6 +11,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import menu.MenuItem;
+import restaurant.Bill;
 import restaurant.Order;
 import restaurant.Restaurant;
 import restaurant.Table;
@@ -145,6 +146,15 @@ public class BillView extends Observable implements Initializable, Observer {
         }
         return box;
     }
+    private HBox generateTipBox(double amount){
+        HBox box = new HBox();
+        Region filler = new Region();
+        HBox.setHgrow(filler, Priority.ALWAYS);
+        box.getChildren().add(new Label("Tip: "));
+        box.getChildren().add(filler);
+        box.getChildren().add(new Label(String.format("%.2f", amount)));
+        return box;
+    }
     private void selectSeat(int seatNumber){
         selectedSeat = seatNumber;
     }
@@ -230,15 +240,16 @@ public class BillView extends Observable implements Initializable, Observer {
                 }
                 tableItems.add(generateSubtotalBox(seatSubtotal));
             }
-
+            Bill bill = selectedTable.getBill();
             tableItems.add(generateSpacerBox());
-            tableItems.add(generateSubtotalBox(selectedTable.getBill().getSubtotal()));
-            tableItems.add(generateTaxBox(selectedTable.getBill().getTaxAmount()));
+            tableItems.add(generateSubtotalBox(bill.getSubtotal()));
+            tableItems.add(generateTaxBox(bill.getTaxAmount()));
             if (selectedTable.getAutogratuityAmount() > 0) {
                 tableItems.add(generateGratuityBox(selectedTable.getAutogratuityAmount()));
             }
-            tableItems.add(generateTotalBox(selectedTable.getBill().getTotal() + selectedTable.getAutogratuityAmount()));
-            tableItems.add(generateBalanceBox(selectedTable.getBill().getTotal() + selectedTable.getAutogratuityAmount() - selectedTable.getBill().getPaidAmount()));
+            tableItems.add(generateTotalBox(bill.getTotal() + selectedTable.getAutogratuityAmount()));
+            tableItems.add(generateBalanceBox(bill.getTotal() + selectedTable.getAutogratuityAmount() - bill.getPaidAmount()));
+            tableItems.add(generateTipBox(bill.getTipAmount()));
         } else {
             HBox noOrderFoundBox = new HBox();
             noOrderFoundBox.getChildren().add(new Label("No orders found for Table #" + shownTable));
