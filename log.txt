@@ -186,3 +186,19 @@ Mar 28, 2018 2:13:52 PM restaurant.RestaurantLogger log
 INFO: Order number 1 delivered!
 Mar 28, 2018 2:14:05 PM restaurant.RestaurantLogger log
 INFO: Payment of $58.0 received from Table 1 seat 0
+Mar 28, 2018 2:18:58 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):4 Hotdog(s).
+Mar 28, 2018 2:19:12 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):3 Hotdog(s), and 3 Coke(s).
+Mar 28, 2018 2:20:54 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):3 Hotdog(s).
+Mar 28, 2018 2:21:01 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):3 Coke(s).
+Mar 28, 2018 2:21:19 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 2:21:23 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 2:25:34 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s).
+Mar 28, 2018 2:25:41 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):3 Fries(s).

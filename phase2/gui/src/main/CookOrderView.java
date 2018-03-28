@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
@@ -152,12 +153,18 @@ public class CookOrderView extends Observable implements Initializable {
         for(OrderBox orderBox : orderBoxList){
             int orderId = orderBox.getOrder().getId();
             if(orderBox.getVBox().equals(selectedOrderBox)){
-                Restaurant.getInstance().newEvent("update | fired | "+orderId);
-                deselectBox(orderBox.getVBox());
-                sleep();
-                setChanged();
-                notifyObservers();
-                break;
+                if(!Restaurant.getInstance().getPlacedOrders().isEmpty()){
+                    mustAcknowledgeOrderWarning(orderId, "cook");
+                    deselectBox(orderBox.getVBox());
+                    break;
+                } else{
+                    Restaurant.getInstance().newEvent("update | fired | "+orderId);
+                    deselectBox(orderBox.getVBox());
+                    sleep();
+                    setChanged();
+                    notifyObservers();
+                    break;
+                }
             }
         }
     }
@@ -167,14 +174,29 @@ public class CookOrderView extends Observable implements Initializable {
         for(OrderBox orderBox : orderBoxList){
             int orderId = orderBox.getOrder().getId();
             if(orderBox.getVBox().equals(selectedOrderBox)){
-                Restaurant.getInstance().newEvent("update | ready | "+orderId);
-                deselectBox(orderBox.getVBox());
-                sleep();
-                setChanged();
-                notifyObservers();
-                break;
+                if(!Restaurant.getInstance().getPlacedOrders().isEmpty()){
+                    mustAcknowledgeOrderWarning(orderId, "finish");
+                    deselectBox(orderBox.getVBox());
+                    break;
+
+                } else {
+                    Restaurant.getInstance().newEvent("update | ready | " + orderId);
+                    deselectBox(orderBox.getVBox());
+                    sleep();
+                    setChanged();
+                    notifyObservers();
+                    break;
+                }
             }
         }
+    }
+
+    private void mustAcknowledgeOrderWarning(int orderId, String verb){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("You must acknowledge all placed orders before " + verb + "ing order " + orderId +".");
+        alert.showAndWait();
     }
 
     private void sleep(){
