@@ -10,9 +10,11 @@ import javafx.scene.layout.VBox;
 import menu.MenuItem;
 import restaurant.Order;
 import restaurant.Restaurant;
+import restaurant.RestaurantLogger;
 
 import java.net.URL;
 import java.util.*;
+import java.util.logging.Level;
 
 public class CookOrderView extends Observable implements Initializable {
     @FXML private JFXMasonryPane orderMasonryPane;
@@ -179,7 +181,7 @@ public class CookOrderView extends Observable implements Initializable {
         try{
             Thread.sleep(300);
         }catch(InterruptedException ex){
-            //TODO: log this error
+            RestaurantLogger.log(Level.SEVERE, ex.toString());
         }
     }
 }

@@ -6,12 +6,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import restaurant.RestaurantLogger;
 
 import java.net.URL;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 public class ServerView extends Observable implements Initializable, Observer{
     @FXML private VBox tableViewBox;
@@ -47,7 +49,7 @@ public class ServerView extends Observable implements Initializable, Observer{
 
             //FAB.setOnAction(e -> loadAddDialog(serverViewStackPane, selectedItemButtons));
         } catch (Exception ex) {
-            //TODO: add a logger
+            RestaurantLogger.log(Level.WARNING, ex.toString());
         }
     }
     @Override

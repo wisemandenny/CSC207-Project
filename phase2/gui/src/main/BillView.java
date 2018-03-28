@@ -14,6 +14,7 @@ import menu.MenuItem;
 import restaurant.Bill;
 import restaurant.Order;
 import restaurant.Restaurant;
+import restaurant.RestaurantLogger;
 import restaurant.Table;
 
 import java.net.URL;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 public class BillView extends Observable implements Initializable, Observer {
     @FXML private VBox billViewRoot;
@@ -198,7 +200,7 @@ public class BillView extends Observable implements Initializable, Observer {
         try{
             Thread.sleep(300);
         } catch (InterruptedException ex){
-            //TODO: log this excpetion
+            RestaurantLogger.log(Level.SEVERE, ex.toString());
         }
         setChanged();
         notifyObservers();

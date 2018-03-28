@@ -11,11 +11,13 @@ import menu.Ingredient;
 import menu.Menu;
 import menu.MenuItem;
 import restaurant.Restaurant;
+import restaurant.RestaurantLogger;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 
 public class MenuList implements Initializable {
     private final List<JFXButton> selectedItems = new ArrayList<>();
@@ -64,7 +66,7 @@ public class MenuList implements Initializable {
 
                 //showIngredientsButton.setPadding(new Insets(24));
             } catch (Exception ex) {
-                //TODO: log this exception
+                RestaurantLogger.log(Level.WARNING, ex.toString());
             }
         }
     }
