@@ -1,23 +1,21 @@
 package main;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import menu.MenuItem;
 import restaurant.*;
 
 import java.net.URL;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Level;
 
 public class BillView extends Observable implements Initializable, Observer {
@@ -220,7 +218,8 @@ public class BillView extends Observable implements Initializable, Observer {
     public void paySelectedItems() {
         Table selectedTable = Restaurant.getInstance().getTable(shownTable);
         Table currentlySelectedSeat = selectedTable.getSeat(selectedSeat);
-        payPopup = PayPopup.loadPayPopup((StackPane)billViewRoot.getParent().getParent().getParent(), this, selectedTable, currentlySelectedSeat);
+        payPopup = new PayPopup();
+        payPopup = payPopup.loadPayPopup((StackPane)billViewRoot.getParent().getParent().getParent(), this, selectedTable, currentlySelectedSeat);
     }
 
     public void refresh(){
@@ -274,4 +273,210 @@ public class BillView extends Observable implements Initializable, Observer {
     public void update(Observable o, Object arg) {
         letBackendCatchUp();
     }
+
+    private class PayPopup extends Observable {
+        StackPane parent;
+        Table selectedTable;
+        Table selectedSeat;
+        TextField inputAmountField;
+
+        PayPopup(){};
+
+        private PayPopup(StackPane parent, BillView bv, Table selectedTable, Table selectedSeat){
+            this.parent = parent;
+            this.addObserver(bv);
+            this.selectedTable = selectedTable;
+            this.selectedSeat = selectedSeat;
+            loadPayPopup(selectedSeat);
+        }
+        private PayPopup loadPayPopup(StackPane parent, BillView bv, Table selectedTable, Table selectedSeat){
+            return new PayPopup(parent, bv, selectedTable, selectedSeat);
+        }
+
+        private void loadPayPopup(Table selectedSeat){
+            JFXDialogLayout content = new JFXDialogLayout();
+            content.setHeading(new Label("Pay for order"));
+
+            VBox container = new VBox();
+            inputAmountField = new TextField();
+            inputAmountField.setPromptText("Enter amount");
+            container.getChildren().addAll(inputAmountField, buildNumPad());
+            content.setBody(container);
+
+            JFXButton cancelButton = new JFXButton("Cancel");
+            JFXButton okButton = new JFXButton("OK");
+            content.setActions(cancelButton, okButton);
+            content.autosize();
+
+            JFXDialog payPopup = new JFXDialog(parent, content, JFXDialog.DialogTransition.CENTER);
+            payPopup.setMaxWidth(150);
+
+            cancelButton.setOnAction(e -> payPopup.close());
+            okButton.setOnAction(e -> {
+                pay();
+                payPopup.close();
+            });
+            payPopup.show();
+        }
+
+        private GridPane buildNumPad(){
+            GridPane gridPane = new GridPane();
+
+            for (int i = 1; i <= 3 ; i++) {
+                final int j = i;
+                JFXButton numberButton = new JFXButton(String.valueOf(j));
+                numberButton.setOnAction(e -> appendText(String.valueOf(j)));
+                GridPane.setRowIndex(numberButton, 1);
+                GridPane.setColumnIndex(numberButton, j);
+                gridPane.getChildren().add(numberButton);
+            }
+            for (int i = 4; i <= 6 ; i++) {
+                final int j = i;
+                JFXButton numberButton = new JFXButton(String.valueOf(i));
+                numberButton.setOnAction(e -> appendText(String.valueOf(j)));
+                GridPane.setRowIndex(numberButton, 2);
+                GridPane.setColumnIndex(numberButton, i-3);
+                gridPane.getChildren().add(numberButton);
+
+            }  for (int i = 7; i <= 9 ; i++) {
+                final int j = i;
+                JFXButton numberButton = new JFXButton(String.valueOf(i));
+                numberButton.setOnAction(e -> appendText(String.valueOf(j)));
+                GridPane.setRowIndex(numberButton, 3);
+                GridPane.setColumnIndex(numberButton, i-6);
+                gridPane.getChildren().add(numberButton);
+            }
+            JFXButton dotButton = new JFXButton(".");
+            dotButton.setOnAction(e -> appendText("."));
+            gridPane.add(dotButton, 1, 4); // column=1 row=0
+            JFXButton zeroButton = new JFXButton("0");
+            zeroButton.setOnAction(e -> appendText(String.valueOf(0)));
+            gridPane.add(zeroButton, 2, 4);
+            JFXButton clearButton = new JFXButton("C");
+            clearButton.setOnAction(e -> inputAmountField.clear());
+            gridPane.add(clearButton, 3, 4);
+            return gridPane;
+        }
+
+        private void appendText(String appendChar){
+            StringBuilder sb = new StringBuilder(inputAmountField.getText());
+            if(!(appendChar.equals(".") && sb.toString().contains("."))){
+                sb.append(appendChar);
+            }
+            inputAmountField.setText(sb.toString());
+        }
+        private void pay(){
+            String payEventString = "pay | table " + selectedTable.getId() + " > " + selectedSeat.getId() + " | " +  inputAmountField.getText(); // pay | table 1 > 1 | 45.54
+            Restaurant.getInstance().newEvent(payEventString);
+            setChanged();
+            notifyObservers();
+        }
+    }
+    private class ReturnPopup {
+        StackPane parent;
+        Order order;
+        List<TextField> commentList = new ArrayList<>();
+
+        ReturnPopup(StackPane parent, Order order){
+            this.parent = parent;
+            this.order = order;
+            loadReturnPopup(order);
+        }
+
+        private void loadReturnPopup(Order order){
+            JFXDialogLayout content = new JFXDialogLayout();
+            content.setHeading(new Label("Return items from Order " + order.getId()));
+
+            JFXButton cancelButton = new JFXButton("Cancel");
+            JFXButton okButton = new JFXButton("OK");
+            content.setActions(cancelButton, okButton);
+
+            JFXListView<HBox> orderItemsListView = new JFXListView<>();
+            loadOrderItemList(orderItemsListView);
+            content.setBody(orderItemsListView);
+
+            JFXDialog dialog = new JFXDialog(parent, content, JFXDialog.DialogTransition.CENTER);
+            cancelButton.setOnAction(e -> dialog.close());
+            okButton.setOnAction(e -> {
+                confirmReturn();
+                dialog.close();
+            });
+            dialog.show();
+
+        }
+        private void loadOrderItemList(JFXListView<HBox> orderItemsListView){
+            ObservableList<HBox> orderItemsListViewEntries = FXCollections.observableArrayList();
+            Region filler = new Region();
+            HBox.setHgrow(filler, Priority.ALWAYS);
+            for(MenuItem item : order.getItems()){
+                HBox entryBox = new HBox();
+                entryBox.getChildren().add(makeQuantitySelector(item));
+                entryBox.getChildren().add(new Label(item.getName()));//can add the mod info here
+                entryBox.getChildren().add(filler);
+                TextField commentField = new TextField("Return reason");
+                commentList.add(commentField);
+                entryBox.getChildren().add(commentField);
+                orderItemsListViewEntries.add(entryBox);
+            }
+            orderItemsListView.setItems(orderItemsListViewEntries);
+        }
+        private MenuButton makeQuantitySelector(menu.MenuItem menuItem){
+            MenuButton quantitySelector = new MenuButton();
+            for (int i = 0; i <= menuItem.getQuantity() ; i++) {
+                final int j = i;
+                javafx.scene.control.MenuItem quantity = new javafx.scene.control.MenuItem(String.valueOf(j));
+                quantity.setOnAction(e -> {
+                    changeQuantitySelector(quantitySelector, j, menuItem);
+                    //refresh?
+                });
+                quantitySelector.getItems().add(quantity);
+            }
+            changeQuantitySelector(quantitySelector, menuItem.getQuantity(), menuItem);
+            return quantitySelector;
+        }
+        private void changeQuantitySelector(MenuButton quantitySelector, int newQuantity, MenuItem changedItem){
+            quantitySelector.setText(String.valueOf(newQuantity));
+            order.getItems().get(order.getItems().indexOf(changedItem)).setQuantity(newQuantity);
+        }
+        private String  getReturnString(){
+            StringBuilder sb = new StringBuilder("serverReturned | table "+order.getTableId()+ " > " + order.getSeatId() + " | ");
+            for(MenuItem item : order.getItems()){
+                if(item.getQuantity() > 0){
+                    sb.append(item.getQuantity()).append(" ").append(item.getName()).append(", "); //1 Hamburg
+                }
+            }
+            sb.delete(sb.length()-2, sb.length()); //remove trailing commas
+            sb.append(" | ");
+            for(TextField commentField : commentList){
+                String reason = commentField.getText();
+                if(reason.isEmpty()){
+                    commentField.setBackground(Backgrounds.RED_BACKGROUND);
+                }
+                sb.append(reason).append(", ");
+            }
+            sb.delete(sb.length()-2, sb.length()); //remove trailing commas
+            return sb.toString();
+        }
+        private void confirmReturn(){
+            boolean flag = true;
+            for(TextField field : commentList){
+                if(field.getBackground().equals(Backgrounds.RED_BACKGROUND)){
+                    if(!field.getText().isEmpty()){
+                        field.setBackground(Background.EMPTY);
+                    } else {
+                        flag = false;
+                        Alert noReason = new Alert(Alert.AlertType.INFORMATION);
+                        noReason.setTitle("Error");
+                        noReason.setHeaderText(null);
+                        noReason.setContentText("Please enter a reason for all returns.");
+                        noReason.showAndWait();
+                    }
+                }
+            }
+            if(flag){
+                Restaurant.getInstance().newEvent(getReturnString());
+            }
+        }
+    }
+
 }
