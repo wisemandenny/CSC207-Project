@@ -6,7 +6,7 @@ import restaurant.RestaurantLogger;
 import java.util.logging.Level;
 
 public class JoinEvent implements Event{
-    int tableId;
+    private int tableId;
     JoinEvent(int tableId){
         this.tableId = tableId;
     }
@@ -18,6 +18,6 @@ public class JoinEvent implements Event{
     @Override
     public void doEvent() {
         Restaurant.getInstance().getTable(tableId).joinCheques();
-        RestaurantLogger.log(Level.INFO, "Table " + String.valueOf(tableId) + "has had their bill joined.");
+        RestaurantLogger.log(Level.INFO, "Table " + String.valueOf(tableId) + " joined their bill.");
     }
 }
