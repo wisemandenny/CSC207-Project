@@ -6,13 +6,11 @@ import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import menu.MenuItem;
 import restaurant.Order;
 import restaurant.Restaurant;
@@ -21,8 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 class ReturnPopup {
-    private static final Background RED_BACKGROUND = new Background(new BackgroundFill(Color.web("#EF5350"), CornerRadii.EMPTY, Insets.EMPTY));
-
     StackPane parent;
     Order order;
     List<TextField> commentList = new ArrayList<>();
@@ -100,7 +96,7 @@ class ReturnPopup {
         for(TextField commentField : commentList){
             String reason = commentField.getText();
             if(reason.isEmpty()){
-                commentField.setBackground(RED_BACKGROUND);
+                commentField.setBackground(Backgrounds.RED_BACKGROUND);
             }
             sb.append(reason).append(", ");
         }
@@ -110,7 +106,7 @@ class ReturnPopup {
     private void confirmReturn(){
         boolean flag = true;
         for(TextField field : commentList){
-            if(field.getBackground().equals(RED_BACKGROUND)){
+            if(field.getBackground().equals(Backgrounds.RED_BACKGROUND)){
                 if(!field.getText().isEmpty()){
                     field.setBackground(Background.EMPTY);
                 } else {

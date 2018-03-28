@@ -4,13 +4,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXMasonryPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import menu.MenuItem;
 import restaurant.Order;
 import restaurant.Restaurant;
@@ -19,12 +15,6 @@ import java.net.URL;
 import java.util.*;
 
 public class CookOrderView extends Observable implements Initializable {
-    private static final Background RED_BACKGROUND = new Background(new BackgroundFill(Color.web("#EF5350"), CornerRadii.EMPTY, Insets.EMPTY));
-    private static final Background YELLOW_BACKGROUND = new Background(new BackgroundFill(Color.web("#FFEE58"), CornerRadii.EMPTY, Insets.EMPTY));
-    private static final Background GREEN_BACKGROUND = new Background(new BackgroundFill(Color.web("#9CCC65"), CornerRadii.EMPTY, Insets.EMPTY));
-    private static final Background GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#BDBDBD"), CornerRadii.EMPTY, Insets.EMPTY));
-    private static final Background SELECTED_BACKGROUND = new Background(new BackgroundFill(Color.web("#29B6F6"), CornerRadii.EMPTY, Insets.EMPTY));
-
     @FXML private JFXMasonryPane orderMasonryPane;
     @FXML private JFXButton receivedButton;
     @FXML private JFXButton firedButton;
@@ -58,19 +48,19 @@ public class CookOrderView extends Observable implements Initializable {
 
             switch (flag) {
                 case "placed":
-                    box.setBackground(GREY_BACKGROUND);
+                    box.setBackground(Backgrounds.GREY_BACKGROUND);
                     break;
                 case "received":
-                    box.setBackground(RED_BACKGROUND);
+                    box.setBackground(Backgrounds.RED_BACKGROUND);
                     break;
                 case "cooking":
-                    box.setBackground(YELLOW_BACKGROUND);
+                    box.setBackground(Backgrounds.YELLOW_BACKGROUND);
                     break;
                 case "ready":
-                    box.setBackground(GREEN_BACKGROUND);
+                    box.setBackground(Backgrounds.GREEN_BACKGROUND);
                     break;
                 default:
-                    box.setBackground(GREY_BACKGROUND);
+                    box.setBackground(Backgrounds.GREY_BACKGROUND);
                     break;
             }
 
@@ -128,11 +118,11 @@ public class CookOrderView extends Observable implements Initializable {
     }
 
     private void selectBox(VBox orderBox){
-        if(orderBox.getBackground().equals(SELECTED_BACKGROUND)){ //click the selected box
+        if(orderBox.getBackground().equals(Backgrounds.SELECTED_BACKGROUND)){ //click the selected box
             deselectBox(orderBox);
         } else if (selectedOrderBox == null){ //click an unselected box, make sure you can only click one at a time
             storedBoxBackground = orderBox.getBackground();
-            orderBox.setBackground(SELECTED_BACKGROUND);
+            orderBox.setBackground(Backgrounds.SELECTED_BACKGROUND);
             selectedOrderBox = orderBox;
         }
     }

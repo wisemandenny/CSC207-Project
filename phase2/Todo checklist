@@ -1,11 +1,7 @@
-IMPORTANT!IMPORTANT!IMPORTANT!
-OrderEvent.java line 20     Restaurant.addPlacedOrder(order);
-MUST BE CHANGED BACK. WAS CHANGED FOR TESTING TOTALS.
-
 GUI TODO:
 1. make the menu list a list of sublists, when you click the item it should show the ingredients as a sublist
 2. show the prices in the menu
-3. move all PFS BG elemtns to the backgrounds class
+3. move all PFS BG elemtns to the backgrounds class DONE
 n: use material css
 
 3. add support for payment
@@ -30,7 +26,7 @@ b. change item extras from gui DONE
 c. change item removals from gui
 d. make the selected items have a green background DONE
 e. make the selected removals have a red background DONE
-f. FIX VERTICAL STRETCHING
+f. FIX VERTICAL STRETCHING DONE
 
 5. add server returns (use delete button, which you should change to return item) DONE
 a. add a dialog box to add a reason for return DONE

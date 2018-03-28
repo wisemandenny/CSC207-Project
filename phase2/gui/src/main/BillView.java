@@ -41,9 +41,11 @@ public class BillView extends Observable implements Initializable, Observer {
     private int selectedOrderId = -1;
 
     private final JFXPopup chooseTablePopup = new JFXPopup();
+    private PayPopup payPopup = new PayPopup();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        payPopup.addObserver(this);
         initChooseTablePopup(Restaurant.getInstance().getNumOfTables());
         itemList.setItems(tableItems);
         changeTable(shownTable);
@@ -205,9 +207,7 @@ public class BillView extends Observable implements Initializable, Observer {
     public void paySelectedItems() {
         Table selectedTable = Restaurant.getInstance().getTable(shownTable);
         Table currentlySelectedSeat = selectedTable.getSeat(selectedSeat);
-        PayPopup payPopup = new PayPopup();
-        payPopup.addObserver(this);
-        payPopup = PayPopup.loadPayPopup((StackPane)billViewRoot.getParent().getParent().getParent(), selectedTable, currentlySelectedSeat);
+        payPopup = PayPopup.loadPayPopup((StackPane)billViewRoot.getParent().getParent().getParent(), this, selectedTable, currentlySelectedSeat);
     }
 
     public void refresh(){
