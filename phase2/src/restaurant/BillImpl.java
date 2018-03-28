@@ -48,6 +48,8 @@ public class BillImpl implements Bill {
     @Override
     public void joinBill(Bill toJoin) {
         bill.add(toJoin.getOrder());
+        paidAmount += toJoin.getPaidAmount();
+        tipAmount += toJoin.getTipAmount();
     }
 
     /**
@@ -64,7 +66,7 @@ public class BillImpl implements Bill {
     @Override
     public double getSubtotal() {
         double subtotal = 0.00;
-        if()
+        //if this is a main table
         for (MenuItem item : bill.getItems()) {
             subtotal += (item.getPrice() * item.getQuantity());
             subtotal += item.getExtraIngredientPrice();
@@ -106,8 +108,8 @@ public class BillImpl implements Bill {
         if(balance-amount >= 0){
             paidAmount += amount;
         } else {
-            paidAmount = getTotal();
-            tipAmount += amount-balance;
+            paidAmount = getSubtotal(); //TODO: FIX THIS
+            tip(amount-paidAmount);
         }
     }
 

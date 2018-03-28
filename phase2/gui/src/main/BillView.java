@@ -10,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import menu.MenuItem;
 import restaurant.Order;
 import restaurant.Restaurant;
@@ -19,22 +18,16 @@ import restaurant.Table;
 import java.net.URL;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
-public class BillView extends Observable implements Initializable {
-    private static final Background GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#EEEEEE"), CornerRadii.EMPTY, Insets.EMPTY));
-    private static final Background LIGHT_GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#FAFAFA"), CornerRadii.EMPTY, Insets.EMPTY));
-    private static final Background BLUE_GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#607D8B"), CornerRadii.EMPTY, Insets.EMPTY));
-    private static final Background SELECTED_BACKGROUND = new Background(new BackgroundFill(Color.web("#29B6F6"), CornerRadii.EMPTY, Insets.EMPTY));
-
+public class BillView extends Observable implements Initializable, Observer {
     @FXML private VBox billViewRoot;
     @FXML private Label billHeader;
     @FXML private JFXButton changeTableButton;
     @FXML private JFXListView<HBox> itemList;
     @FXML private JFXButton subtotalButton;
     @FXML private JFXButton totalButton;
-    @FXML private Label unpaidLabel;
-    @FXML private Label paidLabel;
     @FXML private JFXButton payButton;
     @FXML private JFXButton returnButton;
     @FXML private JFXButton addSeat;
@@ -60,7 +53,7 @@ public class BillView extends Observable implements Initializable {
         Region filler = new Region();
         HBox.setHgrow(filler, Priority.ALWAYS);
         box.getChildren().add(filler);
-        box.setBackground(BLUE_GREY_BACKGROUND);
+        box.setBackground(Backgrounds.BLUE_GREY_BACKGROUND);
         return box;
     }
     private HBox generateSeatHeader(int seatNumber){
@@ -70,24 +63,23 @@ public class BillView extends Observable implements Initializable {
         } else {
             seatHeaderBox.getChildren().add(new JFXButton("Seat " + seatNumber));
         }
-        seatHeaderBox.setBackground(GREY_BACKGROUND);
+        seatHeaderBox.setBackground(Backgrounds.GREY_BACKGROUND);
         seatHeaderBox.setOnMouseClicked(e -> selectSeat(seatNumber));
         return seatHeaderBox;
     }
     private HBox generateOrderHeader(Order order, int orderNumber) {
         HBox orderHeaderBox = new HBox();
         orderHeaderBox.getChildren().add(new JFXButton("Order " + orderNumber + " (id: " + order.getId() + ")"));
-        orderHeaderBox.setBackground(LIGHT_GREY_BACKGROUND);
+        orderHeaderBox.setBackground(Backgrounds.LIGHT_GREY_BACKGROUND);
         orderHeaderBox.setOnMouseClicked(e -> {
-            if(orderHeaderBox.getBackground().equals(LIGHT_GREY_BACKGROUND)){ //click on an order box that is not already selected and no other order has been clicked on previously
+            if(orderHeaderBox.getBackground().equals(Backgrounds.LIGHT_GREY_BACKGROUND)){ //click on an order box that is not already selected and no other order has been clicked on previously
                 if(selectedOrderId == -1){
                     selectedOrderId = order.getId();
-                    orderHeaderBox.setBackground(SELECTED_BACKGROUND);
-                    System.out.println("clicked order: " + order.getId() + " " + order.getItems());
+                    orderHeaderBox.setBackground(Backgrounds.SELECTED_BACKGROUND);
                 }
             } else {
                 selectedOrderId = -1;
-                orderHeaderBox.setBackground(LIGHT_GREY_BACKGROUND);
+                orderHeaderBox.setBackground(Backgrounds.LIGHT_GREY_BACKGROUND);
             }
         });
         return orderHeaderBox;
@@ -137,6 +129,20 @@ public class BillView extends Observable implements Initializable {
         box.getChildren().add(new JFXButton(String.format("%.2f", amount)));
         return box;
     }
+    private HBox generateBalanceBox(double amount){
+        HBox box = new HBox();
+        Region filler = new Region();
+        HBox.setHgrow(filler, Priority.ALWAYS);
+        box.getChildren().add(new Label(" Balance due:"));
+        box.getChildren().add(filler);
+        box.getChildren().add(new Label(String.format("%.2f", amount)));
+        if(amount > 0){ //positive balance means that there is still money owed.
+            box.setBackground(Backgrounds.RED_BACKGROUND);
+        } else {
+            box.setBackground(Backgrounds.GREEN_BACKGROUND);
+        }
+        return box;
+    }
     private void selectSeat(int seatNumber){
         selectedSeat = seatNumber;
     }
@@ -151,11 +157,6 @@ public class BillView extends Observable implements Initializable {
         }
         chooseTablePopup.setPopupContent(box);
         changeTableButton.setOnAction(e -> chooseTablePopup.show(changeTableButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
-    }
-    private void updatePaid(Table table) {
-        unpaidLabel.setText("Unpaid amount: "+String.format("%.2f", table.getBill().getUnpaidAmount()));
-        paidLabel.setText("Paid amount: "+String.format("%.2f", table.getBill().getPaidAmount()));
-
     }
     @FXML private void addSeat(){
         Restaurant.getInstance().newEvent("addseat | table " + shownTable);
@@ -190,11 +191,10 @@ public class BillView extends Observable implements Initializable {
         setChanged();
         notifyObservers();
     }
-    void changeTable(int selectedTable) {
+    private void changeTable(int selectedTable) {
         shownTable = selectedTable;
-        updatePaid(Restaurant.getInstance().getTable(shownTable));
         refresh();
-        //updatePaid() TODO: implement this
+
     }
     int getShownTable() {
         return shownTable;
@@ -205,9 +205,9 @@ public class BillView extends Observable implements Initializable {
     public void paySelectedItems() {
         Table selectedTable = Restaurant.getInstance().getTable(shownTable);
         Table currentlySelectedSeat = selectedTable.getSeat(selectedSeat);
-        PayPopup payPopup = new PayPopup((StackPane)billViewRoot.getParent().getParent().getParent(), selectedTable, currentlySelectedSeat);
-        updatePaid(selectedTable);
-        //ability to select items from the bill similar to menulist
+        PayPopup payPopup = new PayPopup();
+        payPopup.addObserver(this);
+        payPopup = PayPopup.loadPayPopup((StackPane)billViewRoot.getParent().getParent().getParent(), selectedTable, currentlySelectedSeat);
     }
 
     public void refresh(){
@@ -238,11 +238,26 @@ public class BillView extends Observable implements Initializable {
                 tableItems.add(generateGratuityBox(selectedTable.getAutogratuityAmount()));
             }
             tableItems.add(generateTotalBox(selectedTable.getBill().getTotal() + selectedTable.getAutogratuityAmount()));
+            tableItems.add(generateBalanceBox(selectedTable.getBill().getTotal() + selectedTable.getAutogratuityAmount() - selectedTable.getBill().getPaidAmount()));
         } else {
             HBox noOrderFoundBox = new HBox();
             noOrderFoundBox.getChildren().add(new Label("No orders found for Table #" + shownTable));
             tableItems.add(noOrderFoundBox);
         }
         itemList.setItems(tableItems);
+    }
+
+    /**
+     * This method is called whenever the observed object is changed. An
+     * application calls an <tt>Observable</tt> object's
+     * <code>notifyObservers</code> method to have all the object's
+     * observers notified of the change.
+     *
+     * @param o   the observable object.
+     * @param arg an argument passed to the <code>notifyObservers</code>
+     */
+    @Override
+    public void update(Observable o, Object arg) {
+        letBackendCatchUp();
     }
 }

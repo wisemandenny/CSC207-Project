@@ -1,0 +1,18 @@
+Mar 27, 2018 7:44:26 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 2 Hotdog(s), 3 Fries(s).
+Mar 27, 2018 7:52:22 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 2 Chicken Burger(s), 2 Veggie Burger(s).
+Mar 27, 2018 7:53:56 PM restaurant.RestaurantLogger log
+INFO: Table 1 has returned Chicken Burger for the following reason(s): grossVeggie Burger for the following reason(s): horrible. Order number 2
+Mar 27, 2018 7:57:57 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 2 Hotdog(s), 1 Fries(s).
+Mar 27, 2018 7:58:11 PM restaurant.RestaurantLogger log
+INFO: Order number 2: Table 1 ordered 2 Hotdog(s), 2 Fries(s).
+Mar 27, 2018 8:03:18 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Fries(s).
+Mar 27, 2018 8:07:04 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Hotdog(s).
+Mar 27, 2018 8:09:30 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Hotdog(s), 1 Coke(s).
+Mar 27, 2018 8:13:30 PM restaurant.RestaurantLogger log
+INFO: Order number 1: Table 1 ordered 1 Hotdog(s).

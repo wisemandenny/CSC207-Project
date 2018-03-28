@@ -24,12 +24,14 @@ public class PayEvent implements Event {
         System.out.println("Bill subtotal: " + bill.getSubtotal());
         System.out.println("Bill unpaid amount: " + bill.getUnpaidAmount());
         System.out.println("Bill paid amount :" + bill.getPaidAmount());
+        System.out.println("Tip amount: " + bill.getTipAmount());
         System.out.println("Amount to be paid: " + paymentAmount);
         System.out.println("BILL PAID");
         table.getSeat(seatNumber).getBill().pay(paymentAmount);
         System.out.println("Bill subtotal: " + bill.getSubtotal());
         System.out.println("Bill unpaid amount: " + bill.getUnpaidAmount());
         System.out.println("Bill paid amount :" + bill.getPaidAmount());
+        System.out.println("Tip amount: " + bill.getTipAmount());
         System.out.println("Amount to be paid: " + paymentAmount);
         //all these souts are for testing
 
