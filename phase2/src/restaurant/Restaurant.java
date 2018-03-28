@@ -170,7 +170,7 @@ public class Restaurant extends Observable implements Runnable {
             receivedOrders.add(order);
         } catch (IllegalArgumentException ex){
             //shhouldn't do anything at all, for now lett's just print the error
-            System.out.println(ex.getMessage());
+            RestaurantLogger.log(Level.WARNING, ex.toString());
         }
 
     }
@@ -189,7 +189,7 @@ public class Restaurant extends Observable implements Runnable {
             inventory.removeFromInventory(o);
             cookingOrders.add(o); //why does this cause it to fail
         } catch (IllegalArgumentException ex){
-            System.out.println(ex.getMessage());
+            RestaurantLogger.log(Level.WARNING, ex.toString());
         }
 
     }
@@ -206,7 +206,7 @@ public class Restaurant extends Observable implements Runnable {
             cookingOrders.remove(order);
             readyOrders.add(order);
         } catch (IllegalArgumentException ex){
-            System.out.println(ex.getMessage());
+            RestaurantLogger.log(Level.WARNING, ex.toString());
         }
     }
 
@@ -225,7 +225,7 @@ public class Restaurant extends Observable implements Runnable {
             tables[order.getTableId()].getSeat(order.getSeatId()).addOrderToBill(order);
 
         } catch (IllegalArgumentException ex){
-            System.out.println(ex.getMessage());
+            RestaurantLogger.log(Level.WARNING, ex.toString());
         }
     }
 
