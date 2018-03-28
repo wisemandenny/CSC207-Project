@@ -61,8 +61,8 @@ public class InventoryImpl implements Inventory {
                s.append(" ");
                s.append(in.getName());
                if (i.getIngredients().indexOf(in) == i.getIngredients().size() - 1){
-                   s.append(", ");
-               }else{ s.append(" from inventory.");}
+                   s.append(" from inventory.");
+               }else{ s.append(", ");}
            }
         }
         RestaurantLogger.log(Level.INFO, "" + s.toString());
