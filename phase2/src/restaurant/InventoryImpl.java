@@ -78,6 +78,9 @@ public class InventoryImpl implements Inventory {
             if(inventory.get(i) < 5){
                 makeRestockRequest();
             }
+
+            RestaurantLogger.log(Level.INFO, "1 " + i.getName() + " removed from inventory. There are " + Integer.toString(inventory.get(i))
+                    + " " + i.getName() + " remaining.");
         }
     }
 
