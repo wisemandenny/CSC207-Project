@@ -2,17 +2,23 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXMasonryPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.CookOrderView">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.*?>
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.CookOrderView">
    <children>
-      <JFXMasonryPane fx:id="orderMasonryPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="600.0"  />
-      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="600.0" alignment="BOTTOM_CENTER">
-         <children>
-            <JFXButton fx:id="receivedButton" text="Order Received" />
-            <JFXButton fx:id="firedButton" text="Order Fired" />
-            <JFXButton fx:id="readyButton" text="Order Ready" />
-         </children>
-      </HBox>
+      <JFXMasonryPane fx:id="orderMasonryPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="350.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;" VBox.vgrow="ALWAYS" />
+      <ToolBar style="-fx-background-color: #FFFFFF;" VBox.vgrow="NEVER">
+        <items>
+            <JFXButton fx:id="receivedButton" buttonType="RAISED" scaleX="1.2" scaleY="1.2" style="-fx-background-color: #EF5350;" text="Order Received" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <JFXButton fx:id="firedButton" buttonType="RAISED" scaleX="1.2" scaleY="1.2" style="-fx-background-color: #FFEE58;" text="Order Fired" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <JFXButton fx:id="readyButton" buttonType="RAISED" scaleX="1.2" scaleY="1.2" style="-fx-background-color: #9CCC65;" text="Order Ready" />
+        </items>
+         <VBox.margin>
+            <Insets bottom="30.0" left="30.0" right="30.0" />
+         </VBox.margin>
+      </ToolBar>
    </children>
 </VBox>
