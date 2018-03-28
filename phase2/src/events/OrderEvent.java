@@ -30,7 +30,7 @@ class OrderEvent implements Event {
         s.append(Integer.toString(order.getTableId()));
         s.append(" ordered ");
         for (MenuItem i: order.getItems()){
-            if (order.getItems().indexOf(i) == (order.getItems().size() - 1)){
+            if (order.getItems().indexOf(i) == (order.getItems().size() - 1) && order.getItems().size() > 1){
                 s.append("and ");
                 s.append(Integer.toString(i.getQuantity()));
                 s.append(" ");
@@ -40,10 +40,12 @@ class OrderEvent implements Event {
                 s.append(Integer.toString(i.getQuantity()));
                 s.append(" ");
                 s.append(i.getName());
-                s.append("(s), ");
+                if (order.getItems().indexOf(i) == (order.getItems().size() - 1)) {
+                    s.append("(s).");
+                } else {s.append("(s), ");}
             }
         }
-        RestaurantLogger.log(Level.INFO, "" + s);
+        RestaurantLogger.log(Level.INFO, "" + s.toString());
     }
 
     Order getOrder() {
