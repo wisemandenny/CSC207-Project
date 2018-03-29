@@ -86,6 +86,8 @@ public interface Table {
      */
     Table getSeat(int index);
 
+    List<Table> getSeats();
+
     /**
      * After a table has paid the bill, the table must be reset so that the table can serve another customer. This method resets tables to an empty state.
      */
