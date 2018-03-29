@@ -86,6 +86,11 @@ public interface Table {
      */
     Table getSeat(int index);
 
+    /**
+     *  Returns a table's list of seats.
+     *
+     * @return a list of Tables.
+     */
     List<Table> getSeats();
 
     /**

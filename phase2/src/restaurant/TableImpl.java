@@ -122,6 +122,10 @@ public class TableImpl implements Table {
         return seats.get(index);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Table> getSeats() { return seats;}
     /**
      * {@inheritDoc}
