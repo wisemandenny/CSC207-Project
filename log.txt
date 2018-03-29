@@ -557,3 +557,29 @@ Mar 29, 2018 12:22:12 AM restaurant.RestaurantLogger log
 INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s), and 1 Chicken Fingers(s).
 Mar 29, 2018 12:22:29 AM restaurant.RestaurantLogger log
 INFO: Table 1 order number 2, ordered the following item(s):1 Chicken Fingers(s).
+Mar 29, 2018 12:27:29 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hamburger(s).
+Mar 29, 2018 12:27:36 AM restaurant.RestaurantLogger log
+INFO: Cooked 1 Hamburger: removed 1 BurgerBun, 1 Patty, 1 Lettuce, 1 Tomato, 1 Ketchup, 1 Mustard, 1 Bacon from inventory.
+Mar 29, 2018 12:27:36 AM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 29, 2018 12:27:38 AM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 29, 2018 12:27:41 AM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 29, 2018 12:56:23 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s).
+Mar 29, 2018 12:56:53 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Fries(s).
+Mar 29, 2018 12:57:15 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Chicken Burger(s).
+Mar 29, 2018 1:01:14 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Veggie Burger(s).
+Mar 29, 2018 1:01:37 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Chicken Burger(s).
+Mar 29, 2018 1:16:23 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hamburger(s).
+Mar 29, 2018 1:19:17 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Veggie Burger(s).
+Mar 29, 2018 1:21:10 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Burger(s).
