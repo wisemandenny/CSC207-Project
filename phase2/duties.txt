@@ -1,0 +1,9 @@
+DUTIES:
+
+Milan
+   - Majority of test suite
+   - correction and maintenance of backend code
+   - helped design GUI
+   - documentation of backend
+
+
