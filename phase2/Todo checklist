@@ -7,13 +7,8 @@ NEW FUNCTIONS
 VISUAL BUGS
 1. you can clear selected menu items by clicking on selected items away from the button
 probably if you use selection factory it will be easier to fix
-2. mods don't show up anywhere except manager view
-a. bill view
-b. cookview
 
-a. extras should be green, mods should be red
-
-
+2. fix the subtotals in billview
 
 LOOK AND FEEL
 
