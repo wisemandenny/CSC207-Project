@@ -191,7 +191,7 @@ public class ServerView extends Observable implements Initializable, Observer{
         void loadAddDialog(){
             //HEADER
             JFXDialogLayout content = new JFXDialogLayout();
-            Label orderDetailsDialogHeader = new Label("Order Details (click item for modifications");
+            Label orderDetailsDialogHeader = new Label("Order Details (click item for modifications)");
 
             //PARENT AND LIST COMPONENTS
             VBox dialogRoot = new VBox(5);
@@ -232,6 +232,7 @@ public class ServerView extends Observable implements Initializable, Observer{
 
             //BUILD THE DIALOG AND SET THE ACTIONS
             JFXDialog dialog = new JFXDialog(parent, content, JFXDialog.DialogTransition.CENTER);
+            dialog.setMaxHeight(parent.getHeight()*0.8);
 
             cancelButton.setOnAction(e -> dialog.close());
             confirmButton.setOnAction(e -> {
@@ -253,16 +254,18 @@ public class ServerView extends Observable implements Initializable, Observer{
             StringBuilder sb = new StringBuilder("order | table " + tableId + " > " + seatId + " | ");
             for(menu.MenuItem item : orderItems){
                 sb.append(item.getQuantity() + " " + item.getName());
-                if(!item.getExtraIngredients().isEmpty() || !item.getRemovedIngredients().isEmpty()){
+                if(!item.getExtraIngredients().isEmpty() || !item.getRemovedIngredients().isEmpty()){ //if there are mods
                     sb.append(" / ");
                     boolean flag = false;
-                    if(!item.getExtraIngredients().isEmpty()){
+
+                    if(!item.getExtraIngredients().isEmpty()){ //if there are extras, append them to the string
                         for(Ingredient extra : item.getExtraIngredients()){
                             sb.append("+" + extra.getName() + " ");
                         }
                         flag = true;
                     }
-                    if(!item.getRemovedIngredients().isEmpty()){
+
+                    if(!item.getRemovedIngredients().isEmpty()){ //if there are removals, append them to the string
                         for(Ingredient remove : item.getRemovedIngredients()){
                             sb.append("-" + remove.getName() + " ");
                         }
@@ -273,7 +276,7 @@ public class ServerView extends Observable implements Initializable, Observer{
                 }
                 sb.append(", ");
             }
-            sb.delete(sb.length()-2, sb.length());
+            sb.delete(sb.length()-2, sb.length()); //delete trailing comma
             return sb.toString();
         }
 
