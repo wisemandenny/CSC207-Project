@@ -693,3 +693,15 @@ Mar 29, 2018 1:25:02 PM restaurant.RestaurantLogger log
 INFO: Order number 1 delivered!
 Mar 29, 2018 1:25:09 PM restaurant.RestaurantLogger log
 INFO: Payment of $9.0 received from Table 1 seat 0
+Mar 29, 2018 1:57:57 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Veggie Burger(s), and 1 Fries(s).
+Mar 29, 2018 2:03:36 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Coke(s).
+Mar 29, 2018 2:04:04 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Onion Rings(s).
+Mar 29, 2018 2:05:58 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s).
+Mar 29, 2018 2:06:15 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Chicken Burger(s).
+Mar 29, 2018 2:07:49 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Coke(s), and 1 Chicken Fingers(s).

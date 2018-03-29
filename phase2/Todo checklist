@@ -1,9 +1,6 @@
 TODO:
-1. removals showing up twice if you select/unselect them
-
 3. UML DOCUMENT
 4. DOCUMENTATION
-5. DUTIES.TXT
 
 EXTRA FEATURES
 tipping
@@ -15,8 +12,6 @@ show ingredients in menu
 show prices in menu
 join bills for seperate seats
 
-
-
 TIMELINE:
 refactored before new features March 15th (3 days) DONE
 designed gui March 16th DONE
@@ -27,12 +22,4 @@ added at least 1 extra feature March 24th DONE?
 added at least 3 extra features March 26th DONE
 Code refactored  and documented March 28th DONE
 Make UML Diagram March 29th
-
-DUTIES:
-refactoring code before new features: denny
-design gui: denny
-test suite: milan
-build gui: denny
-logger: achilles
-
 
