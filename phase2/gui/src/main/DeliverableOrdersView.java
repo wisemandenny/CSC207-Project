@@ -42,6 +42,10 @@ public class DeliverableOrdersView extends Observable implements Initializable{
         addDeliverableOrders();
     }
 
+    boolean hasOrders(){
+        return !deliverableOrders.isEmpty();
+    }
+
     private void addDeliverableOrders(){
         List<Order> orderList = Restaurant.getInstance().getReadyOrders();
         if(orderList.isEmpty()){

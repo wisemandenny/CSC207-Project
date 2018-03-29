@@ -14,11 +14,17 @@ public class UpdateEvent implements Event {
         this.orderId = orderId;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public EventType getType() {
         return type;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void doEvent() {
         switch (type) {

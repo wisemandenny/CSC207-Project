@@ -90,13 +90,7 @@ public class TableImpl implements Table {
     public void removeFromBill(Order o) {
         bill.remove(o);
     }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void comp(Order o) {
-        bill.comp(o);
-    }
+
     /**
      * {@inheritDoc}
      */
@@ -174,7 +168,7 @@ public class TableImpl implements Table {
     @Override
     public String getTableBillString(){
         String billString = getBill().getBillString();
-        return ("BILL FOR TABLE " + id).concat(billString);
+        return ("BILL FOR TABLE " + id + ":\n").concat(billString);
     }
 
 }

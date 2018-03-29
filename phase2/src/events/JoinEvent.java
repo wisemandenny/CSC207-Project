@@ -10,11 +10,20 @@ public class JoinEvent implements Event{
     JoinEvent(int tableId){
         this.tableId = tableId;
     }
+
+    /**
+     * Returns the type of event.
+     *
+     * @return  the type of event.
+     */
     @Override
     public EventType getType() {
         return EventType.JOIN;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void doEvent() {
         Restaurant.getInstance().getTable(tableId).joinCheques();

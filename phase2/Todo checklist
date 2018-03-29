@@ -1,21 +1,14 @@
-GUI TODO:
-
-BUG FIXES
-
-NEW FUNCTIONS
+TODO:
 
 VISUAL BUGS
 1. you can clear selected menu items by clicking on selected items away from the button
 probably if you use selection factory it will be easier to fix
-
 2. fix the subtotals in billview
 
-LOOK AND FEEL
 
-SMALL ANNOYANCES
-
-
-
+3. UML DOCUMENT
+4. DOCUMENTATION
+5. DUTIES.TXT
 
 EXTRA FEATURES
 ability to cancel before they're cooked
