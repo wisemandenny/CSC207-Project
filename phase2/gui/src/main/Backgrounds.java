@@ -12,6 +12,8 @@ class Backgrounds {
     static final Background GREEN_BACKGROUND = new Background(new BackgroundFill(Color.web("#9CCC65"), CornerRadii.EMPTY, Insets.EMPTY));
     static final Background GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#BDBDBD"), CornerRadii.EMPTY, Insets.EMPTY));
     static final Background LIGHT_GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#FAFAFA"), CornerRadii.EMPTY, Insets.EMPTY));
+    static final Background LIGHT_GREEN_BACKGROUND = new Background(new BackgroundFill(Color.web("#F1F8E9"), CornerRadii.EMPTY, Insets.EMPTY));
+    static final Background LIGHT_RED_BACKGROUND = new Background(new BackgroundFill(Color.web("#FFEBEE"), CornerRadii.EMPTY, Insets.EMPTY));
     static final Background BLUE_GREY_BACKGROUND = new Background(new BackgroundFill(Color.web("#607D8B"), CornerRadii.EMPTY, Insets.EMPTY));
     static final Background SELECTED_BACKGROUND = new Background(new BackgroundFill(Color.web("#29B6F6"), CornerRadii.EMPTY, Insets.EMPTY));
     public Backgrounds(){}

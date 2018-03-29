@@ -252,7 +252,7 @@ public class Restaurant extends Observable implements Runnable {
      *
      * @param checkItems the list of items that is to be analyzed.
      */
-    public Boolean checkInventory(List<MenuItem> checkItems){ ///TODO: this does not work when if you order 10 Hamburgers, 10 Chicken Burgers, for example (inventory does not have 20 hamburgerbuns)
+    public Boolean checkInventory(List<MenuItem> checkItems){
         Map<Ingredient, Integer> ingredientsToQuantity = new HashMap<>();
         for (MenuItem item : checkItems){
             for(Ingredient i : item.getAllIngredients()){

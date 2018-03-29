@@ -1,13 +1,21 @@
 GUI TODO:
 
 BUG FIXES
-1. mods and removals don't work at all
 
 NEW FUNCTIONS
 
 VISUAL BUGS
-you can clear selected menu items by clicking on selected items away from the button
+1. you can clear selected menu items by clicking on selected items away from the button
 probably if you use selection factory it will be easier to fix
+2. mods don't show up anywhere except manager view
+aa. mods show up twice????
+a. bill view
+b. cookview
+
+3. need some visual indicator to show that if you click on the item name in order details popup it will show the items for removal/adding
+a. extras should be green, mods should be red
+4. hyperlinks don't work well in list there
+
 
 LOOK AND FEEL
 

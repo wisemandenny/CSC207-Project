@@ -6,11 +6,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import menu.Ingredient;
 import restaurant.Restaurant;
 import restaurant.RestaurantLogger;
@@ -111,7 +111,7 @@ public class ServerView extends Observable implements Initializable, Observer{
             }
         }
 
-        private HBox makeItemHBox(JFXButton button, JFXListView<Hyperlink> extras, JFXListView<Hyperlink> removed){
+        private HBox makeItemHBox(JFXButton button, JFXListView<HBox> extras, JFXListView<HBox> removed){
             HBox itemBox = new HBox();
             Region filler = new Region();
             HBox.setHgrow(filler, Priority.ALWAYS);
@@ -122,7 +122,7 @@ public class ServerView extends Observable implements Initializable, Observer{
                 quantity.setOnAction(e -> {
                     changeItemQuantity(quantitySelector, j, button.getText());
                     loadModLists(Restaurant.getInstance().getMenu().getMenuItem(button.getText()), extras, removed);
-                }); //will need more here
+                });
                 quantitySelector.getItems().add(quantity);
             }
             itemBox.getChildren().addAll(quantitySelector, filler, new Label(button.getText()));
@@ -130,53 +130,54 @@ public class ServerView extends Observable implements Initializable, Observer{
             itemBox.setOnMouseClicked(e -> loadModLists(Restaurant.getInstance().getMenu().getMenuItem(button.getText()), extras, removed));
             return itemBox;
         }
-        private void selectEvent(Hyperlink clickedHyperlink, boolean isExtra){
-            JFXListCell<Hyperlink> selectedCell = (JFXListCell<Hyperlink>) clickedHyperlink.getParent();
-            if(isExtra) { //add the modifier
-                if (selectedCell.getBackground().equals(Backgrounds.GREEN_BACKGROUND)) {
-                    selectedCell.setBackground(Background.EMPTY);
-                    clickedHyperlink.setBackground(Background.EMPTY);
-                    orderItems.get(orderItems.indexOf(currentlySelectedItem)).getExtraIngredients().remove(Restaurant.getInstance().getMenu().getMenuIngredient(clickedHyperlink.getText()));
+        private void selectEvent(HBox clickedHbox, boolean isExtra){
+            JFXListCell<HBox> selectedCell = (JFXListCell<HBox>) clickedHbox.getParent();
+            if(isExtra) { //add the extra modifier
+                if (selectedCell.getBackground().equals(Backgrounds.GREEN_BACKGROUND)) { //if the item is already clicked
+                    selectedCell.setBackground(Backgrounds.LIGHT_GREEN_BACKGROUND);
+                    clickedHbox.setBackground(Backgrounds.LIGHT_GREEN_BACKGROUND);
+                    //remove the ingredient from the menu item's modifiers
+                    orderItems.get(orderItems.indexOf(currentlySelectedItem)).getExtraIngredients().remove(Restaurant.getInstance().getMenu().getMenuIngredient(((Text)clickedHbox.getChildren().get(0)).getText()));
                 } else {
                     selectedCell.setBackground(Backgrounds.GREEN_BACKGROUND);
-                    clickedHyperlink.setBackground(Background.EMPTY);
-                    orderItems.get(orderItems.indexOf(currentlySelectedItem)).getExtraIngredients().add(Restaurant.getInstance().getMenu().getMenuIngredient(clickedHyperlink.getText()));
+                    clickedHbox.setBackground(Backgrounds.GREEN_BACKGROUND);
+                    //add the ingredient from the menu item's modifiers
+                    orderItems.get(orderItems.indexOf(currentlySelectedItem)).getExtraIngredients().add(Restaurant.getInstance().getMenu().getMenuIngredient(((Text)clickedHbox.getChildren().get(0)).getText()));
                 }
-            } else { //remove the modifier
+            } else { //add the removal modifier
                 if (selectedCell.getBackground().equals(Backgrounds.RED_BACKGROUND)){ //item is already clicked
-                    selectedCell.setBackground(Background.EMPTY);
-                    clickedHyperlink.setBackground(Background.EMPTY);
-                    orderItems.get(orderItems.indexOf(currentlySelectedItem)).getRemovedIngredients().remove(Restaurant.getInstance().getMenu().getMenuIngredient(clickedHyperlink.getText()));
+                    selectedCell.setBackground(Backgrounds.LIGHT_RED_BACKGROUND);
+                    clickedHbox.setBackground(Backgrounds.LIGHT_RED_BACKGROUND);
+                    orderItems.get(orderItems.indexOf(currentlySelectedItem)).getRemovedIngredients().remove(Restaurant.getInstance().getMenu().getMenuIngredient(((Text)clickedHbox.getChildren().get(0)).getText()));
                 } else { //item is not clicked
                     selectedCell.setBackground(Backgrounds.RED_BACKGROUND);
-                    clickedHyperlink.setBackground(Background.EMPTY);
-                    System.out.println("<"+clickedHyperlink.getText()+">");
-                    clickedHyperlink.textProperty().getValue();
-                    orderItems.get(orderItems.indexOf(currentlySelectedItem)).getRemovedIngredients().add(Restaurant.getInstance().getMenu().getMenuIngredient( clickedHyperlink.textProperty().getValue()));
+                    clickedHbox.setBackground(Backgrounds.RED_BACKGROUND);
+                    orderItems.get(orderItems.indexOf(currentlySelectedItem)).getRemovedIngredients().add(Restaurant.getInstance().getMenu().getMenuIngredient(((Text)clickedHbox.getChildren().get(0)).getText()));
                 }
             }
         }
-        private void loadModLists(menu.MenuItem item, JFXListView<Hyperlink> extras, JFXListView<Hyperlink> removed){
+        private void loadModLists(menu.MenuItem item, JFXListView<HBox> extras, JFXListView<HBox> removed){
             currentlySelectedItem = item;
 
             List<Ingredient> allIngredients = new ArrayList<>(Restaurant.getInstance().getMenu().getAllIngredients());
             allIngredients.removeAll(item.getIngredients());
-            ObservableList<Hyperlink> addableIngredients = FXCollections.observableArrayList();
+            ObservableList<HBox> addableIngredients = FXCollections.observableArrayList();
             for(Ingredient i : allIngredients){
-                Hyperlink addIngredient = new Hyperlink(i.getName());
+                HBox addIngredient = buildHBox(i, true);
                 addIngredient.setOnMousePressed(e -> selectEvent(addIngredient, true));
                 addableIngredients.add(addIngredient);
             }
             extras.setItems(addableIngredients);
 
-            ObservableList<Hyperlink> removeableIngredients = FXCollections.observableArrayList();
+            ObservableList<HBox> removeableIngredients = FXCollections.observableArrayList();
             for (Ingredient i : item.getIngredients()){
-                Hyperlink removeIngredient = new Hyperlink(i.getName());
+                HBox removeIngredient = buildHBox(i, false);
                 removeIngredient.setOnMousePressed(e -> selectEvent(removeIngredient, false));
                 removeableIngredients.add(removeIngredient);
             }
             removed.setPrefHeight(extras.getHeight());
             removed.setItems(removeableIngredients);
+
         }
         void loadAddDialog(){
             //HEADER
@@ -185,9 +186,9 @@ public class ServerView extends Observable implements Initializable, Observer{
 
             //PARENT AND LIST COMPONENTS
             VBox dialogRoot = new VBox(5);
-            JFXListView<Hyperlink> extraIngredientsListView = new JFXListView<>();
+            JFXListView<HBox> extraIngredientsListView = new JFXListView<>();
             extraIngredientsListView.setMinHeight(300);
-            JFXListView<Hyperlink> removedIngredientsListView = new JFXListView<>();
+            JFXListView<HBox> removedIngredientsListView = new JFXListView<>();
             removedIngredientsListView.setMinHeight(300);
 
             //LIST OF SELECTED ITEMS AND THEIR QUANTITIES
@@ -263,6 +264,15 @@ public class ServerView extends Observable implements Initializable, Observer{
             }
             sb.delete(sb.length()-2, sb.length());
             return sb.toString();
+        }
+
+        private HBox buildHBox(Ingredient i, boolean isExtra){
+            HBox hbox = new HBox();
+            if(isExtra) hbox.setBackground(Backgrounds.LIGHT_GREEN_BACKGROUND);
+            else hbox.setBackground(Backgrounds.LIGHT_RED_BACKGROUND);
+            hbox.getChildren().add(new Text(i.getName()));
+            hbox.setOnMouseClicked(e -> selectEvent(hbox, isExtra));
+            return hbox;
         }
     }
 }
