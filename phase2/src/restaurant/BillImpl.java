@@ -108,7 +108,7 @@ public class BillImpl implements Bill {
      */
     @Override
     public void tip(double amount){
-        tipAmount += amount;
+        tipAmount = amount;
     }
 
     /**
