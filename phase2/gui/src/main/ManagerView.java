@@ -113,6 +113,7 @@ public class ManagerView extends Observable implements Initializable {
     }
 
     private void loadIncomeLabels(){
+        System.out.println("Income for day: " + Restaurant.getInstance().getDailyIncomeTotal());
         incomeLabel.setText("Today's income: $" + String.format("%.2f", Restaurant.getInstance().getDailyIncomeTotal()));
         tipLabel.setText("Today's tip total: $" + String.format("%.2f", Restaurant.getInstance().getTipTotal()));
     }

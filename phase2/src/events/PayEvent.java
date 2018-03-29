@@ -52,7 +52,7 @@ public class PayEvent implements Event {
      */
     private void process(Bill b){
         b.pay(paymentAmount);
-        Restaurant.getInstance().addPayment(b.getTotal());
+        Restaurant.getInstance().addPayment(b.getPaidAmount());
         Restaurant.getInstance().addToTipTotal(b.getTipAmount());
     }
 }

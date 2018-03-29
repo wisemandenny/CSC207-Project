@@ -107,9 +107,11 @@ public class BillImpl implements Bill {
         double balance = getUnpaidAmount();
         if(balance-amount >= 0){
             paidAmount += amount;
+            System.out.println("Paid: " + paidAmount);
         } else {
-            paidAmount += getTotal();
-            tip(amount-paidAmount);
+            paidAmount = getTotal();
+            System.out.println("OverPaid: " + paidAmount);
+            tip(amount - balance);
         }
     }
 

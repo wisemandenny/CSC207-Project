@@ -230,6 +230,9 @@ public class Restaurant extends Observable implements Runnable {
     }
 
     public void addPayment(double amount){
+        System.out.println("Before the increase: " + getDailyIncomeTotal());
+        System.out.println("Increase by :" + amount);
+        System.out.println("After: " + (getDailyIncomeTotal() + amount));
         dailyIncomeTotal += amount;
     }
 
