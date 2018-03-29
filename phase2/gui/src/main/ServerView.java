@@ -49,7 +49,7 @@ public class ServerView extends Observable implements Initializable, Observer{
             billView = billViewFXMLLoader.getController();
             billView.addObserver(this);
 
-            List<JFXButton> selectedItemButtons = menuList.getSelectedItems();
+            ObservableList<JFXButton> selectedItemButtons = menuList.getSelectedItems();
             FAB.setOnAction(e -> {
                 if(deliverableOrdersView.hasOrders()) mustDeliverOrderWarning();
                 else if(Restaurant.getInstance().getTable(billView.getShownTable()).isJoined()){
@@ -242,7 +242,7 @@ public class ServerView extends Observable implements Initializable, Observer{
 
             //BUILD THE DIALOG AND SET THE ACTIONS
             JFXDialog dialog = new JFXDialog(parent, content, JFXDialog.DialogTransition.CENTER);
-            dialog.setMaxHeight(parent.getHeight()*0.8);
+            dialog.setMaxHeight(parent.getHeight()*0.9);
 
             cancelButton.setOnAction(e -> dialog.close());
             confirmButton.setOnAction(e -> {
