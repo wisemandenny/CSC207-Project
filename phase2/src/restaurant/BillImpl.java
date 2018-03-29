@@ -96,7 +96,7 @@ public class BillImpl implements Bill {
      */
     @Override //TODO: might be able to delete this or make it private
     public double getUnpaidAmount(){
-        return getSubtotal() - paidAmount;
+        return getTotal() - paidAmount;
     }
 
     /**
@@ -107,10 +107,8 @@ public class BillImpl implements Bill {
         double balance = getUnpaidAmount();
         if(balance-amount >= 0){
             paidAmount += amount;
-            System.out.println("Paid: " + paidAmount);
         } else {
             paidAmount = getTotal();
-            System.out.println("OverPaid: " + paidAmount);
             tip(amount - balance);
         }
     }
@@ -120,7 +118,7 @@ public class BillImpl implements Bill {
      */
     @Override
     public void tip(double amount){
-        tipAmount += amount;
+        tipAmount = amount;
     }
 
     /**
