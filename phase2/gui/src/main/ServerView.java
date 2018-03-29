@@ -105,9 +105,9 @@ public class ServerView extends Observable implements Initializable, Observer{
             menu.MenuItem updateItem = Restaurant.getInstance().getMenu().getMenuItem(itemName);
             orderItems.get(orderItems.indexOf(updateItem)).setQuantity(quantity);
             if(Restaurant.getInstance().checkInventory(orderItems)){
-                confirmButton.setDisable(true);
-            } else {
                 confirmButton.setDisable(false);
+            } else {
+                confirmButton.setDisable(true);
             }
         }
 
@@ -247,14 +247,12 @@ public class ServerView extends Observable implements Initializable, Observer{
                             sb.append("+" + extra.getName() + " ");
                         }
                         flag = true;
-                        //sb.deleteCharAt(sb.lastIndexOf(" "));
                     }
                     if(!item.getRemovedIngredients().isEmpty()){
                         for(Ingredient remove : item.getRemovedIngredients()){
                             sb.append("-" + remove.getName() + " ");
                         }
                         flag = true;
-                        //sb.deleteCharAt(sb.lastIndexOf(" "));
                     }
                     if (flag)
                         sb.deleteCharAt(sb.lastIndexOf(" "));
@@ -265,7 +263,4 @@ public class ServerView extends Observable implements Initializable, Observer{
             return sb.toString();
         }
     }
-
-
-
 }

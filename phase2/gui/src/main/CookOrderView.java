@@ -9,10 +9,10 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import menu.MenuItem;
 import restaurant.Order;
 import restaurant.Restaurant;
@@ -48,11 +48,11 @@ public class CookOrderView extends Observable implements Initializable {
             this.order = order;
             box = new VBox(10);
             box.setOnMouseClicked(e -> selectBox(box));
-            Label orderHeader = new Label("Order: " + order.getId() + "\nTable: " + order.getTableId());
+            Text orderHeader = new Text("Order: " + order.getId() + "\nTable: " + order.getTableId());
 
             box.getChildren().add(orderHeader);
             for (MenuItem item : order.getItems()){
-                box.getChildren().add(makeItemLabel(item));
+                box.getChildren().add(makeItemText(item));
             }
 
             switch (flag) {
@@ -73,9 +73,9 @@ public class CookOrderView extends Observable implements Initializable {
                     break;
             }
         }
-        private Label makeItemLabel(MenuItem item) {
-            Label itemLabel = new Label(item.getQuantity() + " " + item.getName());
-            itemLabel.setBackground(Background.EMPTY); //transparent background
+        private Text makeItemText(MenuItem item) {
+            Text itemLabel = new Text(item.getQuantity() + " " + item.getName());
+
             return itemLabel;
         }
         Order getOrder(){ return order; }

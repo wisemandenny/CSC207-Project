@@ -113,6 +113,6 @@ public class InventoryImpl implements Inventory {
 
     @Override
     public boolean enoughIngredients(Ingredient i, int amount) {
-        return inventory.get(i) < amount;
+        return inventory.get(i) >= amount;
     }
 }
