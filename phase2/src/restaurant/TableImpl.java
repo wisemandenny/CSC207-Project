@@ -174,7 +174,7 @@ public class TableImpl implements Table {
     @Override
     public String getTableBillString(){
         String billString = getBill().getBillString();
-        return ("BILL FOR TABLE " + id).concat(billString);
+        return ("BILL FOR TABLE " + id + ":\n").concat(billString);
     }
 
 }

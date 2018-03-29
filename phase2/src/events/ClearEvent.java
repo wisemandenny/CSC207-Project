@@ -13,11 +13,18 @@ public class ClearEvent implements Event {
     ClearEvent(int tableId){
         this.tableId = tableId;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public EventType getType() {
         return EventType.CLEAR;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void doEvent() {
         Table table = Restaurant.getInstance().getTable(tableId);

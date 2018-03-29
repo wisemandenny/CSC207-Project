@@ -14,6 +14,9 @@ public class BillEvent implements Event {
         this.table = table;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void doEvent() {
         StringBuilder s = new StringBuilder();
@@ -39,6 +42,9 @@ public class BillEvent implements Event {
         RestaurantLogger.log(Level.INFO, s.toString());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public EventType getType() {
         return EventType.BILL;

@@ -24,11 +24,17 @@ public class ShipmentEvent implements Event {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public EventType getType() {
         return EventType.RECEIVEDSHIPMENT;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void doEvent() {
         Restaurant.getInstance().addToInventory(shipment);
