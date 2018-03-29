@@ -97,5 +97,12 @@ public interface Table {
      * @return a String representation of the Bill for the Table.
      */
     String getTableBillString();
+
+    /**
+     * Returns if a Table has joined the cheques.
+     *
+     * @return  a boolean.
+     */
+    boolean getJoin();
 }
 
