@@ -7,7 +7,9 @@ public class TableImplTest {
     Restaurant r = Restaurant.getInstance(10, 0.13);
 
     @Test
-    public void testAddOrder(){}
+    public void testAddOrder(){
+        r.start();
+    }
 
     @Test
     public void testAddOrderToBill(){}

@@ -21,11 +21,17 @@ class SeatEvent implements Event{
         type = EventType.REMOVESEAT;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public EventType getType() {
         return type;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void doEvent() {
         StringBuilder s = new StringBuilder();

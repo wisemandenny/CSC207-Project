@@ -17,11 +17,17 @@ public class PayEvent implements Event {
         this.paymentAmount = Double.parseDouble(paymentAmount);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public EventType getType() {
         return EventType.PAY;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void doEvent() {
         Bill bill = table.getSeat(seatNumber).getBill();

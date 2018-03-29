@@ -2,7 +2,10 @@ package events;
 
 import restaurant.Bill;
 import restaurant.Restaurant;
+import restaurant.RestaurantLogger;
 import restaurant.Table;
+
+import java.util.logging.Level;
 
 public class ClearEvent implements Event {
     private int tableId;
@@ -10,11 +13,18 @@ public class ClearEvent implements Event {
     ClearEvent(int tableId){
         this.tableId = tableId;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public EventType getType() {
         return EventType.CLEAR;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void doEvent() {
         Table table = Restaurant.getInstance().getTable(tableId);
@@ -22,6 +32,6 @@ public class ClearEvent implements Event {
         if(tableBill.getPaidAmount() >= tableBill.getTotal()){
             table.resetTable();
         }
-        //TODO: log that this table was cleared (reset)
+        RestaurantLogger.log(Level.INFO, "Table " + Integer.toString(tableId) + " has been cleared.");
     }
 }

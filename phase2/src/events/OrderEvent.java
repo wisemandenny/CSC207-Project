@@ -14,11 +14,17 @@ class OrderEvent implements Event {
         order = OrderFactory.makeOrder(orderString, table.getId(), seat);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public EventType getType() {
         return EventType.ORDER;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void doEvent() {
         Restaurant.getInstance().addPlacedOrder(order);
@@ -48,6 +54,11 @@ class OrderEvent implements Event {
         RestaurantLogger.log(Level.INFO, s.toString());
     }
 
+    /**
+     * Returns the Order from this OrderEvent
+     *
+     * @return  the Order
+     */
     Order getOrder() {
         return order;
     }

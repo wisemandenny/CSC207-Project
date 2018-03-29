@@ -14,6 +14,13 @@ public class EventFactory {
     private EventFactory() {
     }
 
+    /**
+     * Returns an event by parsing the eventLine String and associating it with a certain table.
+     *
+     * @param eventLine information about an Event
+     * @param tables an array of tables
+     * @return  an Event associate with a Table from Tables, and and information extracted from eventLine.
+     */
     public static Event makeEvent(String eventLine, Table[] tables) {
         String[] splitString = eventLine.split("\\s\\|\\s", 4);
         if (splitString.length < 2 || splitString.length > 5) {
