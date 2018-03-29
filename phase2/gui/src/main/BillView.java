@@ -305,15 +305,15 @@ public class BillView extends Observable implements Initializable, Observer {
             this.addObserver(bv);
             this.selectedTable = selectedTable;
             this.selectedSeat = selectedSeat;
-            loadPayPopup(selectedSeat);
+            loadPayPopup();
         }
         private PayPopup loadPayPopup(StackPane parent, BillView bv, Table selectedTable, Table selectedSeat){
             return new PayPopup(parent, bv, selectedTable, selectedSeat);
         }
 
-        private void loadPayPopup(Table selectedSeat){
+        private void loadPayPopup(){
             JFXDialogLayout content = new JFXDialogLayout();
-            content.setHeading(new Label("Pay for order"));
+            content.setHeading(new Label("Pay"));
 
             VBox container = new VBox();
             inputAmountField = new TextField();

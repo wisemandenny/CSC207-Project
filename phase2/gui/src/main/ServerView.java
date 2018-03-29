@@ -52,6 +52,9 @@ public class ServerView extends Observable implements Initializable, Observer{
             List<JFXButton> selectedItemButtons = menuList.getSelectedItems();
             FAB.setOnAction(e -> {
                 if(deliverableOrdersView.hasOrders()) mustDeliverOrderWarning();
+                else if(Restaurant.getInstance().getTable(billView.getShownTable()).isJoined()){
+                    noOrdersForJoinedTableWarning();
+                }
                 else if(!selectedItemButtons.isEmpty()) loadAddDialog(serverViewStackPane, menuList);
             });
             } catch (Exception ex) {
@@ -85,6 +88,13 @@ public class ServerView extends Observable implements Initializable, Observer{
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText("You must deliver all ready orders before placing new orders.");
+        alert.showAndWait();
+    }
+    private void noOrdersForJoinedTableWarning(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("After a table has been joined, no new orders can be added.");
         alert.showAndWait();
     }
 

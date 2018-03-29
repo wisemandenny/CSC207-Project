@@ -17,13 +17,6 @@ public interface Bill {
     void remove(Order o);
 
     /**
-     * Give away Order o for free.
-     *
-     * @param o the Order to be given away for free.
-     */
-    void comp(Order o);
-
-    /**
      * Join the tables bill.
      *
      * @param toJoin the bill that is to be joined.

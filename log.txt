@@ -583,3 +583,101 @@ Mar 29, 2018 1:19:17 AM restaurant.RestaurantLogger log
 INFO: Table 1 order number 1, ordered the following item(s):1 Veggie Burger(s).
 Mar 29, 2018 1:21:10 AM restaurant.RestaurantLogger log
 INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Burger(s).
+Mar 29, 2018 1:27:06 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Burger(s).
+Mar 29, 2018 1:27:23 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Chicken Burger(s), and 1 Veggie Burger(s).
+Mar 29, 2018 1:27:47 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 3, ordered the following item(s):1 Chicken Burger(s), and 1 Veggie Burger(s).
+Mar 29, 2018 1:29:06 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Burger(s).
+Mar 29, 2018 1:32:09 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Veggie Burger(s).
+Mar 29, 2018 1:32:49 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Fries(s), and 1 Hotdog(s).
+Mar 29, 2018 1:35:28 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hamburger(s).
+Mar 29, 2018 1:35:38 AM restaurant.RestaurantLogger log
+INFO: Cooked 1 Hamburger: removed 1 BurgerBun, 1 Patty, 1 Lettuce, 1 Tomato, 1 Ketchup, 1 Mustard, 1 Bacon from inventory.
+Mar 29, 2018 1:35:38 AM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 29, 2018 1:35:40 AM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 29, 2018 1:43:37 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s).
+Mar 29, 2018 1:43:43 AM restaurant.RestaurantLogger log
+INFO: Cooked 1 Chicken Fingers: removed 1 Chicken, 1 Breadcrumbs from inventory.
+Mar 29, 2018 1:43:43 AM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 29, 2018 1:43:44 AM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 29, 2018 1:43:48 AM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 29, 2018 1:43:54 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Fries(s).
+Mar 29, 2018 1:43:59 AM restaurant.RestaurantLogger log
+INFO: Cooked 1 Fries: removed 1 Potato, 1 Salt from inventory.
+Mar 29, 2018 1:43:59 AM restaurant.RestaurantLogger log
+INFO: Order number 2 prepared!
+Mar 29, 2018 1:44:00 AM restaurant.RestaurantLogger log
+INFO: Order number 2 ready!
+Mar 29, 2018 1:49:10 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s).
+Mar 29, 2018 1:49:14 AM restaurant.RestaurantLogger log
+INFO: Cooked 1 Chicken Fingers: removed 1 Chicken, 1 Breadcrumbs from inventory.
+Mar 29, 2018 1:49:14 AM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 29, 2018 1:49:16 AM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 29, 2018 12:42:25 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s).
+Mar 29, 2018 12:42:30 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Chicken Fingers(s).
+Mar 29, 2018 12:42:32 PM restaurant.RestaurantLogger log
+INFO: Table 1 joined their bill.
+Mar 29, 2018 12:43:07 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 3, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), 1 Fries(s), 1 Hamburger(s), and 1 Chicken Burger(s).
+Mar 29, 2018 12:43:30 PM restaurant.RestaurantLogger log
+INFO: Table 1 joined their bill.
+Mar 29, 2018 12:46:32 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s).
+Mar 29, 2018 12:46:35 PM restaurant.RestaurantLogger log
+INFO: Table 1 joined their bill.
+Mar 29, 2018 12:47:03 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Hotdog: removed 1 Hotdog, 1 HotdogBun from inventory.
+Mar 29, 2018 12:47:03 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 29, 2018 12:47:05 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 29, 2018 12:47:08 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 29, 2018 12:48:15 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s).
+Mar 29, 2018 12:48:19 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Chicken Fingers: removed 1 Chicken, 1 Breadcrumbs from inventory.
+Mar 29, 2018 12:48:19 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 29, 2018 12:48:20 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 29, 2018 12:48:24 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 29, 2018 12:48:30 PM restaurant.RestaurantLogger log
+INFO: Payment of $10.0 received from Table 1 seat 0
+Mar 29, 2018 12:48:38 PM restaurant.RestaurantLogger log
+INFO: Payment of $100.0 received from Table 1 seat 0
+Mar 29, 2018 12:48:45 PM restaurant.RestaurantLogger log
+INFO: Payment of $300.0 received from Table 1 seat 0
+Mar 29, 2018 12:50:41 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Coke(s), and 1 Hotdog(s).
+Mar 29, 2018 12:50:45 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Coke: removed 1 Coke from inventory.Cooked 1 Hotdog: removed 1 Hotdog, 1 HotdogBun from inventory.
+Mar 29, 2018 12:50:45 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 29, 2018 12:50:47 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 29, 2018 12:50:50 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 29, 2018 12:50:58 PM restaurant.RestaurantLogger log
+INFO: Payment of $10.0 received from Table 1 seat 0
+Mar 29, 2018 12:51:05 PM restaurant.RestaurantLogger log
+INFO: Payment of $800.0 received from Table 1 seat 0

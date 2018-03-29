@@ -28,16 +28,6 @@ public class BillImpl implements Bill {
      * {@inheritDoc}
      */
     @Override
-    public void comp(Order o) {
-        for (MenuItem item : o.getItems()) {
-            bill.returned(item);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Order getOrder(){
         return bill;
     }
@@ -118,7 +108,7 @@ public class BillImpl implements Bill {
      */
     @Override
     public void tip(double amount){
-        tipAmount = amount;
+        tipAmount += amount;
     }
 
     /**
