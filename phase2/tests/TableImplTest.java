@@ -37,9 +37,15 @@ public class TableImplTest {
         assertEquals(0, t.getOrders().size());
     }
 
-    // TODO: write this test
     @Test
-    public void testRemoveFromBill(){}
+    public void testRemoveFromBill(){
+        r.start();
+        Order o = makeOrder(menu.getMenu(), 1, 1, 1);
+        Table t = new TableImpl(1, false);
+        t.addOrderToBill(o);
+        t.removeFromBill(o);
+        assertTrue(t.getBill().getOrder().getItems().isEmpty());
+    }
 
     @Test
     public void testAddSeat(){
