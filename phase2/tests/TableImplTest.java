@@ -1,4 +1,3 @@
-// TODO: write these tests
 
 import menu.BurgerMenu;
 import menu.Menu;
@@ -9,6 +8,7 @@ import restaurant.Table;
 import restaurant.TableImpl;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 import static restaurant.OrderFactory.makeOrder;
 
 public class TableImplTest {
@@ -37,18 +37,45 @@ public class TableImplTest {
         assertEquals(0, t.getOrders().size());
     }
 
+    // TODO: write this test
     @Test
     public void testRemoveFromBill(){}
 
     @Test
-    public void testAddSeat(){}
+    public void testAddSeat(){
+        Table t = new TableImpl(1, false);
+        int currValue = t.getSeats().size();
+        t.addSeat();
+        assertEquals(currValue + 1, t.getSeats().size());
+    }
 
     @Test
-    public void testRemoveSeat(){}
+    public void testRemoveSeat(){
+        Table t = new TableImpl(1, false);
+        int currValue = t.getSeats().size();
+        t.addSeat();
+        t.removeSeat(0);
+        assertEquals(currValue, t.getSeats().size());
+    }
 
     @Test
-    public void testJoinCheques(){}
+    public void testJoinCheques(){
+        Table t = new TableImpl(1, false);
+        t.joinCheques();
+        assertEquals(true, t.getJoin());
+    }
 
     @Test
-    public void testResetTable(){}
+    public void testResetTable(){
+        Table t = new TableImpl(1, false);
+        Order o = makeOrder(menu.getMenu(), 1, 1, 1);
+        t.addOrder(o);
+        t.addOrderToBill(o);
+        t.joinCheques();
+        t.resetTable();
+
+        assertTrue(t.getBill().getOrder().getItems().isEmpty());
+        assertTrue(t.getSeats().size() == 5);
+        assertEquals(false, t.getJoin());
+    }
 }
