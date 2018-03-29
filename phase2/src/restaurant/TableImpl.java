@@ -121,6 +121,8 @@ public class TableImpl implements Table {
     public Table getSeat(int index){
         return seats.get(index);
     }
+
+    public List<Table> getSeats() { return seats;}
     /**
      * {@inheritDoc}
      */
