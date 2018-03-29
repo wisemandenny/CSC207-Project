@@ -24,15 +24,6 @@ public class BillView extends Observable implements Initializable, Observer {
     @FXML private Label billHeader;
     @FXML private JFXListView<HBox> itemList;
     @FXML private JFXButton changeTableButton;
-    @FXML private JFXButton clearTableButton;
-    @FXML private JFXButton subtotalButton;
-    @FXML private JFXButton totalButton;
-    @FXML private JFXButton payButton;
-    @FXML private JFXButton returnButton;
-    @FXML private JFXButton addSeat;
-    @FXML private JFXButton removeSeat;
-    @FXML private JFXButton joinButton;
-
 
     final ObservableList<HBox> tableItems = FXCollections.observableArrayList();
     private int shownTable = 1;
@@ -48,6 +39,19 @@ public class BillView extends Observable implements Initializable, Observer {
         initChooseTablePopup(Restaurant.getInstance().getNumOfTables());
         itemList.setItems(tableItems);
         changeTable(shownTable);
+    }
+    /**
+     * This method is called whenever the observed object is changed. An
+     * application calls an <tt>Observable</tt> object's
+     * <code>notifyObservers</code> method to have all the object's
+     * observers notified of the change.
+     *
+     * @param o   the observable object.
+     * @param arg an argument passed to the <code>notifyObservers</code>
+     */
+    @Override
+    public void update(Observable o, Object arg) {
+        letBackendCatchUp();
     }
     private HBox generateSpacerBox(){
         HBox box = new HBox();
@@ -186,6 +190,35 @@ public class BillView extends Observable implements Initializable, Observer {
         chooseTablePopup.setPopupContent(box);
         changeTableButton.setOnAction(e -> chooseTablePopup.show(changeTableButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
     }
+    private void letBackendCatchUp(){
+        try{
+            Thread.sleep(300);
+        } catch (InterruptedException ex){
+            RestaurantLogger.log(Level.SEVERE, ex.toString());
+        }
+        setChanged();
+        notifyObservers();
+    }
+    private void changeTable(int selectedTable) {
+        shownTable = selectedTable;
+        refresh();
+
+    }
+    private void noPaymentAfterPaymentWarning(){
+        Alert noReason = new Alert(Alert.AlertType.INFORMATION);
+        noReason.setTitle("Error");
+        noReason.setHeaderText(null);
+        noReason.setContentText("Additional payment forbidden after payment has been accepted.");
+        noReason.showAndWait();
+    }
+    private void noReturnsAfterPaymentWarning(){
+        Alert noReason = new Alert(Alert.AlertType.INFORMATION);
+        noReason.setTitle("Error");
+        noReason.setHeaderText(null);
+        noReason.setContentText("Returns forbidden after payment has been accepted.");
+        noReason.showAndWait();
+    }
+
     @FXML private void addSeat(){
         Restaurant.getInstance().newEvent("addseat | table " + shownTable);
         letBackendCatchUp();
@@ -204,42 +237,34 @@ public class BillView extends Observable implements Initializable, Observer {
     }
     @FXML private void sendBackOrder(){
         Order selectedOrder;
-        for(Order o: Restaurant.getInstance().getDeliveredOrders()){
-            if(o.getId() == selectedOrderId){
-                selectedOrder = o;
-                ReturnPopup returnPopup = new ReturnPopup(((StackPane)billViewRoot.getParent().getParent().getParent()), selectedOrder);
+        if(Restaurant.getInstance().getTable(shownTable).getBill().getUnpaidAmount() == 0){
+            noReturnsAfterPaymentWarning();
+        } else{
+            for(Order o: Restaurant.getInstance().getDeliveredOrders()){
+                if(o.getId() == selectedOrderId){
+                    selectedOrder = o;
+                    ReturnPopup returnPopup = new ReturnPopup(((StackPane)billViewRoot.getParent().getParent().getParent()), selectedOrder);
+                }
             }
         }
-
     }
-
-    private void letBackendCatchUp(){
-        try{
-            Thread.sleep(300);
-        } catch (InterruptedException ex){
-            RestaurantLogger.log(Level.SEVERE, ex.toString());
+    @FXML private void paySelectedItems() {
+        Table selectedTable = Restaurant.getInstance().getTable(shownTable);
+        Table currentlySelectedSeat = selectedTable.getSeat(selectedSeat);
+        if(selectedTable.getBill().getUnpaidAmount() == 0){
+            noPaymentAfterPaymentWarning();
+        } else {
+            payPopup = new PayPopup();
+            payPopup = payPopup.loadPayPopup((StackPane) billViewRoot.getParent().getParent().getParent(), this, selectedTable, currentlySelectedSeat);
         }
-        setChanged();
-        notifyObservers();
     }
-    private void changeTable(int selectedTable) {
-        shownTable = selectedTable;
-        refresh();
 
-    }
     int getShownTable() {
         return shownTable;
     }
     int getSelectedSeat() {
         return selectedSeat;
     }
-    public void paySelectedItems() {
-        Table selectedTable = Restaurant.getInstance().getTable(shownTable);
-        Table currentlySelectedSeat = selectedTable.getSeat(selectedSeat);
-        payPopup = new PayPopup();
-        payPopup = payPopup.loadPayPopup((StackPane)billViewRoot.getParent().getParent().getParent(), this, selectedTable, currentlySelectedSeat);
-    }
-
     public void refresh(){
         tableItems.clear();
         billHeader.setText("BILL FOR TABLE " + shownTable);
@@ -276,20 +301,6 @@ public class BillView extends Observable implements Initializable, Observer {
             tableItems.add(noOrderFoundBox);
         }
         itemList.setItems(tableItems);
-    }
-
-    /**
-     * This method is called whenever the observed object is changed. An
-     * application calls an <tt>Observable</tt> object's
-     * <code>notifyObservers</code> method to have all the object's
-     * observers notified of the change.
-     *
-     * @param o   the observable object.
-     * @param arg an argument passed to the <code>notifyObservers</code>
-     */
-    @Override
-    public void update(Observable o, Object arg) {
-        letBackendCatchUp();
     }
 
     private class PayPopup extends Observable {
@@ -475,6 +486,13 @@ public class BillView extends Observable implements Initializable, Observer {
             sb.delete(sb.length()-2, sb.length()); //remove trailing commas
             return sb.toString();
         }
+        private void missingReturnReasonWarning(){
+            Alert noReason = new Alert(Alert.AlertType.INFORMATION);
+            noReason.setTitle("Error");
+            noReason.setHeaderText(null);
+            noReason.setContentText("Please enter a reason for all returns.");
+            noReason.showAndWait();
+        }
         private void confirmReturn(JFXDialog dialog){
             boolean flag = true;
             for(TextField field : commentList){
@@ -490,11 +508,7 @@ public class BillView extends Observable implements Initializable, Observer {
                 dialog.close();
                 letBackendCatchUp();
             }else{
-                Alert noReason = new Alert(Alert.AlertType.INFORMATION);
-                noReason.setTitle("Error");
-                noReason.setHeaderText(null);
-                noReason.setContentText("Please enter a reason for all returns.");
-                noReason.showAndWait();
+                missingReturnReasonWarning();
             }
         }
     }
