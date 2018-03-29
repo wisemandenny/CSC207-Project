@@ -90,13 +90,7 @@ public class TableImpl implements Table {
     public void removeFromBill(Order o) {
         bill.remove(o);
     }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void comp(Order o) {
-        bill.comp(o);
-    }
+
     /**
      * {@inheritDoc}
      */

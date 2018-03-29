@@ -39,13 +39,6 @@ public interface Table {
     void removeFromBill(Order o);
 
     /**
-     * Give away Order o for free.
-     *
-     * @param o  the Order to be given away for free.
-     */
-    void comp(Order o);
-
-    /**
      * Return this Table's Bill.
      *
      * @return  the Table's Bill.
