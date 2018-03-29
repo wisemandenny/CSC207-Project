@@ -13,6 +13,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import menu.Ingredient;
 import menu.MenuItem;
 import restaurant.Order;
 import restaurant.Restaurant;
@@ -74,7 +75,24 @@ public class CookOrderView extends Observable implements Initializable {
             }
         }
         private Text makeItemText(MenuItem item) {
-            Text itemLabel = new Text(item.getQuantity() + " " + item.getName());
+            StringBuilder sb = new StringBuilder(item.getQuantity() + " " + item.getName());
+            if(!item.getExtraIngredients().isEmpty()) {
+                sb.append(" with extra ");
+                for (Ingredient extra : item.getExtraIngredients()) {
+                    sb.append(extra.getName()).append(", ");
+                }
+                sb.delete(sb.length() - 2, sb.length()); //delete trailing commas
+            }
+            if(!item.getRemovedIngredients().isEmpty()){
+                sb.append(" with no ");
+                for(Ingredient extra : item.getRemovedIngredients()){
+                    sb.append(extra.getName()).append(", ");
+                }
+                sb.delete(sb.length()-2, sb.length()); //delete trailing commas
+            }
+            Text itemLabel = new Text(sb.toString());
+            itemLabel.setWrappingWidth(200);
+
 
             return itemLabel;
         }

@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import menu.Ingredient;
 import menu.MenuItem;
 import restaurant.*;
 
@@ -88,7 +89,25 @@ public class BillView extends Observable implements Initializable, Observer {
         HBox itemNameAndPrice = new HBox();
         Region filler = new Region();
         HBox.setHgrow(filler, Priority.ALWAYS);
-        itemNameAndPrice.getChildren().add(new JFXButton(item.getQuantity() + " " + item.getName()));
+        StringBuilder sb = new StringBuilder(item.getQuantity() + " " + item.getName());
+        if(!item.getExtraIngredients().isEmpty()) {
+            sb.append(" with extra ");
+            for (Ingredient extra : item.getExtraIngredients()) {
+                sb.append(extra.getName()).append(", ");
+            }
+            sb.delete(sb.length() - 2, sb.length()); //delete trailing commas
+        }
+        if(!item.getRemovedIngredients().isEmpty()){
+            sb.append(" with no ");
+            for(Ingredient extra : item.getRemovedIngredients()){
+                sb.append(extra.getName()).append(", ");
+            }
+            sb.delete(sb.length()-2, sb.length()); //delete trailing commas
+        }
+        JFXButton itemButton = new JFXButton(sb.toString());
+        itemButton.setStyle("-fx-max-width: 400px");
+        itemButton.setWrapText(true);
+        itemNameAndPrice.getChildren().add(itemButton);
         itemNameAndPrice.getChildren().add(filler);
         itemNameAndPrice.getChildren().add(new JFXButton(String.format("%.2f", item.getQuantity() * item.getPrice())));
         return itemNameAndPrice;
