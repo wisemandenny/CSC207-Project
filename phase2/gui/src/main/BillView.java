@@ -398,21 +398,21 @@ public class BillView extends Observable implements Initializable, Observer {
             JFXDialog dialog = new JFXDialog(parent, content, JFXDialog.DialogTransition.CENTER);
             cancelButton.setOnAction(e -> dialog.close());
             okButton.setOnAction(e -> {
-                confirmReturn();
-                dialog.close();
+                confirmReturn(dialog);
             });
             dialog.show();
 
         }
         private void loadOrderItemList(JFXListView<HBox> orderItemsListView){
             ObservableList<HBox> orderItemsListViewEntries = FXCollections.observableArrayList();
-            Region filler = new Region();
-            HBox.setHgrow(filler, Priority.ALWAYS);
+
             for(MenuItem item : order.getItems()){
+                Region filler = new Region();
+                Region filler2 = new Region();
+                HBox.setHgrow(filler, Priority.ALWAYS);
+                HBox.setHgrow(filler2, Priority.ALWAYS);
                 HBox entryBox = new HBox();
-                entryBox.getChildren().add(makeQuantitySelector(item));
-                entryBox.getChildren().add(new Label(item.getName()));//can add the mod info here
-                entryBox.getChildren().add(filler);
+                entryBox.getChildren().addAll(makeQuantitySelector(item), filler, new Label(item.getName()), filler2);
                 TextField commentField = new TextField("Return reason");
                 commentList.add(commentField);
                 entryBox.getChildren().add(commentField);
@@ -457,24 +457,26 @@ public class BillView extends Observable implements Initializable, Observer {
             sb.delete(sb.length()-2, sb.length()); //remove trailing commas
             return sb.toString();
         }
-        private void confirmReturn(){
+        private void confirmReturn(JFXDialog dialog){
             boolean flag = true;
             for(TextField field : commentList){
-                if(field.getBackground().equals(Backgrounds.RED_BACKGROUND)){
-                    if(!field.getText().isEmpty()){
-                        field.setBackground(Background.EMPTY);
-                    } else {
-                        flag = false;
-                        Alert noReason = new Alert(Alert.AlertType.INFORMATION);
-                        noReason.setTitle("Error");
-                        noReason.setHeaderText(null);
-                        noReason.setContentText("Please enter a reason for all returns.");
-                        noReason.showAndWait();
-                    }
+                if(!field.getText().isEmpty() && !field.getText().equals("Return reason")){
+                    field.setBackground(Background.EMPTY);
+                } else {
+                    field.setBackground(Backgrounds.RED_BACKGROUND);
+                    flag = false;
                 }
             }
             if(flag){
                 Restaurant.getInstance().newEvent(getReturnString());
+                dialog.close();
+                letBackendCatchUp();
+            }else{
+                Alert noReason = new Alert(Alert.AlertType.INFORMATION);
+                noReason.setTitle("Error");
+                noReason.setHeaderText(null);
+                noReason.setContentText("Please enter a reason for all returns.");
+                noReason.showAndWait();
             }
         }
     }

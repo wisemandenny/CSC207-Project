@@ -4,14 +4,16 @@ BUG FIXES
 1. fix item removals from gui order detailsbox
 2. prevent server from placing order if item is not cookable
 a. fix this so that it refuses in situations like (10 Hamburgers, 10 Chicken Burgers) 20 BurgerBun > inventory amoun, should return false but returns true (see Restaurant.checkInventory
-3. fix returns not refreshing/accepting demo text
-oh y
-NEW FUNCTIONS
 
+NEW FUNCTIONS
+display cost toggle button
 
 VISUAL BUGS
+text wrapping in COV boxes labels
 
 LOOK AND FEEL
+decorator should be same color as the tab
+add a drop shadow to cov boxes
 
 SMALL ANNOYANCES
 
