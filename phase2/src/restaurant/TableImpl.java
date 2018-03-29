@@ -8,6 +8,7 @@ public class TableImpl implements Table {
     private final int id;
     private final List<Order> orders = new ArrayList<>();
     private Bill bill;
+    private boolean joined;
     //a table has seats. the seats are "subtables" of the parent table. There is a placeholder table, table 0, which
     //holds items which will be paid by the whole table (split)
     private final List<Table> seats = new ArrayList<>();
@@ -148,6 +149,7 @@ public class TableImpl implements Table {
                 seat.getOrders().removeAll(ordersToRemove);
             }
             seats.get(0).getOrders().addAll(allOrders);
+            joined = true;
         }
     }
 
@@ -161,6 +163,7 @@ public class TableImpl implements Table {
         for (int i = 0; i <= 4; i++) {
             seats.add(new TableImpl(i, true));
         }
+        joined = false;
     }
     /**
      * {@inheritDoc}
@@ -170,5 +173,12 @@ public class TableImpl implements Table {
         String billString = getBill().getBillString();
         return ("BILL FOR TABLE " + id + ":\n").concat(billString);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean getJoin(){return joined;}
+
 
 }

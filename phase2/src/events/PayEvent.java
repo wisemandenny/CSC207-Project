@@ -29,12 +29,30 @@ public class PayEvent implements Event {
      * {@inheritDoc}
      */
     @Override
+    // TODO: issue paying for Table as seat 0. Check tableImpl joinCheques, try getting the bill Total of seat 0.
+    // TODO: this means getting the bill of seat 0 (the joined "Table" seat) is pointless.
     public void doEvent() {
-        Bill bill = table.getSeat(seatNumber).getBill();
-        table.getSeat(seatNumber).getBill().pay(paymentAmount);
-        Restaurant.getInstance().addPayment(bill.getTotal());
-        Restaurant.getInstance().addToTipTotal(bill.getTipAmount());
+        if (!table.getJoin()) {
+            Bill bill = table.getSeat(seatNumber).getBill();
+            process(bill);
 
-        RestaurantLogger.log(Level.INFO, "Payment of $" + paymentAmount + " received from Table " + table.getId() + " seat " + seatNumber);
+            RestaurantLogger.log(Level.INFO, "Payment of $" + paymentAmount + " received from Table " + table.getId() + " seat " + seatNumber);
+        } else {
+            Bill bill = table.getBill();
+            process(bill);
+            RestaurantLogger.log(Level.INFO, "Payment of $" + paymentAmount + " received from Table " + table.getId() + ".");
+
+        }
+    }
+
+    /**
+     * Does most of the work for doEvent, pays the Bill, adds the total payment and the tip.
+     *
+     * @param b the Bill.
+     */
+    private void process(Bill b){
+        b.pay(paymentAmount);
+        Restaurant.getInstance().addPayment(b.getTotal());
+        Restaurant.getInstance().addToTipTotal(b.getTipAmount());
     }
 }

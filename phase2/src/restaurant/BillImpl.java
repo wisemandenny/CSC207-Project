@@ -108,7 +108,7 @@ public class BillImpl implements Bill {
         if(balance-amount >= 0){
             paidAmount += amount;
         } else {
-            paidAmount = getTotal(); //TODO: FIX THIS
+            paidAmount += getTotal();
             tip(amount-paidAmount);
         }
     }
