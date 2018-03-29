@@ -6,4 +6,9 @@ Milan
    - helped design GUI
    - documentation of backend
 
+Aquiles
+    -Assisted in the completion of the test suite
+    -Assisted in backend coding
+    -Implemented Logger
+
 
