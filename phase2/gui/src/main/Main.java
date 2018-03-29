@@ -52,6 +52,7 @@ public class Main extends Application implements Observer {
 
         JFXDecorator decorator = new JFXDecorator(primaryStage, root);
         decorator.setCustomMaximize(true);
+        //decorator.setBackground();
         Scene scene = new Scene(decorator, 800, 800);
         scene.getStylesheets().add("main/style.css");
         primaryStage.setScene(scene);

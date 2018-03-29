@@ -773,7 +773,7 @@
 *******************************************************************************/
 
 .jfx-decorator {
-    -fx-decorator-color: derive(#5264AE, -20%);
+    -fx-decorator-color: #00BCD4;
 }
 
 .jfx-decorator .jfx-decorator-buttons-container {
