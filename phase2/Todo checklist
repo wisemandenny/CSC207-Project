@@ -1,9 +1,5 @@
 TODO:
-
-VISUAL BUGS
-1. you can clear selected menu items by clicking on selected items away from the button
-probably if you use selection factory it will be easier to fix
-
+1. removals showing up twice if you select/unselect them
 
 3. UML DOCUMENT
 4. DOCUMENTATION
@@ -28,8 +24,8 @@ build the gui with tests March 20th use material ui https://github.com/jfoenixad
 added a test suite March 20th DONE
 integrate the gui to the codebase March 22nd DONE
 added at least 1 extra feature March 24th DONE?
-added at least 3 extra features March 26th
-Code refactored  and documented March 28th
+added at least 3 extra features March 26th DONE
+Code refactored  and documented March 28th DONE
 Make UML Diagram March 29th
 
 DUTIES:

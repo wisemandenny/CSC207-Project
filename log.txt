@@ -681,3 +681,15 @@ Mar 29, 2018 12:50:58 PM restaurant.RestaurantLogger log
 INFO: Payment of $10.0 received from Table 1 seat 0
 Mar 29, 2018 12:51:05 PM restaurant.RestaurantLogger log
 INFO: Payment of $800.0 received from Table 1 seat 0
+Mar 29, 2018 1:23:55 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s), and 1 Coke(s).
+Mar 29, 2018 1:24:57 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Hotdog: removed 1 Hotdog, 1 HotdogBun from inventory.Cooked 1 Coke: removed 1 Coke from inventory.
+Mar 29, 2018 1:24:57 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 29, 2018 1:24:58 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 29, 2018 1:25:02 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 29, 2018 1:25:09 PM restaurant.RestaurantLogger log
+INFO: Payment of $9.0 received from Table 1 seat 0
