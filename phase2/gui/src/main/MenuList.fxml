@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.*?>
 <StackPane fx:id="menuStackPane" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.MenuList">
    <children>
@@ -12,10 +13,13 @@
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin></JFXListView>
-              <JFXToggleButton fx:id="showIngredientsButton" onAction="#toggleShowIngredients" style="-fx-background-color: #FF5722;" text="Show Ingredients" textFill="WHITE">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin></JFXToggleButton>
+            <ToolBar style="-fx-background-color: #FFFFFF;">
+              <items>
+                  <JFXToggleButton fx:id="showIngredientsButton" onAction="#toggleShowIngredients" scaleX="0.75" scaleY="0.75" style="-fx-background-color: #FF5722;" text="Show Ingredients" textFill="WHITE" />
+                  <Pane style="-fx-background-color: #FFFFFF;" HBox.hgrow="ALWAYS" />
+                  <JFXToggleButton fx:id="showPriceButton" onAction="#toggleShowPrice" scaleX="0.75" scaleY="0.75" style="-fx-background-color: #FF5722;" text="Show Price" textFill="WHITE" />
+              </items>
+            </ToolBar>
           </children>
       </VBox>
    </children>

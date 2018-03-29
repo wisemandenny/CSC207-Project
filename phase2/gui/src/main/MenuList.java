@@ -3,7 +3,6 @@ package main;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXToggleButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Background;
@@ -11,21 +10,17 @@ import menu.Ingredient;
 import menu.Menu;
 import menu.MenuItem;
 import restaurant.Restaurant;
-import restaurant.RestaurantLogger;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
 
 public class MenuList implements Initializable {
     private final List<JFXButton> selectedItems = new ArrayList<>();
-    private final List<List<JFXButton>> itemsWithIngredients = new ArrayList<>();
-    private boolean toggleShowIngredients = false;
-
+    private boolean toggleShowIngredients;
+    private boolean toggleShowPrice;
     @FXML private JFXListView<JFXButton> menuListView;
-    @FXML private JFXToggleButton showIngredientsButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -35,6 +30,7 @@ public class MenuList implements Initializable {
     List<JFXButton> getSelectedItems() {
         return selectedItems;
     }
+
     void clearSelected(){
         List<JFXButton> buttonsToRemove = new ArrayList<>();
         for(JFXButton selectedButton : selectedItems){
@@ -50,37 +46,29 @@ public class MenuList implements Initializable {
         menuListView.getItems().clear();
         Menu menu = Restaurant.getInstance().getMenu();
         for (MenuItem i : menu.getMenu()) {
-            try {
-                List<JFXButton> itemIngredients = new ArrayList<>();
-                JFXButton itemButton = new JFXButton(i.getName());
-                itemButton.setOnAction(e -> clickOnItem(itemButton));
-                menuListView.getItems().add(itemButton);
-                itemIngredients.add(itemButton);
+            JFXButton itemButton = new JFXButton(i.getName());
+            if(toggleShowPrice) itemButton.setText(i.getName()+"       $"+(String.format("%.2f", i.getPrice())));
+            itemButton.setOnAction(e -> selectItems(itemButton));
+            menuListView.getItems().add(itemButton);
 
+            if(toggleShowIngredients){
                 for (Ingredient ingredient : i.getIngredients()) {
                     JFXButton ingredientButton = new JFXButton("     > " + ingredient.getName());
-                    itemIngredients.add(ingredientButton);
+                    if(toggleShowPrice) ingredientButton.setText("     > " + ingredient.getName()+"       $"+(String.format("%.2f", i.getPrice())));
+                    menuListView.getItems().add(ingredientButton);
                 }
-
-                itemsWithIngredients.add(itemIngredients);
-
-                //showIngredientsButton.setPadding(new Insets(24));
-            } catch (Exception ex) {
-                RestaurantLogger.log(Level.WARNING, ex.toString());
             }
         }
     }
 
-    public void toggleShowIngredients() {
+    @FXML private void toggleShowIngredients() {
         toggleShowIngredients = !toggleShowIngredients;
+        addMenuLabels();
     }
 
-    private void clickOnItem(JFXButton itemButton) {
-        if (toggleShowIngredients) {
-            showIngredients(itemButton);
-        } else {
-            selectItems(itemButton);
-        }
+    @FXML private void toggleShowPrice(){
+        toggleShowPrice = !toggleShowPrice;
+        addMenuLabels();
     }
 
     private void selectItems(JFXButton itemButton) {
@@ -91,25 +79,6 @@ public class MenuList implements Initializable {
         } else {
             selectedCell.setBackground(Backgrounds.SELECTED_BACKGROUND);
             selectedItems.add(itemButton);
-        }
-    }
-
-    private void showIngredients(JFXButton itemButton) {
-        menuListView.getItems().clear();
-
-        for (List<JFXButton> itemList : itemsWithIngredients) {
-            JFXButton itemNameButton = itemList.get(0);
-            if (itemButton.getText().equals(itemNameButton.getText())) {
-                if (itemNameButton.getOpacity() == 1.0) {
-                    menuListView.getItems().addAll(itemList);
-                    itemNameButton.setOpacity(0.99);
-                } else {
-                    menuListView.getItems().add(itemNameButton);
-                    itemNameButton.setOpacity(1.0);
-                }
-            } else {
-                menuListView.getItems().add(itemNameButton);
-            }
         }
     }
 }
