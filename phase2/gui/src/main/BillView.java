@@ -207,7 +207,6 @@ public class BillView extends Observable implements Initializable, Observer {
         for(Order o: Restaurant.getInstance().getDeliveredOrders()){
             if(o.getId() == selectedOrderId){
                 selectedOrder = o;
-                System.out.println("match found");
                 ReturnPopup returnPopup = new ReturnPopup(((StackPane)billViewRoot.getParent().getParent().getParent()), selectedOrder);
             }
         }

@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -50,7 +51,8 @@ public class ServerView extends Observable implements Initializable, Observer{
 
             List<JFXButton> selectedItemButtons = menuList.getSelectedItems();
             FAB.setOnAction(e -> {
-                if(!selectedItemButtons.isEmpty()) loadAddDialog(serverViewStackPane, menuList);
+                if(deliverableOrdersView.hasOrders()) mustDeliverOrderWarning();
+                else if(!selectedItemButtons.isEmpty()) loadAddDialog(serverViewStackPane, menuList);
             });
             } catch (Exception ex) {
             RestaurantLogger.log(Level.WARNING, ex.toString());
@@ -77,6 +79,13 @@ public class ServerView extends Observable implements Initializable, Observer{
         orderDetailsPopup.addObserver(this);
         orderDetailsPopup.loadAddDialog();
         menuList.clearSelected(); //deselect all menuitems when you make a new order.
+    }
+    private void mustDeliverOrderWarning(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("You must deliver all ready orders before placing new orders.");
+        alert.showAndWait();
     }
 
     private class OrderDetailsPopup extends Observable {
