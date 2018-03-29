@@ -134,8 +134,8 @@ public class ServerView extends Observable implements Initializable, Observer{
             JFXListCell<HBox> selectedCell = (JFXListCell<HBox>) clickedHbox.getParent();
             if(isExtra) { //add the extra modifier
                 if (selectedCell.getBackground().equals(Backgrounds.GREEN_BACKGROUND)) { //if the item is already clicked
-                    selectedCell.setBackground(Backgrounds.LIGHT_GREEN_BACKGROUND);
-                    clickedHbox.setBackground(Backgrounds.LIGHT_GREEN_BACKGROUND);
+                    selectedCell.setBackground(Background.EMPTY);
+                    clickedHbox.setBackground(Background.EMPTY);
                     //remove the ingredient from the menu item's modifiers
                     orderItems.get(orderItems.indexOf(currentlySelectedItem)).getExtraIngredients().remove(Restaurant.getInstance().getMenu().getMenuIngredient(((Text)clickedHbox.getChildren().get(0)).getText()));
                 } else {
@@ -146,8 +146,8 @@ public class ServerView extends Observable implements Initializable, Observer{
                 }
             } else { //add the removal modifier
                 if (selectedCell.getBackground().equals(Backgrounds.RED_BACKGROUND)){ //item is already clicked
-                    selectedCell.setBackground(Backgrounds.LIGHT_RED_BACKGROUND);
-                    clickedHbox.setBackground(Backgrounds.LIGHT_RED_BACKGROUND);
+                    selectedCell.setBackground(Background.EMPTY);
+                    clickedHbox.setBackground(Background.EMPTY);
                     orderItems.get(orderItems.indexOf(currentlySelectedItem)).getRemovedIngredients().remove(Restaurant.getInstance().getMenu().getMenuIngredient(((Text)clickedHbox.getChildren().get(0)).getText()));
                 } else { //item is not clicked
                     selectedCell.setBackground(Backgrounds.RED_BACKGROUND);
@@ -164,7 +164,6 @@ public class ServerView extends Observable implements Initializable, Observer{
             ObservableList<HBox> addableIngredients = FXCollections.observableArrayList();
             for(Ingredient i : allIngredients){
                 HBox addIngredient = buildHBox(i, true);
-                addIngredient.setOnMousePressed(e -> selectEvent(addIngredient, true));
                 addableIngredients.add(addIngredient);
             }
             extras.setItems(addableIngredients);
@@ -172,7 +171,6 @@ public class ServerView extends Observable implements Initializable, Observer{
             ObservableList<HBox> removeableIngredients = FXCollections.observableArrayList();
             for (Ingredient i : item.getIngredients()){
                 HBox removeIngredient = buildHBox(i, false);
-                removeIngredient.setOnMousePressed(e -> selectEvent(removeIngredient, false));
                 removeableIngredients.add(removeIngredient);
             }
             removed.setPrefHeight(extras.getHeight());
@@ -182,7 +180,7 @@ public class ServerView extends Observable implements Initializable, Observer{
         void loadAddDialog(){
             //HEADER
             JFXDialogLayout content = new JFXDialogLayout();
-            Label orderDetailsDialogHeader = new Label("Order Details");
+            Label orderDetailsDialogHeader = new Label("Order Details (click item for modifications");
 
             //PARENT AND LIST COMPONENTS
             VBox dialogRoot = new VBox(5);
@@ -205,11 +203,13 @@ public class ServerView extends Observable implements Initializable, Observer{
             //EXTRAS
             VBox left = new VBox();
             left.setMinWidth(185);
+            left.getChildren().add(new Text("Additions"));
             left.getChildren().add(extraIngredientsListView);
 
             //INGREDIENTS TO REMOVE
             VBox right = new VBox();
             right.setMinWidth(185);
+            right.getChildren().add(new Text("Subtractions"));
             right.getChildren().add(removedIngredientsListView);
 
             //JOIN ALL COMPONENTS
@@ -268,8 +268,6 @@ public class ServerView extends Observable implements Initializable, Observer{
 
         private HBox buildHBox(Ingredient i, boolean isExtra){
             HBox hbox = new HBox();
-            if(isExtra) hbox.setBackground(Backgrounds.LIGHT_GREEN_BACKGROUND);
-            else hbox.setBackground(Backgrounds.LIGHT_RED_BACKGROUND);
             hbox.getChildren().add(new Text(i.getName()));
             hbox.setOnMouseClicked(e -> selectEvent(hbox, isExtra));
             return hbox;
