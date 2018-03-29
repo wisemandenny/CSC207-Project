@@ -49,7 +49,9 @@ public class ServerView extends Observable implements Initializable, Observer{
             billView.addObserver(this);
 
             List<JFXButton> selectedItemButtons = menuList.getSelectedItems();
-            FAB.setOnAction(e -> loadAddDialog(serverViewStackPane, menuList));
+            FAB.setOnAction(e -> {
+                if(!selectedItemButtons.isEmpty()) loadAddDialog(serverViewStackPane, menuList);
+            });
             } catch (Exception ex) {
             RestaurantLogger.log(Level.WARNING, ex.toString());
         }
