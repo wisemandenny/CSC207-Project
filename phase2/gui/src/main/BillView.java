@@ -384,7 +384,7 @@ public class BillView extends Observable implements Initializable, Observer {
             inputAmountField.setText(sb.toString());
         }
         private void pay(){
-            String payEventString = "pay | table " + selectedTable.getId() + " > " + selectedSeat.getId() + " | " +  inputAmountField.getText(); // pay | table 1 > 1 | 45.54
+            String payEventString = "pay | table " + selectedTable.getId() + " > " + selectedSeat.getId() + " | " +  inputAmountField.getText();
             Restaurant.getInstance().newEvent(payEventString);
             setChanged();
             notifyObservers();
