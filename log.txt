@@ -395,3 +395,165 @@ Mar 28, 2018 5:54:03 PM restaurant.RestaurantLogger log
 INFO: Table 1 order number 1, ordered the following item(s):1 Veggie Burger(s), 1 Hotdog(s), and 1 Fries(s).
 Mar 28, 2018 6:44:52 PM restaurant.RestaurantLogger log
 INFO: Shipment of ingredients received: 3 VegetarianPatty,  were added to inventory.
+Mar 28, 2018 6:51:27 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), and 1 Coke(s).
+Mar 28, 2018 6:51:36 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Chicken Fingers: removed 1 Chicken, 1 Breadcrumbs from inventory.Cooked 1 Coke: removed 1 Coke from inventory.
+Mar 28, 2018 6:51:36 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 6:51:37 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 6:51:41 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 6:51:49 PM restaurant.RestaurantLogger log
+INFO: Table 1 has returned Chicken Fingers for the following reason(s): Return reasonCoke for the following reason(s): Return reason. Order number 2
+Mar 28, 2018 7:50:09 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s), and 1 Coke(s).
+Mar 28, 2018 7:50:28 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 9:20:35 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s).
+Mar 28, 2018 9:23:07 PM restaurant.RestaurantLogger log
+INFO: Added seat number 0 to table 1.
+Mar 28, 2018 9:25:53 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s), 1 Fries(s), and 1 Veggie Burger(s).
+Mar 28, 2018 9:26:08 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Hotdog: removed 1 Hotdog, 1 HotdogBun from inventory.Cooked 1 Fries: removed 1 Potato, 1 Salt from inventory.Cooked 1 Veggie Burger: removed 1 BurgerBun, 1 VegetarianPatty, 1 Lettuce, 1 Tomato from inventory.
+Mar 28, 2018 9:26:08 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 9:26:10 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 9:26:15 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 10:16:17 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s).
+Mar 28, 2018 10:16:23 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Hotdog: removed 1 Hotdog, 1 HotdogBun from inventory.
+Mar 28, 2018 10:16:23 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 10:16:24 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 10:16:28 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 10:17:37 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s).
+Mar 28, 2018 10:17:47 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Chicken Fingers: removed 1 Chicken, 1 Breadcrumbs from inventory.
+Mar 28, 2018 10:17:47 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 10:17:49 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 10:17:55 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 10:18:31 PM restaurant.RestaurantLogger log
+INFO: Table 1 has returned Chicken Fingers for the following reason(s): nasty ass shit. Order number 2
+Mar 28, 2018 10:27:29 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Coke(s), 1 Hotdog(s), 1 Coke(s), 1 Fries(s), 1 Veggie Burger(s), 1 Chicken Burger(s), and 1 Hamburger(s).
+Mar 28, 2018 10:27:34 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Coke: removed 1 Coke from inventory.Cooked 1 Hotdog: removed 1 Hotdog, 1 HotdogBun from inventory.Cooked 1 Coke: removed 1 Coke from inventory.Cooked 1 Fries: removed 1 Potato, 1 Salt from inventory.Cooked 1 Veggie Burger: removed 1 BurgerBun, 1 VegetarianPatty, 1 Lettuce, 1 Tomato from inventory.Cooked 1 Chicken Burger: removed 1 BurgerBun, 1 ChickenPatty, 1 Lettuce, 1 Tomato from inventory.Cooked 1 Hamburger: removed 1 BurgerBun, 1 Patty, 1 Lettuce, 1 Tomato, 1 Ketchup, 1 Mustard, 1 Bacon from inventory.
+Mar 28, 2018 10:27:34 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 10:27:36 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 10:27:42 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 10:30:35 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Veggie Burger(s).
+Mar 28, 2018 10:30:39 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Veggie Burger: removed 1 BurgerBun, 1 VegetarianPatty, 1 Lettuce, 1 Tomato from inventory.
+Mar 28, 2018 10:30:39 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 10:30:41 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 10:30:45 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 10:31:45 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s), 1 Fries(s), 1 Veggie Burger(s), and 1 Chicken Burger(s).
+Mar 28, 2018 10:31:48 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Hotdog: removed 1 Hotdog, 1 HotdogBun from inventory.Cooked 1 Fries: removed 1 Potato, 1 Salt from inventory.Cooked 1 Veggie Burger: removed 1 BurgerBun, 1 VegetarianPatty, 1 Lettuce, 1 Tomato from inventory.Cooked 1 Chicken Burger: removed 1 BurgerBun, 1 ChickenPatty, 1 Lettuce, 1 Tomato from inventory.
+Mar 28, 2018 10:31:48 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 10:31:50 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 10:31:53 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 10:32:18 PM restaurant.RestaurantLogger log
+INFO: Table 1 has returned Hotdog for the following reason(s): HelloFries for the following reason(s): SuckVeggie Burger for the following reason(s): MyChicken Burger for the following reason(s): Dick. Order number 2
+Mar 28, 2018 10:33:56 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s), 1 Fries(s), and 1 Veggie Burger(s).
+Mar 28, 2018 10:34:00 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Hotdog: removed 1 Hotdog, 1 HotdogBun from inventory.Cooked 1 Fries: removed 1 Potato, 1 Salt from inventory.Cooked 1 Veggie Burger: removed 1 BurgerBun, 1 VegetarianPatty, 1 Lettuce, 1 Tomato from inventory.
+Mar 28, 2018 10:34:00 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 10:34:02 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 10:34:05 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 10:34:24 PM restaurant.RestaurantLogger log
+INFO: Table 1 has returned Hotdog for the following reason(s): SuckFries for the following reason(s): MyVeggie Burger for the following reason(s): Dick. Order number 2
+Mar 28, 2018 10:37:44 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 10:37:48 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Chicken Fingers: removed 1 Chicken, 1 Breadcrumbs from inventory.Cooked 1 Coke: removed 1 Coke from inventory.Cooked 1 Hotdog: removed 1 Hotdog, 1 HotdogBun from inventory.
+Mar 28, 2018 10:37:48 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 10:37:49 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 10:37:57 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 10:39:18 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), and 1 Coke(s).
+Mar 28, 2018 10:39:23 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Chicken Fingers: removed 1 Chicken, 1 Breadcrumbs from inventory.Cooked 1 Coke: removed 1 Coke from inventory.
+Mar 28, 2018 10:39:23 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 10:39:24 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 10:39:40 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 10:40:49 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s), and 1 Fries(s).
+Mar 28, 2018 10:40:54 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Hotdog: removed 1 Hotdog, 1 HotdogBun from inventory.Cooked 1 Fries: removed 1 Potato, 1 Salt from inventory.
+Mar 28, 2018 10:40:54 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 10:40:55 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 10:41:11 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 10:42:18 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s), 1 Coke(s), 1 Fries(s), 1 Veggie Burger(s), and 1 Chicken Burger(s).
+Mar 28, 2018 10:42:21 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Hotdog: removed 1 Hotdog, 1 HotdogBun from inventory.Cooked 1 Coke: removed 1 Coke from inventory.Cooked 1 Fries: removed 1 Potato, 1 Salt from inventory.Cooked 1 Veggie Burger: removed 1 BurgerBun, 1 VegetarianPatty, 1 Lettuce, 1 Tomato from inventory.Cooked 1 Chicken Burger: removed 1 BurgerBun, 1 ChickenPatty, 1 Lettuce, 1 Tomato from inventory.
+Mar 28, 2018 10:42:21 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 10:42:23 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 10:42:26 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 10:47:31 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Veggie Burger(s), 1 Veggie Burger(s), and 1 Chicken Burger(s).
+Mar 28, 2018 10:47:35 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Veggie Burger: removed 1 BurgerBun, 1 VegetarianPatty, 1 Lettuce, 1 Tomato from inventory.Cooked 1 Veggie Burger: removed 1 BurgerBun, 1 VegetarianPatty, 1 Lettuce, 1 Tomato from inventory.Cooked 1 Chicken Burger: removed 1 BurgerBun, 1 ChickenPatty, 1 Lettuce, 1 Tomato from inventory.
+Mar 28, 2018 10:47:35 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 10:47:37 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 10:47:40 PM restaurant.RestaurantLogger log
+INFO: Order number 1 delivered!
+Mar 28, 2018 10:49:02 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Hotdog(s), 1 Fries(s), and 1 Chicken Fingers(s).
+Mar 28, 2018 10:50:56 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), and 1 Hotdog(s).
+Mar 28, 2018 10:51:04 PM restaurant.RestaurantLogger log
+INFO: Cooked 1 Chicken Fingers: removed 1 Chicken, 1 Breadcrumbs from inventory.Cooked 1 Coke: removed 1 Coke from inventory.Cooked 1 Hotdog: removed 1 Hotdog, 1 HotdogBun from inventory.
+Mar 28, 2018 10:51:04 PM restaurant.RestaurantLogger log
+INFO: Order number 1 prepared!
+Mar 28, 2018 10:51:06 PM restaurant.RestaurantLogger log
+INFO: Order number 1 ready!
+Mar 28, 2018 11:49:05 PM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Chicken Fingers(s), 1 Coke(s), 1 Chicken Fingers(s), 1 Coke(s), 1 Chicken Fingers(s), 1 Coke(s), 1 Hotdog(s), 1 Fries(s), and 1 Veggie Burger(s).
+Mar 29, 2018 12:22:12 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 1, ordered the following item(s):1 Onion Rings(s), and 1 Chicken Fingers(s).
+Mar 29, 2018 12:22:29 AM restaurant.RestaurantLogger log
+INFO: Table 1 order number 2, ordered the following item(s):1 Chicken Fingers(s).

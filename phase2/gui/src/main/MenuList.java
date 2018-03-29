@@ -73,7 +73,7 @@ public class MenuList implements Initializable {
 
     private void selectItems(JFXButton itemButton) {
         JFXListCell<JFXButton> selectedCell = (JFXListCell<JFXButton>) itemButton.getParent();
-        if(selectedCell.getBackground().equals(Backgrounds.SELECTED_BACKGROUND)){
+        if(selectedItems.contains(itemButton) && selectedCell.getBackground().equals(Backgrounds.SELECTED_BACKGROUND)){
             selectedCell.setBackground(Background.EMPTY);
             selectedItems.remove(itemButton);
         } else {

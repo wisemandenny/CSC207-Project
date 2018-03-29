@@ -150,14 +150,16 @@ public class ServerView extends Observable implements Initializable, Observer{
                 } else { //item is not clicked
                     selectedCell.setBackground(Backgrounds.RED_BACKGROUND);
                     clickedHyperlink.setBackground(Background.EMPTY);
-                    orderItems.get(orderItems.indexOf(currentlySelectedItem)).getRemovedIngredients().add(Restaurant.getInstance().getMenu().getMenuIngredient(clickedHyperlink.getText()));
+                    System.out.println("<"+clickedHyperlink.getText()+">");
+                    clickedHyperlink.textProperty().getValue();
+                    orderItems.get(orderItems.indexOf(currentlySelectedItem)).getRemovedIngredients().add(Restaurant.getInstance().getMenu().getMenuIngredient( clickedHyperlink.textProperty().getValue()));
                 }
             }
         }
         private void loadModLists(menu.MenuItem item, JFXListView<Hyperlink> extras, JFXListView<Hyperlink> removed){
             currentlySelectedItem = item;
 
-            List<Ingredient> allIngredients = Restaurant.getInstance().getMenu().getAllIngredients();
+            List<Ingredient> allIngredients = new ArrayList<>(Restaurant.getInstance().getMenu().getAllIngredients());
             allIngredients.removeAll(item.getIngredients());
             ObservableList<Hyperlink> addableIngredients = FXCollections.observableArrayList();
             for(Ingredient i : allIngredients){

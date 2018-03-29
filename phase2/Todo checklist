@@ -1,11 +1,13 @@
 GUI TODO:
 
 BUG FIXES
-1. fix item removals from gui order detailsbox
+1. mods and removals don't work at all
 
 NEW FUNCTIONS
 
 VISUAL BUGS
+you can clear selected menu items by clicking on selected items away from the button
+probably if you use selection factory it will be easier to fix
 
 LOOK AND FEEL
 
