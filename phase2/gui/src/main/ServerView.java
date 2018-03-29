@@ -65,11 +65,6 @@ public class ServerView extends Observable implements Initializable, Observer{
         deliverableOrdersView.refresh();
         billView.refresh();
     }
-
-    javafx.scene.layout.StackPane getServerViewStackPane() {
-        return serverViewStackPane;
-    }
-
     private FXMLLoader getFXMLLoader(String source) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(source));
@@ -96,12 +91,6 @@ public class ServerView extends Observable implements Initializable, Observer{
         private List<menu.MenuItem> orderItems = new ArrayList<>();
         private menu.MenuItem currentlySelectedItem;
 
-        //there is a cuurrent selected item. that is the one with the loaded  mod lists.
-        //set the items quantity every time you change the dropdown menu
-
-        //every time an ingredient is selected in the left list, add it to the item
-        //every time an ingredient is selected in the right list, remove it from the item
-
         OrderDetailsPopup(StackPane parent, List<JFXButton> selectedItemButtons, int tableId, int seatId){
             this.parent = parent;
             this.tableId = tableId;
@@ -110,7 +99,6 @@ public class ServerView extends Observable implements Initializable, Observer{
             for(JFXButton itemButton : selectedItemButtons){
                 menu.MenuItem item = Restaurant.getInstance().getMenu().getMenuItem(itemButton.getText());
                 orderItems.add(item);
-                // allSelectedExtras.add(item.g);
             }
         }
 
@@ -129,7 +117,7 @@ public class ServerView extends Observable implements Initializable, Observer{
             HBox itemBox = new HBox();
             Region filler = new Region();
             HBox.setHgrow(filler, Priority.ALWAYS);
-            MenuButton quantitySelector = new MenuButton("1");
+            MenuButton quantitySelector = new MenuButton(String.valueOf(1));
             for (int i = 1; i < 11; i++) {
                 final int j = i;
                 MenuItem quantity = new MenuItem(String.valueOf(j));

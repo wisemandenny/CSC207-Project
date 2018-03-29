@@ -75,7 +75,6 @@ public class MenuList implements Initializable {
         toggleShowIngredients = !toggleShowIngredients;
     }
 
-
     private void clickOnItem(JFXButton itemButton) {
         if (toggleShowIngredients) {
             showIngredients(itemButton);

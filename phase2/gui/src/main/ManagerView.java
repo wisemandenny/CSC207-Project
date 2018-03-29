@@ -138,10 +138,11 @@ public class ManagerView extends Observable implements Initializable {
 
     private class ShipmentPopup{
         JFXDialog shipmentPopup;
+
         private Map<Ingredient, Integer> receivedItems = new HashMap<>();
 
         private ShipmentPopup(){
-           shipmentPopup = loadShipmentDetailsPopup();
+            shipmentPopup = loadShipmentDetailsPopup();
         }
         private void showPopup(){
             shipmentPopup.show();
@@ -153,8 +154,8 @@ public class ManagerView extends Observable implements Initializable {
             content.setHeading(shipmentDialogHeader);
 
             //BUTTONS
-            JFXButton cancelButton = new JFXButton("Cancel");
             JFXButton okButton = new JFXButton("OK");
+            JFXButton cancelButton = new JFXButton("Cancel");
             content.setActions(cancelButton, okButton);
 
             //BODY
@@ -199,8 +200,10 @@ public class ManagerView extends Observable implements Initializable {
             return entryBox;
         }
         private void receiveShipment() {
-            String shipmentEventString = buildShipmentEventString();
-            Restaurant.getInstance().newEvent(shipmentEventString);
+            if(!receivedItems.values().isEmpty()){ //don't make events if no items have been received
+                String shipmentEventString = buildShipmentEventString();
+                Restaurant.getInstance().newEvent(shipmentEventString);
+            }
         }
         private String buildShipmentEventString(){
             StringBuilder sb = new StringBuilder("receivedShipment | ");
