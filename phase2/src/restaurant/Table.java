@@ -105,6 +105,6 @@ public interface Table {
      *
      * @return  a boolean.
      */
-    boolean getJoin();
+    boolean isJoined();
 }
 

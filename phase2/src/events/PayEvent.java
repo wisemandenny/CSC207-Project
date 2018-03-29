@@ -32,7 +32,7 @@ public class PayEvent implements Event {
     // TODO: issue paying for Table as seat 0. Check tableImpl joinCheques, try getting the bill Total of seat 0.
     // TODO: this means getting the bill of seat 0 (the joined "Table" seat) is pointless.
     public void doEvent() {
-        if (!table.getJoin()) {
+        if (!table.isJoined()) {
             Bill bill = table.getSeat(seatNumber).getBill();
             process(bill);
 
@@ -52,7 +52,7 @@ public class PayEvent implements Event {
      */
     private void process(Bill b){
         b.pay(paymentAmount);
-        Restaurant.getInstance().addPayment(b.getPaidAmount());
+        Restaurant.getInstance().addPayment(paymentAmount - b.getTipAmount());
         Restaurant.getInstance().addToTipTotal(b.getTipAmount());
     }
 }

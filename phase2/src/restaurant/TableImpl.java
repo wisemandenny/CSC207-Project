@@ -180,7 +180,7 @@ public class TableImpl implements Table {
      * {@inheritDoc}
      */
     @Override
-    public boolean getJoin(){return joined;}
+    public boolean isJoined(){return joined;}
 
 
 }

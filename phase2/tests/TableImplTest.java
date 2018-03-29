@@ -62,7 +62,7 @@ public class TableImplTest {
     public void testJoinCheques(){
         Table t = new TableImpl(1, false);
         t.joinCheques();
-        assertEquals(true, t.getJoin());
+        assertEquals(true, t.isJoined());
     }
 
     @Test
@@ -76,6 +76,6 @@ public class TableImplTest {
 
         assertTrue(t.getBill().getOrder().getItems().isEmpty());
         assertTrue(t.getSeats().size() == 5);
-        assertEquals(false, t.getJoin());
+        assertEquals(false, t.isJoined());
     }
 }
