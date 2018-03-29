@@ -7,28 +7,57 @@ import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import menu.MenuItem;
 import restaurant.Order;
 import restaurant.Restaurant;
 import restaurant.RestaurantLogger;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 
-public class DeliverableOrdersView extends Observable {
+public class DeliverableOrdersView extends Observable implements Initializable{
     @FXML private StackPane deliverableOrderStackPane;
     @FXML private JFXListView<HBox> deliverableOrdersListView;
     private final List<OrderBox> deliverableOrders = new ArrayList<>();
 
+    /**
+     * Called to initialize a controller after its root element has been
+     * completely processed.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  <tt>null</tt> if the location is not known.
+     * @param resources The resources used to localize the root object, or <tt>null</tt> if
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        addDeliverableOrders();
+    }
+
     private void addDeliverableOrders(){
         List<Order> orderList = Restaurant.getInstance().getReadyOrders();
+        if(orderList.isEmpty()){
+            deliverableOrdersListView.getItems().add(makeNoOrdersHBox());
+        }
         for(Order o : orderList){
             deliverableOrdersListView.getItems().add(makeOrderHBox(o));
         }
+    }
+
+    private HBox makeNoOrdersHBox(){
+        HBox box = new HBox();
+        Label header = new Label("No deliverable orders found.");
+        header.setFont(Font.font(header.getFont().getFamily(), FontPosture.ITALIC, header.getFont().getSize()));
+        box.getChildren().add(header);
+        return box;
     }
 
     private HBox makeOrderHBox(Order o){
