@@ -1,15 +1,15 @@
 package main;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import menu.Ingredient;
@@ -152,26 +152,21 @@ public class ServerView extends Observable implements Initializable, Observer{
             return itemBox;
         }
         private void selectEvent(HBox clickedHbox, boolean isExtra){
-            JFXListCell<HBox> selectedCell = (JFXListCell<HBox>) clickedHbox.getParent();
             if(isExtra) { //add the extra modifier
-                if (selectedCell.getBackground().equals(Backgrounds.GREEN_BACKGROUND)) { //if the item is already clicked
-                    selectedCell.setBackground(Background.EMPTY);
+                if (clickedHbox.getBackground().equals(Backgrounds.GREEN_BACKGROUND)) { //if the item is already clicked
                     clickedHbox.setBackground(Background.EMPTY);
                     //remove the ingredient from the menu item's modifiers
                     orderItems.get(orderItems.indexOf(currentlySelectedItem)).getExtraIngredients().remove(Restaurant.getInstance().getMenu().getMenuIngredient(((Text)clickedHbox.getChildren().get(0)).getText()));
-                } else {
-                    selectedCell.setBackground(Backgrounds.GREEN_BACKGROUND);
+                } else if (clickedHbox.getBackground().equals(Background.EMPTY)){
                     clickedHbox.setBackground(Backgrounds.GREEN_BACKGROUND);
                     //add the ingredient from the menu item's modifiers
                     orderItems.get(orderItems.indexOf(currentlySelectedItem)).getExtraIngredients().add(Restaurant.getInstance().getMenu().getMenuIngredient(((Text)clickedHbox.getChildren().get(0)).getText()));
                 }
             } else { //add the removal modifier
-                if (selectedCell.getBackground().equals(Backgrounds.RED_BACKGROUND)){ //item is already clicked
-                    selectedCell.setBackground(Background.EMPTY);
+                if (clickedHbox.getBackground().equals(Backgrounds.RED_BACKGROUND)){ //item is already clicked
                     clickedHbox.setBackground(Background.EMPTY);
                     orderItems.get(orderItems.indexOf(currentlySelectedItem)).getRemovedIngredients().remove(Restaurant.getInstance().getMenu().getMenuIngredient(((Text)clickedHbox.getChildren().get(0)).getText()));
-                } else { //item is not clicked
-                    selectedCell.setBackground(Backgrounds.RED_BACKGROUND);
+                } else if(clickedHbox.getBackground().equals(Background.EMPTY)){ //item is not clicked
                     clickedHbox.setBackground(Backgrounds.RED_BACKGROUND);
                     orderItems.get(orderItems.indexOf(currentlySelectedItem)).getRemovedIngredients().add(Restaurant.getInstance().getMenu().getMenuIngredient(((Text)clickedHbox.getChildren().get(0)).getText()));
                 }
@@ -182,20 +177,39 @@ public class ServerView extends Observable implements Initializable, Observer{
 
             List<Ingredient> allIngredients = new ArrayList<>(Restaurant.getInstance().getMenu().getAllIngredients());
             allIngredients.removeAll(item.getIngredients());
+
             ObservableList<HBox> addableIngredients = FXCollections.observableArrayList();
-            for(Ingredient i : allIngredients){
-                HBox addIngredient = buildHBox(i, true);
-                addableIngredients.add(addIngredient);
-            }
             extras.setItems(addableIngredients);
 
+            for(Ingredient i : allIngredients){
+                HBox addIngredient = buildHBox(i);
+                addableIngredients.add(addIngredient);
+            }
+
             ObservableList<HBox> removeableIngredients = FXCollections.observableArrayList();
+            removed.setItems(removeableIngredients);
+
             for (Ingredient i : item.getIngredients()){
-                HBox removeIngredient = buildHBox(i, false);
+                HBox removeIngredient = buildHBox(i);
                 removeableIngredients.add(removeIngredient);
             }
             removed.setPrefHeight(extras.getHeight());
-            removed.setItems(removeableIngredients);
+
+            extras.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+            extras.setOnMouseClicked(e ->{
+                ObservableList<HBox> selectedItems = extras.getSelectionModel().getSelectedItems();
+                for(HBox box : selectedItems){
+                    selectEvent(box, true);
+                }
+            });
+
+            removed.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+            removed.setOnMouseClicked(e ->{
+                ObservableList<HBox> selectedItems = removed.getSelectionModel().getSelectedItems();
+                for(HBox box : selectedItems){
+                    selectEvent(box, false);
+                }
+            });
 
         }
         void loadAddDialog(){
@@ -290,10 +304,10 @@ public class ServerView extends Observable implements Initializable, Observer{
             return sb.toString();
         }
 
-        private HBox buildHBox(Ingredient i, boolean isExtra){
+        private HBox buildHBox(Ingredient i){
             HBox hbox = new HBox();
+            hbox.setBackground(Background.EMPTY);
             hbox.getChildren().add(new Text(i.getName()));
-            hbox.setOnMouseClicked(e -> selectEvent(hbox, isExtra));
             return hbox;
         }
     }

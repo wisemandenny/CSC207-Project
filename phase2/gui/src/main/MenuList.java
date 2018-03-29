@@ -55,7 +55,6 @@ public class MenuList implements Initializable {
         for (MenuItem i : menu.getMenu()) {
             JFXButton itemButton = new JFXButton(i.getName());
             if(toggleShowPrice) itemButton.setText(i.getName()+"       $"+(String.format("%.2f", i.getPrice())));
-            //itemButton.setOnAction(e -> selectItems(itemButton));
             listItems.add(itemButton);
 
             if(toggleShowIngredients){

@@ -6,15 +6,15 @@ TODO:
 5. DUTIES.TXT
 
 EXTRA FEATURES
-ability to cancel before they're cooked
-all you can eat
-custom menu items (ability to do open food/order off the menu)
-specials? hamburger of the day based on the actual day
-- ability to add custom menu items before service and add them to a list of specials
-temperatures for food (like medium rare, well done etc)
-ability to comp items (give away items for free)
-multiple menus (wine, food, specials)
-add menu items
+tipping
+inventory viewer
+tip total viewer
+daily total viewer
+view all orders sorted by order status
+show ingredients in menu
+show prices in menu
+join bills for seperate seats
+
 
 
 TIMELINE:
