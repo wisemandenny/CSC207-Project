@@ -1,5 +1,11 @@
 DUTIES:
 
+Denny
+    - built entire GUI (all FXML files, all components, all major design decisions, all java classes)
+    - designed and built vast majority of backend
+    - refactored backend after phase 1 feedback
+    - refactored backend to work properly and more efficiently with front end
+
 Milan
    - Majority of test suite
    - correction and maintenance of backend code
