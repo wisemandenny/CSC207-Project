@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="group_0216" />
-    <orderEntry type="library" name="jfoenix-8.0.1" level="project" />
+    <orderEntry type="module" module-name="group_0216" exported="" />
+    <orderEntry type="library" exported="" name="jfoenix-8.0.1" level="project" />
   </component>
 </module>
