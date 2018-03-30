@@ -113,10 +113,25 @@ public class ServerView extends Observable implements Initializable, Observer{
      */
     private void loadAddDialog(StackPane parent, MenuList menuList){
         List<JFXButton> selectedItemButtons = menuList.getSelectedItems();
-        orderDetailsPopup = new OrderDetailsPopup(parent, selectedItemButtons, billView.getShownTable(), billView.getSelectedSeat());
-        orderDetailsPopup.addObserver(this);
-        orderDetailsPopup.loadAddDialog();
+        try {
+            orderDetailsPopup = new OrderDetailsPopup(parent, selectedItemButtons, billView.getShownTable(), billView.getSelectedSeat());
+            orderDetailsPopup.addObserver(this);
+            orderDetailsPopup.loadAddDialog();
+        } catch(IllegalArgumentException orderedIngredients){
+            noOrdersForIngredientsWarning();
+        }
         menuList.clearSelected(); //deselect all selected items when you make a new order.
+    }
+
+    /**
+     * Warns the server if the server tries to order individual items from the menu list.
+     */
+    private void noOrdersForIngredientsWarning(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Do not select item ingredients in the menu list.");
+        alert.showAndWait();
     }
 
     /**
