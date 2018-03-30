@@ -154,7 +154,7 @@ public class Restaurant extends Observable implements Runnable {
      */
     public void addPlacedOrder(Order o) {
         placedOrders.add(o);
-        tables[o.getTableId()].getSeat(o.getSeatId()).addOrder(o); //TODO: check
+        tables[o.getTableId()].getSeat(o.getSeatId()).addOrder(o);
     }
 
     /**

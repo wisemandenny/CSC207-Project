@@ -89,9 +89,9 @@
                               <Insets />
                            </VBox.margin>
                         </JFXButton>
-                        <Label text="(Select an Order)" textFill="WHITE" VBox.vgrow="NEVER">
+                        <Label text="(Click an Order)" textFill="WHITE" VBox.vgrow="NEVER">
                            <font>
-                              <Font name="System Italic" size="7.0" />
+                              <Font name="System Italic" size="8.0" />
                            </font>
                         </Label>
                      </children>
@@ -106,9 +106,9 @@
                               <Insets />
                            </VBox.margin>
                         </JFXButton>
-                        <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" text="(Select an Order)" textFill="WHITE" VBox.vgrow="NEVER">
+                        <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" text="(Click an Order)" textFill="WHITE" VBox.vgrow="NEVER">
                            <font>
-                              <Font name="System Italic" size="7.0" />
+                              <Font name="System Italic" size="8.0" />
                            </font>
                            <VBox.margin>
                               <Insets left="-5.0" />

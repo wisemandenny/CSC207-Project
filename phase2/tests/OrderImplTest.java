@@ -64,8 +64,7 @@ public class OrderImplTest {
         // Check if a Coke has been added.
         assertTrue(order.getItems().contains(menu.getMenuItem("Coke")));
     }
-    // TODO: The contains method compares using equals, not equalsWithExtras, so we cannot test if the removed item
-    // is still in the list
+
     @Test
     public void testRemove() {
         Order order = OrderFactory.makeOrder("1 Hamburger / +Ketchup -Bacon, 2 Hamburger / +Patty, 1 Coke");

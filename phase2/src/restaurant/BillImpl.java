@@ -84,7 +84,7 @@ public class BillImpl implements Bill {
     /**
      * {@inheritDoc}
      */
-    @Override //TODO: might be able to delete this or make it private
+    @Override
     public double getUnpaidAmount(){
         return getTotal() - paidAmount;
     }

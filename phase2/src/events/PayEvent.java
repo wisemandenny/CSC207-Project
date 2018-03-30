@@ -29,8 +29,6 @@ public class PayEvent implements Event {
      * {@inheritDoc}
      */
     @Override
-    // TODO: issue paying for Table as seat 0. Check tableImpl joinCheques, try getting the bill Total of seat 0.
-    // TODO: this means getting the bill of seat 0 (the joined "Table" seat) is pointless.
     public void doEvent() {
         if (!table.isJoined()) {
             Bill bill = table.getSeat(seatNumber).getBill();
